@@ -1,6 +1,17 @@
 package main.entity;
 import java.util.ArrayList;
 
+/**
+ * Represents a cineplex in MOBLIMA.
+ * @author SS11 Group 1
+ * @version 1.0
+ * @since 2022/10/11
+ * @see Cinema
+ * @see Movie
+ * @see Showtime
+ * @see Seat
+    */
+
 public class Cineplex {
     //each cineplex has a location and a list of cinemas
     private String location;
@@ -25,14 +36,5 @@ public class Cineplex {
 
     public void setCinemas(ArrayList<Cinema> cinemas) {
         this.cinemas = cinemas;
-    }
-
-    @Override
-    public String toString() {
-        return "Cineplex{" + "location=" + location + ", cinemas=" + cinemas + '}';
-    }
-
-    public static void main(String[] args) {
-
     }
 }

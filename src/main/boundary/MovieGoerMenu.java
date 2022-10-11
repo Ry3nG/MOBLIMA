@@ -1,12 +1,16 @@
 package main.boundary;
+import main.*;
 import java.util.Scanner;
 /**
  * Movie Goer's Menu
+ * @author SS11 Group 1
+ * @version 1.0
+ * @since 2022/10/11
  */
 public class MovieGoerMenu extends Menu{
 
      public void showMenu(){
-            System.out.println("Welcome to MOBLIMA!");
+            System.out.println("---------------------------------------------------------------------------");
             System.out.println("1. Search/List movie");
             System.out.println("2. View movie details – including reviews and ratings");
             System.out.println("3. Check seat availability and selection of seat/s.");
@@ -45,6 +49,10 @@ public class MovieGoerMenu extends Menu{
                     break;
                 case 7:
                     System.out.println("You have chosen to return to previous menu");
+                    //switch to display previous menu
+                    System.out.println("---------------------------------------------------------------------------");
+                    MoblimaApp app = new MoblimaApp();
+                    app.showMenu();
                     //TODO place holder for return to previous menu
                     break;
                 default:

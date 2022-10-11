@@ -1,11 +1,15 @@
 package main.boundary;
+import main.*;
 import java.util.Scanner;
 /**
  * Staff's Menu
+ * @author SS11 Group 1
+ * @version 1.0
+ * @since 2022/10/11
  */
 public class StaffMenu extends Menu {
     public void showMenu(){
-        System.out.println("Welcome to MOBLIMA!()");
+        System.out.println("---------------------------------------------------------------------------");
         System.out.println("1. Login");
         System.out.println("2. Create/Update/Remove movie listing");
         System.out.println("3. Create/Update/Remove cinema showtimes and the movies to be shown");
@@ -34,7 +38,10 @@ public class StaffMenu extends Menu {
                 break;
             case 5:
                 System.out.println("You have chosen to return to previous menu");
-                //TODO place holder for return to previous menu
+                //switch to display previous menu
+                System.out.println("---------------------------------------------------------------------------");
+                MoblimaApp app = new MoblimaApp();
+                app.showMenu();
                 break;
             default:
                 System.out.println("Invalid choice!");
