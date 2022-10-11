@@ -1,5 +1,6 @@
-# SC2002-Group-Project---MOBLIMA
-SC2002 SS11 Group 1 Project
+# MOBLIMA
+Console-based Movie Booking and LIsting Management Application (MOBLIMA)
+Developed as NTU SC2002 SS11 Group 1 Project
 
 ## Folder Structure
  
