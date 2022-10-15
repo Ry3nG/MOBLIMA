@@ -15,8 +15,9 @@ public class MoblimaApp extends Menu {
         System.out.println("3. Exit");
         System.out.print("Please enter your choice: ");
         int choice = 0;
-        Scanner sc = new Scanner(System.in);
-        choice = sc.nextInt();
+        try (Scanner sc = new Scanner(System.in)) {
+            choice = sc.nextInt();
+        }
         switch (choice) {
             case 1:
                 System.out.println("You have chosen to login as a movie-goer");

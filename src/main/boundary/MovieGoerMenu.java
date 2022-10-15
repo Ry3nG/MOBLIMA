@@ -20,8 +20,9 @@ public class MovieGoerMenu extends Menu{
             System.out.println("7. Return to previous menu");
             System.out.print("Please enter your choice: ");
             int choice = 0;
-            Scanner sc = new Scanner(System.in);
-            choice = sc.nextInt();
+            try (Scanner sc = new Scanner(System.in)) {
+                choice = sc.nextInt();
+            }
             switch(choice){
                 case 1:
                     System.out.println("You have chosen to search/list movie");
