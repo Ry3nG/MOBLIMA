@@ -1,118 +1,163 @@
 package main.entity;
+
+import main.types.MovieConstants.ShowStatus;
+
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The movie class
+ *
  * @author SS11 Group 1
  * @version 1.0
- * @since 2022/10/11
  * @see Cinema
  * @see Cineplex
  * @see Showtime
  * @see Seat
+ * @since 2022/10/11
  */
 public class Movie {
-    private String title;
-    private String synopsis;
-    private String director;
-    private ArrayList<String> cast;
-    private String showStatus;
-    private String type;
-    private String rating;
-    private int duration;
-    private ArrayList<Review> reviews;
-    private ArrayList<Showtime> showtimes;
+  private final String id;
+  private String title;
+  private String synopsis;
+  private final String releaseDate;
+  private String director;
+  private int runtime;
+  private boolean isBlockbuster;
+  private ShowStatus showStatus;
+  private List<String> cast;
+  private List<Review> reviews;
+  private List<Showtime> showtimes;
 
-    public Movie(String title, String synopsis, String director, ArrayList<String> cast, String showStatus, String type, String rating, int duration, ArrayList<Review> reviews, ArrayList<Showtime> showtimes) {
-        this.title = title;
-        this.synopsis = synopsis;
-        this.director = director;
-        this.cast = cast;
-        this.showStatus = showStatus;
-        this.type = type;
-        this.rating = rating;
-        this.duration = duration;
-        this.reviews = reviews;
-        this.showtimes = showtimes;
-    }
 
-    public String getTitle() {
-        return title;
-    }
+  public Movie(
+      String id,
+      String title,
+      String synopsis,
+      String releaseDate,
+      int runtime,
+      ShowStatus showStatus,
+      String director,
+      List<String> cast,
+      boolean isBlockbuster,
+      List<Review> reviews,
+      List<Showtime> showtimes
+  ) {
+    this.id = id;
+    this.title = title;
+    this.synopsis = synopsis;
+    this.releaseDate = releaseDate;
+    this.runtime = runtime;
+    this.showStatus = showStatus;
+    this.director = director;
+    this.cast = cast;
+    this.isBlockbuster = isBlockbuster;
+    this.reviews = reviews;
+    this.showtimes = showtimes;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public Movie(
+      String id,
+      String title,
+      String synopsis,
+      String releaseDate,
+      int runtime,
+      ShowStatus showStatus,
+      String director,
+      List<String> cast,
+      boolean isBlockbuster
+  ) {
+    this(
+        id,
+        title,
+        synopsis,
+        releaseDate,
+        runtime,
+        showStatus,
+        director,
+        cast,
+        isBlockbuster,
+        new ArrayList<Review>(),
+        new ArrayList<Showtime>()
+    );
+  }
 
-    public String getSynopsis() {
-        return synopsis;
-    }
+  /*
+   * GETTERS
+   */
+  public String getTitle() {
+    return title;
+  }
 
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
+  /*
+   * SETTERS
+   */
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public String getDirector() {
-        return director;
-    }
+  public String getSynopsis() {
+    return synopsis;
+  }
 
-    public void setDirector(String director) {
-        this.director = director;
-    }
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
+  }
 
-    public ArrayList<String> getCast() {
-        return cast;
-    }
+  public String getDirector() {
+    return this.director;
+  }
 
-    public void setCast(ArrayList<String> cast) {
-        this.cast = cast;
-    }
+  public void setDirector(String director) {
+    this.director = director;
+  }
 
-    public String getShowStatus() {
-        return showStatus;
-    }
+  public List<String> getCast() {
+    return this.cast;
+  }
 
-    public void setShowStatus(String showStatus) {
-        this.showStatus = showStatus;
-    }
+  public void setCast(List<String> cast) {
+    this.cast = cast;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public ShowStatus getShowStatus() {
+    return this.showStatus;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setShowStatus(ShowStatus showStatus) {
+    this.showStatus = showStatus;
+  }
 
-    public String getRating() {
-        return rating;
-    }
+  public boolean getIsBlockbuster() {
+    return this.isBlockbuster;
+  }
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
+  public void setIsBlockbuster(boolean isBlockbuster) {
+    this.isBlockbuster = isBlockbuster;
+  }
 
-    public int getDuration() {
-        return duration;
-    }
+  public int getRuntime() {
+    return this.runtime;
+  }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+  public void setRuntime(int runtime) {
+    this.runtime = runtime;
+  }
 
-    public ArrayList<Review> getReviews() {
-        return reviews;
-    }
+  public List<Review> getReviews() {
+    return this.reviews;
+  }
 
-    public void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
-    }
+  public void setReviews(List<Review> reviews) {
+    this.reviews = reviews;
+  }
 
-    public ArrayList<Showtime> getShowtimes() {
-        return showtimes;
-    }
+  public List<Showtime> getShowtimes() {
+    return this.showtimes;
+  }
 
-    public void setShowtimes(ArrayList<Showtime> showtimes) {
-        this.showtimes = showtimes;
-    }
-    
+  public void setShowtimes(List<Showtime> showtimes) {
+    this.showtimes = showtimes;
+  }
+
 }

@@ -1,5 +1,13 @@
 # VS Code 
 .vscode/*
 
+# Jetbrains
+.DS_Store
+.idea
+out/
+
 # Visual Paradigm 
 *.vpp.bak_*
+
+.env
+
