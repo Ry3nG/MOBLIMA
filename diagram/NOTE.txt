@@ -1,0 +1,15 @@
+Hi,
+
+To make edits to the class diagram, there are a few steps you need to follow:
+
+1. Create your own dev-branch if you haven't!
+2. Load the XML file into Visual Paradigm. Open the program file, and find 'Import' in one of the tabs.
+3. Edit!
+
+Once you are done editing, there are a few steps you need to follow:
+
+1. Export the project as an XML file. This is to ensure backward compatibility.
+2. Export the class diagram as a PNG image. This can be done using the 'Active diagram as image' function under Export.
+3. Push the changes to your remote dev-branch and inform the team!
+
+:)
