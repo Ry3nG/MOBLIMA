@@ -13,7 +13,6 @@ public class MoblimaApp extends Menu {
   private static MoblimaApp _app = null;
   private static CustomerMenu customerMenu;
   private static StaffMenu staffMenu;
-//  private static Scanner scanner = new Scanner(System.in);
 
   private MoblimaApp() {
     super();

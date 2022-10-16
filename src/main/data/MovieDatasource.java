@@ -19,6 +19,24 @@ import java.util.List;
 public class MovieDatasource extends Datasource {
 
   /**
+   * Save and export list data to CSV
+   * @param list
+   * @param outputFileName
+   * @return
+   */
+  public static boolean serializeData(
+      List list,
+      String outputFileName
+  ) {
+    boolean isSuccess = false;
+
+    isSuccess = Datasource.serializeDataToCSV(Datasource.convertToJsonArray(list), outputFileName, Constants.DEBUG_MODE);
+    Helper.logger("MovieDatasource.serializeData", "Exported to " + outputFileName);
+
+    return isSuccess;
+  }
+
+  /**
    * Parse and retrieve list of review from serialized data
    * Will not request from API if no serialized data available
    *
@@ -84,6 +102,7 @@ public class MovieDatasource extends Datasource {
       String title = m.get("title").getAsString();
       String synopsis = m.get("synopsis").getAsString();
       String releaseDate = m.get("releaseDate").getAsString();
+      String contentRating = m.get("contentRating").getAsString();
       int runtime = m.get("runtime").getAsInt();
 
       String status = m.get("showStatus").getAsString();
@@ -92,7 +111,7 @@ public class MovieDatasource extends Datasource {
       MovieConstants.ShowStatus showStatus = MovieConstants.ShowStatus.valueOf(status);
 
       String director = m.get("director").getAsString();
-      List<String> castList = List.of(StringUtils.substringBetween(m.get("cast").getAsString(), "[", "]").split(","));
+      List<String> cast = List.of(StringUtils.substringBetween(m.get("cast").getAsString(), "[", "]").split(","));
       boolean isBlockbuster = m.get("isBlockbuster").getAsBoolean();
 
       List<String> reviewIds = List.of(StringUtils.substringBetween(m.get("reviewIds").getAsString(), "[", "]").split(","));
@@ -103,11 +122,15 @@ public class MovieDatasource extends Datasource {
           title,
           synopsis,
           releaseDate,
-          runtime,
-          showStatus,
+          contentRating,
+
           director,
-          castList,
+          cast,
+
+          runtime,
           isBlockbuster,
+          showStatus,
+
           reviewIds,
           new ArrayList<Showtime>()
       ));
@@ -140,7 +163,7 @@ public class MovieDatasource extends Datasource {
       int voteAverage = m.get("vote_average").getAsInt();
 
       // API request to get movie details
-      String queryMovieDetails = "/movie/" + id + "?append_to_response=credits,reviews";
+      String queryMovieDetails = "/movie/" + id + "?append_to_response=credits,reviews,release_dates";
       JsonObject jsonDetails = Datasource.request(queryMovieDetails);
 
       /// Raw values
@@ -149,6 +172,7 @@ public class MovieDatasource extends Datasource {
       JsonArray castArray = jsonDetails.get("credits").getAsJsonObject().get("cast").getAsJsonArray();
       JsonArray crewArray = jsonDetails.get("credits").getAsJsonObject().get("crew").getAsJsonArray();
       JsonArray reviewArray = jsonDetails.get("reviews").getAsJsonObject().get("results").getAsJsonArray();
+      JsonArray releaseArray = jsonDetails.get("release_dates").getAsJsonObject().get("results").getAsJsonArray();
 
       /// Derived
       //// Blockbuster Status
@@ -157,7 +181,23 @@ public class MovieDatasource extends Datasource {
       //// ShowingStatus
       boolean isValidStatus = EnumUtils.isValidEnum(MovieConstants.ShowStatus.class, status);
       if (!isValidStatus) continue;
-      MovieConstants.ShowStatus showingStatus = MovieConstants.ShowStatus.valueOf(status);
+      MovieConstants.ShowStatus showStatus = MovieConstants.ShowStatus.valueOf(status);
+
+      //// Content Rating
+      String contentRating = "";
+      for (JsonElement release : releaseArray) {
+        JsonObject r = release.getAsJsonObject();
+        String iso = r.get("iso_3166_1").getAsString();
+        JsonArray releases = r.get("release_dates").getAsJsonArray();
+        if (iso.equals("SG") && releases.size() > 0) {
+          JsonObject certObject = releases.get(0).getAsJsonObject();
+          if (certObject.isJsonNull()) break;
+          String certification = certObject.get("certification").getAsString();
+
+          contentRating = certification;
+          break;
+        }
+      }
 
       //// Cast List
       List<String> castList = new ArrayList<String>();
@@ -225,11 +265,15 @@ public class MovieDatasource extends Datasource {
           title,
           synopsis,
           releaseDate,
-          runtime,
-          showingStatus,
+          contentRating,
+
           director,
           castList,
+
+          runtime,
           isBlockbuster,
+          showStatus,
+
           reviewIds,
           new ArrayList<Showtime>()
       ));
@@ -237,14 +281,8 @@ public class MovieDatasource extends Datasource {
     Helper.logger("MovieDatasource.fetchMovies", "Total movies: " + movies.size());
 
     // Serialize data to CSV
-    String outputFileName = "movies.csv";
-    Datasource.serializeDataToCSV(Datasource.convertToJsonArray(movies), outputFileName, Constants.DEBUG_MODE);
-    Helper.logger("MovieDatasource.fetchMovies", "Exported to " + outputFileName);
-
-    outputFileName = "reviews.csv";
-    Datasource.serializeDataToCSV(Datasource.convertToJsonArray(reviews), outputFileName, Constants.DEBUG_MODE);
-    Helper.logger("MovieDatasource.fetchMovies", "Exported to " + outputFileName);
-
+    serializeData(movies, "movies.csv");
+    serializeData(reviews, "reviews.csv");
 
     return movies;
   }
