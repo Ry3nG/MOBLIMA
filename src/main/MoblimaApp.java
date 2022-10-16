@@ -1,44 +1,47 @@
 package main;
-import main.boundary.*;
-import java.util.Scanner;
+
+import main.boundary.CustomerMenu;
+import main.boundary.Menu;
+import main.boundary.StaffMenu;
+
+import java.util.LinkedHashMap;
+
+import static java.lang.System.exit;
+
 public class MoblimaApp extends Menu {
-    // Console-based Movie Booking and LIsting Management Application (MOBLIMA)
-    public static void main(String[] args) {
-        MoblimaApp app = new MoblimaApp();
-        app.showMenu();
-    }
+  // Console-based Movie Booking and Listing Management Application (MOBLIMA)
+  private static MoblimaApp _app = null;
+  private static CustomerMenu customerMenu;
+  private static StaffMenu staffMenu;
+//  private static Scanner scanner = new Scanner(System.in);
 
-    public void showMenu() {
-        System.out.println("Welcome to MOBLIMA!");
-        System.out.println("1. I'm a Movie-goer");
-        System.out.println("2. I'm a Staff");
-        System.out.println("3. Exit");
-        System.out.print("Please enter your choice: ");
-        int choice = 0;
-        try (Scanner sc = new Scanner(System.in)) {
-            choice = sc.nextInt();
-        }
-        switch (choice) {
-            case 1:
-                System.out.println("You have chosen to login as a movie-goer");
-                //switch to display movie-goer menu
-                MovieGoerMenu movieGoerMenu = new MovieGoerMenu();
-                movieGoerMenu.showMenu();
-                break;
-            case 2:
-                System.out.println("You have chosen to login as a staff");
-                //switch to display staff menu
-                StaffMenu staffMenu = new StaffMenu();
-                staffMenu.showMenu();
-                break;
-            case 3:
-                System.out.println("Thank you for using MOBLIMA!");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid choice!");
-                break;
-        }
+  private MoblimaApp() {
+    super();
+    customerMenu = new CustomerMenu();
+    staffMenu = new StaffMenu();
+    this.menuMap = new LinkedHashMap<String, Runnable>() {{
+      put("1. I'm a Movie-goer", () -> customerMenu.showMenu());
+      put("2. I'm a Staff", () -> staffMenu.showMenu());
+      put("3. Exit", () -> {
+        System.out.println("\t>>> " + "Exiting application...");
+        scanner.close();
+        exit(0);
+      });
+    }};
+  }
 
-    }
+  public static MoblimaApp getInstance() {
+    if (_app == null) _app = new MoblimaApp();
+    return _app;
+  }
+
+  public static void main(String[] args) {
+    MoblimaApp app = MoblimaApp.getInstance();
+    app.showMenu();
+  }
+
+  @Override
+  public void showMenu() {
+    this.displayMenu();
+  }
 }
