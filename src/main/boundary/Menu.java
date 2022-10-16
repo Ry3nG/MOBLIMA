@@ -1,5 +1,6 @@
 package main.boundary;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -8,12 +9,11 @@ import static java.lang.System.exit;
 public abstract class Menu {
   protected static Scanner scanner = new Scanner(System.in);
   protected LinkedHashMap<String, Runnable> menuMap;
+  protected boolean killSession = false;
 
   /**
    * Initializes the Menu object
    * - menuMap: contains the menu label and actions
-   *
-   * @return void
    */
   public Menu() {
     this.menuMap = new LinkedHashMap<String, Runnable>();
@@ -21,8 +21,6 @@ public abstract class Menu {
 
   /**
    * Pretty-printer for menu list
-   *
-   * @return void
    */
   protected void displayMenuList() {
     if (this.menuMap.size() < 1) exit(0);
@@ -38,12 +36,11 @@ public abstract class Menu {
 
   /**
    * Display menu and executes the mapped action
-   *
-   * @return void
    */
   protected void displayMenu() {
     int menuChoice = 0;
-    while (menuChoice != menuMap.size()) {
+    scanner = new Scanner(System.in);
+    while (menuChoice != menuMap.size() && !killSession) {
       try {
         displayMenuList();
         System.out.print("SELECTED: ");
@@ -52,11 +49,11 @@ public abstract class Menu {
           menuChoice = scanner.nextInt();
         } else {
           System.out.println("Please enter value between 1 to " + menuMap.size());
-          scanner.next();
+          scanner.nextLine();
           continue;
         }
 
-        if (menuChoice < 0)
+        if ((menuChoice - 1) < 0)
           throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
         else if (menuChoice > menuMap.size())
           throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be a valid menu selection integer");
@@ -64,13 +61,15 @@ public abstract class Menu {
         if (menuChoice != menuMap.size())
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
+        if (menuChoice != menuMap.size()) System.in.read();
       } catch (java.util.InputMismatchException e) {
         System.out.println("[ERROR] Invalid non-numerical value - input must be an integer");
       } catch (IllegalArgumentException e) {
         System.out.println(e.getMessage());
       } catch (Exception e) {
-        System.out.println("[ERROR] Invalid menu input - input must be of " + menuMap.keySet().toArray());
-        scanner.next();
+        System.out.println("[ERROR] Invalid menu input - input must be of " + Arrays.toString(menuMap.keySet().toArray()));
+        scanner = new Scanner(System.in);
+        scanner.nextLine();
       }
     }
   }

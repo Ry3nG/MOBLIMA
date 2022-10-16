@@ -21,7 +21,7 @@ public class Datasource {
   protected static final String API_KEY = Constants.getEnv("TMDB_API_KEY");
   protected static final Gson gson = new GsonBuilder().setLenient().setPrettyPrinting().create();
 
-  public static String getApiKey() {
+  protected static String getApiKey() {
     return API_KEY;
   }
 

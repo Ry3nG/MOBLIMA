@@ -1,10 +1,6 @@
 package main.boundary;
 
-import main.data.MovieDatasource;
-import main.entity.Movie;
-
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Movie Goer's Menu
@@ -14,16 +10,13 @@ import java.util.List;
  * @since 2022/10/11
  */
 public class CustomerMenu extends Menu {
-  private static final MovieDatasource dsMovie = new MovieDatasource();
-  private final List<Movie> movies;
+  private static final MovieMenu movieMenu = new MovieMenu();
 
   public CustomerMenu() {
     super();
-    this.movies = dsMovie.getMovies();
     this.menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("1. Search/List Movies", () -> listMovies());
-      put("2. View movie details – including reviews and ratings", () -> {
-      });
+      put("1. Search/List Movies", movieMenu::listMovies);
+      put("2. View movie details – including reviews and ratings", movieMenu::showMenu);
       put("3. Check seat availability and selection of seat/s.", () -> {
       });
       put("4. Book and purchase ticket", () -> {
@@ -34,17 +27,6 @@ public class CustomerMenu extends Menu {
       });
       put("7. Return to main menu", () -> System.out.println("\t>>> " + "Returning to main menu..."));
     }};
-  }
-
-  public void listMovies() {
-    if (this.movies.isEmpty()) {
-      System.out.println("No movies available");
-      return;
-    }
-
-    for (Movie m : this.movies) {
-      System.out.println(m.getTitle());
-    }
   }
 
   @Override

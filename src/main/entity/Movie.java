@@ -4,6 +4,7 @@ import main.types.MovieConstants.ShowStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The movie class
@@ -17,21 +18,21 @@ import java.util.List;
  * @since 2022/10/11
  */
 public class Movie {
-  private final String id;
+  private final int id;
+  private final String releaseDate;
   private String title;
   private String synopsis;
-  private final String releaseDate;
   private String director;
   private int runtime;
   private boolean isBlockbuster;
   private ShowStatus showStatus;
   private List<String> cast;
-  private List<Review> reviews;
+  private List<String> reviewIds;
   private List<Showtime> showtimes;
 
 
   public Movie(
-      String id,
+      int id,
       String title,
       String synopsis,
       String releaseDate,
@@ -40,7 +41,7 @@ public class Movie {
       String director,
       List<String> cast,
       boolean isBlockbuster,
-      List<Review> reviews,
+      List<String> reviewIds,
       List<Showtime> showtimes
   ) {
     this.id = id;
@@ -52,12 +53,12 @@ public class Movie {
     this.director = director;
     this.cast = cast;
     this.isBlockbuster = isBlockbuster;
-    this.reviews = reviews;
+    this.reviewIds = reviewIds;
     this.showtimes = showtimes;
   }
 
   public Movie(
-      String id,
+      int id,
       String title,
       String synopsis,
       String releaseDate,
@@ -77,21 +78,19 @@ public class Movie {
         director,
         cast,
         isBlockbuster,
-        new ArrayList<Review>(),
+        new ArrayList<String>(),
         new ArrayList<Showtime>()
     );
   }
 
-  /*
-   * GETTERS
-   */
+  public int getId() {
+    return this.id;
+  }
+
   public String getTitle() {
     return title;
   }
 
-  /*
-   * SETTERS
-   */
   public void setTitle(String title) {
     this.title = title;
   }
@@ -144,12 +143,12 @@ public class Movie {
     this.runtime = runtime;
   }
 
-  public List<Review> getReviews() {
-    return this.reviews;
+  public List<String> getReviews() {
+    return this.reviewIds;
   }
 
-  public void setReviews(List<Review> reviews) {
-    this.reviews = reviews;
+  public void setReviews(List<String> reviews) {
+    this.reviewIds = reviews;
   }
 
   public List<Showtime> getShowtimes() {
@@ -160,4 +159,31 @@ public class Movie {
     this.showtimes = showtimes;
   }
 
+  public String getUrl() {
+    return "https://www.themoviedb.org/movie/" + this.id;
+  }
+
+  @Override
+  public String toString() {
+    String printed = "Title: " + this.title + "\n";
+    printed += "Runtime: " + this.runtime + " minutes\n";
+    printed += "Synopsis: " + this.synopsis + "\n";
+    printed += "Directed By: " + this.director + "\n";
+    printed += "Cast: " + this.cast.toString() + "\n";
+    printed += "LINK: " + this.getUrl() + "\n";
+
+    return printed;
+  }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof Movie && ((Movie) obj).id == (this.id);
+  }
+
+  @Override
+  public int hashCode() {
+    int prime = 31;
+    return prime + Objects.hashCode(this.id);
+  }
 }
