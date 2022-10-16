@@ -15,6 +15,55 @@ import java.util.List;
 
 public class MovieDatasource extends Datasource {
 
+  // Parse and retrieve list of movies from serialized data
+  public List<Movie> getMovies(){
+    List<Movie> movies = new ArrayList<Movie>();
+
+    String fileName = "movies.csv";
+    JsonArray movieList = Datasource.readArrayFromCsv(fileName);
+
+    if(movieList == null) {
+      Helper.logger("MovieDatasource.getMovies", "No serialized data available, requesting from API");
+      movies = this.fetchMovies();
+      return movies;
+    }
+
+    for (JsonElement movie : movieList) {
+      JsonObject m = movie.getAsJsonObject();
+
+      String id = m.get("id").getAsString();
+      String title = m.get("title").getAsString();
+      String synopsis = m.get("synopsis").getAsString();
+      String releaseDate = m.get("releaseDate").getAsString();
+      int runtime = m.get("runtime").getAsInt();
+
+      String status = m.get("showStatus").getAsString();
+      boolean isValidStatus = EnumUtils.isValidEnum(MovieConstants.ShowStatus.class, status);
+      if (!isValidStatus) continue;
+      MovieConstants.ShowStatus showStatus = MovieConstants.ShowStatus.valueOf(status);
+
+      String director = m.get("director").getAsString();
+      List<String> castList = List.of(m.get("cast").getAsString().split(","));
+      boolean isBlockbuster = m.get("isBlockbuster").getAsBoolean();
+
+      /// Initialize and append Movie object
+      movies.add(new Movie(
+          id,
+          title,
+          synopsis,
+          releaseDate,
+          runtime,
+          showStatus,
+          director,
+          castList,
+          isBlockbuster
+      ));
+    }
+
+    Helper.logger("MovieDatasource.getMovies", "Total movies: " + movies.size());
+    return movies;
+  }
+
   // Fetch list of movies in the theaters
   // https://api.themoviedb.org/3/movie/now_playing?api_key=&language=en-US
   public List<Movie> fetchMovies() {

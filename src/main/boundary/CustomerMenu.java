@@ -19,7 +19,7 @@ public class CustomerMenu extends Menu {
 
   public CustomerMenu() {
     super();
-    this.movies = dsMovie.fetchMovies();
+    this.movies = dsMovie.getMovies();
     this.menuMap = new LinkedHashMap<String, Runnable>() {{
       put("1. Search/List Movies", () -> listMovies());
       put("2. View movie details – including reviews and ratings", () -> {

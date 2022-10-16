@@ -11,6 +11,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Datasource {
@@ -29,6 +31,7 @@ public class Datasource {
     return gson.toJsonTree(list).getAsJsonArray();
   }
 
+  /// REQUESTERS
   public static JsonArray requestPagination(
       String query,
       int startIdx,
@@ -81,6 +84,7 @@ public class Datasource {
     return responseJson;
   }
 
+  /// SERIALIZERS
   /// JsonArray to CSV
   public static boolean serializeDataToCSV(
       JsonArray responseObj,
@@ -153,6 +157,8 @@ public class Datasource {
     return isSuccessful;
   }
 
+
+  /// SAVERS
   public static boolean saveJson(
       File outputFile,
       String jsonObject,
@@ -263,6 +269,34 @@ public class Datasource {
       result = JsonParser.parseReader(reader).getAsJsonObject();
 
       reader.close();
+    } catch (Exception e) {
+      e.getStackTrace();
+    }
+
+    return result;
+  }
+
+  public static JsonArray readArrayFromCsv(
+      String fileName
+  ) {
+    JsonArray result = null;
+
+    // Configure target path
+    String path = DATA_DIR + fileName;
+    File file = new File(path);
+
+    try {
+      if (!file.exists()) throw new FileNotFoundException("File" + path + " does not exist");
+      Helper.logger("Datasource.readArrayFromCsv", "Reading from " + file.getAbsolutePath());
+
+      String content = Files.readString(Paths.get(path));
+      JSONArray jsonArray = CDL.toJSONArray(content);
+      String jsonStringified = jsonArray.toString();
+      result = gson.fromJson(jsonStringified, JsonArray.class);
+
+      Helper.logger("Datasource.readArrayFromCsv", "Stringified " + jsonStringified);
+      Helper.logger("Datasource.readArrayFromCsv", "Result " + result);
+
     } catch (Exception e) {
       e.getStackTrace();
     }
