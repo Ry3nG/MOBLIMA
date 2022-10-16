@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
-  public static boolean DEBUG_MODE = true;
+  public static boolean DEBUG_MODE = false;
   private static Map<String, String> entries;
   private static Constants _instance = null;
 
