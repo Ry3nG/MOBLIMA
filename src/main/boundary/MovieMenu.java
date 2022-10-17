@@ -1,9 +1,9 @@
 package main.boundary;
 
-import main.data.MovieDatasource;
-import main.entity.Movie;
-import main.entity.Review;
-import main.utils.Helper;
+import tmdb.entity.Movie;
+import tmdb.entity.Review;
+import tmdb.datasource.MovieDatasource;
+import tmdb.utils.Helper;
 
 import java.util.List;
 
