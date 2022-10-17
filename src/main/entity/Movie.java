@@ -1,6 +1,6 @@
 package main.entity;
 
-import main.types.MovieConstants.ShowStatus;
+import tmdb.types.MovieConstants.ShowStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,7 @@ public class Movie {
   private String title;
   private String synopsis;
   private String director;
+  private String contentRating;
   private int runtime;
   private boolean isBlockbuster;
   private ShowStatus showStatus;
@@ -36,11 +37,14 @@ public class Movie {
       String title,
       String synopsis,
       String releaseDate,
-      int runtime,
-      ShowStatus showStatus,
+      String contentRating,
+
       String director,
       List<String> cast,
+
+      int runtime,
       boolean isBlockbuster,
+      ShowStatus showStatus,
       List<String> reviewIds,
       List<Showtime> showtimes
   ) {
@@ -48,11 +52,15 @@ public class Movie {
     this.title = title;
     this.synopsis = synopsis;
     this.releaseDate = releaseDate;
-    this.runtime = runtime;
-    this.showStatus = showStatus;
+    this.contentRating = contentRating;
+
     this.director = director;
     this.cast = cast;
+
+    this.runtime = runtime;
     this.isBlockbuster = isBlockbuster;
+    this.showStatus = showStatus;
+
     this.reviewIds = reviewIds;
     this.showtimes = showtimes;
   }
@@ -62,23 +70,31 @@ public class Movie {
       String title,
       String synopsis,
       String releaseDate,
-      int runtime,
-      ShowStatus showStatus,
+      String contentRating,
+
       String director,
       List<String> cast,
-      boolean isBlockbuster
+
+      int runtime,
+      boolean isBlockbuster,
+      ShowStatus showStatus,
+      List<String> reviewIds
   ) {
     this(
         id,
         title,
         synopsis,
         releaseDate,
-        runtime,
-        showStatus,
+        contentRating,
+
         director,
         cast,
+
+        runtime,
         isBlockbuster,
-        new ArrayList<String>(),
+        showStatus,
+
+        reviewIds,
         new ArrayList<Showtime>()
     );
   }
@@ -110,6 +126,14 @@ public class Movie {
   public void setDirector(String director) {
     this.director = director;
   }
+  public String getContentRating() {
+    return this.contentRating;
+  }
+
+  public void setContentRating(String contentRating) {
+    this.contentRating = contentRating;
+  }
+
 
   public List<String> getCast() {
     return this.cast;
@@ -168,13 +192,13 @@ public class Movie {
     String printed = "Title: " + this.title + "\n";
     printed += "Runtime: " + this.runtime + " minutes\n";
     printed += "Synopsis: " + this.synopsis + "\n";
+    printed += "Content Rating: " + this.contentRating + "\n";
     printed += "Directed By: " + this.director + "\n";
     printed += "Cast: " + this.cast.toString() + "\n";
     printed += "LINK: " + this.getUrl() + "\n";
 
     return printed;
   }
-
 
   @Override
   public boolean equals(Object obj) {
