@@ -9,5 +9,7 @@ out/
 # Visual Paradigm 
 *.vpp.bak_*
 
+# Class file
+bin/*
 .env
 

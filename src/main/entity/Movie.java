@@ -1,6 +1,6 @@
 package main.entity;
 
-import main.types.MovieConstants.ShowStatus;
+import tmdb.types.MovieConstants.ShowStatus;
 
 import java.util.ArrayList;
 import java.util.List;
