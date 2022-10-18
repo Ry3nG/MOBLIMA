@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import main.entity.Account;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.EnumUtils;
 import tmdb.datasource.Datasource;
 import tmdb.utils.Helper;
 
@@ -13,12 +14,28 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class AccountHandler {
+  protected String dataFileName;
+  protected Account currentAccount;
   protected List<Account> accounts;
-  private final String dataFileName;
 
   public AccountHandler() {
-    dataFileName = "accounts.csv";
-    accounts = this.getAccounts();
+    this.dataFileName = "accounts.csv";
+    this.currentAccount = null;
+    this.accounts = this.getAccounts();
+  }
+
+  public List<Account> getAccounts(
+      Account.Type type
+  ) {
+    List<Account> accounts = this.getAccounts();
+
+    for (int i = 0; i < accounts.size(); i++) {
+      Account a = accounts.get(i);
+      if (a.getType().equals(type)) continue;
+      accounts.remove(i);
+    }
+
+    return accounts;
   }
 
   public List<Account> getAccounts() {
@@ -39,11 +56,17 @@ public abstract class AccountHandler {
       String username = a.get("username").getAsString();
       String password = a.get("password").getAsString();
 
-      /// Initialize and append Review object
+      String accountType = a.get("type").getAsString();
+      boolean isValidType = EnumUtils.isValidEnum(Account.Type.class, accountType);
+      if (!isValidType) continue;
+      Account.Type type = Account.Type.valueOf(accountType);
+
+      /// Initialize and append Account object
       accounts.add(new Account(
           id,
           username,
-          password
+          password,
+          type
       ));
     }
 
@@ -56,7 +79,8 @@ public abstract class AccountHandler {
 
   public boolean register(
       String username,
-      String password
+      String password,
+      Account.Type type
   ) {
     boolean isSuccess = false;
 
@@ -64,11 +88,12 @@ public abstract class AccountHandler {
     Account account = new Account(
         UUID.randomUUID().toString(),
         username,
-        DigestUtils.sha256Hex(password)
+        DigestUtils.sha256Hex(password),
+        type
     );
     this.accounts.add(account);
 
-    // Save account to text
+    // Save accounts
     isSuccess = saveAccounts();
 
     return isSuccess;
@@ -91,6 +116,23 @@ public abstract class AccountHandler {
     return account;
   }
 
+  public int findAccountIdx(
+      String id
+  ) {
+    int idx = -1;
+
+    if (this.accounts.size() < 1) return idx;
+
+    for (int i = 0; i < this.accounts.size(); i++) {
+      if (this.accounts.get(i).getId().equals(id)) {
+        idx = i;
+        break;
+      }
+    }
+
+    return idx;
+  }
+
   public boolean login(
       String username,
       String password
@@ -103,6 +145,45 @@ public abstract class AccountHandler {
 
     // Match password
     if (DigestUtils.sha256Hex(password).equals(account.getPassword())) status = true;
+
+    this.currentAccount = account;
+    return status;
+  }
+
+  public boolean logout() {
+    this.currentAccount = null;
+    return saveAccounts();
+  }
+
+  public boolean update(
+      Account account
+  ) {
+    boolean status = false;
+
+    // Find account idx in list of accounts
+    int idx = findAccountIdx(account.getId());
+    if (idx < 0) return status;
+
+    // Save accounts
+    this.accounts.set(idx, account);
+    this.currentAccount = account;
+    status = saveAccounts();
+
+    return status;
+  }
+
+  public boolean delete(
+      String id
+  ) {
+    boolean status = false;
+
+    // Find account idx in list of accounts
+    int idx = findAccountIdx(id);
+    if (idx < 0) return status;
+
+    // Save accounts
+    this.accounts.remove(idx);
+    status = saveAccounts();
 
     return status;
   }

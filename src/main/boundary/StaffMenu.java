@@ -5,6 +5,8 @@ import main.control.StaffHandler;
 import java.io.Console;
 import java.util.LinkedHashMap;
 
+import static java.lang.System.exit;
+
 /**
  * Staff's Menu
  *
@@ -39,11 +41,7 @@ public class StaffMenu extends Menu {
         // SettingsMenu settingsMenu = new SettingsMenu();
         // settingsMenu.showMenu();
       });
-      put("Log out / Exit", () -> {
-            System.out.println("\t>>> Logging out...");
-            System.out.println("---------------------------------------------------------------------------");
-            System.out.println("Goodbye!");
-          }
+      put("Log out / Exit", () -> logout()
       );
     }};
   }
@@ -96,6 +94,14 @@ public class StaffMenu extends Menu {
     else System.out.println("FAILED. Please try again!");
 
     return success;
+  }
+
+  protected void logout() {
+    System.out.println("\t>>> Logging out...");
+    System.out.println("---------------------------------------------------------------------------");
+    this.handler.logout();
+    System.out.println("Goodbye!");
+    exit(0);
   }
 
 }
