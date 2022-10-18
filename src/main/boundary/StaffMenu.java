@@ -10,7 +10,7 @@ import java.io.Console;
  *
  * @author SS11 Group 1
  * @version 1.0
- * @since 1.0
+ * @since 11 October 2022
  */
 public class StaffMenu extends Menu {
 
@@ -18,7 +18,6 @@ public class StaffMenu extends Menu {
    * State of staff - whether he/she is logged in or not
    */
   private static boolean loggedIn = false;
-
 
   /**
    * Constructor for StaffMenu
@@ -34,8 +33,8 @@ public class StaffMenu extends Menu {
       put("Create / Update / Remove cinema showtimes and the movies to be shown", () -> {
       });
       put("Configure system settings", () -> {
-        SettingsMenu settingsMenu = new SettingsMenu();
-        settingsMenu.showMenu();
+        // SettingsMenu settingsMenu = new SettingsMenu();
+        // settingsMenu.showMenu();
       });
       put("Log out / Exit", () -> {
         System.out.println("\t>>> Logging out...");
