@@ -3,6 +3,12 @@ Console-based Movie Booking and LIsting Management Application (MOBLIMA)
 
 Developed as NTU SC2002 SS11 Group 1 Project
 
+# Running MOBLIMA
+
+MOBLIMA runs in two modes - Customer (Movie-Goer) and Staff.
+
+To run MOBLIMA in Staff mode, pass in the command line argument "--staff".
+
 ## Folder Structure
  
 The workspace contains these following folders
