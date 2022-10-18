@@ -2,8 +2,8 @@ package main.boundary;
 
 import main.control.StaffHandler;
 
-import java.util.LinkedHashMap;
 import java.io.Console;
+import java.util.LinkedHashMap;
 
 /**
  * Staff's Menu
@@ -18,15 +18,18 @@ public class StaffMenu extends Menu {
    * State of staff - whether he/she is logged in or not
    */
   private static boolean loggedIn = false;
+  private final StaffHandler handler;
 
   /**
    * Constructor for StaffMenu
-   * 
+   * <p>
    * The actual menu is created within this constructor.
+   *
    * @since 1.0
    */
   public StaffMenu() {
     super();
+    this.handler = StaffHandler.getInstance();
     this.menuMap = new LinkedHashMap<String, Runnable>() {{
       put("Create / Update / Remove movie listing", () -> {
       });
@@ -37,22 +40,23 @@ public class StaffMenu extends Menu {
         // settingsMenu.showMenu();
       });
       put("Log out / Exit", () -> {
-        System.out.println("\t>>> Logging out...");
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println("Goodbye!");}
+            System.out.println("\t>>> Logging out...");
+            System.out.println("---------------------------------------------------------------------------");
+            System.out.println("Goodbye!");
+          }
       );
     }};
   }
 
   /**
    * Require the Staff to login before displaying the menu
-   * 
+   *
    * @see main.boundary.Menu#showMenu()
    * @since 1.0
    */
   @Override
   public void showMenu() {
-    
+
     while (!loggedIn) {
       loggedIn = staffLogin();
     }
@@ -62,16 +66,16 @@ public class StaffMenu extends Menu {
 
   /**
    * Requests for the username and password, and attempts the login.
-   * 
+   *
    * @return whether the login is successful or not
    * @since 1.0
    */
   private boolean staffLogin() {
-    
+
     Console console = System.console();
     String username = "";
     String password = "";
-    
+
     System.out.println("---------------------------------------------------------------------------");
     if (console == null) { // running in IDE
       System.out.println("Username: ");
@@ -82,10 +86,10 @@ public class StaffMenu extends Menu {
       username = console.readLine("Username: ");
       password = new String(console.readPassword("Password: "));
     }
-    
+
     System.out.println("\t>>> Logging in...");
 
-    boolean success = StaffHandler.getInstance().login(username,password);
+    boolean success = this.handler.login(username, password);
 
     System.out.println("---------------------------------------------------------------------------");
     if (success) System.out.println("SUCCESSFUL. Welcome back!");
