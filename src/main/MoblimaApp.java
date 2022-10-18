@@ -1,46 +1,61 @@
 package main;
 
-import main.boundary.CustomerMenu;
 import main.boundary.Menu;
+import main.boundary.CustomerMenu;
 import main.boundary.StaffMenu;
 
-import java.util.LinkedHashMap;
+/**
+ * Console-based Movie Booking and Listing Management Application (MOBLIMA).
+ * 
+ * MOBLIMA can run in two modes - Customer mode or Staff mode.
+ * 
+ * Staff mode requires "--staff" as a command-line argument.
+ * 
+ * @author SS11 Group 1
+ * @version 1.0
+ * @since 18 October 2022
+ */
+public class MoblimaApp {
 
-import static java.lang.System.exit;
-
-public class MoblimaApp extends Menu {
-  // Console-based Movie Booking and Listing Management Application (MOBLIMA)
+  /**
+   * For the singleton pattern implementation.
+   */
   private static MoblimaApp _app = null;
-  private static CustomerMenu customerMenu;
-  private static StaffMenu staffMenu;
-
+  /**
+   * May be CustomerMenu or StaffMenu, depending on the mode.
+   */
+  private Menu userMenu;
+  
+  /**
+   * Private constructor, so instantiation outside of class only through getInstance()
+   */
   private MoblimaApp() {
-    super();
-    customerMenu = new CustomerMenu();
-    staffMenu = new StaffMenu();
-    this.menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("1. I'm a Movie-goer", () -> customerMenu.showMenu());
-      put("2. I'm a Staff", () -> staffMenu.showMenu());
-      put("3. Exit", () -> {
-        System.out.println("\t>>> " + "Exiting application...");
-        scanner.close();
-        exit(0);
-      });
-    }};
   }
 
+
+  /**
+   * Singleton pattern implementation for MoblimaApp
+   * 
+   * @return instance of the MoblimaApp
+   * @since 1.0
+   */
   public static MoblimaApp getInstance() {
     if (_app == null) _app = new MoblimaApp();
     return _app;
   }
 
+  /**
+   * Main method, entry point of the application
+   * @param mode of run
+   * @since 1.0
+   */
   public static void main(String[] args) {
     MoblimaApp app = MoblimaApp.getInstance();
-    app.showMenu();
-  }
-
-  @Override
-  public void showMenu() {
-    this.displayMenu();
+    
+    // test for run-mode
+    if (args.length == 0) app.userMenu = new CustomerMenu();
+    else if (args[0].equals("--staff")) app.userMenu = new StaffMenu();
+    
+    app.userMenu.showMenu();
   }
 }
