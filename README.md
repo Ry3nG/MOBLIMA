@@ -3,7 +3,7 @@ Console-based Movie Booking and LIsting Management Application (MOBLIMA)
 
 Developed as NTU SC2002 SS11 Group 1 Project
 
-# Running MOBLIMA
+## Running MOBLIMA
 
 MOBLIMA runs in two modes - Customer (Movie-Goer) and Staff.
 
