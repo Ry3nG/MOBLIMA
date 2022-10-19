@@ -1,7 +1,9 @@
 package main.boundary;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -40,36 +42,37 @@ public abstract class Menu {
   protected void displayMenu() {
     int menuChoice = 0;
     scanner = new Scanner(System.in);
-    while (menuChoice != menuMap.size() && !killSession) {
+    while ((menuChoice != menuMap.size()) && !killSession) {
       try {
         displayMenuList();
         System.out.print("SELECTED: ");
 
-        if (scanner.hasNextInt()) {
+        if (scanner.hasNextInt()) { // if the next in buffer is int
           menuChoice = scanner.nextInt();
-        } else {
-          System.out.println("Please enter value between 1 to " + menuMap.size());
-          scanner.nextLine();
-          continue;
+          if ((menuChoice - 1) < -1)
+            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
+          else if (menuChoice > menuMap.size() || menuChoice == 0)
+            throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + menuMap.size());
+        } else { // next in buffer is not int
+          scanner.next(); // clear buffer
+          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
         }
-
-        if ((menuChoice - 1) < 0)
-          throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-        else if (menuChoice > menuMap.size())
-          throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be a valid menu selection integer");
 
         if (menuChoice != menuMap.size())
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
-        if (menuChoice != menuMap.size()) System.in.read();
+        // if (menuChoice != menuMap.size()) System.in.read(); // this line causes an extra 'Enter' to be required to display menu again, commented out
       } catch (java.util.InputMismatchException e) {
         System.out.println("[ERROR] Invalid non-numerical value - input must be an integer");
       } catch (IllegalArgumentException e) {
         System.out.println(e.getMessage());
+      } catch (NoSuchElementException e) {
+        System.out.println("[NIL]\nApplication is terminated via CTRL + C");
+        System.exit(1);
       } catch (Exception e) {
         System.out.println("[ERROR] Invalid menu input - input must be of " + Arrays.toString(menuMap.keySet().toArray()));
-        scanner = new Scanner(System.in);
-        scanner.nextLine();
+        // scanner = new Scanner(System.in); // necessity?
+        // scanner.nextLine();
       }
     }
   }

@@ -39,6 +39,7 @@ public class CustomerMenu extends Menu {
         System.out.println("\t>>> Quitting application...");
         System.out.println("---------------------------------------------------------------------------");
         System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
+        System.exit(0);
       });
     }};
   }

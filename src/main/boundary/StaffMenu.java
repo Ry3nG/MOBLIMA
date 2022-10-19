@@ -28,18 +28,17 @@ public class StaffMenu extends Menu {
   public StaffMenu() {
     super();
     this.menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Create / Update / Remove movie listing", () -> {
-      });
-      put("Create / Update / Remove cinema showtimes and the movies to be shown", () -> {
-      });
+      put("Create / Update / Remove movie listing", () -> {System.out.println("Yes");});
+      put("Create / Update / Remove cinema showtimes and the movies to be shown", () -> {});
       put("Configure system settings", () -> {
-        // SettingsMenu settingsMenu = new SettingsMenu();
-        // settingsMenu.showMenu();
+        SettingsMenu settingsMenu = new SettingsMenu();
+        settingsMenu.showMenu();
       });
       put("Log out / Exit", () -> {
         System.out.println("\t>>> Logging out...");
         System.out.println("---------------------------------------------------------------------------");
-        System.out.println("Goodbye!");}
+        System.out.println("Goodbye!");
+        System.exit(0);} // make sure it really exits - sometimes there is problem with the while loop
       );
     }};
   }
