@@ -82,7 +82,7 @@ public class StaffMenu extends Menu {
     System.out.println("\t>>> Logging in...");
 
     // [Account/Staff] Creation only permitted by Admin
-    // this.handler.createStaffAccount(username, password, "Test", "Test");
+     this.handler.createStaffAccount(username, password, "Test", "Test");
     boolean success = this.handler.login(username, password);
 
     System.out.println("---------------------------------------------------------------------------");
