@@ -18,8 +18,9 @@ public class CustomerMenu extends Menu {
 
   /**
    * Constructor for CustomerMenu
-   * 
+   * <p>
    * The actual menu is created within this constructor.
+   *
    * @since 1.0
    */
   public CustomerMenu() {
@@ -46,6 +47,7 @@ public class CustomerMenu extends Menu {
 
   /**
    * Display the menu
+   *
    * @see main.boundary.Menu#showMenu()
    * @since 11 October 2022
    */
