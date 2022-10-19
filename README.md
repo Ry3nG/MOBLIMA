@@ -13,7 +13,7 @@ To run MOBLIMA in Staff mode, pass in the command line argument "--staff".
  
 The workspace contains these following folders
 - `bin` : contains compiled classes
-- `data` : contains serialized data files
+- `data` : contains serialized data files hello
 - `diagram` : contains the Visual Paradigm project
 - `lib` : contains libraries
 - `src` : contains all the source files
