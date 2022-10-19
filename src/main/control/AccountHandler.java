@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AccountHandler {
+public abstract class AccountHandler {
   protected String dataFileName;
   protected Account currentAccount;
   protected List<Account> accounts;
