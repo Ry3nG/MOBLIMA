@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import main.entity.Account;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.EnumUtils;
 import tmdb.datasource.Datasource;
 import tmdb.utils.Helper;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AccountHandler {
+public class AccountHandler {
   protected String dataFileName;
   protected Account currentAccount;
   protected List<Account> accounts;
@@ -130,7 +129,7 @@ public abstract class AccountHandler {
     Account account = new Account(
         UUID.randomUUID().toString(),
         username,
-        DigestUtils.sha256Hex(password),
+        password,
         type
     );
     this.accounts.add(account);
@@ -191,7 +190,7 @@ public abstract class AccountHandler {
     if (account == null) return status;
 
     // Match password
-    if (DigestUtils.sha256Hex(password).equals(account.getPassword())) status = true;
+    if (password.equals(account.getPassword())) status = true;
 
     this.currentAccount = account;
     return status;
