@@ -8,13 +8,28 @@ public class Staff extends Account {
       String id,
       String username,
       String password,
-      String name,
       Type type,
+      String name,
       String cinemaCode
   ) {
     super(id, username, password, type);
     this.name = name;
     this.cinemaCode = cinemaCode;
+  }
+
+  public Staff(
+      Account account,
+      String name,
+      String cinemaCode
+  ) {
+    this(
+        account.getId(),
+        account.getUsername(),
+        account.getPassword(),
+        account.getType(),
+        name,
+        cinemaCode
+    );
   }
 
   public String getCinemaCode() {

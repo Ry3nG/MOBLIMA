@@ -54,11 +54,7 @@ public class StaffMenu extends Menu {
    */
   @Override
   public void showMenu() {
-
-    while (!loggedIn) {
-      loggedIn = staffLogin();
-    }
-
+    while (!loggedIn) loggedIn = staffLogin();
     this.displayMenu();
   }
 
@@ -87,6 +83,8 @@ public class StaffMenu extends Menu {
 
     System.out.println("\t>>> Logging in...");
 
+    // [Account/Staff] Creation only permitted by Admin
+    // this.handler.createStaffAccount(username, password, "Test", "Test");
     boolean success = this.handler.login(username, password);
 
     System.out.println("---------------------------------------------------------------------------");
@@ -103,5 +101,6 @@ public class StaffMenu extends Menu {
     System.out.println("Goodbye!");
     exit(0);
   }
+
 
 }

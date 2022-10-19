@@ -19,11 +19,26 @@ public abstract class AccountHandler {
   protected List<Account> accounts;
 
   public AccountHandler() {
-    this.dataFileName = "accounts.csv";
+    this.dataFileName = null;
     this.currentAccount = null;
     this.accounts = this.getAccounts();
   }
 
+  /**
+   * Check if current user is an Admin
+   *
+   * @return isAdmin:boolean
+   */
+  public boolean isAdmin() {
+    return (this.currentAccount != null && this.currentAccount.getType().equals(Account.Type.Admin));
+  }
+
+  /**
+   * Get accounts filtered by type
+   *
+   * @param type: Type
+   * @return accounts:List<Account>
+   */
   public List<Account> getAccounts(
       Account.Type type
   ) {
@@ -38,10 +53,16 @@ public abstract class AccountHandler {
     return accounts;
   }
 
+  /**
+   * Get all accounts
+   *
+   * @return accounts:List<Account>
+   */
   public List<Account> getAccounts() {
     List<Account> accounts = new ArrayList<Account>();
 
     String fileName = this.dataFileName;
+    if (fileName == null || fileName.isEmpty()) return accounts;
     JsonArray accountList = Datasource.readArrayFromCsv(fileName);
 
     if (accountList == null) {
@@ -77,12 +98,33 @@ public abstract class AccountHandler {
     return Datasource.serializeData(this.accounts, this.dataFileName);
   }
 
-  public boolean register(
+  public boolean saveAccounts(
+      List accountList
+  ) {
+    return Datasource.serializeData(accountList, this.dataFileName);
+  }
+
+  public String register(
       String username,
       String password,
       Account.Type type
   ) {
-    boolean isSuccess = false;
+    String accountId = null;
+    boolean canRegister = true;
+
+    // [VALIDATION]: Only allow if user is not logged in or is an Admin
+    if (!isAdmin() && this.currentAccount != null) {
+      System.out.println("Operation denied");
+      canRegister = false;
+    }
+    // [VALIDATION]: Check if username is already taken
+    if (findAccount(username) != null) {
+      System.out.println("Username is already taken, try another");
+      canRegister = false;
+    }
+
+    // [VALIDATION]: Exit upon any failure
+    if (!canRegister) return accountId;
 
     // Create new Account
     Account account = new Account(
@@ -92,11 +134,15 @@ public abstract class AccountHandler {
         type
     );
     this.accounts.add(account);
+    accountId = account.getId();
 
     // Save accounts
-    isSuccess = saveAccounts();
+    saveAccounts();
 
-    return isSuccess;
+    // Use as current if currentAccount is not Admin or is null
+    if (!this.isAdmin()) this.currentAccount = account;
+
+    return accountId;
   }
 
   public Account findAccount(
@@ -138,6 +184,7 @@ public abstract class AccountHandler {
       String password
   ) {
     boolean status = false;
+    if (this.accounts.size() < 1) this.accounts = this.getAccounts();
 
     // Find account by username
     Account account = this.findAccount(username);
@@ -150,9 +197,8 @@ public abstract class AccountHandler {
     return status;
   }
 
-  public boolean logout() {
+  public void logout() {
     this.currentAccount = null;
-    return saveAccounts();
   }
 
   public boolean update(
