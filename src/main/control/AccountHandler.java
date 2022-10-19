@@ -1,3 +1,8 @@
+/*
+THROW AWAY
+*/
+
+
 package main.control;
 
 import com.google.gson.JsonArray;

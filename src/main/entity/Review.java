@@ -1,3 +1,7 @@
+/*
+THROW AWAY but may take it back
+*/
+
 package main.entity;
 
 public class Review {

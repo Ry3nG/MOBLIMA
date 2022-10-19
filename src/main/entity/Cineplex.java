@@ -1,3 +1,7 @@
+/*
+THROW AWAY
+*/
+
 package main.entity;
 
 import java.util.ArrayList;

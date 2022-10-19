@@ -1,3 +1,6 @@
+/*
+add in cineplex related, like id that's all
+*/
 package main.entity;
 
 /**
