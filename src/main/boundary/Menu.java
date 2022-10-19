@@ -1,10 +1,6 @@
 package main.boundary;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.LinkedHashMap;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.System.exit;
 
@@ -61,7 +57,10 @@ public abstract class Menu {
         if (menuChoice != menuMap.size())
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
-        // if (menuChoice != menuMap.size()) System.in.read(); // this line causes an extra 'Enter' to be required to display menu again, commented out
+        if (menuChoice != menuMap.size()) {
+          System.out.println("Press any key to continue . . .");
+          System.in.read();
+        }
       } catch (java.util.InputMismatchException e) {
         System.out.println("[ERROR] Invalid non-numerical value - input must be an integer");
       } catch (IllegalArgumentException e) {
