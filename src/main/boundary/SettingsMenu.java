@@ -276,7 +276,7 @@ public class SettingsMenu extends Menu {
     System.out.println("Enter the date of the public holiday to be removed:\n---------------------------------------------------");
     boolean dateExist = false;
     do {
-      System.out.print("Date [Format: DD/MM/YYYY] : ");
+      System.out.print("Date [Format: DD/MM/YYYY] or enter - to cancel: ");
       String dateInput = scanner.nextLine();
 
       if (dateInput.equals("-")) break; // if Staff wants to cancel
