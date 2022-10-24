@@ -10,7 +10,6 @@ public class Customer {
     this.id = id;
     this.name = name;
     this.contactNumber = contactNumber;
-//    this.email = email;
   }
 
   public String getId() {
@@ -37,11 +36,4 @@ public class Customer {
     this.contactNumber = contactNumber;
   }
 
-//  public String getEmail() {
-//    return email;
-//  }
-//
-//  public void setEmail(String email) {
-//    this.email = email;
-//  }
 }

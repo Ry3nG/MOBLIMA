@@ -23,15 +23,25 @@ public class MovieMenu extends Menu {
     return instance;
   }
 
-  public static MovieHandler getHandler() {
-    return handler;
-  }
-
   @Override
   public void showMenu() {
     this.displayMenu();
   }
 
+  /**
+   * Get movie handler
+   * @return movieHandler:MovieHandler
+   */
+  //+ getHandler():MovieHandler
+  public static MovieHandler getHandler() {
+    return handler;
+  }
+
+  /**
+   * Get the updated movie list to be displayed
+   * @return menuMap:LinkedHashMap<String, Runnable>
+   */
+  //+ getMovieMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getMovieMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Movie> movies = this.handler.getMovies();
@@ -48,8 +58,13 @@ public class MovieMenu extends Menu {
     return menuMap;
   }
 
+  /**
+   * Retrieves the user movie selection idx
+   * @return selectedMovieIdx:int
+   */
+  //+ selectMovieIdx():int
   public int selectMovieIdx() {
-//    this.refreshMenu(this.getMovieMenu());
+    this.refreshMenu(this.getMovieMenu());
 
     // Retrieve user selection idx for movies
     List<Movie> movies = this.handler.getMovies();
@@ -65,7 +80,6 @@ public class MovieMenu extends Menu {
     if (selectedIdx == (this.menuMap.size() - 1)) return -1;
 
     this.handler.setSelectedMovieIdx(selectedIdx);
-
     System.out.println(this.handler.getMovie(selectedIdx).getId());
 
     return selectedIdx;

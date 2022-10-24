@@ -27,19 +27,24 @@ public class BookingMenu extends Menu {
     return instance;
   }
 
-  public static BookingHandler getHandler() {
-    return handler;
-  }
-
   @Override
   public void showMenu() {
     this.displayMenu();
   }
 
-//  public void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
-//    this.menuMap = menuMap;
-//  }
+  /**
+   * Get booking handler
+   * @return bookingHandler:BookingHandler
+   */
+  public static BookingHandler getHandler() {
+    return handler;
+  }
 
+  /**
+   * Get the updated showtime list to be displayed
+   * @return menuMap:LinkedHashMap<String, Runnable>
+   */
+  //+ getShowtimeMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getShowtimeMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Showtime> showtimes = this.handler.getShowtimes();
@@ -59,6 +64,11 @@ public class BookingMenu extends Menu {
     return menuMap;
   }
 
+  /**
+   * Get the updated booking list to be displayed
+   * @return menuMap:LinkedHashMap<String, Runnable>
+   */
+  //+ getBookingMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getBookingMenu(String customerId) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Booking> bookings = this.handler.getBookings(customerId);
@@ -78,6 +88,12 @@ public class BookingMenu extends Menu {
     return menuMap;
   }
 
+  /**
+   * Retrieves the user booking selection idx with specified customer id
+   * @param customerId:String
+   * @return selectedBookingIdx:int
+   */
+  //+ selectBookingIdx(customerId:String):int
   public int selectBookingIdx(String customerId){
     this.refreshMenu(this.getBookingMenu(customerId));
 
@@ -85,6 +101,12 @@ public class BookingMenu extends Menu {
     return -1;
   }
 
+  /**
+   * Retrieves the user showtime selection idx with specified movie id
+   * @param movieId:int
+   * @return selectedShowtimeIdx:int
+   */
+  //+ selectShowtimeIdx(movieId:int):int
   public int selectShowtimeIdx(int movieId) {
     this.refreshMenu(this.getShowtimeMenu());
     List<Showtime> showtimes = this.handler.getShowtimes(movieId);
@@ -114,8 +136,13 @@ public class BookingMenu extends Menu {
     return showtimeIdx;
   }
 
+  /**
+   * Retrieves the user list of seat selection idx with specified showtime idx
+   * @param showtimeIdx:int
+   * @return seats:List<int[]>
+   */
+  //+ selectSeat(showtimeIdx:int):List<int[]>
   public List<int[]> selectSeat(int showtimeIdx) {
-
     List<String> confirmationOptions = new ArrayList<String>() {{
       add("Continue selecting more seats");
       add("Confirm booking");
@@ -181,6 +208,12 @@ public class BookingMenu extends Menu {
     return selectedSeats;
   }
 
+  /**
+   * Retrieves the user seat selection idx with specified showtime idx
+   * @param showtimeIdx:int
+   * @return seat:int[]
+   */
+  //+ seatSelection(showtimeIdx:int):int[]
   public int[] seatSelection(int showtimeIdx) {
     boolean seats[][] = this.handler.getShowtime(showtimeIdx).getSeats();
     this.handler.printSeats(seats);

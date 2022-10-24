@@ -19,6 +19,11 @@ public class CustomerHandler {
     customers = this.getCustomers();
   }
 
+  /**
+   * Validate phone number in account login/registration
+   * @param phoneNumber:String
+   * @return status:boolean
+   */
   // + validatePhoneNumber(String phoneNumber) : boolean
   public boolean validatePhoneNumber(String phoneNumber) {
     boolean status = false;
@@ -29,20 +34,32 @@ public class CustomerHandler {
     return status;
   }
 
+  /**
+   * Save currently selected / active customer by idx
+   * @param customerIdx:int
+   */
   // + setCurrentCustomer(customerIdx:int) : void
   public void setCurrentCustomer(int customerIdx) {
     this.currentCustomer = this.getCustomer(customerIdx);
   }
 
+  /**
+   * Get currently selected / active customer
+   * @return customer:Customer | null
+   */
   // + getCurrentCustomer() : Customer
   public Customer getCurrentCustomer() {
     return this.currentCustomer;
   }
 
+  /**
+   * Deserializes and return customer list
+   * @return customers:List<Customer>
+   */
   // + getCustomers() : List<Customer>
   public List<Customer> getCustomers() {
     List<Customer> customers = new ArrayList<Customer>();
-    // TODO: Source from serialized datasource
+    //Source from serialized datasource
     String fileName = "customers.csv";
     if (fileName == null || fileName.isEmpty()) {
       Helper.logger("CustomerHandler.getCustomers", "Null and void filename provided, no data retrieved.");
@@ -63,9 +80,13 @@ public class CustomerHandler {
     return customers;
   }
 
+  /**
+   * Get customer by specified idx
+   * @param customerIdx:int
+   * @return customer:Customer | null
+   */
   // + getCustomer(customerIdx:int) : Customer
-  public Customer getCustomer(
-      int customerIdx) {
+  public Customer getCustomer(int customerIdx) {
     Customer customer = null;
     if (customerIdx < 0 || this.customers.size() < 1)
       return customer;
@@ -74,22 +95,11 @@ public class CustomerHandler {
     return customer;
   }
 
-  // + getCustomer(customerId: String) : Customer
-  public Customer getCustomer(
-      String customerId) {
-    Customer customer = null;
-    if (this.customers.size() < 1)
-      return customer;
-
-    for (Customer c : this.customers) {
-      if (c.getId().equals(customerId)) {
-        customer = c;
-        break;
-      }
-    }
-    return customer;
-  }
-
+  /**
+   * Retrieve idx of specified customer id
+   * @param customerId:String
+   * @return customerIdx:int
+   */
   // + getCustomerIdx(customerId: String) : int
   public int getCustomerIdx(String customerId) {
     int customerIdx = -1;
@@ -106,18 +116,23 @@ public class CustomerHandler {
     return customerIdx;
   }
 
-  // +addCustomer(customer : Customer) : int
+  /**
+   * Append new customer to customer list
+   * @param name:String
+   * @param contactNumber:String
+   * @return customerIdx:int
+   */
+  // +addCustomer(name:String, contactNumber:String) : int
   public int addCustomer(String name, String contactNumber) {
     if (checkIfAccountExists(contactNumber) != -1)
       return -1;
 
+    // Initialize new Customer
     Customer customer = new Customer(
         UUID.randomUUID().toString(),
         name,
         contactNumber
-    // email
     );
-
     this.customers.add(customer);
     this.currentCustomer = customer;
 
@@ -127,10 +142,9 @@ public class CustomerHandler {
     return this.customers.size() - 1;
   }
 
-  // + updateCustomer(customer Customer) : boolean
-
-  // +deleteCustomer(customer : Customer) : boolean
-
+  /**
+   * Get customer list
+   */
   // + listCustomers() : void
   public void listCustomers() {
     if (this.customers.isEmpty()) {
@@ -144,7 +158,12 @@ public class CustomerHandler {
     }
   }
 
-  // + checkIfAccountExists(phoneNumber:String) : int
+  /**
+   * Check if account with phone number already exists
+   * @param contactNumber:String
+   * @return customerIdx:int
+   */
+  // + checkIfAccountExists(contactNumber:String) : int
   public int checkIfAccountExists(
       String contactNumber) {
     int customerIdx = -1;
@@ -162,8 +181,31 @@ public class CustomerHandler {
     return customerIdx;
   }
 
+  /**
+   * Serialize customer data to CSV
+   */
+  //# saveCustomers():boolean
   public boolean saveCustomers() {
     return Datasource.serializeData(this.customers, "customers.csv");
   }
+
+  //// + updateCustomer(customer Customer) : boolean
+
+  //// +deleteCustomer(customer : Customer) : boolean
+
+  //  // + getCustomer(customerId: String) : Customer
+  //  public Customer getCustomer(String customerId) {
+  //    Customer customer = null;
+  //    if (this.customers.size() < 1)
+  //      return customer;
+  //
+  //    for (Customer c : this.customers) {
+  //      if (c.getId().equals(customerId)) {
+  //        customer = c;
+  //        break;
+  //      }
+  //    }
+  //    return customer;
+  //  }
 
 }

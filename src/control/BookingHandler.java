@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import entity.Booking;
 import entity.Booking.TicketType;
+import entity.Showtime;
 import org.apache.commons.lang3.EnumUtils;
 import tmdb.control.Datasource;
 import utils.Helper;
@@ -20,32 +21,38 @@ import java.util.List;
 public class BookingHandler extends CinemaHandler {
   protected List<Booking> bookings;
   protected int selectedBookingIdx = -1;
-
   private static final MovieHandler movieHandler = MovieMenu.getHandler();
-
-  // private PriceHandler priceHandler
 
   public BookingHandler() {
     super();
     bookings = this.getBookings();
   }
 
+  /**
+   * Set selected booking idx
+   * @param selectedBookingIdx:int
+   */
   //+ setSelectedBookingIdx(selectedBookingIdx:int) : void
   public void setSelectedBookingIdx(int selectedBookingIdx){
     this.selectedBookingIdx = selectedBookingIdx;
   }
 
-  //+getSelectedBooking() : Booking
-  public Booking getSelectedBooking() {
-    return (this.selectedBookingIdx < 0 || this.bookings.size() < 1) ? null : this.bookings.get(this.selectedBookingIdx);
-  }
-
-  //+ getBooking(bookingldx : int) Booking
+  /**
+   * Get booking of specified booking idx
+   * @param bookingIdx:int
+   * @return booking:Booking
+   */
+  //+ getBooking(bookingldx : int): Booking
   public Booking getBooking(int bookingIdx) {
     this.selectedBookingIdx = bookingIdx;
     return (bookingIdx < 0 || this.bookings.size() < 1) ? null : this.bookings.get(bookingIdx);
   }
 
+  /**
+   * Get booking of specified transaction id
+   * @param transactionId:String
+   * @return booking:Booking
+   */
   //+getBooking(transactionld : String) : Booking
   public Booking getBooking(String transactionId) {
     Booking booking = null;
@@ -60,6 +67,10 @@ public class BookingHandler extends CinemaHandler {
     return booking;
   }
 
+  /**
+   * Deserializes and returns booking list
+   * @return bookings:List<Booking>
+   */
   //+getBookings() : List<Booking>
   public List<Booking> getBookings() {
     List<Booking> bookings = new ArrayList<Booking>();
@@ -69,7 +80,7 @@ public class BookingHandler extends CinemaHandler {
       return bookings;
     }
 
-    //TODO: Source from serialized datasource
+    //Source from serialized datasource
     String fileName = "bookings.csv";
     if (fileName == null || fileName.isEmpty()) {
       this.bookings = bookings;
@@ -125,7 +136,12 @@ public class BookingHandler extends CinemaHandler {
     return bookings;
   }
 
-  //+ getBookings (customerld : String) : List<Booking >
+  /**
+   * Get booking list of specified customer id
+   * @param customerId:String
+   * @return bookings:List<Booking>
+   */
+  //+ getBookings (customerld : String) : List<Booking>
   public List<Booking> getBookings(String customerId) {
     List<Booking> bookings = new ArrayList<Booking>();
     if (this.bookings.size() < 1) return bookings;
@@ -136,16 +152,29 @@ public class BookingHandler extends CinemaHandler {
     return bookings;
   }
 
-
-  //+addBooking(booking : Booking) : int
+  /**
+   * Append new booking to booking list
+   * @param customerId:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param showtimeId:String
+   * @param seats:List<int[]>
+   * @param totalPrice:double
+   * @param type:TicketType
+   * @return bookingIdx:int
+   */
+  //+addBooking(customerId:String, cinemaId:int, movieId:int, showtimeId:String, seats:List<int[]>, totalPrice:double, type:TicketType) : int
   public int addBooking(String customerId, int cinemaId, int movieId, String showtimeId, List<int[]> seats, double totalPrice, TicketType type) {
     List<Booking> bookings = new ArrayList<Booking>();
     if(this.bookings != null) bookings = this.bookings;
 
+    Showtime showtime = this.getShowtime(showtimeId);
+
     // The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYYMMDDhhmm");
     String timestamp = (LocalDateTime.now()).format(formatter);
-    String transactionId = timestamp;
+    String cineplexId = showtime.getCineplexId();
+    String transactionId = cineplexId + timestamp;
 
     bookings.add(new Booking(transactionId, customerId, cinemaId, movieId, showtimeId, seats, totalPrice, type));
     this.bookings = bookings;
@@ -159,23 +188,11 @@ public class BookingHandler extends CinemaHandler {
     return this.bookings.size() - 1;
   }
 
-  public boolean saveBookings() {
-    return Datasource.serializeData(this.bookings, "bookings.csv");
-  }
-
-//+ updateBooking (booking : Booking) : boolean
-//+ removeBooking (transactionld : String)
-//boolean
-//+ printBookings() : void
-//+ printBookings(customerld : String):void
-  public void printBookings(String customerId){
-    List<Booking> bookings = this.getBookings(customerId);
-    Helper.logger("BookingHandler.printBookings", "Bookings: " + bookings);
-    if(bookings.size() < 1) return;
-
-    for(Booking booking : bookings) printBooking(booking.getTransactionId());
-  }
-//+ printBooking(transactionld : String) : void
+  /**
+   * Prints booking details along with its associated showtime and movie details
+    * @param transactionId:String
+   */
+  //+ printBooking(transactionld : String) : void
   public void printBooking(String transactionId){
     Booking booking = this.getBooking(transactionId);
     if (booking == null) return;
@@ -194,5 +211,31 @@ public class BookingHandler extends CinemaHandler {
     movieHandler.printMovieDetails(movieIdx);
     System.out.println("---------------------------------------------------------------------------");
   }
-//+getBookingPrice(booking : Booking) : double
+
+  /**
+   * Serializes booking data to CSV
+   */
+  //# saveBookings(): boolean
+  protected boolean saveBookings() {
+    return Datasource.serializeData(this.bookings, "bookings.csv");
+  }
+
+//  //+getSelectedBooking() : Booking
+//  public Booking getSelectedBooking() {
+//    return (this.selectedBookingIdx < 0 || this.bookings.size() < 1) ? null : this.bookings.get(this.selectedBookingIdx);
+//  }
+
+////+getBookingPrice(booking : Booking) : double
+////+ updateBooking (booking : Booking) : boolean
+////+ removeBooking (transactionld : String)
+////boolean
+////+ printBookings() : void
+////+ printBookings(customerld : String):void
+//  public void printBookings(String customerId){
+//    List<Booking> bookings = this.getBookings(customerId);
+//    Helper.logger("BookingHandler.printBookings", "Bookings: " + bookings);
+//    if(bookings.size() < 1) return;
+//
+//    for(Booking booking : bookings) printBooking(booking.getTransactionId());
+//  }
 }

@@ -9,28 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowtimeHandler {
-  protected List<Showtime> showtimes;
+  protected List<Showtime> showtimes = new ArrayList<Showtime>();
   protected int selectedShowtimeIdx = -1;
 
-  public ShowtimeHandler() {
-    this.showtimes = new ArrayList<Showtime>();
-  }
-
-  // +getSelectedShowtimeIdx():int
-  public int getSelectedShowtimeIdx() {
-    return selectedShowtimeIdx;
-  }
-
+  /**
+   * Set selected showtime idx
+   *
+   * @param showtimeIdx:int
+   */
   // + setSelectedShowtimeIdx(showtimeIdx:int) :void
   public void setSelectedShowtimeIdx(int showtimeIdx) {
     this.selectedShowtimeIdx = showtimeIdx;
   }
 
-  //  + getSelected Showtime() : Showtime
-  public Showtime getSelectedShowtime() {
-    return (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) ? null : this.showtimes.get(this.selectedShowtimeIdx);
-  }
-
+  /**
+   * Get idx of the specified showtime id
+   *
+   * @param showtimeId:String
+   * @return showtimeIdx:int
+   */
   //+ getShowtimeIdx (showtimeId:String) : int
   public int getShowtimeIdx(
       String showtimeId
@@ -50,12 +47,24 @@ public class ShowtimeHandler {
   }
 
 
+  /**
+   * Get showtime of specified idx
+   *
+   * @param showtimeIdx:int
+   * @return showtime:Showtime
+   */
   //+ getShowtime (showtimeldx : int) : Showtime
   public Showtime getShowtime(int showtimeIdx) {
     return (this.showtimes.size() < 1 || showtimeIdx < 0) ? null : this.showtimes.get(showtimeIdx);
   }
 
-  // + getShowtime (showtimeId: String) : Showtime
+  /**
+   * Get showtime of specified id
+   *
+   * @param showtimeId:String
+   * @return showtime:Showtime
+   */
+  //+ getShowtime (showtimeId: String) : Showtime
   public Showtime getShowtime(String showtimeId) {
     Showtime showtime = null;
     if (this.showtimes.size() < 1) return showtime;
@@ -69,7 +78,13 @@ public class ShowtimeHandler {
     return showtime;
   }
 
-  //  + getShowtimes(movield : int) : List <Showtime>
+  /**
+   * Get showtime list of specified movie
+   *
+   * @param movieId:int
+   * @return
+   */
+  //+ getShowtimes(movield : int) : List<Showtime>
   public List<Showtime> getShowtimes(int movieId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || movieId < 0) {
@@ -83,8 +98,13 @@ public class ShowtimeHandler {
     return showtimes;
   }
 
-
-  //+ getShowtimes(cinemaId : int) : List <Showtime>
+  /**
+   * Get showtime list of specified cinema
+   *
+   * @param cinemaId:int
+   * @return showtimes:List<Showtime>
+   */
+  //+ getCinemaShowtimes(cinemaId : int) : List <Showtime>
   public List<Showtime> getCinemaShowtimes(int cinemaId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || cinemaId < 0) {
@@ -98,17 +118,16 @@ public class ShowtimeHandler {
     return showtimes;
   }
 
-  //1+ updateShowtime(showtime Showtime) : boolean
-  public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
-    boolean status = false;
-    if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
-
-    Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
-    if (showtime == null) return status;
-
-    return this.updateShowtime(cineplexId, cinemaId, movieId, datetime, showtime.getSeats());
-  }
-
+  /**
+   * Updates showtime (by selectedShowtimeIdx)
+   *
+   * @param cineplexId
+   * @param cinemaId
+   * @param movieId
+   * @param datetime
+   * @param seats
+   * @return
+   */
   public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
     boolean status = false;
     if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
@@ -121,12 +140,8 @@ public class ShowtimeHandler {
     showtime.setMovieId(movieId);
     showtime.setDatetime(datetime);
     showtime.setSeats(seats);
-
     this.showtimes.set(this.selectedShowtimeIdx, showtime);
-//    printSeats(this.selectedShowtimeIdx);
-//    printShowtimeDetails(this.selectedShowtimeIdx);
     Helper.logger("ShowtimeHandler.updateShowtime", "AVAIL SEATS: " + getAvailableSeatCount(this.selectedShowtimeIdx));
-
 
     status = true;
 
@@ -136,42 +151,24 @@ public class ShowtimeHandler {
     return status;
   }
 
-  //+ removeShowtime(showtimeldx : String) : boolean
-  public boolean removeShowtime(int showtimeIdx) {
-    boolean status = false;
-    if (this.showtimes.size() < 1 || showtimeIdx < 0) return status;
-
-    this.showtimes.remove(showtimeIdx);
-    status = true;
-    return status;
-  }
-
+  /**
+   * Prints showtime details
+   *
+   * @param showtimeIdx:int
+   */
   //+printShowtimeDetails(showtimeIdx : int) : void
   public void printShowtimeDetails(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return;
     this.selectedShowtimeIdx = showtimeIdx;
-    System.out.println(showtime.toString());
+    System.out.println(showtime);
   }
 
-  //  +printShowtimeDetails(showtimeId : String) : void
-
-  //+ printShowtimes() : void
-  public void printShowtimes() {
-    if (this.showtimes.isEmpty()) {
-      System.out.println("No showtimes available");
-      return;
-    }
-
-    for (int i = 0; i < this.showtimes.size(); i++) {
-      Showtime showtime = this.showtimes.get(i);
-      System.out.println("> " + i + " " + showtime.getId());
-    }
-  }
-
-//+ printShowtimes(movield : String) : void
-
-
+  /**
+   * Prints showtime seats
+   *
+   * @param showtimeIdx:int
+   */
   // +printSeats(showtimeId:int):void
   public void printSeats(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
@@ -180,6 +177,11 @@ public class ShowtimeHandler {
     this.printSeats(seats);
   }
 
+  /**
+   * Print seats (independent of showtime)
+   *
+   * @param seats
+   */
   // +printSeats(seats:boolean[][]):void
   public void printSeats(boolean[][] seats) {
     System.out.println();
@@ -199,6 +201,14 @@ public class ShowtimeHandler {
     System.out.println();
   }
 
+  /**
+   * Assigns a list of seat codes to showtime
+   *
+   * @param showtimeIdx:int
+   * @param seatCodes:List<int[]>
+   * @param availabilityAssignment:boolean
+   * @return status:boolean
+   */
   //+bulkAssignSeat(showtimeIdx:int, seatCode:List<int[]>):boolean
   public boolean bulkAssignSeat(int showtimeIdx, List<int[]> seatCodes, boolean availabilityAssignment) {
     boolean status = false;
@@ -209,6 +219,14 @@ public class ShowtimeHandler {
     return status;
   }
 
+  /**
+   * Assign availability to showtime seats
+   *
+   * @param showtimeIdx:int
+   * @param seatCode:int[]
+   * @param availabilityAssignment:boolean
+   * @return status:boolean
+   */
   //+assignSeat (showtimeldx : int, seatCode : int[2]) : boolean
   public boolean assignSeat(int showtimeIdx, int[] seatCode, boolean availabilityAssignment) {
     boolean status = false;
@@ -223,7 +241,6 @@ public class ShowtimeHandler {
     this.selectedShowtimeIdx = showtimeIdx;
 
     this.updateShowtime(showtime.getCineplexId(), showtime.getCinemaId(), showtime.getMovieId(), showtime.getDatetime(), seats);
-//    this.showtimes.set(showtimeIdx, showtime);
 
     Helper.logger("ShowtimeHandler.assignSeat", "Showtime-SEATS: " + this.getAvailableSeatCount(showtimeIdx));
     Helper.logger("ShowtimeHandler.assignSeat", "SEATS: " + this.getAvailableSeatCount(showtimeIdx));
@@ -231,31 +248,88 @@ public class ShowtimeHandler {
     return status;
   }
 
+  /**
+   * Assign availability to seats (independent of showtime)
+   *
+   * @param seats
+   * @param seatCode
+   * @param availabilityAssignment
+   * @return seats:boolean[][]
+   */
   public boolean[][] assignSeat(boolean[][] seats, int[] seatCode, boolean availabilityAssignment) {
     seats[seatCode[0]][seatCode[1]] = !availabilityAssignment;
     return seats;
   }
 
+  /**
+   * Get number of available showtime seats
+   *
+   * @param showtimeIdx:int
+   * @return seatCount:int
+   */
   //  +getAvailableSeatCount(showtimeIdx:int) : int
   public int getAvailableSeatCount(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return -1;
 
-    int seatCount = 0;
-    boolean[][] seats = showtime.getSeats();
-    for (int row = 0; row < seats.length; row++) {
-      for(int col = 0; col < seats[row].length; col++){
-        if(seats[row][col]) seatCount++;
-      }
-    }
-
-    return seatCount;
+    return showtime.getSeatCount(true);
   }
 
-  public boolean saveShowtimes() {
+  /**
+   * Serialize showtime data to CSV
+   */
+  //# saveShowtimes():boolean
+  protected boolean saveShowtimes() {
     return Datasource.serializeData(this.showtimes, "showtimes.csv");
   }
 
-//+ assignSeat (showtimeld : String, seatCode : int[2]) boolean
-//+ unassignSeat(showtimeld String, seatCode : int[2]) boolean
+//    // +getSelectedShowtimeIdx():int
+//  public int getSelectedShowtimeIdx() {
+//    return selectedShowtimeIdx;
+//  }
+
+
+//  //  + getSelected Showtime() : Showtime
+//  public Showtime getSelectedShowtime() {
+//    return (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) ? null : this.showtimes.get(this.selectedShowtimeIdx);
+//  }
+
+//  //1+ updateShowtime(showtime Showtime) : boolean
+//  public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
+//    boolean status = false;
+//    if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
+//
+//    Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
+//    if (showtime == null) return status;
+//
+//    return this.updateShowtime(cineplexId, cinemaId, movieId, datetime, showtime.getSeats());
+//  }
+
+//  //+ removeShowtime(showtimeldx : String) : boolean
+//  public boolean removeShowtime(int showtimeIdx) {
+//    boolean status = false;
+//    if (this.showtimes.size() < 1 || showtimeIdx < 0) return status;
+//
+//    this.showtimes.remove(showtimeIdx);
+//    status = true;
+//    return status;
+//  }
+
+//  //  +printShowtimeDetails(showtimeId : String) : void
+
+//  //+ printShowtimes() : void
+//  public void printShowtimes() {
+//    if (this.showtimes.isEmpty()) {
+//      System.out.println("No showtimes available");
+//      return;
+//    }
+//
+//    for (int i = 0; i < this.showtimes.size(); i++) {
+//      Showtime showtime = this.showtimes.get(i);
+//      System.out.println("> " + i + " " + showtime.getId());
+//    }
+//  }
+
+//+ printShowtimes(movield : String) : void
+
 }

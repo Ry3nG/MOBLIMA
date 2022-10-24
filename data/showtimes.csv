@@ -23,7 +23,7 @@ datetime,cinemaId,cineplexId,movieId,id,seats
 2022-10-25T17:10:32.689224,0,XYZ,1023086,145f3c91-b9bc-4cec-9f6f-d8944a90317f,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
 2022-10-27T19:10:32.703102,0,XYZ,1023086,db5b0998-e124-4b7e-893a-c5cbd981dd77,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
 2022-10-26T18:10:32.749181,0,XYZ,999205,6edb604d-40c4-4bf1-bb85-51c1b6d58b4a,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
-2022-10-25T17:10:32.397131,2,XYZ,436270,370c1f66-819d-484a-b6ac-804238ccc752,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
+2022-10-25T17:10:32.397131,2,XYZ,436270,370c1f66-819d-484a-b6ac-804238ccc752,"[[false,false,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
 2022-10-27T19:10:32.401897,2,XYZ,436270,9e63b92f-7d87-4681-b927-df6a79a6b840,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
 2022-10-24T16:10:32.40428,2,XYZ,616820,3e4f34b0-ff91-45fd-9090-44b24a8ce8d9,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"
 2022-10-25T17:10:32.4063,2,XYZ,616820,25bbb00c-58a0-4305-b064-d46583b1c3cb,"[[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true]]"

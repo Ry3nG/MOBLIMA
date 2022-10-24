@@ -23,25 +23,35 @@ public class CinemaHandler extends ShowtimeHandler {
   protected List<Cinema> cinemas;
   protected int selectedCinemaIdx = -1;
 
-
   public CinemaHandler() {
+    super();
     cinemas = this.getCinemas();
     showtimes = this.getShowtimes();
   }
 
-  //+ getCinema(cinemeaId | cinemaId : int) : Cinema
+  /**
+   * Retrieves cinema by specified id
+   * @param cinemaId
+   * @return cinema:Cinema | null
+   */
+  //+ getCinema(cinemaId : int) : Cinema
   public Cinema getCinema(int cinemaId) {
     return (this.cinemas.size() < 1 || cinemaId < 0) ? null : this.cinemas.get(cinemaId);
   }
 
-  //+ generateCinemas() : List<Cinema>
-  public List<Cinema> generateCinemas() {
+  /**
+   * Generate cinema list
+   * @param min:int
+   * @return cinemas:List<Cinema>
+   */
+  //+ generateCinemas(min:int) : List<Cinema>
+  public List<Cinema> generateCinemas(int min) {
     List<Cinema> cinemas = new ArrayList<Cinema>();
-    // Generate at least 3 cinemas
-    int MIN_CINEMAS = 3;
+    if(min < 1) return cinemas;
+
     SecureRandom random = new SecureRandom();
-    if (cinemas.size() < MIN_CINEMAS) {
-      for (int c = 0; c <= MIN_CINEMAS; c++) {
+    if (cinemas.size() < min) {
+      for (int c = 0; c <= min; c++) {
         ClassType classType = ClassType.values()[random.nextInt(ClassType.values().length)];
         List<Showtime> showtimes = new ArrayList<Showtime>();
 
@@ -53,17 +63,20 @@ public class CinemaHandler extends ShowtimeHandler {
     return cinemas;
   }
 
-  //+ generateShowtimes() : List<Showtime>
-  public List<Showtime> generateShowtimes() {
+  /**
+   * Generate showtime list
+   * @param min:int
+   * @return showtimes:List<Showtime>
+   */
+  //+ generateShowtimes(min:int) : List<Showtime>
+  public List<Showtime> generateShowtimes(int min) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
-    if(this.cinemas.size() < 1) return showtimes;
+    if(this.cinemas.size() < 1 || min < 1) return showtimes;
 
     SecureRandom random = new SecureRandom();
     List<Movie> movies = (MovieMenu.getHandler()).getMovies();
     for (int i = 0; i < movies.size(); i++) {
-      // Generate at least 4 showtimes
-      int MIN_SHOWTIMES = this.cinemas.size();
-      for (int s = 0; s < MIN_SHOWTIMES; s++) {
+      for (int s = 0; s < min; s++) {
         String cineplexId = "XYZ";
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movies.get(i).getId();
@@ -74,11 +87,15 @@ public class CinemaHandler extends ShowtimeHandler {
     return this.showtimes;
   }
 
-  //+getCinemas() : List <Cinema>
+  /**
+   * Deserializes and returns cinema list
+   * @return cinemas:List<Cinema>
+   */
+  //+getCinemas() : List<Cinema>
   public List<Cinema> getCinemas() {
     List<Cinema> cinemas = new ArrayList<Cinema>();
 
-    //TODO: Source from serialized datasource
+    //Source from serialized datasource
     String fileName = "cinemas.csv";
     if (fileName == null || fileName.isEmpty()) {
       Helper.logger("CinemaHandler.getCinemas", "Null and void filename provided, no data retrieved.");
@@ -88,7 +105,7 @@ public class CinemaHandler extends ShowtimeHandler {
     JsonArray cinemaList = Datasource.readArrayFromCsv(fileName);
     if (cinemaList == null) {
       Helper.logger("CinemaHandler.getCinemas", "No serialized data available, generating data instead");
-      this.generateCinemas();
+      this.generateCinemas(3);
       return this.cinemas;
     }
 
@@ -101,7 +118,7 @@ public class CinemaHandler extends ShowtimeHandler {
       String classTypeStr = c.get("classType").getAsString();
       ClassType classType = Datasource.getGson().fromJson(classTypeStr, ClassType.class);
 
-      /// Showtimes
+      /// Showtimes (empty by default)
       List<Showtime> showtimes = new ArrayList<Showtime>();
 
       cinemas.add(new Cinema(
@@ -116,7 +133,13 @@ public class CinemaHandler extends ShowtimeHandler {
   }
 
 
-  //  +addCinema(showtimes : List<Showtime>) : int
+  /**
+   * Append new cinema to cinema list
+   * @param classType:ClassType
+   * @param showtimes:List<Showtime>
+   * @return showtimeIdx:int
+   */
+  //  +addCinema(classType:ClassType, showtimes : List<Showtime>) : int
   public int addCinema(ClassType classType, List<Showtime> showtimes) {
     List<Cinema> cinemas = new ArrayList<Cinema>();
     if(this.cinemas != null) cinemas = this.cinemas;
@@ -132,34 +155,32 @@ public class CinemaHandler extends ShowtimeHandler {
     return this.cinemas.size() - 1;
   }
 
-  //+updateCinema(id : int, showtimes : List<Showtime>) : boolean
-  public boolean updateCinema(ClassType classType, List<Showtime> showtimes) {
-    boolean status = false;
-    if (this.cinemas.size() < 1 || this.selectedCinemaIdx < 0) return status;
-
-    Cinema cinema = this.cinemas.get(this.selectedCinemaIdx);
-
-    this.cinemas.set(this.selectedCinemaIdx, new Cinema(
-        selectedCinemaIdx,
-        classType,
-        showtimes
-    ));
-    status = true;
-
-    return status;
-  }
-
-  //+removeCinema(id : int) : boolean
+  /**
+   * Delete specified cinema from cinema list by specified id/idx
+   * @param cinemaIdx
+   * @return
+   */
+  //+removeCinema(cinemaIdx : int) : boolean
   public boolean removeCinema(int cinemaIdx) {
     boolean status = false;
     if (this.cinemas.size() < 1 || cinemaIdx < 0) return status;
 
+    // Early return if cinema does not exist
+    if(this.getCinema(cinemaIdx) == null) return status;
+
+    // Remove cinema
     this.cinemas.remove(cinemaIdx);
     status = true;
     return status;
   }
 
-  //+addShowtimes(showtimes : List<Showtime>) : boolean
+  /**
+   * Replace showtime list of specified cinema id
+   * @param cinemaId:int
+   * @param showtimes:List<Showtime>
+   * @return status:boolean
+   */
+  //+addShowtimes(cinemaId:int, showtimes : List<Showtime>) : boolean
   public boolean addShowtimes(int cinemaId, List<Showtime> showtimes) {
     boolean status = false;
 
@@ -181,6 +202,10 @@ public class CinemaHandler extends ShowtimeHandler {
     return status;
   }
 
+  /**
+   * Deserializes and returns showtime list
+   * @return showtimes:List<Showtime>
+   */
   //+ getShowtimes() : List<Showtime>
   public List<Showtime> getShowtimes() {
     List<Showtime> showtimes = new ArrayList<Showtime>();
@@ -190,7 +215,7 @@ public class CinemaHandler extends ShowtimeHandler {
       return showtimes;
     }
 
-    //TODO: Source from serialized datasource
+    //Source from serialized datasource
     String fileName = "showtimes.csv";
     if (fileName == null || fileName.isEmpty()) {
       Helper.logger("CinemaHandler.getShowtimes", "Null and void filename provided, no data retrieved.");
@@ -200,7 +225,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
     if (showtimeList == null) {
       Helper.logger("CinemaHandler.getShowtimes", "No serialized data available, generating data instead");
-      this.generateShowtimes();
+      this.generateShowtimes(this.cinemas.size());
       return this.showtimes;
     }
 
@@ -243,7 +268,15 @@ public class CinemaHandler extends ShowtimeHandler {
     return showtimes;
   }
 
-  //+addShowtime(showtime Showtime) : int showtimeIdx
+  /**
+   * Append new showtime to cinema list
+   * @param cineplexId:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param datetime:LocalDateTime
+   * @return showtimeIdx:int
+   */
+  //+addShowtime(cineplexId:String, cinemaId:int, movieId:int, datetime:LocalDateTime) : int
   public int addShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
     List<Showtime> showtimes = this.getCinemaShowtimes(cinemaId);
     if (showtimes.size() < 0) {
@@ -251,6 +284,7 @@ public class CinemaHandler extends ShowtimeHandler {
       return -1;
     }
 
+    // Initializes new showtime
     Showtime showtime = new Showtime(
         UUID.randomUUID().toString(),
         cineplexId,
@@ -270,10 +304,29 @@ public class CinemaHandler extends ShowtimeHandler {
     return this.showtimes.size() - 1;
   }
 
-  public boolean saveCinemas() {
+  /**
+   * Serialize cinema data to CSV
+   */
+  //# saveCinemas():boolean
+  protected boolean saveCinemas() {
     return Datasource.serializeData(this.cinemas, "cinemas.csv");
   }
 
 
-//+ unassignSeat(showtimeldx : int, seatCode int[2]):boolean
+//  //+updateCinema(id : int, showtimes : List<Showtime>) : boolean
+//  public boolean updateCinema(ClassType classType, List<Showtime> showtimes) {
+//    boolean status = false;
+//    if (this.cinemas.size() < 1 || this.selectedCinemaIdx < 0) return status;
+//
+//    Cinema cinema = this.cinemas.get(this.selectedCinemaIdx);
+//
+//    this.cinemas.set(this.selectedCinemaIdx, new Cinema(
+//        selectedCinemaIdx,
+//        classType,
+//        showtimes
+//    ));
+//    status = true;
+//
+//    return status;
+//  }
 }

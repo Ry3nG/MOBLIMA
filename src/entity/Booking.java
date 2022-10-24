@@ -106,7 +106,6 @@ public class Booking {
 
   @Override
   public String toString() {
-
     // Parse seatCodes
     List<String> seatCodes = this.seats.stream()
         .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1)))

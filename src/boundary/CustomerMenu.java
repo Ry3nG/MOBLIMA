@@ -1,8 +1,6 @@
 package boundary;
 
-import control.BookingHandler;
 import control.CustomerHandler;
-import control.MovieHandler;
 import entity.Booking;
 import entity.Customer;
 import entity.Menu;
@@ -17,9 +15,6 @@ import java.util.Scanner;
 
 public class CustomerMenu extends Menu {
   private CustomerHandler handler;
-  private MovieHandler movieHandler;
-  private BookingHandler bookingHandler;
-
   private MovieMenu movieMenu;
   private BookingMenu bookingMenu;
 
@@ -31,12 +26,10 @@ public class CustomerMenu extends Menu {
     this.bookingMenu = BookingMenu.getInstance();
 
     this.handler = new CustomerHandler();
-    this.movieHandler = MovieMenu.getHandler();
-    this.bookingHandler = BookingMenu.getHandler();
 
     this.menuMap = new LinkedHashMap<String, Runnable>() {
       {
-        put("Search/List Movies", movieHandler::printMovies);
+        put("Search/List Movies", movieMenu.getHandler()::printMovies);
         put("View movie details – including reviews and ratings", movieMenu::showMenu);
         // put("Check seat availability and selection of seat/s.", () -> {
         //
@@ -55,6 +48,7 @@ public class CustomerMenu extends Menu {
           System.out.println("\t>>> Quitting application...");
           System.out.println("---------------------------------------------------------------------------");
           System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
+          scanner.close();
           System.exit(0);
         });
       }
@@ -67,15 +61,25 @@ public class CustomerMenu extends Menu {
     return instance;
   }
 
-  public CustomerHandler getHandler() {
-    return this.handler;
-  }
-
   @Override
   public void showMenu() {
     this.displayMenu();
   }
 
+  /**
+   * Get customer handler
+   * @return customerHandler:CustomerHandler
+   */
+  //+ getHandler():CustomerHandler
+  public CustomerHandler getHandler() {
+    return this.handler;
+  }
+
+  /**
+   * Retrieve currently selected / active customer via login/registration
+   * @return customerIdx:int
+   */
+  //+ getCurrentCustomer():int
   public int getCurrentCustomer() {
     int customerIdx = -1;
 
@@ -115,6 +119,11 @@ public class CustomerMenu extends Menu {
     return customerIdx;
   }
 
+  /**
+   * Facilitates customer account registration
+   * @return customerIdx:int
+   */
+  //+ register():int
   public int register() {
     int customerIdx = -1;
 
@@ -179,6 +188,11 @@ public class CustomerMenu extends Menu {
     return customerIdx;
   }
 
+  /**
+   * Facilitates customer account login
+   * @return customerIdx:int
+   */
+  //+ login():int
   public int login() {
     int customerIdx = -1;
 
@@ -234,6 +248,11 @@ public class CustomerMenu extends Menu {
     return customerIdx;
   }
 
+  /**
+   * Facilitates customer booking
+   * @return bookingIdx:int
+   */
+  //+ makeBooking():int
   public int makeBooking() {
     int bookingIdx = -1;
 
@@ -242,17 +261,17 @@ public class CustomerMenu extends Menu {
     int movieIdx = this.movieMenu.selectMovieIdx();
     if (movieIdx < 0)
       return bookingIdx;
-    Movie selectedMovie = this.movieHandler.getMovie(movieIdx);
+    Movie selectedMovie = this.movieMenu.getHandler().getMovie(movieIdx);
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
     int showtimeIdx = this.bookingMenu.selectShowtimeIdx(selectedMovie.getId());
     if (showtimeIdx < 0)
       return bookingIdx;
-    Showtime showtime = this.bookingHandler.getShowtime(showtimeIdx);
+    Showtime showtime = this.bookingMenu.getHandler().getShowtime(showtimeIdx);
 
     // Print showtime details
-    bookingHandler.printShowtimeDetails(showtimeIdx);
+    this.bookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
 
     // Select seats
     List<int[]> seats = this.bookingMenu.selectSeat(showtimeIdx);
@@ -270,11 +289,11 @@ public class CustomerMenu extends Menu {
     if (customer == null)
       return bookingIdx;
 
-    bookingIdx = this.bookingHandler.addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
+    bookingIdx = this.bookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
         showtime.getId(), seats, 10.0, Booking.TicketType.PEAK);
 
     // Print out tx id
-    Booking booking = bookingHandler.getBooking(bookingIdx);
+    Booking booking = this.bookingMenu.getHandler().getBooking(bookingIdx);
     if (booking == null) return bookingIdx;
     System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
 

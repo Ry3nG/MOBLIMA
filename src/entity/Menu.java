@@ -8,16 +8,7 @@ import static java.lang.System.exit;
 
 public abstract class Menu {
   protected static Scanner scanner = new Scanner(System.in);
-  protected LinkedHashMap<String, Runnable> menuMap;
-  protected static final char QUIT_CODE = 'q';
-
-  /**
-   * Initializes the Menu object
-   * - menuMap: contains the menu label and actions
-   */
-  public Menu() {
-    this.menuMap = new LinkedHashMap<String, Runnable>();
-  }
+  protected LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
 
   /**
    * Pretty-printer for menu list
@@ -26,6 +17,11 @@ public abstract class Menu {
     this.displayMenuList(this.menuMap.keySet().stream().toList());
   }
 
+  /**
+   * Display menu list options
+   * @param menuList:List<String>
+   */
+  //# displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1) exit(0);
 
@@ -41,6 +37,7 @@ public abstract class Menu {
   /**
    * Display menu and executes the mapped action
    */
+  //# displayMenu(): void
   protected void displayMenu() {
     int menuChoice = 0;
     scanner = new Scanner(System.in);
@@ -68,23 +65,30 @@ public abstract class Menu {
           System.in.read();
         }
       }
-//      catch (NoSuchElementException e) {
-//        System.out.println("[NIL]\nApplication is terminated via CTRL + C");
-//        System.exit(1);
-//      }
       catch (Exception e) {
-//        System.out.println("[ERROR] Invalid menu input - input must be of " + Arrays.toString(menuMap.keySet().toArray()));
-        scanner.nextLine();
+        // Flush excess scanner buffer
         scanner = new Scanner(System.in);
-//        scanner.nextLine();
       }
     }
   }
 
+  /**
+   * Obtain user selection input of list option and display menu list
+   * @param list:List
+   * @return menuChoice:int
+   */
+  //# getListSelectionIdx(list:List) : int
   protected int getListSelectionIdx(List list) {
     return getListSelectionIdx(list, true);
   }
 
+  /**
+   * Obtain user selection input of list options
+   * @param list:List
+   * @param showMenuList:boolean
+   * @return menuChoice:int
+   */
+  //# getListSelectionIdx(list:List, showMenuList:boolean) : int
   protected int getListSelectionIdx(List list, boolean showMenuList) {
     int menuChoice = 0;
     scanner = new Scanner(System.in);
@@ -126,6 +130,7 @@ public abstract class Menu {
    * Remap menu to new map
    * @param menuMap:LinkedHashMap<String, Runnable>
    */
+  //+ refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
   public void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
     Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;

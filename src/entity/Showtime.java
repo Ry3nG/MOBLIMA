@@ -78,9 +78,43 @@ public class Showtime {
     this.seats = seats;
   }
 
+  /**
+   * Get available seat count of showtime
+   *
+   * @param isAvailable:boolean
+   * @return
+   */
+  public int getSeatCount(boolean isAvailable) {
+    int availableSeatCount = 0;
+    if (this.seats.length < 1) return availableSeatCount;
+
+    for (int row = 0; row < this.seats.length; row++) {
+      for (int col = 0; col < this.seats[row].length; col++) {
+        if (seats[row][col] == isAvailable) availableSeatCount++;
+      }
+    }
+
+    return availableSeatCount;
+  }
+
+  /**
+   * Get total seat count of showtime
+   *
+   * @return seatCount:int
+   */
+  public int getSeatCount() {
+    int seatCount = 0;
+    if (this.seats.length < 1) return seatCount;
+
+    for (int row = 0; row < this.seats.length; row++)
+      for (int col = 0; col < this.seats[row].length; col++) seatCount++;
+
+    return seatCount;
+  }
+
   @Override
   public String toString() {
-    DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME.ofPattern("dd-MM-yyyy 'at' hh:mma");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
     DayOfWeek day = datetime.getDayOfWeek();
 
     String printed = "Datetime: " + day + ", " + this.datetime.format(formatter) + "\n";
