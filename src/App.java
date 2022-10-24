@@ -16,7 +16,7 @@ public class App {
   }
 
   public static void main(String[] args) {
-    App app = App.getInstance();
+    instance = App.getInstance();
 
 //    Constants.setDebugMode(true);
 //    if (args.length == 0) instance.currentMenu = CustomerMenu.getInstance();
