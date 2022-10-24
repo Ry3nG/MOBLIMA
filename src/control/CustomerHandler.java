@@ -19,20 +19,30 @@ public class CustomerHandler {
     customers = this.getCustomers();
   }
 
-  //+ setCurrentCustomer(customerIdx:int) : void
+  // + validatePhoneNumber(String phoneNumber) : boolean
+  public boolean validatePhoneNumber(String phoneNumber) {
+    boolean status = false;
+
+    // VALIDATION: SG Phone Numbers requires exactly 8 digits
+    if (phoneNumber.matches("^[0-9]{8}$")) status = true;
+
+    return status;
+  }
+
+  // + setCurrentCustomer(customerIdx:int) : void
   public void setCurrentCustomer(int customerIdx) {
     this.currentCustomer = this.getCustomer(customerIdx);
   }
 
-  //+ getCurrentCustomer() : Customer
-  public Customer getCurrentCustomer(){
+  // + getCurrentCustomer() : Customer
+  public Customer getCurrentCustomer() {
     return this.currentCustomer;
   }
 
-  //+ getCustomers() : List<Customer>
+  // + getCustomers() : List<Customer>
   public List<Customer> getCustomers() {
     List<Customer> customers = new ArrayList<Customer>();
-    //TODO: Source from serialized datasource
+    // TODO: Source from serialized datasource
     String fileName = "customers.csv";
     if (fileName == null || fileName.isEmpty()) {
       Helper.logger("CustomerHandler.getCustomers", "Null and void filename provided, no data retrieved.");
@@ -53,26 +63,26 @@ public class CustomerHandler {
     return customers;
   }
 
-  //+ getCustomer(customerIdx:int) : Customer
+  // + getCustomer(customerIdx:int) : Customer
   public Customer getCustomer(
-      int customerIdx
-  ){
+      int customerIdx) {
     Customer customer = null;
-    if(customerIdx < 0 || this.customers.size() < 1) return customer;
+    if (customerIdx < 0 || this.customers.size() < 1)
+      return customer;
 
     customer = this.customers.get(customerIdx);
     return customer;
   }
 
-  //+ getCustomer(customerId: String) : Customer
+  // + getCustomer(customerId: String) : Customer
   public Customer getCustomer(
-      String customerId
-  ){
+      String customerId) {
     Customer customer = null;
-    if(this.customers.size() < 1) return customer;
+    if (this.customers.size() < 1)
+      return customer;
 
-    for(Customer c:this.customers){
-      if(c.getId().equals(customerId)){
+    for (Customer c : this.customers) {
+      if (c.getId().equals(customerId)) {
         customer = c;
         break;
       }
@@ -80,14 +90,15 @@ public class CustomerHandler {
     return customer;
   }
 
-  //+ getCustomerIdx(customerId: String) : int
-  public int getCustomerIdx(String customerId){
+  // + getCustomerIdx(customerId: String) : int
+  public int getCustomerIdx(String customerId) {
     int customerIdx = -1;
-    if(customerId.isEmpty() || this.customers.size() < 1) return customerIdx;
+    if (customerId.isEmpty() || this.customers.size() < 1)
+      return customerIdx;
 
-    for(int i = 0; i < this.customers.size(); i++){
+    for (int i = 0; i < this.customers.size(); i++) {
       Customer customer = this.customers.get(i);
-      if(customer.getId().equals(customerId)){
+      if (customer.getId().equals(customerId)) {
         customerIdx = i;
         break;
       }
@@ -95,15 +106,16 @@ public class CustomerHandler {
     return customerIdx;
   }
 
-  //+addCustomer(customer : Customer) : int
+  // +addCustomer(customer : Customer) : int
   public int addCustomer(String name, String contactNumber) {
-    if(checkIfAccountExists(contactNumber) != -1) return -1;
+    if (checkIfAccountExists(contactNumber) != -1)
+      return -1;
 
     Customer customer = new Customer(
         UUID.randomUUID().toString(),
         name,
         contactNumber
-//        email
+    // email
     );
 
     this.customers.add(customer);
@@ -115,11 +127,11 @@ public class CustomerHandler {
     return this.customers.size() - 1;
   }
 
-//+ updateCustomer(customer Customer) : boolean
+  // + updateCustomer(customer Customer) : boolean
 
-//+deleteCustomer(customer : Customer) : boolean
+  // +deleteCustomer(customer : Customer) : boolean
 
-  //+ listCustomers() : void
+  // + listCustomers() : void
   public void listCustomers() {
     if (this.customers.isEmpty()) {
       System.out.println("No customers registered");
@@ -132,16 +144,16 @@ public class CustomerHandler {
     }
   }
 
-  //+ checkIfAccountExists(phoneNumber:String) : int
+  // + checkIfAccountExists(phoneNumber:String) : int
   public int checkIfAccountExists(
-      String contactNumber
-  ){
+      String contactNumber) {
     int customerIdx = -1;
-    if(this.customers.size() < 1) return customerIdx;
+    if (this.customers.size() < 1)
+      return customerIdx;
 
-    for(int i = 0; i < this.customers.size(); i++){
+    for (int i = 0; i < this.customers.size(); i++) {
       Customer customer = this.customers.get(i);
-      if(customer.getContactNumber().equals(contactNumber)){
+      if (customer.getContactNumber().equals(contactNumber)) {
         customerIdx = i;
         break;
       }
