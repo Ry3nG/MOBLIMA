@@ -168,9 +168,10 @@ public class CustomerMenu extends Menu {
         // Return to previous menu
         if (proceedSelection == proceedOptions.size() - 1)
           return -1;
-        else if (proceedSelection == 1)
+        else if (proceedSelection == 1) {
           this.login();
-        else
+          return this.getCurrentCustomer();
+        } else
           continue;
       }
     }
@@ -220,8 +221,10 @@ public class CustomerMenu extends Menu {
         // Return to previous menu
         if (proceedSelection == proceedOptions.size() - 1)
           return -1;
-        else if (proceedSelection == 1)
+        else if (proceedSelection == 1){
           this.register();
+          return this.getCurrentCustomer();
+        }
         else
           continue;
 

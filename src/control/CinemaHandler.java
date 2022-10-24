@@ -186,7 +186,7 @@ public class CinemaHandler extends ShowtimeHandler {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     List<Cinema> cinemas = this.getCinemas();
     if (cinemas == null || cinemas.size() < 0) {
-      System.out.println("No cinemas available to host showtimes");
+//      System.out.println("No cinemas available to host showtimes");
       return showtimes;
     }
 

@@ -88,7 +88,7 @@ public class ShowtimeHandler {
   public List<Showtime> getCinemaShowtimes(int cinemaId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || cinemaId < 0) {
-      System.out.println("No cinemas available to host showtimes");
+//      System.out.println("No cinemas available to host showtimes");
       return showtimes;
     }
 
