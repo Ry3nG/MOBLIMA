@@ -173,7 +173,7 @@ public class ShowtimeHandler {
   public void printSeats(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtimeIdx < 0 || showtime == null) return;
-    boolean seats[][] = showtime.getSeats();
+    boolean[][] seats = showtime.getSeats();
     this.printSeats(seats);
   }
 
@@ -233,7 +233,7 @@ public class ShowtimeHandler {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtimeIdx < 0 || showtime == null || seatCode.length != 2) return status;
 
-    boolean seats[][] = showtime.getSeats();
+    boolean[][] seats = showtime.getSeats();
     seats = assignSeat(seats, seatCode, availabilityAssignment);
 
     status = true;

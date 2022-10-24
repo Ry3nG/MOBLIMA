@@ -14,22 +14,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerMenu extends Menu {
-  private CustomerHandler handler;
-  private MovieMenu movieMenu;
-  private BookingMenu bookingMenu;
-
+  private static CustomerHandler handler;
   private static CustomerMenu instance;
+  private final MovieMenu movieMenu;
+  private final BookingMenu bookingMenu;
 
   private CustomerMenu() {
     super();
     this.movieMenu = MovieMenu.getInstance();
     this.bookingMenu = BookingMenu.getInstance();
 
-    this.handler = new CustomerHandler();
+    handler = new CustomerHandler();
 
     this.menuMap = new LinkedHashMap<String, Runnable>() {
       {
-        put("Search/List Movies", movieMenu.getHandler()::printMovies);
+        put("Search/List Movies", MovieMenu.getHandler()::printMovies);
         put("View movie details – including reviews and ratings", movieMenu::showMenu);
         // put("Check seat availability and selection of seat/s.", () -> {
         //
@@ -68,26 +67,27 @@ public class CustomerMenu extends Menu {
 
   /**
    * Get customer handler
+   *
    * @return customerHandler:CustomerHandler
    */
   //+ getHandler():CustomerHandler
   public CustomerHandler getHandler() {
-    return this.handler;
+    return handler;
   }
 
   /**
    * Retrieve currently selected / active customer via login/registration
+   *
    * @return customerIdx:int
    */
   //+ getCurrentCustomer():int
   public int getCurrentCustomer() {
     int customerIdx = -1;
 
-    Customer customer = this.handler.getCurrentCustomer();
+    Customer customer = handler.getCurrentCustomer();
     if (customer != null) {
-      customerIdx = this.handler.getCustomerIdx(customer.getId());
-      this.handler.setCurrentCustomer(customerIdx);
-
+      customerIdx = handler.getCustomerIdx(customer.getId());
+      handler.setCurrentCustomer(customerIdx);
       return customerIdx;
     }
 
@@ -95,7 +95,6 @@ public class CustomerMenu extends Menu {
       {
         add("Already have an account? Login");
         add("Create account");
-        // add("Discard selection");
       }
     };
 
@@ -115,12 +114,13 @@ public class CustomerMenu extends Menu {
       }
     }
 
-    this.handler.setCurrentCustomer(customerIdx);
+    handler.setCurrentCustomer(customerIdx);
     return customerIdx;
   }
 
   /**
    * Facilitates customer account registration
+   *
    * @return customerIdx:int
    */
   //+ register():int
@@ -141,8 +141,9 @@ public class CustomerMenu extends Menu {
         if (contactNumber == null) {
           System.out.print("Contact No.: ");
           contactNumber = scanner.next().trim();
+
           // VALIDATION: SG Phone Numbers requires exactly 8 digits
-          if (!this.handler.validatePhoneNumber(contactNumber)) {
+          if (!handler.validatePhoneNumber(contactNumber)) {
             System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
             contactNumber = null;
             continue;
@@ -190,6 +191,7 @@ public class CustomerMenu extends Menu {
 
   /**
    * Facilitates customer account login
+   *
    * @return customerIdx:int
    */
   //+ login():int
@@ -204,12 +206,12 @@ public class CustomerMenu extends Menu {
         System.out.print("Account Contact No.: ");
         String contactNumber = scanner.next().trim();
         // VALIDATION: SG Phone Numbers requires exactly 8 digits
-        if (!this.handler.validatePhoneNumber(contactNumber)) {
+        if (!handler.validatePhoneNumber(contactNumber)) {
           System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
           continue;
         }
 
-        customerIdx = this.handler.checkIfAccountExists(contactNumber);
+        customerIdx = handler.checkIfAccountExists(contactNumber);
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
@@ -235,13 +237,10 @@ public class CustomerMenu extends Menu {
         // Return to previous menu
         if (proceedSelection == proceedOptions.size() - 1)
           return -1;
-        else if (proceedSelection == 1){
+        else if (proceedSelection == 1) {
           this.register();
           return this.getCurrentCustomer();
-        }
-        else
-          continue;
-
+        } else continue;
       }
     }
 
@@ -250,6 +249,7 @@ public class CustomerMenu extends Menu {
 
   /**
    * Facilitates customer booking
+   *
    * @return bookingIdx:int
    */
   //+ makeBooking():int
@@ -261,17 +261,17 @@ public class CustomerMenu extends Menu {
     int movieIdx = this.movieMenu.selectMovieIdx();
     if (movieIdx < 0)
       return bookingIdx;
-    Movie selectedMovie = this.movieMenu.getHandler().getMovie(movieIdx);
+    Movie selectedMovie = MovieMenu.getHandler().getMovie(movieIdx);
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
     int showtimeIdx = this.bookingMenu.selectShowtimeIdx(selectedMovie.getId());
     if (showtimeIdx < 0)
       return bookingIdx;
-    Showtime showtime = this.bookingMenu.getHandler().getShowtime(showtimeIdx);
+    Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
 
     // Print showtime details
-    this.bookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
+    BookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
 
     // Select seats
     List<int[]> seats = this.bookingMenu.selectSeat(showtimeIdx);
@@ -285,15 +285,15 @@ public class CustomerMenu extends Menu {
     if (customerIdx < 0)
       return bookingIdx;
 
-    Customer customer = this.handler.getCustomer(customerIdx);
+    Customer customer = handler.getCustomer(customerIdx);
     if (customer == null)
       return bookingIdx;
 
-    bookingIdx = this.bookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
+    bookingIdx = BookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
         showtime.getId(), seats, 10.0, Booking.TicketType.PEAK);
 
     // Print out tx id
-    Booking booking = this.bookingMenu.getHandler().getBooking(bookingIdx);
+    Booking booking = BookingMenu.getHandler().getBooking(bookingIdx);
     if (booking == null) return bookingIdx;
     System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
 
@@ -307,7 +307,7 @@ public class CustomerMenu extends Menu {
     if (customerIdx < 0)
       return;
 
-    Customer customer = this.handler.getCustomer(customerIdx);
+    Customer customer = handler.getCustomer(customerIdx);
     if (customer == null)
       return;
     Helper.logger("CustomerMenu.viewBookings", "Customer ID: " + customer.getId());

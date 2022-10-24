@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingHandler extends CinemaHandler {
+  private static final MovieHandler movieHandler = MovieMenu.getHandler();
   protected List<Booking> bookings;
   protected int selectedBookingIdx = -1;
-  private static final MovieHandler movieHandler = MovieMenu.getHandler();
 
   public BookingHandler() {
     super();
@@ -30,15 +30,17 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Set selected booking idx
+   *
    * @param selectedBookingIdx:int
    */
   //+ setSelectedBookingIdx(selectedBookingIdx:int) : void
-  public void setSelectedBookingIdx(int selectedBookingIdx){
+  public void setSelectedBookingIdx(int selectedBookingIdx) {
     this.selectedBookingIdx = selectedBookingIdx;
   }
 
   /**
    * Get booking of specified booking idx
+   *
    * @param bookingIdx:int
    * @return booking:Booking
    */
@@ -50,6 +52,7 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Get booking of specified transaction id
+   *
    * @param transactionId:String
    * @return booking:Booking
    */
@@ -69,13 +72,14 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Deserializes and returns booking list
+   *
    * @return bookings:List<Booking>
    */
   //+getBookings() : List<Booking>
   public List<Booking> getBookings() {
     List<Booking> bookings = new ArrayList<Booking>();
 
-    if(this.showtimes.size() < 1 || this.cinemas.size() < 1){
+    if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {
       System.out.println("No showtimes available to fulfil bookings");
       return bookings;
     }
@@ -138,6 +142,7 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Get booking list of specified customer id
+   *
    * @param customerId:String
    * @return bookings:List<Booking>
    */
@@ -154,6 +159,7 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Append new booking to booking list
+   *
    * @param customerId:String
    * @param cinemaId:int
    * @param movieId:int
@@ -166,7 +172,7 @@ public class BookingHandler extends CinemaHandler {
   //+addBooking(customerId:String, cinemaId:int, movieId:int, showtimeId:String, seats:List<int[]>, totalPrice:double, type:TicketType) : int
   public int addBooking(String customerId, int cinemaId, int movieId, String showtimeId, List<int[]> seats, double totalPrice, TicketType type) {
     List<Booking> bookings = new ArrayList<Booking>();
-    if(this.bookings != null) bookings = this.bookings;
+    if (this.bookings != null) bookings = this.bookings;
 
     Showtime showtime = this.getShowtime(showtimeId);
 
@@ -190,10 +196,11 @@ public class BookingHandler extends CinemaHandler {
 
   /**
    * Prints booking details along with its associated showtime and movie details
-    * @param transactionId:String
+   *
+   * @param transactionId:String
    */
   //+ printBooking(transactionld : String) : void
-  public void printBooking(String transactionId){
+  public void printBooking(String transactionId) {
     Booking booking = this.getBooking(transactionId);
     if (booking == null) return;
 

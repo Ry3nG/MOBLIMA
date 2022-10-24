@@ -12,39 +12,31 @@ import java.util.List;
 import java.util.UUID;
 
 public class CustomerHandler {
-  private List<Customer> customers;
+  private final List<Customer> customers;
   private Customer currentCustomer = null;
 
   public CustomerHandler() {
-    customers = this.getCustomers();
+    this.customers = this.getCustomers();
   }
 
   /**
    * Validate phone number in account login/registration
+   *
    * @param phoneNumber:String
    * @return status:boolean
    */
   // + validatePhoneNumber(String phoneNumber) : boolean
   public boolean validatePhoneNumber(String phoneNumber) {
-    boolean status = false;
+    boolean status = phoneNumber.matches("^[0-9]{8}$");
 
     // VALIDATION: SG Phone Numbers requires exactly 8 digits
-    if (phoneNumber.matches("^[0-9]{8}$")) status = true;
 
     return status;
   }
 
   /**
-   * Save currently selected / active customer by idx
-   * @param customerIdx:int
-   */
-  // + setCurrentCustomer(customerIdx:int) : void
-  public void setCurrentCustomer(int customerIdx) {
-    this.currentCustomer = this.getCustomer(customerIdx);
-  }
-
-  /**
    * Get currently selected / active customer
+   *
    * @return customer:Customer | null
    */
   // + getCurrentCustomer() : Customer
@@ -53,7 +45,18 @@ public class CustomerHandler {
   }
 
   /**
+   * Save currently selected / active customer by idx
+   *
+   * @param customerIdx:int
+   */
+  // + setCurrentCustomer(customerIdx:int) : void
+  public void setCurrentCustomer(int customerIdx) {
+    this.currentCustomer = this.getCustomer(customerIdx);
+  }
+
+  /**
    * Deserializes and return customer list
+   *
    * @return customers:List<Customer>
    */
   // + getCustomers() : List<Customer>
@@ -82,6 +85,7 @@ public class CustomerHandler {
 
   /**
    * Get customer by specified idx
+   *
    * @param customerIdx:int
    * @return customer:Customer | null
    */
@@ -97,6 +101,7 @@ public class CustomerHandler {
 
   /**
    * Retrieve idx of specified customer id
+   *
    * @param customerId:String
    * @return customerIdx:int
    */
@@ -118,6 +123,7 @@ public class CustomerHandler {
 
   /**
    * Append new customer to customer list
+   *
    * @param name:String
    * @param contactNumber:String
    * @return customerIdx:int
@@ -160,6 +166,7 @@ public class CustomerHandler {
 
   /**
    * Check if account with phone number already exists
+   *
    * @param contactNumber:String
    * @return customerIdx:int
    */

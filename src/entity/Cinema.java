@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cinema {
-  public enum ClassType {
-    Normal, Premium
-  }
   private int id;
   private ClassType classType;
-
   private List<Showtime> showtimes;
 
   public Cinema(int id, ClassType classType, List<Showtime> showtimes) {
@@ -40,5 +36,9 @@ public class Cinema {
 
   public void setShowtimes(List<Showtime> showtimes) {
     this.showtimes = showtimes;
+  }
+
+  public enum ClassType {
+    Normal, Premium
   }
 }

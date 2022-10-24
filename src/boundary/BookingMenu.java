@@ -27,27 +27,29 @@ public class BookingMenu extends Menu {
     return instance;
   }
 
-  @Override
-  public void showMenu() {
-    this.displayMenu();
-  }
-
   /**
    * Get booking handler
+   *
    * @return bookingHandler:BookingHandler
    */
   public static BookingHandler getHandler() {
     return handler;
   }
 
+  @Override
+  public void showMenu() {
+    this.displayMenu();
+  }
+
   /**
    * Get the updated showtime list to be displayed
+   *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
   //+ getShowtimeMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getShowtimeMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Showtime> showtimes = this.handler.getShowtimes();
+    List<Showtime> showtimes = handler.getShowtimes();
     if (showtimes.size() < 1) {
       System.out.println("No showtimes available.");
     } else {
@@ -55,8 +57,8 @@ public class BookingMenu extends Menu {
         Showtime showtime = showtimes.get(i);
         int showtimeIdx = i;
         menuMap.put((i + 1) + ". " + showtime.toString(), () -> {
-          this.handler.setSelectedShowtimeIdx(showtimeIdx);
-          this.handler.printShowtimeDetails(showtimeIdx);
+          handler.setSelectedShowtimeIdx(showtimeIdx);
+          handler.printShowtimeDetails(showtimeIdx);
         });
       }
     }
@@ -66,12 +68,13 @@ public class BookingMenu extends Menu {
 
   /**
    * Get the updated booking list to be displayed
+   *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
   //+ getBookingMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getBookingMenu(String customerId) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Booking> bookings = this.handler.getBookings(customerId);
+    List<Booking> bookings = handler.getBookings(customerId);
     if (bookings.size() < 1) {
       System.out.println("No bookings available.");
     } else {
@@ -79,8 +82,8 @@ public class BookingMenu extends Menu {
         Booking booking = bookings.get(i);
         int bookingIdx = i;
         menuMap.put((i + 1) + ". " + booking.getTransactionId(), () -> {
-          this.handler.setSelectedBookingIdx(bookingIdx);
-          this.handler.printBooking(booking.getTransactionId());
+          handler.setSelectedBookingIdx(bookingIdx);
+          handler.printBooking(booking.getTransactionId());
         });
       }
     }
@@ -90,11 +93,12 @@ public class BookingMenu extends Menu {
 
   /**
    * Retrieves the user booking selection idx with specified customer id
+   *
    * @param customerId:String
    * @return selectedBookingIdx:int
    */
   //+ selectBookingIdx(customerId:String):int
-  public int selectBookingIdx(String customerId){
+  public int selectBookingIdx(String customerId) {
     this.refreshMenu(this.getBookingMenu(customerId));
 
     this.displayMenu();
@@ -103,13 +107,14 @@ public class BookingMenu extends Menu {
 
   /**
    * Retrieves the user showtime selection idx with specified movie id
+   *
    * @param movieId:int
    * @return selectedShowtimeIdx:int
    */
   //+ selectShowtimeIdx(movieId:int):int
   public int selectShowtimeIdx(int movieId) {
     this.refreshMenu(this.getShowtimeMenu());
-    List<Showtime> showtimes = this.handler.getShowtimes(movieId);
+    List<Showtime> showtimes = handler.getShowtimes(movieId);
 
     // Initialize options with a return at the end
     List<String> showtimeOptions = showtimes.stream()
@@ -129,15 +134,16 @@ public class BookingMenu extends Menu {
 
     // Retrieve showtime idx from showtime id
     Showtime showtime = showtimes.get(selectedIdx);
-    int showtimeIdx = this.handler.getShowtimeIdx(showtime.getId());
+    int showtimeIdx = handler.getShowtimeIdx(showtime.getId());
     // Store selection idx
-    this.handler.setSelectedShowtimeIdx(showtimeIdx);
+    handler.setSelectedShowtimeIdx(showtimeIdx);
 
     return showtimeIdx;
   }
 
   /**
    * Retrieves the user list of seat selection idx with specified showtime idx
+   *
    * @param showtimeIdx:int
    * @return seats:List<int[]>
    */
@@ -150,7 +156,7 @@ public class BookingMenu extends Menu {
       add("Return to previous menu");
     }};
 
-    boolean[][] showtimeSeats = this.handler.getShowtime(showtimeIdx).getSeats();
+    boolean[][] showtimeSeats = handler.getShowtime(showtimeIdx).getSeats();
     List<int[]> selectedSeats = new ArrayList<int[]>();
 
     int confirmationSelection = 0;
@@ -170,8 +176,8 @@ public class BookingMenu extends Menu {
           selectedSeats.add(selectedSeat);
 
           // Sudo seat assignment
-          this.handler.assignSeat(showtimeSeats, selectedSeat, true);
-          this.handler.printSeats(showtimeSeats);
+          handler.assignSeat(showtimeSeats, selectedSeat, true);
+          handler.printSeats(showtimeSeats);
 
           break;
         }
@@ -180,14 +186,14 @@ public class BookingMenu extends Menu {
         case 1: {
           // Finalize the seat selection
           System.out.println("Confirmed Seat Selection");
-          this.handler.printSeats(showtimeSeats);
+          handler.printSeats(showtimeSeats);
           return selectedSeats;
         }
 
         // Discard Selection, Return without saving
         default: {
-          this.handler.bulkAssignSeat(showtimeIdx, selectedSeats, false);
-          showtimeSeats = this.handler.getShowtime(showtimeIdx).getSeats();
+          handler.bulkAssignSeat(showtimeIdx, selectedSeats, false);
+          showtimeSeats = handler.getShowtime(showtimeIdx).getSeats();
           selectedSeats = new ArrayList<int[]>();
 
           // Return to previous menu
@@ -210,15 +216,16 @@ public class BookingMenu extends Menu {
 
   /**
    * Retrieves the user seat selection idx with specified showtime idx
+   *
    * @param showtimeIdx:int
    * @return seat:int[]
    */
   //+ seatSelection(showtimeIdx:int):int[]
   public int[] seatSelection(int showtimeIdx) {
-    boolean seats[][] = this.handler.getShowtime(showtimeIdx).getSeats();
-    this.handler.printSeats(seats);
+    boolean[][] seats = handler.getShowtime(showtimeIdx).getSeats();
+    handler.printSeats(seats);
 
-    int seatCode[] = new int[2];
+    int[] seatCode = new int[2];
 
     List<Integer> rowRange = IntStream.rangeClosed(0, seats.length).boxed().toList();
     List<Integer> colRange = IntStream.rangeClosed(0, seats[0].length).boxed().toList();

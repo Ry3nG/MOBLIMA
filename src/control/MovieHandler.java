@@ -1,5 +1,6 @@
 package control;
 
+import tmdb.control.Datasource;
 import tmdb.control.MovieDatasource;
 import tmdb.entities.Movie;
 import tmdb.entities.Movie.ContentRating;
@@ -116,6 +117,10 @@ public class MovieHandler {
         showStatus,
         contentRating
     ));
+
+    //Serialize data
+    this.saveMovies();
+
     return this.movies.size() - 1;
   }
 
@@ -154,6 +159,9 @@ public class MovieHandler {
         showStatus,
         contentRating
     ));
+
+    //Serialize data
+    this.saveMovies();
     status = true;
 
     return status;
@@ -174,6 +182,10 @@ public class MovieHandler {
     if (this.getMovie(movieIdx) == null) return status;
 
     this.movies.remove(movieIdx);
+
+    //Serialize data
+    this.saveMovies();
+
     status = true;
     return status;
   }
@@ -206,6 +218,14 @@ public class MovieHandler {
       Movie movie = this.movies.get(i);
       System.out.println("> " + i + " " + movie.getTitle());
     }
+  }
+
+  /**
+   * Serialize movie data to CSV
+   */
+  //# saveCustomers():boolean
+  public boolean saveMovies() {
+    return Datasource.serializeData(this.movies, "movies.csv");
   }
 
 ////+ printMovies(showStatus ShowStatus) : void

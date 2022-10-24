@@ -6,20 +6,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Booking {
-  public enum TicketType {
-
-    SENIOR_CITIZEN("Senior Citizen"),
-    STUDENT("Student"),
-    NON_PEAK("Non-Peak"),
-    PEAK("PEAK");
-
-    private String displayName;
-
-    TicketType(String displayName) {
-      this.displayName = displayName;
-    }
-  }
-
   private String transactionId;
   private String customerId;
   private int cinemaId;
@@ -28,7 +14,6 @@ public class Booking {
   private List<int[]> seats;
   private double totalPrice;
   private TicketType type;
-
   public Booking(String transactionId, String customerId, int cinemaId, int movieId, String showtimeId, List<int[]> seats, double totalPrice, TicketType type) {
     this.transactionId = transactionId;
     this.customerId = customerId;
@@ -128,5 +113,19 @@ public class Booking {
   public int hashCode() {
     int prime = 31;
     return prime + Objects.hashCode(this.transactionId);
+  }
+
+  public enum TicketType {
+
+    SENIOR_CITIZEN("Senior Citizen"),
+    STUDENT("Student"),
+    NON_PEAK("Non-Peak"),
+    PEAK("PEAK");
+
+    private final String displayName;
+
+    TicketType(String displayName) {
+      this.displayName = displayName;
+    }
   }
 }

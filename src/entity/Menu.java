@@ -19,6 +19,7 @@ public abstract class Menu {
 
   /**
    * Display menu list options
+   *
    * @param menuList:List<String>
    */
   //# displayMenuList(menuList:List<String>):void
@@ -64,8 +65,7 @@ public abstract class Menu {
           System.out.println("Press any key to continue . . .");
           System.in.read();
         }
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       }
@@ -74,6 +74,7 @@ public abstract class Menu {
 
   /**
    * Obtain user selection input of list option and display menu list
+   *
    * @param list:List
    * @return menuChoice:int
    */
@@ -84,6 +85,7 @@ public abstract class Menu {
 
   /**
    * Obtain user selection input of list options
+   *
    * @param list:List
    * @param showMenuList:boolean
    * @return menuChoice:int
@@ -103,7 +105,7 @@ public abstract class Menu {
           if (menuChoice < 0)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
           else if (menuChoice > list.size())
-            throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + (list.size() + 1));
+            throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
         } else { // next in buffer is not int
           scanner.next(); // clear buffer
           throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
@@ -128,6 +130,7 @@ public abstract class Menu {
 
   /**
    * Remap menu to new map
+   *
    * @param menuMap:LinkedHashMap<String, Runnable>
    */
   //+ refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void

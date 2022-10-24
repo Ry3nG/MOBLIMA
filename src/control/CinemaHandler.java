@@ -31,6 +31,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Retrieves cinema by specified id
+   *
    * @param cinemaId
    * @return cinema:Cinema | null
    */
@@ -41,13 +42,14 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Generate cinema list
+   *
    * @param min:int
    * @return cinemas:List<Cinema>
    */
   //+ generateCinemas(min:int) : List<Cinema>
   public List<Cinema> generateCinemas(int min) {
     List<Cinema> cinemas = new ArrayList<Cinema>();
-    if(min < 1) return cinemas;
+    if (min < 1) return cinemas;
 
     SecureRandom random = new SecureRandom();
     if (cinemas.size() < min) {
@@ -65,13 +67,14 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Generate showtime list
+   *
    * @param min:int
    * @return showtimes:List<Showtime>
    */
   //+ generateShowtimes(min:int) : List<Showtime>
   public List<Showtime> generateShowtimes(int min) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
-    if(this.cinemas.size() < 1 || min < 1) return showtimes;
+    if (this.cinemas.size() < 1 || min < 1) return showtimes;
 
     SecureRandom random = new SecureRandom();
     List<Movie> movies = (MovieMenu.getHandler()).getMovies();
@@ -80,7 +83,7 @@ public class CinemaHandler extends ShowtimeHandler {
         String cineplexId = "XYZ";
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movies.get(i).getId();
-        LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s/6) * 60);
+        LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
         this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
       }
     }
@@ -89,6 +92,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Deserializes and returns cinema list
+   *
    * @return cinemas:List<Cinema>
    */
   //+getCinemas() : List<Cinema>
@@ -135,6 +139,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Append new cinema to cinema list
+   *
    * @param classType:ClassType
    * @param showtimes:List<Showtime>
    * @return showtimeIdx:int
@@ -142,7 +147,7 @@ public class CinemaHandler extends ShowtimeHandler {
   //  +addCinema(classType:ClassType, showtimes : List<Showtime>) : int
   public int addCinema(ClassType classType, List<Showtime> showtimes) {
     List<Cinema> cinemas = new ArrayList<Cinema>();
-    if(this.cinemas != null) cinemas = this.cinemas;
+    if (this.cinemas != null) cinemas = this.cinemas;
 
     cinemas.add(new Cinema(
         cinemas.size(),
@@ -157,6 +162,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Delete specified cinema from cinema list by specified id/idx
+   *
    * @param cinemaIdx
    * @return
    */
@@ -166,7 +172,7 @@ public class CinemaHandler extends ShowtimeHandler {
     if (this.cinemas.size() < 1 || cinemaIdx < 0) return status;
 
     // Early return if cinema does not exist
-    if(this.getCinema(cinemaIdx) == null) return status;
+    if (this.getCinema(cinemaIdx) == null) return status;
 
     // Remove cinema
     this.cinemas.remove(cinemaIdx);
@@ -176,6 +182,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Replace showtime list of specified cinema id
+   *
    * @param cinemaId:int
    * @param showtimes:List<Showtime>
    * @return status:boolean
@@ -204,6 +211,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Deserializes and returns showtime list
+   *
    * @return showtimes:List<Showtime>
    */
   //+ getShowtimes() : List<Showtime>
@@ -270,6 +278,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
   /**
    * Append new showtime to cinema list
+   *
    * @param cineplexId:String
    * @param cinemaId:int
    * @param movieId:int

@@ -1,12 +1,15 @@
 import boundary.CustomerMenu;
+import boundary.StaffMenu;
 import entity.Menu;
 import utils.Constants;
+
+import java.util.Arrays;
 
 public class App {
   private static App instance = null;
   private Menu currentMenu;
 
-  private App(){
+  private App() {
 
   }
 
@@ -18,24 +21,16 @@ public class App {
   public static void main(String[] args) {
     instance = App.getInstance();
 
-//    Constants.setDebugMode(true);
-//    if (args.length == 0) instance.currentMenu = CustomerMenu.getInstance();
-//    else if (args[0].equals("--staff")) instance.currentMenu = new StaffMenu();
+    // Debug
+    if (Arrays.stream(args).anyMatch(("--debug")::contains)) Constants.setDebugMode(true);
 
-    int lastArgIdx = args.length - 1;
-    if(lastArgIdx >= 0){
-      if (args[lastArgIdx].equals("--debug")) Constants.setDebugMode(true);
+    // Default - Customer
+    instance.currentMenu = CustomerMenu.getInstance();
 
-      if(lastArgIdx == 0){
-        instance.currentMenu = CustomerMenu.getInstance();
-      }
+    // Staff [--staff]
+    if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
 
-//      if (args[lastArgIdx - 1].equals("--staff")) instance.currentMenu = new StaffMenu();
-    }
-    else{
-      instance.currentMenu = CustomerMenu.getInstance();
-    }
-
+    // Show menu
     instance.currentMenu.showMenu();
   }
 }
