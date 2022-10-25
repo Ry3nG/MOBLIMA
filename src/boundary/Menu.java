@@ -1,9 +1,11 @@
 package boundary;
 
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.util.*;
 
+import static com.diogonunes.jcolor.Ansi.colorize;
 import static java.lang.System.exit;
 
 public abstract class Menu {
@@ -48,14 +50,15 @@ public abstract class Menu {
         displayMenuList();
         System.out.print("SELECTED: ");
 
-        if (scanner.hasNextInt()) { // if the next in buffer is int
+        if (scanner.hasNextInt()) {
           menuChoice = scanner.nextInt();
           if ((menuChoice - 1) < -1)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
           else if (menuChoice > menuMap.size() || menuChoice == 0)
             throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + menuMap.size());
-        } else { // next in buffer is not int
-          scanner.next(); // clear buffer
+        } else {
+          // next in buffer is not int: clear buffer
+          scanner.next();
           throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
         }
 
@@ -63,10 +66,13 @@ public abstract class Menu {
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
         if (menuChoice != menuMap.size()) {
-          System.out.println("Press any key to continue . . .");
+          System.out.println(colorize("Press any key to continue . . .", Preset.LOG.color));
           System.in.read();
         }
       } catch (Exception e) {
+        if (!e.getMessage().isEmpty()) {
+          System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+        }
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       }
@@ -118,7 +124,9 @@ public abstract class Menu {
         System.out.println("[NIL]\nApplication is terminated via CTRL + C");
         System.exit(1);
       } catch (Exception e) {
-        System.out.println("[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray()));
+        String errMsg = !e.getMessage().isEmpty() ? e.getMessage() : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
+        System.out.println(colorize(errMsg, Preset.ERROR.color));
+
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       }

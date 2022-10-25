@@ -8,9 +8,10 @@ import com.google.gson.reflect.TypeToken;
 import entity.Cinema;
 import entity.Cinema.ClassType;
 import entity.Showtime;
-import tmdb.control.Datasource;
-import tmdb.entities.Movie;
+import moblima.control.Datasource;
+import moblima.entities.Movie;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.lang.reflect.Type;
 import java.security.SecureRandom;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.diogonunes.jcolor.Ansi.colorize;
 import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
 
 public class CinemaHandler extends ShowtimeHandler {
@@ -45,7 +47,7 @@ public class CinemaHandler extends ShowtimeHandler {
   /**
    * Retrieves cinema by specified id
    *
-   * @param cinemaId
+   * @param cinemaId:int
    * @return cinema:Cinema | null
    */
   //+ getCinema(cinemaId : int) : Cinema
@@ -94,11 +96,11 @@ public class CinemaHandler extends ShowtimeHandler {
 
     SecureRandom random = new SecureRandom();
     List<Movie> movies = (MovieMenu.getHandler()).getMovies();
-    for (int i = 0; i < movies.size(); i++) {
+    for (Movie movie : movies) {
       for (int s = 0; s < min; s++) {
         String cineplexId = "XYZ";
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
-        int movieId = movies.get(i).getId();
+        int movieId = movie.getId();
         LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
         this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
       }
@@ -149,7 +151,7 @@ public class CinemaHandler extends ShowtimeHandler {
     }
 
     this.cinemas = cinemas;
-    if (this.showtimes != null || this.showtimes.size() > 0) {
+    if (this.showtimes != null && this.showtimes.size() > 0) {
       this.showtimes = this.getShowtimes();
     }
 
@@ -162,7 +164,7 @@ public class CinemaHandler extends ShowtimeHandler {
    *
    * @param classType:ClassType
    * @param showtimes:List<Showtime>
-   * @return
+   * @return status:boolean
    */
   //+updateCinema( classType : ClassType, showtimes : List<Showtime>):boolean
   public boolean updateCinema(ClassType classType, List<Showtime> showtimes) {
@@ -212,8 +214,8 @@ public class CinemaHandler extends ShowtimeHandler {
   /**
    * Delete specified cinema from cinema list by specified id/idx
    *
-   * @param cinemaIdx
-   * @return
+   * @param cinemaIdx:int
+   * @return status:boolean
    */
   //+removeCinema(cinemaIdx : int) : boolean
   public boolean removeCinema(int cinemaIdx) {
@@ -272,7 +274,7 @@ public class CinemaHandler extends ShowtimeHandler {
   public List<Showtime> getShowtimes() {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.cinemas == null || this.cinemas.size() < 0) {
-      System.out.println("No cinemas available to host showtimes");
+      System.out.println(colorize("No cinemas available to host showtimes", Preset.ERROR.color));
       return showtimes;
     }
 
@@ -364,10 +366,10 @@ public class CinemaHandler extends ShowtimeHandler {
   public int addShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
     List<Showtime> showtimes = this.getCinemaShowtimes(cinemaId);
     if (showtimes.size() < 0) {
-      System.out.println("No cinemas available to host showtimes");
+      System.out.println(colorize("No cinemas available to host showtimes", Preset.ERROR.color));
       return -1;
     } else if (this.checkClashingShowtime(cinemaId, datetime)) {
-      System.out.println("Cinema already has a showing at the given datetime");
+      System.out.println(colorize("Cinema already has a showing at the given datetime", Preset.ERROR.color));
       return -1;
     }
 

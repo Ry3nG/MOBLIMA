@@ -5,7 +5,7 @@ import boundary.MovieMenu;
 import control.handlers.BookingHandler;
 import control.handlers.MovieHandler;
 import entity.Showtime;
-import tmdb.entities.Movie;
+import moblima.entities.Movie;
 import utils.Helper;
 
 import java.util.List;

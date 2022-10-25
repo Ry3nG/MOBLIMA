@@ -1,10 +1,11 @@
 package boundary;
 
 import control.handlers.MovieHandler;
-import tmdb.entities.Movie;
-import tmdb.entities.Movie.ContentRating;
-import tmdb.entities.Movie.ShowStatus;
+import moblima.entities.Movie;
+import moblima.entities.Movie.ContentRating;
+import moblima.entities.Movie.ShowStatus;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -12,6 +13,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class MovieMenu extends Menu {
   public static boolean showLimitedMovies = true;
@@ -47,7 +50,7 @@ public class MovieMenu extends Menu {
   }
 
   public List<Movie> getViewableMovies() {
-    return showLimitedMovies ? handler.getMovies(Movie.ShowStatus.NOW_SHOWING) : handler.getMovies();
+    return showLimitedMovies ? handler.getMovies(ShowStatus.NOW_SHOWING) : handler.getMovies();
   }
 
   /**
@@ -105,26 +108,6 @@ public class MovieMenu extends Menu {
   }
 
   /**
-   * Get the updated movie list to be displayed
-   *
-   * @return menuMap:LinkedHashMap<String, Runnable>
-   */
-  //+ getMovieMenu():LinkedHashMap<String, Runnable>
-  public LinkedHashMap<String, Runnable> getEditableMenu() {
-    LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Set blockbuster status", () -> {
-      });
-      put("Set showing status", () -> {
-      });
-      put("Set content rating", () -> {
-      });
-    }};
-
-    menuMap.put((menuMap.size() + 1) + ". Return to previous menu", () -> System.out.println("\t>>> " + "Returning to previous menu..."));
-    return menuMap;
-  }
-
-  /**
    * Retrieves the user movie selection idx
    *
    * @return selectedMovieIdx:int
@@ -172,9 +155,8 @@ public class MovieMenu extends Menu {
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
-          System.out.println("[UPDATED] Movie removed");
-          // by changing the status to ‘End of Showing’.
-          movie.setShowStatus(ShowStatus.END_SHOWING);
+          System.out.println(colorize("[UPDATED] Movie removed", Preset.SUCCESS.color));
+          status = handler.removeMovie(movieIdx);
         }
 
         System.out.println("\t>>> " + "Returning to previous menu...");
@@ -183,7 +165,7 @@ public class MovieMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println("[REVERTED] Changes discarded");
+        System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
         movie = handler.getMovie(movieIdx);
         System.out.println(movie);
       }
@@ -209,9 +191,9 @@ public class MovieMenu extends Menu {
         String curStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println("[NO CHANGE] Blockbuster Status: " + prevStatus);
+          System.out.println(colorize("[NO CHANGE] Blockbuster Status: " + prevStatus, Preset.SUCCESS.color));
         } else {
-          System.out.println("[UPDATED] Blockbuster Status: " + prevStatus + " -> " + curStatus);
+          System.out.println(colorize("[UPDATED] Blockbuster Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
         }
       }
 
@@ -224,8 +206,7 @@ public class MovieMenu extends Menu {
         List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
         List<String> updateOptions = Stream.of(ShowStatus.values())
             .map(Enum::toString)
-            .collect(Collectors.toList())
-            .subList(0, showStatuses.size() - 1);
+            .collect(Collectors.toList());
 
         System.out.println("Set to:");
         this.displayMenuList(updateOptions);
@@ -235,9 +216,9 @@ public class MovieMenu extends Menu {
         ShowStatus curStatus = movie.getShowStatus();
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println("[NO CHANGE] Showing Status: " + prevStatus);
+          System.out.println(colorize("[NO CHANGE] Showing Status: " + prevStatus, Preset.SUCCESS.color));
         } else {
-          System.out.println("[UPDATED] Showing Status: " + prevStatus + " -> " + curStatus);
+          System.out.println(colorize("[UPDATED] Showing Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
         }
       }
 
@@ -259,9 +240,9 @@ public class MovieMenu extends Menu {
         ContentRating curStatus = movie.getContentRating();
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println("[NO CHANGE] Current Rating: " + prevStatus);
+          System.out.println(colorize("[NO CHANGE] Current Rating: " + prevStatus, Preset.SUCCESS.color));
         } else {
-          System.out.println("[UPDATED] Current Rating: " + prevStatus + " -> " + curStatus);
+          System.out.println(colorize("[UPDATED] Current Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
         }
       }
     }

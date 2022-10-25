@@ -1,15 +1,18 @@
 package control.handlers;
 
-import tmdb.control.Datasource;
-import tmdb.control.MovieDatasource;
-import tmdb.entities.Movie;
-import tmdb.entities.Movie.ContentRating;
-import tmdb.entities.Movie.ShowStatus;
+import moblima.control.Datasource;
+import moblima.control.MovieDatasource;
+import moblima.entities.Movie;
+import moblima.entities.Movie.ContentRating;
+import moblima.entities.Movie.ShowStatus;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class MovieHandler {
   private final MovieDatasource dsMovie = new MovieDatasource();
@@ -96,8 +99,7 @@ public class MovieHandler {
     List<Movie> movies = new ArrayList<Movie>();
     if (this.movies.size() < 1) return movies;
 
-    for (int i = 0; i < this.movies.size(); i++) {
-      Movie movie = this.movies.get(i);
+    for (Movie movie : this.movies) {
       if (movie.getShowStatus() == showStatus) movies.add(movie);
     }
 
@@ -218,7 +220,8 @@ public class MovieHandler {
     if (movie == null) return;
 
     this.selectedMovieIdx = movieIdx;
-    System.out.println(movie);
+    System.out.println(colorize("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
+    System.out.println(colorize(movie.toString(), Preset.HIGHLIGHT.color));
   }
 
   /**

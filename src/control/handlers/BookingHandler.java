@@ -8,15 +8,18 @@ import com.google.gson.reflect.TypeToken;
 import entity.Booking;
 import entity.Booking.TicketType;
 import entity.Showtime;
+import moblima.control.Datasource;
 import org.apache.commons.lang3.EnumUtils;
-import tmdb.control.Datasource;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class BookingHandler extends CinemaHandler {
   private static final MovieHandler movieHandler = MovieMenu.getHandler();
@@ -80,7 +83,7 @@ public class BookingHandler extends CinemaHandler {
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {
-      System.out.println("No showtimes available to fulfil bookings");
+      System.out.println(colorize("No showtimes available to fulfil bookings", Preset.ERROR.color));
       return bookings;
     }
 
@@ -177,7 +180,7 @@ public class BookingHandler extends CinemaHandler {
     Showtime showtime = this.getShowtime(showtimeId);
 
     // The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYYMMDDhhmm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
     String timestamp = (LocalDateTime.now()).format(formatter);
     String cineplexId = showtime.getCineplexId();
     String transactionId = cineplexId + timestamp;
@@ -249,12 +252,11 @@ public class BookingHandler extends CinemaHandler {
     System.out.println(booking);
 
     // Showtime
-    System.out.println("/// SHOWTIME DETAILS ///");
     int showtimeIdx = this.getShowtimeIdx(booking.getShowtimeId());
     this.printShowtimeDetails(showtimeIdx);
 
     // Movie
-    System.out.println("/// MOVIE DETAILS ///");
+//    System.out.println(colorize("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
     movieHandler.printMovieDetails(movieIdx);
     System.out.println("---------------------------------------------------------------------------");

@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/datasource/datasource.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/moblima/moblima.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

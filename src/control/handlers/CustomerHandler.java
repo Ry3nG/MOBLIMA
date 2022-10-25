@@ -3,7 +3,7 @@ package control.handlers;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import entity.Customer;
-import tmdb.control.Datasource;
+import moblima.control.Datasource;
 import utils.Helper;
 
 import java.lang.reflect.Type;
@@ -21,17 +21,14 @@ public class CustomerHandler {
 
   /**
    * Validate phone number in account login/registration
+   * SG Phone Numbers requires exactly 8 digits
    *
    * @param phoneNumber:String
    * @return status:boolean
    */
   // + validatePhoneNumber(String phoneNumber) : boolean
   public boolean validatePhoneNumber(String phoneNumber) {
-    boolean status = phoneNumber.matches("^[0-9]{8}$");
-
-    // VALIDATION: SG Phone Numbers requires exactly 8 digits
-
-    return status;
+    return phoneNumber.matches("^[0-9]{8}$");
   }
 
   /**

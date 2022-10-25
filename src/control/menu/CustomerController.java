@@ -4,7 +4,7 @@ import boundary.BookingMenu;
 import boundary.MovieMenu;
 import entity.Booking;
 import entity.Showtime;
-import tmdb.entities.Movie;
+import moblima.entities.Movie;
 import utils.Helper;
 
 import java.util.Arrays;

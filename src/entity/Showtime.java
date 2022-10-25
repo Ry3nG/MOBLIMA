@@ -3,7 +3,12 @@ package entity;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+
+import static utils.Helper.formatAsTable;
 
 public class Showtime {
   private String id;
@@ -132,12 +137,14 @@ public class Showtime {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
     DayOfWeek day = datetime.getDayOfWeek();
 
-    String printed = "Datetime: " + day + ", " + this.datetime.format(formatter) + "\n";
-    printed += "Movie ID: " + this.movieId + "\n";
-    printed += "Cinema ID: " + this.cinemaId + "\n";
-    printed += "Cineplex ID: " + this.cineplexId + "\n";
+    List<List<String>> rows = new ArrayList<List<String>>();
+    rows.add(Arrays.asList("Datetime:", day + ", " + this.datetime.format(formatter)));
+    rows.add(Arrays.asList("Movie ID:", Integer.toString(this.movieId)));
+    rows.add(Arrays.asList("Cinema ID:", Integer.toString(this.cinemaId)));
+    rows.add(Arrays.asList("Cineplex ID:", this.cineplexId));
+    rows.add(Arrays.asList("Available Seats:", this.getSeatCount(true) + "/" + this.getSeatCount()));
 
-    return printed;
+    return formatAsTable(rows);
   }
 
   @Override

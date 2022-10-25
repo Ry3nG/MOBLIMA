@@ -4,7 +4,8 @@ import control.handlers.BookingHandler;
 import entity.Booking;
 import entity.Cinema;
 import entity.Showtime;
-import tmdb.entities.Movie;
+import moblima.entities.Movie;
+import moblima.entities.Movie.ShowStatus;
 import utils.Helper;
 
 import java.time.LocalDateTime;
@@ -399,7 +400,7 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Movie ID: " + prevStatus);
 
         //TODO: Extract as separate function
-        List<Movie> movies = MovieMenu.getHandler().getMovies(Movie.ShowStatus.NOW_SHOWING);
+        List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
         List<String> updateOptions = movies.stream()
             .map(Movie::getTitle)
             .collect(Collectors.toList());

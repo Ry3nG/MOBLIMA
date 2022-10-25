@@ -1,12 +1,15 @@
 package control.handlers;
 
 import entity.Showtime;
-import tmdb.control.Datasource;
+import moblima.control.Datasource;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class ShowtimeHandler {
   protected List<Showtime> showtimes = new ArrayList<Showtime>();
@@ -82,13 +85,13 @@ public class ShowtimeHandler {
    * Get showtime list of specified movie
    *
    * @param movieId:int
-   * @return
+   * @return showtimes:List<Showtime>
    */
   //+ getShowtimes(movield : int) : List<Showtime>
   public List<Showtime> getShowtimes(int movieId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || movieId < 0) {
-      System.out.println("No cinemas available to host showtimes");
+      System.out.println(colorize("No cinemas available to host showtimes", Preset.ERROR.color));
       return showtimes;
     }
 
@@ -101,12 +104,12 @@ public class ShowtimeHandler {
   /**
    * Updates showtime (by selectedShowtimeIdx)
    *
-   * @param cineplexId
-   * @param cinemaId
-   * @param movieId
-   * @param datetime
-   * @param seats
-   * @return
+   * @param cineplexId:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param datetime:LocalDateTime
+   * @param seats:boolean[][]
+   * @return status:boolean
    */
   public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
     boolean status = false;
@@ -163,7 +166,9 @@ public class ShowtimeHandler {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return;
     this.selectedShowtimeIdx = showtimeIdx;
-    System.out.println(showtime);
+
+    System.out.println(colorize("/// SHOWTIME DETAILS ///", Preset.HIGHLIGHT.color));
+    System.out.println(colorize(showtime.toString(), Preset.HIGHLIGHT.color));
   }
 
   /**
@@ -182,7 +187,7 @@ public class ShowtimeHandler {
   /**
    * Print seats (independent of showtime)
    *
-   * @param seats
+   * @param seats:boolean[][]
    */
   // +printSeats(seats:boolean[][]):void
   public void printSeats(boolean[][] seats) {
@@ -195,8 +200,9 @@ public class ShowtimeHandler {
     for (int row = 0; row < seats.length; row++) {
       System.out.print((row + 1) + " ");
       for (int col = 0; col < seats[row].length; col++) {
-        String seat = (seats[row][col]) ? "[O]" : "[X]";
-        System.out.print(seat + " ");
+        boolean isAvailable = (seats[row][col]);
+        String seat = isAvailable ? "[O]" : "[X]";
+        System.out.print(colorize(seat + " ", ((isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT).color));
       }
       System.out.println();
     }
@@ -253,9 +259,9 @@ public class ShowtimeHandler {
   /**
    * Assign availability to seats (independent of showtime)
    *
-   * @param seats
-   * @param seatCode
-   * @param availabilityAssignment
+   * @param seats:boolean[][]
+   * @param seatCode:int[]
+   * @param availabilityAssignment:boolean
    * @return seats:boolean[][]
    */
   public boolean[][] assignSeat(boolean[][] seats, int[] seatCode, boolean availabilityAssignment) {

@@ -6,11 +6,14 @@ import entity.Booking;
 import entity.Customer;
 import entity.Showtime;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class CustomerMenu extends Menu {
   private static CustomerHandler handler;
@@ -132,7 +135,7 @@ public class CustomerMenu extends Menu {
           contactNumber = scanner.next().trim();
           /// VALIDATION: SG Phone Numbers requires exactly 8 digits
           if (!handler.validatePhoneNumber(contactNumber)) {
-            System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
+            System.out.println(colorize("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR.color));
             contactNumber = null;
             continue;
           }
@@ -143,11 +146,11 @@ public class CustomerMenu extends Menu {
         if (customerIdx < -1)
           throw new Exception("Unable to register, account with phone number already exists");
 
-        System.out.println("Successful account registration");
+        System.out.println(colorize("Successful account registration", Preset.SUCCESS.color));
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
         name = contactNumber = null;
 
         // Prompt for proceed options
@@ -195,7 +198,7 @@ public class CustomerMenu extends Menu {
         String contactNumber = scanner.next().trim();
         /// VALIDATION: SG Phone Numbers requires exactly 8 digits
         if (!handler.validatePhoneNumber(contactNumber)) {
-          System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
+          System.out.println(colorize("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR.color));
           continue;
         }
 
@@ -204,11 +207,11 @@ public class CustomerMenu extends Menu {
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
-        System.out.println("Successful account login");
+        System.out.println(colorize("Successful account login", Preset.SUCCESS.color));
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
 
         // Prompt for proceed options
         List<String> proceedOptions = new ArrayList<String>() {{
@@ -259,9 +262,8 @@ public class CustomerMenu extends Menu {
       this.displayMenuList(proceedOptions);
       int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
-      // Return to previous menu
-      if (proceedSelection == proceedOptions.size() - 1) continue;
-      else if (proceedSelection == 0) {
+      // Proceed to make booking
+      if (proceedSelection == 0) {
         // Get customer idx via login/register
         int customerIdx = this.getCurrentCustomer();
         Helper.logger("CustomerMenu.makeBooking", "customerIdx: " + customerIdx);
@@ -280,7 +282,7 @@ public class CustomerMenu extends Menu {
         Booking booking = controller.bookingHandler().getBooking(bookingIdx);
         if (booking == null) return bookingIdx;
         Helper.logger("CustomerMenu.makeBooking", "Booking: " + booking);
-        System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
+        System.out.println(colorize("Successfully booked. Reference: " + booking.getTransactionId(), Preset.SUCCESS.color));
       }
     }
 

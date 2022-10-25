@@ -4,11 +4,14 @@ import control.handlers.StaffHandler;
 import control.menu.StaffController;
 import entity.Staff;
 import utils.Helper;
+import utils.Helper.Preset;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class StaffMenu extends Menu {
   private static StaffMenu instance;
@@ -33,6 +36,9 @@ public class StaffMenu extends Menu {
 
   @Override
   public void showMenu() {
+    if (isAuthenticated()) {
+      System.out.println(colorize("STAFF: " + handler.getCurrentStaff().getUsername(), Preset.SUCCESS.color));
+    }
     this.displayMenu();
   }
 
@@ -82,7 +88,7 @@ public class StaffMenu extends Menu {
 
           // VALIDATION: Check if username already exists
           if (handler.validateUsernameAvailability(username)) {
-            System.out.println("Invalid username, no staff account associated.");
+            System.out.println(colorize("Invalid username, no staff account associated.", Preset.ERROR.color));
             username = null;
             continue;
           }
@@ -95,14 +101,14 @@ public class StaffMenu extends Menu {
         if (!staff.getPassword().equals(password))
           throw new Exception("Invalid login credentials, unable to authenticate");
 
-        System.out.println("Successful account login");
+        System.out.println(colorize("Successful account login", Preset.SUCCESS.color));
         staffIdx = handler.getStaffIdx(staff.getId());
         Helper.logger("StaffMenu.login", "staffIdx: " + staffIdx);
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
         username = null;
 
         List<String> proceedOptions = new ArrayList<String>() {{
@@ -146,7 +152,7 @@ public class StaffMenu extends Menu {
           username = scanner.next().trim();
 
           if (!handler.validateUsernameAvailability(username)) {
-            System.out.println("Username is taken, try another");
+            System.out.println(colorize("Username is taken, try another", Preset.ERROR.color));
             username = null;
             continue;
           }
@@ -161,12 +167,12 @@ public class StaffMenu extends Menu {
         if (staffIdx < 0) throw new Exception("Unable to register, account with username already exists");
 
         status = true;
-        System.out.println("Successful account registration");
+        System.out.println(colorize("Successful account registration", Preset.SUCCESS.color));
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
         username = password = null;
 
         List<String> proceedOptions = new ArrayList<String>() {
@@ -200,7 +206,6 @@ public class StaffMenu extends Menu {
 
     int staffIdx = this.getCurrentStaff();
     Helper.logger("StaffMenu.isAuthenticated", "staffIdx: " + staffIdx);
-
 
     if (staffIdx < 0) {
       System.out.println("\t>>> Access Denied, Quitting application...");
