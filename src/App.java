@@ -11,7 +11,8 @@ public class App {
   private Menu currentMenu;
 
   private App() {
-
+    // Default - Customer
+    currentMenu = CustomerMenu.getInstance();
   }
 
   public static App getInstance() {
@@ -28,9 +29,6 @@ public class App {
       Helper.logger("App.main", "ARGS: " + Arrays.deepToString(args));
       Helper.logger("App.main", "DEBUG MODE: " + Constants.DEBUG_MODE);
     }
-
-    // Default - Customer
-    instance.currentMenu = CustomerMenu.getInstance();
 
     if (args.length > 0) {
       // Staff [--staff]
