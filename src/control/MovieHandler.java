@@ -79,7 +79,7 @@ public class MovieHandler {
 
     List<Movie> movies = new ArrayList<>();
     for (Movie movie : movies) {
-      if (movie.getShowStatus().equals(ShowStatus.NOW_SHOWING)) movies.add(movie);
+      if (movie.getShowStatus() == ShowStatus.NOW_SHOWING) movies.add(movie);
     }
     return this.movies;
   }

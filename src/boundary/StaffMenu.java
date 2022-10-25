@@ -250,15 +250,15 @@ public class StaffMenu extends Menu {
           System.out.println("Select movie: ");
           int movieIdx = movieMenu.selectMovieIdx();
           if (movieIdx < 0) return;
-          Movie selectedMovie = MovieMenu.getHandler().getMovie(movieIdx);
+          Movie selectedMovie = movieMenu.getHandler().getMovie(movieIdx);
 
           // Select showtimes
           System.out.println("Select showtime slot: ");
-          List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+          List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
           int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
           if (showtimeIdx < 0) return;
 
-          Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
+          Showtime showtime = bookingMenu.getHandler().getShowtime(showtimeIdx);
           bookingMenu.editShowtime(showtime.getId());
         });
         put("View and update cinemas", () -> {

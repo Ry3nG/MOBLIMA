@@ -54,7 +54,7 @@ public class MovieMenu extends Menu {
   //+ getMovieMenu(showLimited : boolean):LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getMovieMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Movie> movies = showLimitedMovies ? handler.getAvailableMovies() : handler.getMovies();
+    List<Movie> movies = showLimitedMovies ? handler.getMovies(ShowStatus.NOW_SHOWING) : handler.getMovies();
     Helper.logger("MovieMenu.getMovieMenu", "Movies: " + movies);
     for (int i = 0; i < movies.size(); i++) {
       Movie movie = movies.get(i);

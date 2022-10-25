@@ -206,12 +206,12 @@ public class CustomerMenu extends Menu {
         System.out.print("Account Contact No.: ");
         String contactNumber = scanner.next().trim();
         // VALIDATION: SG Phone Numbers requires exactly 8 digits
-        if (!handler.validatePhoneNumber(contactNumber)) {
+        if (!this.handler.validatePhoneNumber(contactNumber)) {
           System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
           continue;
         }
 
-        customerIdx = handler.checkIfAccountExists(contactNumber);
+        customerIdx = this.handler.checkIfAccountExists(contactNumber);
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
@@ -261,14 +261,14 @@ public class CustomerMenu extends Menu {
     int movieIdx = this.movieMenu.selectMovieIdx();
     if (movieIdx < 0)
       return bookingIdx;
-    Movie selectedMovie = MovieMenu.getHandler().getMovie(movieIdx);
+    Movie selectedMovie = this.movieMenu.getHandler().getMovie(movieIdx);
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
-    int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
+    List<Showtime> movieShowtimes = this.bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    int showtimeIdx = this.bookingMenu.selectShowtimeIdx(movieShowtimes);
     if (showtimeIdx < 0) return bookingIdx;
-    Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
+    Showtime showtime = this.bookingMenu.getHandler().getShowtime(showtimeIdx);
 
     // Print showtime details
     BookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
@@ -285,15 +285,15 @@ public class CustomerMenu extends Menu {
     if (customerIdx < 0)
       return bookingIdx;
 
-    Customer customer = handler.getCustomer(customerIdx);
+    Customer customer = this.handler.getCustomer(customerIdx);
     if (customer == null)
       return bookingIdx;
 
-    bookingIdx = BookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
+    bookingIdx = this.bookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
         showtime.getId(), seats, 10.0, Booking.TicketType.PEAK);
 
     // Print out tx id
-    Booking booking = BookingMenu.getHandler().getBooking(bookingIdx);
+    Booking booking = this.bookingMenu.getHandler().getBooking(bookingIdx);
     if (booking == null) return bookingIdx;
     System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
 
@@ -307,7 +307,7 @@ public class CustomerMenu extends Menu {
     if (customerIdx < 0)
       return;
 
-    Customer customer = handler.getCustomer(customerIdx);
+    Customer customer = this.handler.getCustomer(customerIdx);
     if (customer == null)
       return;
     Helper.logger("CustomerMenu.viewBookings", "Customer ID: " + customer.getId());
