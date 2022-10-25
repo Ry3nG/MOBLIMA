@@ -30,6 +30,22 @@ public class Showtime {
     });
   }
 
+  /**
+   * Clone constructor
+   *
+   * @param cloneShowtime:Showtime
+   */
+  public Showtime(Showtime cloneShowtime) {
+    this(
+        cloneShowtime.id,
+        cloneShowtime.cineplexId,
+        cloneShowtime.cinemaId,
+        cloneShowtime.movieId,
+        cloneShowtime.datetime,
+        cloneShowtime.seats
+    );
+  }
+
   public String getId() {
     return id;
   }

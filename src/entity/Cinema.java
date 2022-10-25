@@ -14,6 +14,19 @@ public class Cinema {
     this.showtimes = new ArrayList<Showtime>();
   }
 
+  /**
+   * Clone constructor
+   *
+   * @param cloneCinema:Cinema
+   */
+  public Cinema(Cinema cloneCinema) {
+    this(
+        cloneCinema.id,
+        cloneCinema.classType,
+        cloneCinema.showtimes
+    );
+  }
+
   public int getId() {
     return id;
   }
@@ -36,6 +49,15 @@ public class Cinema {
 
   public void setShowtimes(List<Showtime> showtimes) {
     this.showtimes = showtimes;
+  }
+
+  @Override
+  public String toString() {
+    String printed = "ID: " + this.id + "\n";
+    printed += "Class Type: " + this.classType + "\n";
+    printed += "Total Showtimes: " + this.showtimes.size() + "\n";
+
+    return printed;
   }
 
   public enum ClassType {

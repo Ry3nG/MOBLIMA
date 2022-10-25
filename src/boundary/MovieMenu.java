@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MovieMenu extends Menu {
+  public static boolean showLimitedMovies = true;
   private static MovieHandler handler;
   private static MovieMenu instance;
 
@@ -24,7 +25,8 @@ public class MovieMenu extends Menu {
     this.refreshMenu(this.getMovieMenu());
   }
 
-  public static MovieMenu getInstance() {
+  public static MovieMenu getInstance(boolean showLimited) {
+    showLimitedMovies = showLimited;
     if (instance == null) instance = new MovieMenu();
     return instance;
   }
@@ -49,10 +51,10 @@ public class MovieMenu extends Menu {
    *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
-  //+ getMovieMenu():LinkedHashMap<String, Runnable>
+  //+ getMovieMenu(showLimited : boolean):LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getMovieMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Movie> movies = handler.getMovies();
+    List<Movie> movies = showLimitedMovies ? handler.getAvailableMovies() : handler.getMovies();
     Helper.logger("MovieMenu.getMovieMenu", "Movies: " + movies);
     for (int i = 0; i < movies.size(); i++) {
       Movie movie = movies.get(i);
@@ -124,7 +126,7 @@ public class MovieMenu extends Menu {
     boolean status = false;
 
     Movie movie = handler.getMovie(movieIdx);
-    if (movie == null) return false;
+    if (movie == null) return status;
 
     List<String> proceedOptions = new ArrayList<String>() {
       {
@@ -132,6 +134,7 @@ public class MovieMenu extends Menu {
         add("Set showing status");
         add("Set content rating");
         add("Discard changes");
+        add("Remove movie");
         add("Save changes & return");
         add("Return to previous menu");
       }
@@ -143,7 +146,7 @@ public class MovieMenu extends Menu {
       int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
       // Save changes & return OR Return to previous menu
-      if (proceedSelection >= proceedOptions.size() - 2) {
+      if (proceedSelection >= proceedOptions.size() - 3) {
         // Save changes
         if (proceedSelection == proceedOptions.size() - 2) {
           handler.updateMovie(
@@ -157,6 +160,13 @@ public class MovieMenu extends Menu {
               movie.getShowStatus(),
               movie.getContentRating()
           );
+          status = true;
+        }
+        // Remove movie
+        else if (proceedSelection == proceedOptions.size() - 3) {
+          System.out.println("[UPDATED] Movie removed");
+          // by changing the status to ‘End of Showing’.
+          movie.setShowStatus(ShowStatus.END_SHOWING);
         }
 
         System.out.println("\t>>> " + "Returning to previous menu...");
@@ -164,8 +174,10 @@ public class MovieMenu extends Menu {
       }
 
       // Discard changes
-      else if (proceedSelection == proceedOptions.size() - 3) {
+      else if (proceedSelection == proceedOptions.size() - 4) {
+        System.out.println("[REVERTED] Changes discarded");
         movie = handler.getMovie(movieIdx);
+        System.out.println(movie);
       }
 
       // Set blockbuster status
@@ -201,15 +213,16 @@ public class MovieMenu extends Menu {
         System.out.println("[CURRENT] Showing Status: " + prevStatus);
 
         //TODO: Extract as seperate function
+        List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
         List<String> updateOptions = Stream.of(ShowStatus.values())
             .map(Enum::toString)
-            .collect(Collectors.toList());
+            .collect(Collectors.toList())
+            .subList(0, showStatuses.size() - 1);
 
         System.out.println("Set to:");
         this.displayMenuList(updateOptions);
         int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
         movie.setShowStatus(showStatuses.get(selectionIdx));
         ShowStatus curStatus = movie.getShowStatus();
 

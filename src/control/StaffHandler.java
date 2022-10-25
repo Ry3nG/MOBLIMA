@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class StaffHandler {
-  private final List<Staff> staffs;
+  private List<Staff> staffs;
   private Staff currentStaff = null;
 
   public StaffHandler() {
@@ -68,7 +68,8 @@ public class StaffHandler {
   // + getStaffs() : List<Staff>
   public List<Staff> getStaffs() {
     List<Staff> staffs = new ArrayList<Staff>();
-    //Source from serialized datasource
+    this.staffs = staffs;
+
     //Source from serialized datasource
     String fileName = "staffs.csv";
     if (fileName == null || fileName.isEmpty()) {
@@ -79,6 +80,8 @@ public class StaffHandler {
     JsonArray staffList = Datasource.readArrayFromCsv(fileName);
     if (staffList == null) {
       Helper.logger("StaffHandler.getStaffs", "No serialized data available");
+      this.addStaff("staff", "staff");
+      staffs = this.staffs;
       return staffs;
     }
 
@@ -153,17 +156,17 @@ public class StaffHandler {
   /**
    * Append new staff to staff list
    *
-   * @param name:String
+   * @param username:String
    * @param password:String
    * @return staffIdx:int
    */
-  // +addStaff(name:String, password:String) : int
-  public int addStaff(String name, String password) {
+  // +addStaff(username:String, password:String) : int
+  public int addStaff(String username, String password) {
 
-    // Initialize new Customer
+    // Initialize new Staff
     Staff staff = new Staff(
         UUID.randomUUID().toString(),
-        name,
+        username,
         password
     );
     this.staffs.add(staff);

@@ -21,7 +21,7 @@ public class CustomerMenu extends Menu {
 
   private CustomerMenu() {
     super();
-    this.movieMenu = MovieMenu.getInstance();
+    this.movieMenu = MovieMenu.getInstance(true);
     this.bookingMenu = BookingMenu.getInstance();
 
     handler = new CustomerHandler();
@@ -152,7 +152,7 @@ public class CustomerMenu extends Menu {
 
         // Initialize and append to existing customer list
         customerIdx = handler.addCustomer(name, contactNumber);
-        if (customerIdx == -1)
+        if (customerIdx < -1)
           throw new Exception("Unable to register, account with phone number already exists");
 
         System.out.println("Successful account registration");
@@ -265,9 +265,9 @@ public class CustomerMenu extends Menu {
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
-    int showtimeIdx = this.bookingMenu.selectShowtimeIdx(selectedMovie.getId());
-    if (showtimeIdx < 0)
-      return bookingIdx;
+    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
+    if (showtimeIdx < 0) return bookingIdx;
     Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
 
     // Print showtime details

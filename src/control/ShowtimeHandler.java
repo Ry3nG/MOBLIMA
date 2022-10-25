@@ -55,7 +55,7 @@ public class ShowtimeHandler {
    */
   //+ getShowtime (showtimeldx : int) : Showtime
   public Showtime getShowtime(int showtimeIdx) {
-    return (this.showtimes.size() < 1 || showtimeIdx < 0) ? null : this.showtimes.get(showtimeIdx);
+    return (this.showtimes.size() < 1 || showtimeIdx < 0) ? null : new Showtime(this.showtimes.get(showtimeIdx));
   }
 
   /**
@@ -71,7 +71,7 @@ public class ShowtimeHandler {
 
     for (Showtime s : showtimes) {
       if (s.getId().equals(showtimeId)) {
-        showtime = s;
+        showtime = new Showtime(s);
         break;
       }
     }
@@ -94,26 +94,6 @@ public class ShowtimeHandler {
 
     for (Showtime showtime : this.showtimes) {
       if (showtime.getMovieId() == movieId) showtimes.add(showtime);
-    }
-    return showtimes;
-  }
-
-  /**
-   * Get showtime list of specified cinema
-   *
-   * @param cinemaId:int
-   * @return showtimes:List<Showtime>
-   */
-  //+ getCinemaShowtimes(cinemaId : int) : List <Showtime>
-  public List<Showtime> getCinemaShowtimes(int cinemaId) {
-    List<Showtime> showtimes = new ArrayList<Showtime>();
-    if (this.showtimes.size() < 1 || cinemaId < 0) {
-//      System.out.println("No cinemas available to host showtimes");
-      return showtimes;
-    }
-
-    for (Showtime showtime : this.showtimes) {
-      if (showtime.getCinemaId() == cinemaId) showtimes.add(showtime);
     }
     return showtimes;
   }
@@ -148,6 +128,28 @@ public class ShowtimeHandler {
     // Serialize data
     this.saveShowtimes();
 
+    return status;
+  }
+
+  /**
+   * Remove specified showtime by idx
+   *
+   * @param showtimeId:String
+   * @return status:boolean
+   */
+  //+ removeShowtime(showtimeId : String) : boolean
+  public boolean removeShowtime(String showtimeId) {
+    boolean status = false;
+    if (this.showtimes.size() < 1 || showtimeId.isEmpty()) return status;
+
+    int showtimeIdx = this.getShowtimeIdx(showtimeId);
+    if (showtimeIdx < 0) return status;
+    this.showtimes.remove(showtimeIdx);
+
+    //Serialize data
+    this.saveShowtimes();
+
+    status = true;
     return status;
   }
 
@@ -305,15 +307,6 @@ public class ShowtimeHandler {
 //    return this.updateShowtime(cineplexId, cinemaId, movieId, datetime, showtime.getSeats());
 //  }
 
-//  //+ removeShowtime(showtimeldx : String) : boolean
-//  public boolean removeShowtime(int showtimeIdx) {
-//    boolean status = false;
-//    if (this.showtimes.size() < 1 || showtimeIdx < 0) return status;
-//
-//    this.showtimes.remove(showtimeIdx);
-//    status = true;
-//    return status;
-//  }
 
 //  //  +printShowtimeDetails(showtimeId : String) : void
 

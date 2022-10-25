@@ -37,7 +37,7 @@ public class MovieHandler {
    */
   //+ getMovie(movieldx : int) : Movie
   public Movie getMovie(int movieIdx) {
-    return (this.movies.size() < 1 || movieIdx < 0) ? null : this.movies.get(movieIdx);
+    return (this.movies.size() < 1 || movieIdx < 0) ? null : new Movie(this.movies.get(movieIdx));
   }
 
   /**
@@ -65,6 +65,22 @@ public class MovieHandler {
    */
   //+getMovies() : List <Movie>
   public List<Movie> getMovies() {
+    return this.movies;
+  }
+
+  /**
+   * Get available movie list
+   *
+   * @return movies:List<Movie>
+   */
+  //+getAvailableMovies() : List <Movie>
+  public List<Movie> getAvailableMovies() {
+    if (this.movies.isEmpty()) return this.movies;
+
+    List<Movie> movies = new ArrayList<>();
+    for (Movie movie : movies) {
+      if (movie.getShowStatus().equals(ShowStatus.NOW_SHOWING)) movies.add(movie);
+    }
     return this.movies;
   }
 

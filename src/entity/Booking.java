@@ -14,6 +14,7 @@ public class Booking {
   private List<int[]> seats;
   private double totalPrice;
   private TicketType type;
+
   public Booking(String transactionId, String customerId, int cinemaId, int movieId, String showtimeId, List<int[]> seats, double totalPrice, TicketType type) {
     this.transactionId = transactionId;
     this.customerId = customerId;
@@ -23,6 +24,24 @@ public class Booking {
     this.seats = seats;
     this.totalPrice = totalPrice;
     this.type = type;
+  }
+
+  /**
+   * Clone constructor
+   *
+   * @param cloneBooking:Booking
+   */
+  public Booking(Booking cloneBooking) {
+    this(
+        cloneBooking.transactionId,
+        cloneBooking.customerId,
+        cloneBooking.cinemaId,
+        cloneBooking.movieId,
+        cloneBooking.showtimeId,
+        cloneBooking.seats,
+        cloneBooking.totalPrice,
+        cloneBooking.type
+    );
   }
 
   public String getTransactionId() {

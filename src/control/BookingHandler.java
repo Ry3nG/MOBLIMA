@@ -47,7 +47,7 @@ public class BookingHandler extends CinemaHandler {
   //+ getBooking(bookingldx : int): Booking
   public Booking getBooking(int bookingIdx) {
     this.selectedBookingIdx = bookingIdx;
-    return (bookingIdx < 0 || this.bookings.size() < 1) ? null : this.bookings.get(bookingIdx);
+    return (bookingIdx < 0 || this.bookings.size() < 1) ? null : new Booking(this.bookings.get(bookingIdx));
   }
 
   /**
@@ -63,7 +63,7 @@ public class BookingHandler extends CinemaHandler {
 
     for (Booking b : this.bookings) {
       if (b.getTransactionId().equals(transactionId)) {
-        booking = b;
+        booking = new Booking(b);
         break;
       }
     }
@@ -192,6 +192,47 @@ public class BookingHandler extends CinemaHandler {
     this.saveBookings();
 
     return this.bookings.size() - 1;
+  }
+
+  /**
+   * Checks if specified showtime id has any associated bookings
+   *
+   * @param showtimeId:String
+   * @return hasBooking:boolean
+   */
+  //+ checkIfShowtimeHasBooking(showtimeId:String):boolean
+  public boolean checkIfShowtimeHasBooking(String showtimeId) {
+    boolean hasBooking = false;
+    if (showtimeId == null || this.bookings.isEmpty()) return false;
+
+    for (Booking booking : this.bookings) {
+      if (booking.getShowtimeId().equals(showtimeId)) {
+        hasBooking = true;
+        break;
+      }
+    }
+    return hasBooking;
+  }
+
+  /**
+   * Checks if specified cinema id has any associated bookings
+   *
+   * @param cinemaId:int
+   * @return hasBooking:boolean
+   */
+  //+ checkIfCinemaHasBooking(cinemaId:int):boolean
+  public boolean checkIfCinemaHasBooking(int cinemaId) {
+    boolean hasBooking = false;
+    if (cinemaId < 0 || this.bookings.isEmpty()) return false;
+
+    for (Booking booking : this.bookings) {
+      if (booking.getCinemaId() == cinemaId) {
+        hasBooking = true;
+        break;
+      }
+    }
+
+    return hasBooking;
   }
 
   /**
