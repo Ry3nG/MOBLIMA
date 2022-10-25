@@ -1,7 +1,6 @@
 package boundary;
 
-import control.MovieHandler;
-import entity.Menu;
+import control.handlers.MovieHandler;
 import tmdb.entities.Movie;
 import tmdb.entities.Movie.ContentRating;
 import tmdb.entities.Movie.ShowStatus;
@@ -43,7 +42,12 @@ public class MovieMenu extends Menu {
 
   @Override
   public void showMenu() {
+    Helper.logger("MovieMenu.showMenu", "Displaying menu . . .");
     this.displayMenu();
+  }
+
+  public List<Movie> getViewableMovies(){
+    return showLimitedMovies ? handler.getMovies(Movie.ShowStatus.NOW_SHOWING) : handler.getMovies();
   }
 
   /**
@@ -54,11 +58,13 @@ public class MovieMenu extends Menu {
   //+ getMovieMenu(showLimited : boolean):LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getMovieMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Movie> movies = showLimitedMovies ? handler.getMovies(ShowStatus.NOW_SHOWING) : handler.getMovies();
-    Helper.logger("MovieMenu.getMovieMenu", "Movies: " + movies);
+    List<Movie> movies = this.getViewableMovies();
+    Helper.logger("MovieMenu.getMovieMenu", "SHOW LIMITED: " + this.showLimitedMovies);
+    Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies);
+
     for (int i = 0; i < movies.size(); i++) {
       Movie movie = movies.get(i);
-      int movieIdx = i;
+      int movieIdx = this.handler.getMovieIdx(movie.getId());
       menuMap.put((i + 1) + ". " + movie.getTitle(), () -> {
         handler.setSelectedMovieIdx(movieIdx);
         handler.printMovieDetails(movieIdx);
@@ -78,7 +84,7 @@ public class MovieMenu extends Menu {
     this.refreshMenu(this.getMovieMenu());
 
     // Retrieve user selection idx for movies
-    List<Movie> movies = handler.getMovies();
+    List<Movie> movies = this.getViewableMovies();
     int selectedIdx = this.getListSelectionIdx(movies);
 
     Helper.logger("MovieMenu.selectMovieIdx", "Max: " + (this.menuMap.size()));
@@ -90,8 +96,10 @@ public class MovieMenu extends Menu {
     // Return to previous menu
     if (selectedIdx == (this.menuMap.size() - 1)) return -1;
 
-    handler.setSelectedMovieIdx(selectedIdx);
-    Helper.logger("MovieMenu.selectMovieIdx", "Selected Movie Idx: " + handler.getMovie(selectedIdx).getId());
+    Movie movie = movies.get(selectedIdx);
+    int movieIdx = this.handler.getMovieIdx(movie.getId());
+    handler.setSelectedMovieIdx(movieIdx);
+    Helper.logger("MovieMenu.selectMovieIdx", "Selected Movie Idx: " + handler.getMovie(movieIdx).getId());
 
     return selectedIdx;
   }

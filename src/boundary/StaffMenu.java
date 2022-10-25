@@ -1,10 +1,8 @@
 package boundary;
 
-import control.StaffHandler;
-import entity.Menu;
-import entity.Showtime;
+import control.handlers.StaffHandler;
+import control.menu.StaffController;
 import entity.Staff;
-import tmdb.entities.Movie;
 import utils.Helper;
 
 import java.util.ArrayList;
@@ -15,15 +13,13 @@ import java.util.Scanner;
 public class StaffMenu extends Menu {
   private static StaffMenu instance;
   private static StaffHandler handler;
-  private final MovieMenu movieMenu;
-  private final BookingMenu bookingMenu;
+  private static StaffController controller;
 
   private StaffMenu() {
     super();
-    this.movieMenu = MovieMenu.getInstance(false);
-    this.bookingMenu = BookingMenu.getInstance();
 
     handler = new StaffHandler();
+    controller = StaffController.getInstance();
 
     // Require account authentication first
     this.isAuthenticated();
@@ -119,12 +115,10 @@ public class StaffMenu extends Menu {
         System.out.println(e.getMessage());
         username = null;
 
-        List<String> proceedOptions = new ArrayList<String>() {
-          {
-            add("Proceed with login");
-            add("Return to previous menu");
-          }
-        };
+        List<String> proceedOptions = new ArrayList<String>() {{
+          add("Proceed with login");
+          add("Return to previous menu");
+        }};
 
         System.out.println("Next steps:");
         this.displayMenuList(proceedOptions);
@@ -233,76 +227,37 @@ public class StaffMenu extends Menu {
   }
 
   /**
-   * Get the updated staff list to be displayed
+   * Gets full staff menu list
    *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
   //+ getStaffMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getStaffMenu() {
-    LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    menuMap = new LinkedHashMap<String, Runnable>() {
-      {
-        put("View and update movie details", () -> {
-          editMovie();
-        });
-        put("View and update showtimes", () -> {
-          // Select movie
-          System.out.println("Select movie: ");
-          int movieIdx = movieMenu.selectMovieIdx();
-          if (movieIdx < 0) return;
-          Movie selectedMovie = movieMenu.getHandler().getMovie(movieIdx);
+    LinkedHashMap<String, Runnable> menuMap = controller.getStaffMenu();
+    LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
+      put("Register new staff account", () -> {
+        // Maintain current account
+        int staffIdx = getCurrentStaff();
 
-          // Select showtimes
-          System.out.println("Select showtime slot: ");
-          List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
-          int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
-          if (showtimeIdx < 0) return;
+        register();
 
-          Showtime showtime = bookingMenu.getHandler().getShowtime(showtimeIdx);
-          bookingMenu.editShowtime(showtime.getId());
-        });
-        put("View and update cinemas", () -> {
-          // Cinema ID / IDX is the same
-          int cinemaIdx = bookingMenu.selectCinemaIdx();
-          if (cinemaIdx < 0) return;
-          bookingMenu.editCinema(cinemaIdx);
-        });
-        put("Register new staff account", () -> {
-          // Maintain current account
-          int staffIdx = getCurrentStaff();
-
-          register();
-
-          // Revert back to account
-          handler.setCurrentStaff(staffIdx);
-        });
+        // Revert back to account
+        handler.setCurrentStaff(staffIdx);
+      });
 //        // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
 //        // ratings", () -> {
 //        // });
-        put("Exit", () -> {
-          System.out.println("\t>>> Quitting application...");
-          System.out.println("---------------------------------------------------------------------------");
-          System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
-          scanner.close();
-          System.exit(0);
-        });
-      }
-    };
+      put("Exit", () -> {
+        System.out.println("\t>>> Quitting application...");
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
+        scanner.close();
+        System.exit(0);
+      });
+    }};
+
+    menuMap.putAll(addMenuMap);
     return menuMap;
-  }
-
-
-  /**
-   * Select and edit movies
-   */
-  //+ editMovie():void
-  public void editMovie() {
-    // Select movie
-    System.out.println("Select movie: ");
-    int movieIdx = movieMenu.selectMovieIdx();
-    if (movieIdx < 0) return;
-
-    movieMenu.selectEditableAction(movieIdx);
   }
 
 }

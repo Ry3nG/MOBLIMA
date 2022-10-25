@@ -1,4 +1,4 @@
-package entity;
+package boundary;
 
 import utils.Helper;
 
@@ -25,6 +25,7 @@ public abstract class Menu {
   //# displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1) exit(0);
+    Helper.logger("Menu.displayMenuList", "MENU LIST: " + Arrays.deepToString(menuList.toArray()));
 
     int menuIdx = 1;
     System.out.println("---------------------------------------------------------------------------");
@@ -111,9 +112,10 @@ public abstract class Menu {
           throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
         }
 
+        Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice);
         return menuChoice;
       } catch (java.util.InputMismatchException e) {
-        System.out.println("[ERROR] Invalid non-numerical value - input must be an integer");
+        System.out.println(e.getMessage());
       } catch (IllegalArgumentException e) {
         System.out.println(e.getMessage());
       } catch (NoSuchElementException e) {
@@ -121,8 +123,8 @@ public abstract class Menu {
         System.exit(1);
       } catch (Exception e) {
         System.out.println("[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray()));
-        // scanner = new Scanner(System.in); // necessity?
-        // scanner.nextLine();
+        // Flush excess scanner buffer
+        scanner = new Scanner(System.in);
       }
     }
     return menuChoice;
@@ -143,6 +145,4 @@ public abstract class Menu {
    * Abstract method for showing menu
    */
   public abstract void showMenu();
-
-
 }

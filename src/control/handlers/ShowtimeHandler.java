@@ -1,4 +1,4 @@
-package control;
+package control.handlers;
 
 import entity.Showtime;
 import tmdb.control.Datasource;

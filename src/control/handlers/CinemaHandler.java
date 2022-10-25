@@ -1,4 +1,4 @@
-package control;
+package control.handlers;
 
 import boundary.MovieMenu;
 import com.google.gson.JsonArray;

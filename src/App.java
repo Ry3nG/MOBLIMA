@@ -1,7 +1,8 @@
 import boundary.CustomerMenu;
+import boundary.Menu;
 import boundary.StaffMenu;
-import entity.Menu;
 import utils.Constants;
+import utils.Helper;
 
 import java.util.Arrays;
 
@@ -21,16 +22,19 @@ public class App {
   public static void main(String[] args) {
     instance = App.getInstance();
 
+    // Debug
+    if (Arrays.stream(args).anyMatch(("--debug")::contains)) {
+      Constants.setDebugMode(true);
+      Helper.logger("App.main", "ARGS: " + Arrays.deepToString(args));
+      Helper.logger("App.main", "DEBUG MODE: " + Constants.DEBUG_MODE);
+    }
 
     // Default - Customer
     instance.currentMenu = CustomerMenu.getInstance();
 
-    if(args.length > 0){
-      // Debug
-      if (Arrays.stream(args).anyMatch(("--debug")::contains)) Constants.setDebugMode(true);
-
-        // Staff [--staff]
-      else if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
+    if (args.length > 0) {
+      // Staff [--staff]
+      if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
     }
 
     // Show menu

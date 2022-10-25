@@ -1,9 +1,8 @@
 package boundary;
 
-import control.BookingHandler;
+import control.handlers.BookingHandler;
 import entity.Booking;
 import entity.Cinema;
-import entity.Menu;
 import entity.Showtime;
 import tmdb.entities.Movie;
 import utils.Helper;
@@ -23,7 +22,7 @@ public class BookingMenu extends Menu {
   private BookingMenu() {
     super();
     handler = new BookingHandler();
-    this.refreshMenu(this.getShowtimeMenu());
+    this.refreshMenu(this.getShowtimeMenu(handler.getShowtimes()));
   }
 
   public static BookingMenu getInstance() {
@@ -51,9 +50,8 @@ public class BookingMenu extends Menu {
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
   //+ getShowtimeMenu():LinkedHashMap<String, Runnable>
-  public LinkedHashMap<String, Runnable> getShowtimeMenu() {
+  public LinkedHashMap<String, Runnable> getShowtimeMenu(List<Showtime> showtimes) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
-    List<Showtime> showtimes = handler.getShowtimes();
     if (showtimes.size() < 1) {
       System.out.println("No showtimes available.");
     } else {
@@ -176,7 +174,7 @@ public class BookingMenu extends Menu {
    */
   //+ selectShowtimeIdx(showtimes:List<Showtime>):int
   public int selectShowtimeIdx(List<Showtime> showtimes) {
-    this.refreshMenu(this.getShowtimeMenu());
+    this.refreshMenu(this.getShowtimeMenu(showtimes));
 
     // Initialize options with a return at the end
     List<String> showtimeOptions = showtimes.stream()

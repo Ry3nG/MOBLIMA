@@ -1,10 +1,11 @@
-package control;
+package control.handlers;
 
 import tmdb.control.Datasource;
 import tmdb.control.MovieDatasource;
 import tmdb.entities.Movie;
 import tmdb.entities.Movie.ContentRating;
 import tmdb.entities.Movie.ShowStatus;
+import utils.Helper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +18,16 @@ public class MovieHandler {
 
   public MovieHandler() {
     this.movies = dsMovie.getMovies();
+  }
+
+  /**
+   * Get selected movie
+   *
+   * @return movie:Movie
+   */
+  //+ getSelectedMovie() : Movie
+  public Movie getSelectedMovie() {
+    return this.getMovie(this.selectedMovieIdx);
   }
 
   /**
@@ -49,12 +60,16 @@ public class MovieHandler {
   // + getMovieIdx(movieId:int):int
   public int getMovieIdx(int movieId) {
     if (this.movies.size() < 1 || movieId < 0) return -1;
+    Helper.logger("MovieHandler.getMovieIdx", "MovieId: " + movieId);
+
     for (int i = 0; i < this.movies.size(); i++) {
       Movie movie = this.movies.get(i);
       if (movie.getId() == movieId) {
+        Helper.logger("MovieHandler.getMovieIdx", "Movie: " + movie);
         return i;
       }
     }
+
     return -1;
   }
 
@@ -65,22 +80,6 @@ public class MovieHandler {
    */
   //+getMovies() : List <Movie>
   public List<Movie> getMovies() {
-    return this.movies;
-  }
-
-  /**
-   * Get available movie list
-   *
-   * @return movies:List<Movie>
-   */
-  //+getAvailableMovies() : List <Movie>
-  public List<Movie> getAvailableMovies() {
-    if (this.movies.isEmpty()) return this.movies;
-
-    List<Movie> movies = new ArrayList<>();
-    for (Movie movie : movies) {
-      if (movie.getShowStatus() == ShowStatus.NOW_SHOWING) movies.add(movie);
-    }
     return this.movies;
   }
 
@@ -99,8 +98,10 @@ public class MovieHandler {
 
     for (int i = 0; i < this.movies.size(); i++) {
       Movie movie = this.movies.get(i);
-      if (movie.getShowStatus().equals(showStatus)) movies.add(movie);
+      if (movie.getShowStatus() == showStatus) movies.add(movie);
     }
+
+    Helper.logger("MovieHandler.getMovies", "MOVIES: " + movies);
     return movies;
   }
 
@@ -232,7 +233,19 @@ public class MovieHandler {
 
     for (int i = 0; i < this.movies.size(); i++) {
       Movie movie = this.movies.get(i);
-      System.out.println("> " + i + " " + movie.getTitle());
+      System.out.println("> " + (i + 1) + " " + movie.getTitle());
+    }
+  }
+
+  public void printMovies(List<Movie> movies) {
+    if (movies.isEmpty()) {
+      System.out.println("No movies available");
+      return;
+    }
+
+    for (int i = 0; i < movies.size(); i++) {
+      Movie movie = movies.get(i);
+      System.out.println("> " + (i + 1) + " " + movie.getTitle());
     }
   }
 
@@ -251,8 +264,5 @@ public class MovieHandler {
 //    return selectedMovieIdx;
 //  }
 
-//  //+ getSelectedMovie() : Movie
-//  public Movie getSelectedMovie() {
-//    return (this.movies.size() < 1 || this.selectedMovieIdx < 0) ? null : this.movies.get(this.selectedMovieIdx);
-//  }
+
 }

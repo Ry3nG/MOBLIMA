@@ -1,11 +1,10 @@
 package boundary;
 
-import control.CustomerHandler;
+import control.handlers.CustomerHandler;
+import control.menu.CustomerController;
 import entity.Booking;
 import entity.Customer;
-import entity.Menu;
 import entity.Showtime;
-import tmdb.entities.Movie;
 import utils.Helper;
 
 import java.util.ArrayList;
@@ -16,42 +15,14 @@ import java.util.Scanner;
 public class CustomerMenu extends Menu {
   private static CustomerHandler handler;
   private static CustomerMenu instance;
-  private final MovieMenu movieMenu;
-  private final BookingMenu bookingMenu;
+  private static CustomerController controller;
 
   private CustomerMenu() {
     super();
-    this.movieMenu = MovieMenu.getInstance(true);
-    this.bookingMenu = BookingMenu.getInstance();
-
     handler = new CustomerHandler();
+    controller = CustomerController.getInstance();
 
-    this.menuMap = new LinkedHashMap<String, Runnable>() {
-      {
-        put("Search/List Movies", MovieMenu.getHandler()::printMovies);
-        put("View movie details – including reviews and ratings", movieMenu::showMenu);
-        // put("Check seat availability and selection of seat/s.", () -> {
-        //
-        // });
-        put("Book and purchase ticket", () -> {
-          makeBooking();
-        });
-        put("View booking history", () -> {
-          viewBookings();
-
-        });
-        // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
-        // ratings", () -> {
-        // });
-        put("Exit", () -> {
-          System.out.println("\t>>> Quitting application...");
-          System.out.println("---------------------------------------------------------------------------");
-          System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
-          scanner.close();
-          System.exit(0);
-        });
-      }
-    };
+    this.refreshMenu(this.getCustomerMenu());
   }
 
   public static CustomerMenu getInstance() {
@@ -76,6 +47,38 @@ public class CustomerMenu extends Menu {
   }
 
   /**
+   * Gets full customer menu list
+   *
+   * @return menuMap:LinkedHashMap<String, Runnable>
+   */
+  //# getCustomerMenu(): LinkedHashMap<String, Runnable>
+  protected LinkedHashMap<String, Runnable> getCustomerMenu() {
+    LinkedHashMap<String, Runnable> menuMap = controller.getCustomerMenu();
+    LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
+      put("Book and purchase ticket", () -> {
+        makeBooking();
+      });
+      put("View booking history", () -> {
+        viewBookings();
+
+      });
+      // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
+      // ratings", () -> {
+      // });
+      put("Exit", () -> {
+        System.out.println("\t>>> Quitting application...");
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
+        scanner.close();
+        System.exit(0);
+      });
+    }};
+
+    menuMap.putAll(addMenuMap);
+    return menuMap;
+  }
+
+  /**
    * Retrieve currently selected / active customer via login/registration
    *
    * @return customerIdx:int
@@ -84,6 +87,7 @@ public class CustomerMenu extends Menu {
   public int getCurrentCustomer() {
     int customerIdx = -1;
 
+    // Currently selected customer idx
     Customer customer = handler.getCurrentCustomer();
     if (customer != null) {
       customerIdx = handler.getCustomerIdx(customer.getId());
@@ -91,13 +95,11 @@ public class CustomerMenu extends Menu {
       return customerIdx;
     }
 
-    List<String> accountOptions = new ArrayList<String>() {
-      {
-        add("Already have an account? Login");
-        add("Create account");
-      }
-    };
-
+    // Prompt for customer via login or register
+    List<String> accountOptions = new ArrayList<String>() {{
+      add("Already have an account? Login");
+      add("Create account");
+    }};
     while (customerIdx == -1) {
       System.out.println("Next steps:");
       this.displayMenuList(accountOptions);
@@ -107,13 +109,13 @@ public class CustomerMenu extends Menu {
       if (accountSelection == 0) {
         customerIdx = this.login();
       }
-
       // Create account
-      if (accountSelection == 1) {
+      else if (accountSelection == 1) {
         customerIdx = this.register();
       }
     }
 
+    // Save current customer
     handler.setCurrentCustomer(customerIdx);
     return customerIdx;
   }
@@ -127,22 +129,23 @@ public class CustomerMenu extends Menu {
   public int register() {
     int customerIdx = -1;
 
-    String name = null, contactNumber = null;
     System.out.println("Account Registration");
+    String name = null, contactNumber = null;
     while (customerIdx == -1 && scanner.hasNextLine()) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
 
+        // Prompt for registration requirements
         if (name == null) {
           System.out.print("Name: ");
           name = scanner.next().trim();
         }
 
+        // Prompt for registration requirements
         if (contactNumber == null) {
           System.out.print("Contact No.: ");
           contactNumber = scanner.next().trim();
-
-          // VALIDATION: SG Phone Numbers requires exactly 8 digits
+          /// VALIDATION: SG Phone Numbers requires exactly 8 digits
           if (!handler.validatePhoneNumber(contactNumber)) {
             System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
             contactNumber = null;
@@ -156,13 +159,13 @@ public class CustomerMenu extends Menu {
           throw new Exception("Unable to register, account with phone number already exists");
 
         System.out.println("Successful account registration");
-
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
         System.out.println(e.getMessage());
         name = contactNumber = null;
 
+        // Prompt for proceed options
         List<String> proceedOptions = new ArrayList<String>() {
           {
             add("Proceed with registration");
@@ -203,33 +206,32 @@ public class CustomerMenu extends Menu {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
 
+        // Prompt for account credentials
         System.out.print("Account Contact No.: ");
         String contactNumber = scanner.next().trim();
-        // VALIDATION: SG Phone Numbers requires exactly 8 digits
+        /// VALIDATION: SG Phone Numbers requires exactly 8 digits
         if (!this.handler.validatePhoneNumber(contactNumber)) {
           System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
           continue;
         }
 
+        // Retrieve customer idx of contact number
         customerIdx = this.handler.checkIfAccountExists(contactNumber);
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
         System.out.println("Successful account login");
-
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
         System.out.println(e.getMessage());
 
-        List<String> proceedOptions = new ArrayList<String>() {
-          {
-            add("Proceed with login");
-            add("Register account instead");
-            add("Return to previous menu");
-          }
-        };
-
+        // Prompt for proceed options
+        List<String> proceedOptions = new ArrayList<String>() {{
+          add("Proceed with login");
+          add("Register account instead");
+          add("Return to previous menu");
+        }};
         System.out.println("Next steps:");
         this.displayMenuList(proceedOptions);
         int proceedSelection = getListSelectionIdx(proceedOptions, false);
@@ -256,46 +258,47 @@ public class CustomerMenu extends Menu {
   public int makeBooking() {
     int bookingIdx = -1;
 
-    // Select movie
-    System.out.println("Select movie: ");
-    int movieIdx = this.movieMenu.selectMovieIdx();
-    if (movieIdx < 0)
-      return bookingIdx;
-    Movie selectedMovie = this.movieMenu.getHandler().getMovie(movieIdx);
+    while (bookingIdx == -1) {
+      // Redirect to controller for interactivity
+      int showtimeIdx = controller.viewShowtimeAvailability();
+      Helper.logger("CustomerMenu.makeBooking", "showtimeIdx: " + showtimeIdx);
+      if (showtimeIdx < 0) return bookingIdx;
+      Showtime showtime = controller.bookingHandler().getShowtime(showtimeIdx);
+      Helper.logger("CustomerMenu.makeBooking", "showtime: " + showtime);
 
-    // Select showtimes for selected movie
-    System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = this.bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
-    int showtimeIdx = this.bookingMenu.selectShowtimeIdx(movieShowtimes);
-    if (showtimeIdx < 0) return bookingIdx;
-    Showtime showtime = this.bookingMenu.getHandler().getShowtime(showtimeIdx);
+      // Confirmation before proceeding
+      List<String> proceedOptions = new ArrayList<String>() {{
+        add("Proceed to make booking");
+        add("Return to previous menu");
+      }};
+      System.out.println("Next steps:");
+      this.displayMenuList(proceedOptions);
+      int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
-    // Print showtime details
-    BookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
+      // Return to previous menu
+      if (proceedSelection == proceedOptions.size() - 1) continue;
+      else if (proceedSelection == 0) {
+        // Get customer idx via login/register
+        int customerIdx = this.getCurrentCustomer();
+        Helper.logger("CustomerMenu.makeBooking", "customerIdx: " + customerIdx);
+        if (customerIdx < 0) return bookingIdx;
 
-    // Select seats
-    List<int[]> seats = this.bookingMenu.selectSeat(showtimeIdx);
-    Helper.logger("CustomerMenu.makeBooking", "NO. OF SEATS: " + seats.size());
-    if (seats.size() < 1)
-      return bookingIdx;
+        // Retrieve customer from idx
+        Customer customer = this.handler.getCustomer(customerIdx);
+        if (customer == null) return bookingIdx;
 
-    // Get customer idx via login/register
-    int customerIdx = this.getCurrentCustomer();
-    Helper.logger("CustomerMenu.makeBooking", "customerIdx: " + customerIdx);
-    if (customerIdx < 0)
-      return bookingIdx;
+        // Redirect to controller for interactivity
+        bookingIdx = this.controller.makeBooking(customer.getId(), showtime);
+        Helper.logger("CustomerMenu.makeBooking", "BookingIdx: " + bookingIdx);
+        if (bookingIdx < 0) return bookingIdx;
 
-    Customer customer = this.handler.getCustomer(customerIdx);
-    if (customer == null)
-      return bookingIdx;
-
-    bookingIdx = this.bookingMenu.getHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(),
-        showtime.getId(), seats, 10.0, Booking.TicketType.PEAK);
-
-    // Print out tx id
-    Booking booking = this.bookingMenu.getHandler().getBooking(bookingIdx);
-    if (booking == null) return bookingIdx;
-    System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
+        // Print out Booking transaction id
+        Booking booking = this.controller.bookingHandler().getBooking(bookingIdx);
+        if (booking == null) return bookingIdx;
+        Helper.logger("CustomerMenu.makeBooking", "Booking: " + booking);
+        System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
+      }
+    }
 
     return bookingIdx;
   }
@@ -304,14 +307,14 @@ public class CustomerMenu extends Menu {
     // Get customer idx via login/register
     int customerIdx = this.getCurrentCustomer();
     Helper.logger("CustomerMenu.viewBookings", "customerIdx: " + customerIdx);
-    if (customerIdx < 0)
-      return;
+    if (customerIdx < 0) return;
 
+    // Retrieve customer from customer list
     Customer customer = this.handler.getCustomer(customerIdx);
-    if (customer == null)
-      return;
+    if (customer == null) return;
     Helper.logger("CustomerMenu.viewBookings", "Customer ID: " + customer.getId());
-    // this.bookingHandler.printBookings(customer.getId());
-    this.bookingMenu.selectBookingIdx(customer.getId());
+
+    // Redirect to controller for interactivity
+    this.controller.viewBookings(customer.getId());
   }
 }
