@@ -58,7 +58,7 @@ public abstract class Menu {
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
         if (menuChoice != menuMap.size()) {
-          System.out.println("Press any key to continue . . .");
+          System.out.println("\nPress [Enter] to continue . . .");
           System.in.read();
         }
       } catch (java.util.InputMismatchException e) {

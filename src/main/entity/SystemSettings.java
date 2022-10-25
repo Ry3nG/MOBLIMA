@@ -1,97 +1,105 @@
 package main.entity;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
+public class SystemSettings implements Serializable {
 
-public class SystemSettings {
+  /**
+   * Price of an Adult ticket
+   */
+  private double adultTicket;
+  /**
+   * Price of a Child ticket
+   */
+  private double childTicket;
+  /**
+   * Price of a Senior ticket
+   */
+  private double seniorTicket;
+  /**
+   * Surcharge for Premium cinema class
+   */
+  private double cinemaSurchage;
+  /**
+   * Surcharge for special categories of movies, e.g., Blockbusters, Preview
+   */
+  private double movieSurcharge;
+  /**
+   * Surcharge for weekends and public holidays
+   */
+  private double weekendSurcharge;
+  /**
+   * List of public holidays
+   */
+  private ArrayList<String> pHolidays = new ArrayList<String>();
 
-  private float standardTix;
-  private float studentTix;
-  private float seniorTix;
-
-  private ArrayList<String> holidays = new ArrayList<String>();
-
-  private static SystemSettings _settings = null;
-
-  private SystemSettings() {
-    File csv = new File("data/settings.csv");
-    String absolutePath = csv.getAbsolutePath();
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(absolutePath));
-      String line;
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(",");
-        switch (values[0]) {
-          case "standardTix":
-            this.standardTix = Float.parseFloat(values[1].trim());
-            break;
-          case "studentTix":
-            this.studentTix = Float.parseFloat(values[1].trim());
-            break;
-          case "seniorTix":
-            this.seniorTix = Float.parseFloat(values[1].trim());
-            break;
-          case "holidays":
-            for (int i = 1; i < values.length; i++) {
-              this.holidays.add(values[i].trim());
-            }
-        }
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+  public SystemSettings(double adultTicket, double childTicket, double seniorTicket,
+    double cinemaSurchage, double movieSurcharge, double weekendSurcharge) {
+    this.adultTicket = adultTicket;
+    this.childTicket = childTicket;
+    this.seniorTicket = seniorTicket;
+    this.cinemaSurchage = cinemaSurchage;
+    this.movieSurcharge = movieSurcharge;
+    this.weekendSurcharge = weekendSurcharge;
   }
 
-  public static SystemSettings getInstance() {
-    if (_settings == null) _settings = new SystemSettings();
-    return _settings;
+  public double getAdultTicket() {
+    return adultTicket;
   }
 
-  public float getStandardTix() {
-    return standardTix;
+  public void setAdultTicket(double adultTicket) {
+    this.adultTicket = adultTicket;
   }
 
-  public void setStandardTix(float standardTix) {
-    this.standardTix = standardTix;
+  public double getChildTicket() {
+    return childTicket;
   }
 
-  public float getStudentTix() {
-    return studentTix;
+  public void setChildTicket(double childTicket) {
+    this.childTicket = childTicket;
   }
 
-  public void setStudentTix(float studentTix) {
-    this.studentTix = studentTix;
+  public double getSeniorTicket() {
+    return seniorTicket;
   }
 
-  public float getSeniorTix() {
-    return seniorTix;
+  public void setSeniorTicket(double seniorTicket) {
+    this.seniorTicket = seniorTicket;
   }
 
-  public void setSeniorTix(float seniorTix) {
-    this.seniorTix = seniorTix;
+  public double getCinemaSurchage() {
+    return cinemaSurchage;
   }
 
-  public ArrayList<String> getHolidays() {
-    return this.holidays;
+  public void setCinemaSurchage(double cinemaSurchage) {
+    this.cinemaSurchage = cinemaSurchage;
   }
 
-  public boolean isHoliday(String yymmdd) {
-    if (this.holidays.contains(yymmdd)) return true;
-    return false;
+  public double getMovieSurcharge() {
+    return movieSurcharge;
   }
 
-  public boolean addHoliday(String yymmdd) {
-    if (isHoliday(yymmdd)) return false; // already added
-    holidays.add(yymmdd);
-    return true;
+  public void setMovieSurcharge(double movieSurcharge) {
+    this.movieSurcharge = movieSurcharge;
   }
 
-  public boolean delHoliday(String yymmdd) {
-    if (!isHoliday(yymmdd)) return false;
-    this.holidays.remove(yymmdd);
-    return true;
+  public double getWeekendSurcharge() {
+    return weekendSurcharge;
   }
 
+  public void setWeekendSurcharge(double weekendSurcharge) {
+    this.weekendSurcharge = weekendSurcharge;
+  }
+
+  public ArrayList<String> getPublicHolidays() {
+    return this.pHolidays;
+  }
+
+  public void addPublicHoliday(String yyyymmdd) {
+    this.pHolidays.add(yyyymmdd);
+  }
+
+  public boolean removePublicHoliday(String yyyymmdd) {
+    return this.pHolidays.remove(yyyymmdd);
+  }
 }
