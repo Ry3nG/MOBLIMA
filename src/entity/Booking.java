@@ -1,8 +1,11 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static utils.Helper.formatAsTable;
 
 public class Booking {
   private String transactionId;
@@ -113,12 +116,13 @@ public class Booking {
     List<String> seatCodes = this.seats.stream()
         .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1))).toList();
 
-    String printed = "Transaction ID: " + this.transactionId + "\n";
-    printed += "Seats: " + Arrays.deepToString(seatCodes.toArray()) + "\n";
-    printed += "Type: " + this.type.displayName + "\n";
-    printed += "Total Price: " + this.totalPrice + "\n";
+    List<List<String>> rows = new ArrayList<List<String>>();
+    rows.add(Arrays.asList("Transaction ID:", this.transactionId));
+    rows.add(Arrays.asList("Seats:", Arrays.deepToString(seatCodes.toArray())));
+    rows.add(Arrays.asList("Type:", this.type.displayName));
+    rows.add(Arrays.asList("Total Price:", String.format("%2f",this.totalPrice)));
 
-    return printed;
+    return formatAsTable(rows);
   }
 
   @Override

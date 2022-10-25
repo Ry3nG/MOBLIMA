@@ -11,8 +11,7 @@ public class App {
   private Menu currentMenu;
 
   private App() {
-    // Default - Customer
-    currentMenu = CustomerMenu.getInstance();
+
   }
 
   public static App getInstance() {
@@ -22,6 +21,9 @@ public class App {
 
   public static void main(String[] args) {
     instance = App.getInstance();
+
+    // Default - Customer
+    instance.currentMenu = CustomerMenu.getInstance();
 
     // Debug
     if (Arrays.stream(args).anyMatch(("--debug")::contains)) {

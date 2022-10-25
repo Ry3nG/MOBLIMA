@@ -249,7 +249,8 @@ public class BookingHandler extends CinemaHandler {
     if (booking == null) return;
 
     System.out.println("---------------------------------------------------------------------------");
-    System.out.println(booking);
+    System.out.println(colorize("/// BOOKING DETAILS ///", Preset.HIGHLIGHT.color));
+    System.out.println(colorize(booking.toString(), Preset.HIGHLIGHT.color));
 
     // Showtime
     int showtimeIdx = this.getShowtimeIdx(booking.getShowtimeId());

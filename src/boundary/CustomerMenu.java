@@ -119,7 +119,7 @@ public class CustomerMenu extends Menu {
 
     System.out.println("Account Registration");
     String name = null, contactNumber = null;
-    while (customerIdx == -1 && scanner.hasNextLine()) {
+    while (customerIdx == -1) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
 

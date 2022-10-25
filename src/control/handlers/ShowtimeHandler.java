@@ -191,19 +191,29 @@ public class ShowtimeHandler {
    */
   // +printSeats(seats:boolean[][]):void
   public void printSeats(boolean[][] seats) {
+    int GAP_COL = 2;
+    String BUFFER = "=================";
+
+    System.out.println(BUFFER + " SCREEN " + BUFFER);
     System.out.println();
-    System.out.print("  ");
+    System.out.print("      ");
     for (int header = 0; header < seats[0].length; header++) {
-      System.out.print(" " + (header + 1) + "  ");
+      if (header > 0) System.out.print((header == GAP_COL || header == seats[0].length - GAP_COL) ? "  -  " : "  ");
+      System.out.print((header + 1));
     }
     System.out.println();
     for (int row = 0; row < seats.length; row++) {
-      System.out.print((row + 1) + " ");
+      String strRowIdx = (row + 1) + "  - ";
+      System.out.print(strRowIdx);
       for (int col = 0; col < seats[row].length; col++) {
+        if (col > 0 && (col == GAP_COL || col == seats[row].length - GAP_COL)) {
+          System.out.print(" - ");
+        }
         boolean isAvailable = (seats[row][col]);
-        String seat = isAvailable ? "[O]" : "[X]";
-        System.out.print(colorize(seat + " ", ((isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT).color));
+        String seat = isAvailable ? "|O|" : "|X|";
+        System.out.print(colorize(seat, ((isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT).color));
       }
+      System.out.print(new StringBuilder(strRowIdx).reverse().toString());
       System.out.println();
     }
     System.out.println();

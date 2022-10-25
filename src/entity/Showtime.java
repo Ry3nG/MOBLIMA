@@ -31,7 +31,9 @@ public class Showtime {
     this(id, cineplexId, cinemaId, movieId, datetime, new boolean[][]{
         {true, true, true, true, true, true, true, true},
         {true, true, true, true, true, true, true, true},
-        {true, true, true, true, true, true, true, true}
+        {true, true, true, true, true, true, true, true},
+        {true, true, true, true, true, true, true, true},
+        {true, true, true, true, true, true, true, true},
     });
   }
 
@@ -142,7 +144,7 @@ public class Showtime {
     rows.add(Arrays.asList("Movie ID:", Integer.toString(this.movieId)));
     rows.add(Arrays.asList("Cinema ID:", Integer.toString(this.cinemaId)));
     rows.add(Arrays.asList("Cineplex ID:", this.cineplexId));
-    rows.add(Arrays.asList("Available Seats:", this.getSeatCount(true) + "/" + this.getSeatCount()));
+    rows.add(Arrays.asList("Booked Seats:", this.getSeatCount(false) + "/" + this.getSeatCount()));
 
     return formatAsTable(rows);
   }
