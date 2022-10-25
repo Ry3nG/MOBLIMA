@@ -21,14 +21,17 @@ public class App {
   public static void main(String[] args) {
     instance = App.getInstance();
 
-    // Debug
-    if (Arrays.stream(args).anyMatch(("--debug")::contains)) Constants.setDebugMode(true);
 
     // Default - Customer
     instance.currentMenu = CustomerMenu.getInstance();
 
-    // Staff [--staff]
-    if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
+    if(args.length > 0){
+      // Debug
+      if (Arrays.stream(args).anyMatch(("--debug")::contains)) Constants.setDebugMode(true);
+
+        // Staff [--staff]
+      else if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
+    }
 
     // Show menu
     instance.currentMenu.showMenu();
