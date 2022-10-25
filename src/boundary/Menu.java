@@ -114,10 +114,6 @@ public abstract class Menu {
 
         Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice);
         return menuChoice;
-      } catch (java.util.InputMismatchException e) {
-        System.out.println(e.getMessage());
-      } catch (IllegalArgumentException e) {
-        System.out.println(e.getMessage());
       } catch (NoSuchElementException e) {
         System.out.println("[NIL]\nApplication is terminated via CTRL + C");
         System.exit(1);

@@ -19,18 +19,11 @@ public class StaffController extends MovieBookingController {
   }
 
   public LinkedHashMap<String, Runnable> getStaffMenu() {
-    LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("View and update movie details", () -> {
-        updateMovies();
-      });
-      put("View and update showtimes", () -> {
-        updateShowtimes();
-      });
-      put("View and update cinemas", () -> {
-        updateCinemas();
-      });
-    }};
 
-    return menuMap;
+    return new LinkedHashMap<String, Runnable>() {{
+      put("View and update movie details", () -> updateMovies());
+      put("View and update showtimes", () -> updateShowtimes());
+      put("View and update cinemas", () -> updateCinemas());
+    }};
   }
 }

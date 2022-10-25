@@ -98,15 +98,15 @@ public class Showtime {
    * Get available seat count of showtime
    *
    * @param isAvailable:boolean
-   * @return
+   * @return availableSeatCount:int
    */
   public int getSeatCount(boolean isAvailable) {
     int availableSeatCount = 0;
     if (this.seats.length < 1) return availableSeatCount;
 
-    for (int row = 0; row < this.seats.length; row++) {
-      for (int col = 0; col < this.seats[row].length; col++) {
-        if (seats[row][col] == isAvailable) availableSeatCount++;
+    for (boolean[] seat : this.seats) {
+      for (boolean b : seat) {
+        if (b == isAvailable) availableSeatCount++;
       }
     }
 
@@ -122,8 +122,7 @@ public class Showtime {
     int seatCount = 0;
     if (this.seats.length < 1) return seatCount;
 
-    for (int row = 0; row < this.seats.length; row++)
-      for (int col = 0; col < this.seats[row].length; col++) seatCount++;
+    for (boolean[] seat : this.seats) for (int col = 0; col < seat.length; col++) seatCount++;
 
     return seatCount;
   }

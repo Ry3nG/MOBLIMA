@@ -1,5 +1,7 @@
 package control.menu;
 
+import boundary.BookingMenu;
+import boundary.MovieMenu;
 import entity.Booking;
 import entity.Showtime;
 import tmdb.entities.Movie;
@@ -9,10 +11,10 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class CustomerController extends MovieBookingController{
+public class CustomerController extends MovieBookingController {
   private static CustomerController instance;
 
-  private CustomerController(){
+  private CustomerController() {
     super();
   }
 
@@ -22,34 +24,32 @@ public class CustomerController extends MovieBookingController{
     return instance;
   }
 
-  public LinkedHashMap<String, Runnable> getCustomerMenu(){
-    LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>(){{
+  public LinkedHashMap<String, Runnable> getCustomerMenu() {
+    return new LinkedHashMap<String, Runnable>() {{
       put("Search/List Movies", () -> {
         List<Movie> movies = movieMenu.getViewableMovies();
-        movieMenu.getHandler().printMovies(movies);
+        MovieMenu.getHandler().printMovies(movies);
       });
       put("View movie details – including reviews and ratings", movieMenu::showMenu);
     }};
-
-    return menuMap;
   }
 
-  public void viewBookings(String customerId){
-    this.bookingMenu.selectBookingIdx(customerId);
+  public void viewBookings(String customerId) {
+    bookingMenu.selectBookingIdx(customerId);
   }
 
-  public int makeBooking(String customerId, Showtime showtime){
+  public int makeBooking(String customerId, Showtime showtime) {
     int bookingIdx = -1;
     int showtimeIdx = this.bookingHandler().getShowtimeIdx(showtime.getId());
-    if(showtimeIdx < 0) return bookingIdx;
+    if (showtimeIdx < 0) return bookingIdx;
 
     // Select seats
-    List<int[]> seats = this.bookingMenu.selectSeat(showtimeIdx);
+    List<int[]> seats = bookingMenu.selectSeat(showtimeIdx);
     Helper.logger("CustomerMenu.makeBooking", "No. of seats: " + seats.size());
     Helper.logger("CustomerMenu.makeBooking", "Selected seats: " + Arrays.deepToString(seats.toArray()));
     if (seats.size() < 1) return bookingIdx;
 
-    bookingIdx = this.bookingMenu.getHandler().addBooking(customerId, showtime.getCinemaId(), showtime.getMovieId(),
+    bookingIdx = BookingMenu.getHandler().addBooking(customerId, showtime.getCinemaId(), showtime.getMovieId(),
         showtime.getId(), seats, 10.0, Booking.TicketType.PEAK);
 
     return bookingIdx;

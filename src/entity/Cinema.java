@@ -1,6 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cinema {
@@ -11,7 +10,7 @@ public class Cinema {
   public Cinema(int id, ClassType classType, List<Showtime> showtimes) {
     this.id = id;
     this.classType = classType;
-    this.showtimes = new ArrayList<Showtime>();
+    this.showtimes = showtimes;
   }
 
   /**

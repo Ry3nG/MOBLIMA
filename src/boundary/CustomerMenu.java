@@ -37,16 +37,6 @@ public class CustomerMenu extends Menu {
   }
 
   /**
-   * Get customer handler
-   *
-   * @return customerHandler:CustomerHandler
-   */
-  //+ getHandler():CustomerHandler
-  public CustomerHandler getHandler() {
-    return handler;
-  }
-
-  /**
    * Gets full customer menu list
    *
    * @return menuMap:LinkedHashMap<String, Runnable>
@@ -55,13 +45,8 @@ public class CustomerMenu extends Menu {
   protected LinkedHashMap<String, Runnable> getCustomerMenu() {
     LinkedHashMap<String, Runnable> menuMap = controller.getCustomerMenu();
     LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Book and purchase ticket", () -> {
-        makeBooking();
-      });
-      put("View booking history", () -> {
-        viewBookings();
-
-      });
+      put("Book and purchase ticket", () -> makeBooking());
+      put("View booking history", () -> viewBookings());
       // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
       // ratings", () -> {
       // });
@@ -184,8 +169,7 @@ public class CustomerMenu extends Menu {
         else if (proceedSelection == 1) {
           this.login();
           return this.getCurrentCustomer();
-        } else
-          continue;
+        }
       }
     }
 
@@ -210,13 +194,13 @@ public class CustomerMenu extends Menu {
         System.out.print("Account Contact No.: ");
         String contactNumber = scanner.next().trim();
         /// VALIDATION: SG Phone Numbers requires exactly 8 digits
-        if (!this.handler.validatePhoneNumber(contactNumber)) {
+        if (!handler.validatePhoneNumber(contactNumber)) {
           System.out.println("Invalid input, SG phone numbers requires exactly 8 digits.");
           continue;
         }
 
         // Retrieve customer idx of contact number
-        customerIdx = this.handler.checkIfAccountExists(contactNumber);
+        customerIdx = handler.checkIfAccountExists(contactNumber);
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
@@ -242,7 +226,7 @@ public class CustomerMenu extends Menu {
         else if (proceedSelection == 1) {
           this.register();
           return this.getCurrentCustomer();
-        } else continue;
+        }
       }
     }
 
@@ -284,16 +268,16 @@ public class CustomerMenu extends Menu {
         if (customerIdx < 0) return bookingIdx;
 
         // Retrieve customer from idx
-        Customer customer = this.handler.getCustomer(customerIdx);
+        Customer customer = handler.getCustomer(customerIdx);
         if (customer == null) return bookingIdx;
 
         // Redirect to controller for interactivity
-        bookingIdx = this.controller.makeBooking(customer.getId(), showtime);
+        bookingIdx = controller.makeBooking(customer.getId(), showtime);
         Helper.logger("CustomerMenu.makeBooking", "BookingIdx: " + bookingIdx);
         if (bookingIdx < 0) return bookingIdx;
 
         // Print out Booking transaction id
-        Booking booking = this.controller.bookingHandler().getBooking(bookingIdx);
+        Booking booking = controller.bookingHandler().getBooking(bookingIdx);
         if (booking == null) return bookingIdx;
         Helper.logger("CustomerMenu.makeBooking", "Booking: " + booking);
         System.out.println("Successfully booked. Reference: " + booking.getTransactionId());
@@ -310,11 +294,11 @@ public class CustomerMenu extends Menu {
     if (customerIdx < 0) return;
 
     // Retrieve customer from customer list
-    Customer customer = this.handler.getCustomer(customerIdx);
+    Customer customer = handler.getCustomer(customerIdx);
     if (customer == null) return;
     Helper.logger("CustomerMenu.viewBookings", "Customer ID: " + customer.getId());
 
     // Redirect to controller for interactivity
-    this.controller.viewBookings(customer.getId());
+    controller.viewBookings(customer.getId());
   }
 }

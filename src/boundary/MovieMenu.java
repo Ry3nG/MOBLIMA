@@ -46,7 +46,7 @@ public class MovieMenu extends Menu {
     this.displayMenu();
   }
 
-  public List<Movie> getViewableMovies(){
+  public List<Movie> getViewableMovies() {
     return showLimitedMovies ? handler.getMovies(Movie.ShowStatus.NOW_SHOWING) : handler.getMovies();
   }
 
@@ -59,12 +59,12 @@ public class MovieMenu extends Menu {
   public LinkedHashMap<String, Runnable> getMovieMenu() {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Movie> movies = this.getViewableMovies();
-    Helper.logger("MovieMenu.getMovieMenu", "SHOW LIMITED: " + this.showLimitedMovies);
+    Helper.logger("MovieMenu.getMovieMenu", "SHOW LIMITED: " + showLimitedMovies);
     Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies);
 
     for (int i = 0; i < movies.size(); i++) {
       Movie movie = movies.get(i);
-      int movieIdx = this.handler.getMovieIdx(movie.getId());
+      int movieIdx = handler.getMovieIdx(movie.getId());
       menuMap.put((i + 1) + ". " + movie.getTitle(), () -> {
         handler.setSelectedMovieIdx(movieIdx);
         handler.printMovieDetails(movieIdx);
@@ -97,7 +97,7 @@ public class MovieMenu extends Menu {
     if (selectedIdx == (this.menuMap.size() - 1)) return -1;
 
     Movie movie = movies.get(selectedIdx);
-    int movieIdx = this.handler.getMovieIdx(movie.getId());
+    int movieIdx = handler.getMovieIdx(movie.getId());
     handler.setSelectedMovieIdx(movieIdx);
     Helper.logger("MovieMenu.selectMovieIdx", "Selected Movie Idx: " + handler.getMovie(movieIdx).getId());
 
@@ -193,7 +193,7 @@ public class MovieMenu extends Menu {
         String prevStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
         System.out.println("[CURRENT] Blockbuster Status: " + prevStatus);
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         List<String> updateOptions = new ArrayList<String>() {
           {
             add("Blockbuster");
@@ -220,7 +220,7 @@ public class MovieMenu extends Menu {
         ShowStatus prevStatus = movie.getShowStatus();
         System.out.println("[CURRENT] Showing Status: " + prevStatus);
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
         List<String> updateOptions = Stream.of(ShowStatus.values())
             .map(Enum::toString)
@@ -246,7 +246,7 @@ public class MovieMenu extends Menu {
         ContentRating prevStatus = movie.getContentRating();
         System.out.println("[CURRENT] Current Rating: " + prevStatus);
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         List<String> updateOptions = Stream.of(ContentRating.values())
             .map(Enum::name)
             .collect(Collectors.toList());

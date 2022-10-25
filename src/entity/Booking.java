@@ -3,7 +3,6 @@ package entity;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Booking {
   private String transactionId;
@@ -112,8 +111,7 @@ public class Booking {
   public String toString() {
     // Parse seatCodes
     List<String> seatCodes = this.seats.stream()
-        .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1)))
-        .collect(Collectors.toList());
+        .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1))).toList();
 
     String printed = "Transaction ID: " + this.transactionId + "\n";
     printed += "Seats: " + Arrays.deepToString(seatCodes.toArray()) + "\n";

@@ -14,48 +14,39 @@ public abstract class MovieBookingController {
   protected static MovieMenu movieMenu = MovieMenu.getInstance(true);
   protected static BookingMenu bookingMenu = BookingMenu.getInstance();
 
-  protected void showMovieMenu(){
-    this.movieMenu.showMenu();
+  public MovieHandler movieHandler() {
+    return MovieMenu.getHandler();
   }
 
-  protected void showBookingMenu(){
-    this.bookingMenu.showMenu();
+  public BookingHandler bookingHandler() {
+    return BookingMenu.getHandler();
   }
 
-  public MovieHandler movieHandler(){
-    return this.movieMenu.getHandler();
-  }
-
-  public BookingHandler bookingHandler(){
-    return this.bookingMenu.getHandler();
-  }
-
-  public int viewShowtimeAvailability(){
+  public int viewShowtimeAvailability() {
     int showtimeIdx = -1;
 
     // Select movie
     System.out.println("Select movie: ");
-    int movieIdx = this.movieMenu.selectMovieIdx();
+    int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return showtimeIdx;
     Movie selectedMovie = this.movieHandler().getSelectedMovie();
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = this.bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
-    showtimeIdx = this.bookingMenu.selectShowtimeIdx(movieShowtimes);
+    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "showtimeIdx: " + showtimeIdx);
     if (showtimeIdx < 0) return showtimeIdx;
-    Showtime showtime = this.bookingMenu.getHandler().getShowtime(showtimeIdx);
 
     // Print showtime details
-    this.bookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
-    this.bookingMenu.getHandler().printSeats(showtimeIdx);
+    BookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
+    BookingMenu.getHandler().printSeats(showtimeIdx);
 
     return showtimeIdx;
   }
 
-  public void updateShowtimes(){
+  public void updateShowtimes() {
     // Select movie
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
@@ -64,15 +55,15 @@ public abstract class MovieBookingController {
 
     // Select showtimes
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
     int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     if (showtimeIdx < 0) return;
 
-    Showtime showtime = bookingMenu.getHandler().getShowtime(showtimeIdx);
+    Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
     bookingMenu.editShowtime(showtime.getId());
   }
 
-  public void updateMovies(){
+  public void updateMovies() {
     // Select movie
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
@@ -81,7 +72,7 @@ public abstract class MovieBookingController {
     movieMenu.selectEditableAction(movieIdx);
   }
 
-  public void updateCinemas(){
+  public void updateCinemas() {
     // Cinema ID / IDX is the same
     int cinemaIdx = bookingMenu.selectCinemaIdx();
     if (cinemaIdx < 0) return;

@@ -37,16 +37,6 @@ public class StaffMenu extends Menu {
   }
 
   /**
-   * Get staff handler
-   *
-   * @return staffHandler:StaffHandler
-   */
-  //+ getHandler():StaffHandler
-  public StaffHandler getHandler() {
-    return handler;
-  }
-
-  /**
    * Retrieve currently selected / active staff via login/registration
    *
    * @return staffIdx:int
@@ -130,7 +120,6 @@ public class StaffMenu extends Menu {
 
         // Return to previous menu
         if (proceedSelection == proceedOptions.size() - 1) return -2;
-        else continue;
       }
     }
 
@@ -241,7 +230,7 @@ public class StaffMenu extends Menu {
 
         register();
 
-        // Revert back to account
+        // Revert to account
         handler.setCurrentStaff(staffIdx);
       });
 //        // put("List the Top 5 ranking by ticket sales OR by overall reviewers’

@@ -113,9 +113,7 @@ public class BookingMenu extends Menu {
         });
       }
     }
-    menuMap.put((menuMap.size() + 1) + ". Add new cinema", () -> {
-      this.registerCinema();
-    });
+    menuMap.put((menuMap.size() + 1) + ". Add new cinema", this::registerCinema);
     menuMap.put((menuMap.size() + 1) + ". Return to previous menu", () -> System.out.println("\t>>> " + "Returning to previous menu..."));
     return menuMap;
   }
@@ -145,7 +143,7 @@ public class BookingMenu extends Menu {
     // Initialize options with a return at the end
     List<Cinema> cinemas = handler.getCinemas();
     List<String> cinemaOptions = cinemas.stream()
-        .map(c -> c.toString())
+        .map(Cinema::toString)
         .collect(Collectors.toList());
     cinemaOptions.add((cinemaOptions.size()), "Return to previous menu");
 
@@ -178,7 +176,7 @@ public class BookingMenu extends Menu {
 
     // Initialize options with a return at the end
     List<String> showtimeOptions = showtimes.stream()
-        .map(s -> s.toString())
+        .map(Showtime::toString)
         .collect(Collectors.toList());
     showtimeOptions.add((showtimeOptions.size()), "Return to previous menu");
 
@@ -224,7 +222,7 @@ public class BookingMenu extends Menu {
 
       // Seat selection
       switch (confirmationSelection) {
-        case 0: {
+        case 0 -> {
           int[] selectedSeat = this.seatSelection(showtimeIdx);
 
           // VALIDATION: Check if seat was previously selected
@@ -238,27 +236,26 @@ public class BookingMenu extends Menu {
           // Sudo seat assignment
           handler.assignSeat(showtimeSeats, selectedSeat, true);
           handler.printSeats(showtimeSeats);
-
-          break;
         }
 
+
         // Selection Confirmation
-        case 1: {
+        case 1 -> {
           // Finalize the seat selection
           System.out.println("Confirmed Seat Selection");
           handler.printSeats(showtimeSeats);
           return selectedSeats;
         }
 
+
         // Discard Selection, Return without saving
-        default: {
+        default -> {
           handler.bulkAssignSeat(showtimeIdx, selectedSeats, false);
           showtimeSeats = handler.getShowtime(showtimeIdx).getSeats();
           selectedSeats = new ArrayList<int[]>();
 
           // Return to previous menu
           if (confirmationSelection == confirmationOptions.size() - 1) return selectedSeats;
-          break;
         }
       }
 
@@ -373,9 +370,9 @@ public class BookingMenu extends Menu {
         int prevStatus = showtime.getCinemaId();
         System.out.println("[CURRENT] Cinema ID: " + prevStatus);
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         List<String> updateOptions = handler.getCinemas().stream()
-            .map(c -> c.toString())
+            .map(Cinema::toString)
             .collect(Collectors.toList());
 
         System.out.println("Set to:");
@@ -401,10 +398,10 @@ public class BookingMenu extends Menu {
         int prevStatus = showtime.getMovieId();
         System.out.println("[CURRENT] Movie ID: " + prevStatus);
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         List<Movie> movies = MovieMenu.getHandler().getMovies(Movie.ShowStatus.NOW_SHOWING);
         List<String> updateOptions = movies.stream()
-            .map(m -> m.getTitle())
+            .map(Movie::getTitle)
             .collect(Collectors.toList());
 
         System.out.println("Set to:");
@@ -432,7 +429,7 @@ public class BookingMenu extends Menu {
         LocalDateTime prevStatus = showtime.getDatetime();
         System.out.println("[CURRENT] Datetime: " + prevStatus.format(dateTimeFormatter));
 
-        //TODO: Extract as seperate function
+        //TODO: Extract as separate function
         scanner = new Scanner(System.in).useDelimiter("\n");
         System.out.print("Set to (dd-MM-yyyy hh:mma):");
         String datetime = scanner.next().trim();
@@ -451,7 +448,6 @@ public class BookingMenu extends Menu {
           }
         } else {
           System.out.println("Invalid input, expected format (dd-MM-yyyy hh:mma)");
-          continue;
         }
       }
     }
