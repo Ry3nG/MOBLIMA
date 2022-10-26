@@ -2,14 +2,14 @@ package boundary;
 
 import control.handlers.StaffHandler;
 import control.menu.StaffController;
+import entity.Booking;
+import entity.Cinema;
+import entity.Price;
 import entity.Staff;
 import utils.Helper;
 import utils.Helper.Preset;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
@@ -229,6 +229,7 @@ public class StaffMenu extends Menu {
   public LinkedHashMap<String, Runnable> getStaffMenu() {
     LinkedHashMap<String, Runnable> menuMap = controller.getStaffMenu();
     LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
+      put("View and update prices", () -> editPrices());
       put("Register new staff account", () -> {
         // Maintain current account
         int staffIdx = getCurrentStaff();
@@ -238,9 +239,9 @@ public class StaffMenu extends Menu {
         // Revert to account
         handler.setCurrentStaff(staffIdx);
       });
-//        // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
-//        // ratings", () -> {
-//        // });
+      // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
+      // ratings", () -> {
+      // });
       put("Exit", () -> {
         System.out.println("\t>>> Quitting application...");
         System.out.println("---------------------------------------------------------------------------");
@@ -252,6 +253,172 @@ public class StaffMenu extends Menu {
 
     menuMap.putAll(addMenuMap);
     return menuMap;
+  }
+
+  public boolean editPrices() {
+    boolean status = false;
+
+    // Retrieve prices
+    Price price = this.controller.priceHandler().getCurrentPrice();
+    System.out.println(price.toString());
+    List<String> proceedOptions = new ArrayList<String>() {
+      {
+        add("Set base ticket price");
+        add("Set blockbuster surcharge");
+        add("Set ticket type surcharges");
+        add("Set cinema class surcharges");
+        add("Discard changes");
+        add("Save changes & return");
+        add("Return to previous menu");
+      }
+    };
+
+    while (!status) {
+      try {
+        System.out.println("Next steps:");
+        this.displayMenuList(proceedOptions);
+        int proceedSelection = getListSelectionIdx(proceedOptions, false);
+
+        // Save changes & return OR Return to previous menu
+        if (proceedSelection >= proceedOptions.size() - 2) {
+          // Save changes
+          if (proceedSelection == proceedOptions.size() - 2) {
+            controller.priceHandler().updatePrice(price);
+            status = true;
+          }
+
+          System.out.println("\t>>> " + "Returning to previous menu...");
+          return status;
+        }
+
+        // Discard changes
+        else if (proceedSelection == proceedOptions.size() - 3) {
+          System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
+          price = controller.priceHandler().getCurrentPrice();
+          System.out.println(price);
+        }
+
+        // Set base ticket price
+        else if (proceedSelection == 0) {
+          double prevStatus = price.getBaseTicket();
+          System.out.println("[CURRENT] Base Ticket: " + price.formattedPrice(prevStatus));
+
+          //TODO: Extract as separate function
+          double baseTicket = -1;
+          while (baseTicket == -1) {
+            scanner = new Scanner(System.in).useDelimiter("\n");
+
+            System.out.print("Set to:");
+            if (!scanner.hasNextDouble()) {
+              System.out.println(colorize("Invalid input, try again", Preset.ERROR.color));
+              continue;
+            }
+
+            baseTicket = scanner.nextDouble();
+            price.setBaseTicket(baseTicket);
+
+            if (prevStatus == baseTicket) {
+              System.out.println("[NO CHANGE] Datetime: " + price.formattedPrice(prevStatus));
+            } else {
+              System.out.println("[UPDATED] Datetime: " + price.formattedPrice(prevStatus) + " -> " + price.formattedPrice(baseTicket));
+            }
+          }
+
+        }
+
+        // Set blockbuster surcharge
+        else if (proceedSelection == 1) {
+          double prevStatus = price.getBlockbusterSurcharge();
+          System.out.println("[CURRENT] Blockbuster Surcharge: " + price.formattedPrice(prevStatus));
+
+          //TODO: Extract as separate function
+          double blockbusterSurcharge = -1;
+
+          while(blockbusterSurcharge == -1){
+            scanner = new Scanner(System.in).useDelimiter("\n");
+            System.out.print("Set to:");
+            if (!scanner.hasNextDouble()) {
+              System.out.println(colorize("Invalid input, try again", Preset.ERROR.color));
+              continue;
+            }
+            blockbusterSurcharge = scanner.nextDouble();
+
+            price.setBlockbusterSurcharge(blockbusterSurcharge);
+            if (prevStatus == blockbusterSurcharge) {
+              System.out.println("[NO CHANGE] Blockbuster Surcharge: " + price.formattedPrice(prevStatus));
+            } else {
+              System.out.println("[UPDATED] Blockbuster Surcharge: " + price.formattedPrice(prevStatus) + " -> " + price.formattedPrice(blockbusterSurcharge));
+            }
+          }
+
+        }
+
+        // Set ticket surcharge
+        else if (proceedSelection == 2) {
+          EnumMap<Booking.TicketType, Double> ticketSurcharges = price.getTicketSurcharges();
+
+          //TODO: Extract as separate function
+          for (var entry : ticketSurcharges.entrySet()) {
+            double prevStatus = entry.getValue();
+            System.out.println("[CURRENT] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus));
+
+            double curStatus = -1;
+            while(curStatus == -1){
+              scanner = new Scanner(System.in).useDelimiter("\n");
+              System.out.print("Set to:");
+              if (!scanner.hasNextDouble()) {
+                System.out.println(colorize("Invalid input, try again", Preset.ERROR.color));
+                continue;
+              }
+               curStatus = scanner.nextDouble();
+
+              entry.setValue(curStatus);
+              if (prevStatus == curStatus) {
+                System.out.println("[NO CHANGE] " + entry.getKey().toString() + ": " + price.formattedPrice(curStatus));
+              } else {
+                System.out.println("[UPDATED] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus) + " -> " + price.formattedPrice(curStatus));
+              }
+            }
+
+          }
+        }
+
+        // Set cinema class surcharge
+        else if (proceedSelection == 2) {
+          EnumMap<Cinema.ClassType, Double> cinemaSurcharges = price.getCinemaSurcharges();
+
+          //TODO: Extract as separate function
+          for (var entry : cinemaSurcharges.entrySet()) {
+            double prevStatus = entry.getValue();
+            System.out.println("[CURRENT] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus));
+
+            double curStatus = -1;
+            while(curStatus == -1){
+              scanner = new Scanner(System.in).useDelimiter("\n");
+              System.out.print("Set to:");
+              if (!scanner.hasNextDouble()) {
+                System.out.println(colorize("Invalid input, try again", Preset.ERROR.color));
+                continue;
+              }
+              curStatus = scanner.nextDouble();
+
+              entry.setValue(curStatus);
+              if (prevStatus == curStatus) {
+                System.out.println("[NO CHANGE] " + entry.getKey().toString() + ": " + price.formattedPrice(curStatus));
+              } else {
+                System.out.println("[UPDATED] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus) + " -> " + price.formattedPrice(curStatus));
+              }
+            }
+
+          }
+        }
+
+      } catch (Exception e) {
+        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+      }
+
+    }
+    return status;
   }
 
 }

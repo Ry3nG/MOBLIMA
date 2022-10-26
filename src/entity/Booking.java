@@ -1,5 +1,6 @@
 package entity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,6 +113,8 @@ public class Booking {
 
   @Override
   public String toString() {
+    DecimalFormat df = new DecimalFormat("0.00");
+
     // Parse seatCodes
     List<String> seatCodes = this.seats.stream()
         .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1))).toList();
@@ -120,7 +123,7 @@ public class Booking {
     rows.add(Arrays.asList("Transaction ID:", this.transactionId));
     rows.add(Arrays.asList("Seats:", Arrays.deepToString(seatCodes.toArray())));
     rows.add(Arrays.asList("Type:", this.type.displayName));
-    rows.add(Arrays.asList("Total Price:", String.format("%2f",this.totalPrice)));
+    rows.add(Arrays.asList("Total Price:", "SGD $" + df.format(this.totalPrice)));
 
     return formatAsTable(rows);
   }
@@ -138,15 +141,19 @@ public class Booking {
 
   public enum TicketType {
 
-    SENIOR_CITIZEN("Senior Citizen"),
+    SENIOR("Senior Citizen"),
     STUDENT("Student"),
-    NON_PEAK("Non-Peak"),
-    PEAK("PEAK");
+    NON_PEAK("Non Peak"),
+    PEAK("Peak");
 
     private final String displayName;
 
     TicketType(String displayName) {
       this.displayName = displayName;
+    }
+    @Override
+    public String toString() {
+      return displayName;
     }
   }
 }
