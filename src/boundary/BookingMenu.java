@@ -111,6 +111,7 @@ public class BookingMenu extends Menu {
         menuMap.put((i + 1) + ". " + cinema.getClassType(), () -> {
           handler.setSelectedCinemaId(cinema.getId());
           System.out.println(cinema);
+          this.editCinema(cinema.getId());
         });
       }
     }
@@ -140,29 +141,34 @@ public class BookingMenu extends Menu {
    */
   //+ selectCinemaIdx():int
   public int selectCinemaIdx() {
+    this.refreshMenu(this.getCinemaMenu());
+    this.showMenu();
 
-    // Initialize options with a return at the end
-    List<Cinema> cinemas = handler.getCinemas();
-    List<String> cinemaOptions = cinemas.stream()
-        .map(Cinema::toString)
-        .collect(Collectors.toList());
-    cinemaOptions.add((cinemaOptions.size()), "Return to previous menu");
+//    // Initialize options with a return at the end
+//    List<Cinema> cinemas = handler.getCinemas();
+//    List<String> cinemaOptions = cinemas.stream()
+//        .map(Cinema::toString)
+//        .collect(Collectors.toList());
+//    cinemaOptions.add((cinemaOptions.size()), "Return to previous menu");
+//
+//    // Display options and get selection input
+//    this.displayMenuList(cinemaOptions);
+//    int selectedIdx = this.getListSelectionIdx(cinemaOptions, false);
+//
+//    // Return to previous menu
+//    if (selectedIdx == (cinemaOptions.size() - 1)) {
+//      System.out.println("\t>>> " + "Returning to previous menu...");
+//      return -1;
+//    }
+//
+//
+//    // Display selected
+//    Cinema cinema = cinemas.get(selectedIdx);
+//    System.out.println(cinema);
+//
+//    return selectedIdx;
 
-    // Display options and get selection input
-    this.displayMenuList(cinemaOptions);
-    int selectedIdx = this.getListSelectionIdx(cinemaOptions, false);
-
-    // Return to previous menu
-    if (selectedIdx == (cinemaOptions.size() - 1)) {
-      System.out.println("\t>>> " + "Returning to previous menu...");
-      return -1;
-    }
-
-    // Display selected
-    Cinema cinema = cinemas.get(selectedIdx);
-    System.out.println(cinema);
-
-    return selectedIdx;
+    return -1;
   }
 
   /**

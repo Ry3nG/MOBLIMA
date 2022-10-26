@@ -18,19 +18,20 @@ public abstract class MovieBookingController {
   protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
 
   public MovieHandler movieHandler() {
-    return movieMenu.getHandler();  // i think gotta figure out if u want static or non?
+    return MovieMenu.getHandler();
   }
 
   public BookingHandler bookingHandler() {
-    return bookingMenu.getHandler();
+    return BookingMenu.getHandler();
   }
-  
-  public SettingsHandler settingsHandler() {
-    return settingsMenu.getHandler();
+
+  public PriceHandler priceHandler() {
+    return priceHandler;
   }
 
   /**
    * Interactive showtime display
+   *
    * @return showtimeIdx:int
    */
   //+ viewShowtimeAvailability(): int
@@ -46,14 +47,14 @@ public abstract class MovieBookingController {
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
     showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "showtimeIdx: " + showtimeIdx);
     if (showtimeIdx < 0) return showtimeIdx;
 
     // Print showtime details
-    bookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
-    bookingMenu.getHandler().printSeats(showtimeIdx);
+    BookingMenu.getHandler().printShowtimeDetails(showtimeIdx);
+    BookingMenu.getHandler().printSeats(showtimeIdx);
 
     return showtimeIdx;
   }
@@ -71,11 +72,11 @@ public abstract class MovieBookingController {
 
     // Select showtimes
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
     int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     if (showtimeIdx < 0) return;
 
-    Showtime showtime = bookingMenu.getHandler().getShowtime(showtimeIdx);
+    Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
     bookingMenu.editShowtime(showtime.getId());
   }
 
