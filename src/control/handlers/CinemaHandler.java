@@ -43,6 +43,7 @@ public class CinemaHandler extends ShowtimeHandler {
     this.selectedCinemaIdx = cinemaId;
   }
 
+  //+ getSelectedCinema()
 
   /**
    * Retrieves cinema by specified id

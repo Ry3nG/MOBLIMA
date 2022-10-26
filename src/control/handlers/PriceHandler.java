@@ -16,8 +16,8 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class PriceHandler {
-  private Price currentPrice;
   private static PriceHandler instance;
+  private Price currentPrice;
 
   private PriceHandler() {
     this.currentPrice = this.getCurrentPrice();

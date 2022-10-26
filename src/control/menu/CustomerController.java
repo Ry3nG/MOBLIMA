@@ -1,5 +1,6 @@
 package control.menu;
 
+import boundary.MovieMenu;
 import entity.Booking;
 import entity.Cinema;
 import entity.Showtime;
@@ -28,7 +29,7 @@ public class CustomerController extends MovieBookingController {
     return new LinkedHashMap<String, Runnable>() {{
       put("Search/List Movies", () -> {
         List<Movie> movies = movieMenu.getViewableMovies();
-        movieMenu.getHandler().printMovies(movies);
+        MovieMenu.getHandler().printMovies(movies);
       });
       put("View movie details – including reviews and ratings", movieMenu::showMenu);
     }};
@@ -48,11 +49,11 @@ public class CustomerController extends MovieBookingController {
     // Get movie details
     int movieIdx = this.movieHandler().getMovieIdx(showtime.getMovieId());
     Movie movie = this.movieHandler().getMovie(movieIdx);
-    if(movie == null) return bookingIdx;
+    if (movie == null) return bookingIdx;
 
     // Get cinema details
     Cinema cinema = this.bookingHandler().getCinema(showtime.getCinemaId());
-    if(cinema == null) return bookingIdx;
+    if (cinema == null) return bookingIdx;
 
     // Select seats
     List<int[]> seats = bookingMenu.selectSeat(showtimeIdx);

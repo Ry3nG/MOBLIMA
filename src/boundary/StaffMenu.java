@@ -259,7 +259,7 @@ public class StaffMenu extends Menu {
     boolean status = false;
 
     // Retrieve prices
-    Price price = this.controller.priceHandler().getCurrentPrice();
+    Price price = controller.priceHandler().getCurrentPrice();
     System.out.println(price.toString());
     List<String> proceedOptions = new ArrayList<String>() {
       {
@@ -334,7 +334,7 @@ public class StaffMenu extends Menu {
           //TODO: Extract as separate function
           double blockbusterSurcharge = -1;
 
-          while(blockbusterSurcharge == -1){
+          while (blockbusterSurcharge == -1) {
             scanner = new Scanner(System.in).useDelimiter("\n");
             System.out.print("Set to:");
             if (!scanner.hasNextDouble()) {
@@ -363,14 +363,14 @@ public class StaffMenu extends Menu {
             System.out.println("[CURRENT] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus));
 
             double curStatus = -1;
-            while(curStatus == -1){
+            while (curStatus == -1) {
               scanner = new Scanner(System.in).useDelimiter("\n");
               System.out.print("Set to:");
               if (!scanner.hasNextDouble()) {
                 System.out.println(colorize("Invalid input, try again", Preset.ERROR.color));
                 continue;
               }
-               curStatus = scanner.nextDouble();
+              curStatus = scanner.nextDouble();
 
               entry.setValue(curStatus);
               if (prevStatus == curStatus) {
@@ -393,7 +393,7 @@ public class StaffMenu extends Menu {
             System.out.println("[CURRENT] " + entry.getKey().toString() + ": " + price.formattedPrice(prevStatus));
 
             double curStatus = -1;
-            while(curStatus == -1){
+            while (curStatus == -1) {
               scanner = new Scanner(System.in).useDelimiter("\n");
               System.out.print("Set to:");
               if (!scanner.hasNextDouble()) {

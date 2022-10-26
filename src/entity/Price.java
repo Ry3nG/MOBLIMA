@@ -14,7 +14,7 @@ public class Price {
   private EnumMap<Booking.TicketType, Double> ticketSurcharges;
   private EnumMap<Cinema.ClassType, Double> cinemaSurcharges;
 
-  public Price(double baseTicket,double blockbusterSurcharge, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges) {
+  public Price(double baseTicket, double blockbusterSurcharge, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges) {
     this.baseTicket = baseTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
     this.ticketSurcharges = ticketSurcharges;
@@ -67,7 +67,7 @@ public class Price {
     this.cinemaSurcharges = cinemaSurcharges;
   }
 
-  public String formattedPrice(double price){
+  public String formattedPrice(double price) {
     DecimalFormat df = new DecimalFormat("0.00");
     return df.format(price);
   }
@@ -79,7 +79,7 @@ public class Price {
     rows.add(Arrays.asList("Blockbuster Surcharge:", formattedPrice(this.blockbusterSurcharge)));
 
     // Ticket surcharges
-    rows.add(Arrays.asList("\nTicket Surcharges:" ,""));
+    rows.add(Arrays.asList("\nTicket Surcharges:", ""));
     this.ticketSurcharges.entrySet()
         .stream()
         .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formattedPrice(entry.getValue()))));
