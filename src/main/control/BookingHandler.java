@@ -1,6 +1,11 @@
 package main.control;
 
+import java.util.ArrayList;
+
 import main.entity.Booking;
+import main.entity.Ticket;
+import main.entity.TicketType;
+import tmdb.datasource.Datasource;
 
 /**
  * Control class for customer booking, receive booking information from UI
@@ -14,13 +19,16 @@ import main.entity.Booking;
  * @since 2022/10/20
  */
 public class BookingHandler {
-    //global booking object, and totalprice
-    private Booking currentBooking;
+    // global booking object, and totalprice
+    private ArrayList <Booking> bookings = new ArrayList <Booking>();
     private double totalPrice;
 
-    //singleton design pattern
+    // singleton design pattern
     private static BookingHandler instance = null;
-    private BookingHandler() {}
+
+    private BookingHandler() {
+    }
+
     public static BookingHandler getInstance() {
         if (instance == null) {
             instance = new BookingHandler();
@@ -28,65 +36,77 @@ public class BookingHandler {
         return instance;
     }
 
-    /**
-     * Startbooking, takes in the customer's name, mobile, email, and the showID requested, create a booking class.
-     * 
-     * @param name customer's name
-     * @param mobile customer's mobile
-     * @param email customer's email
-     * @param showId showID requested
-     * @return booking class
-     */
-
-    public Booking startBooking(String name, String mobile, String email, String showId) {
-
+    // startbooking method
+    public void startBooking(String showId, String name, String mobile, String email) {
         Booking booking = new Booking(showId, name, mobile, email);
-        this.currentBooking = booking;
-        return booking;
+        bookings.add(booking);
     }
 
     /**
-     * Add ticket to booking, takes in the seatID and ticket type, add the ticket to the booking class.
+     * addTicket method
      * 
-     * @param seatId seatID requested
-     * @param type ticket type
-     * @return booking class
+     * @param String seatId
+     * @param String ticketType
+     * @return true if add successfully, false if not
      */
-    public Booking addTicket(String seatId, String type) {
-        this.currentBooking.addTicket(seatId, type);
-        return this.currentBooking;
+    public boolean addTicket(String seatId, TicketType ticketType) {
+        // check if seat is available
+        //if (ShowHandler.getInstance().checkSeatAvailability(seatId)) { // !ask teamate
+        if(bookings.size() != 0){    
+            // add ticket to booking
+            Ticket ticket = new Ticket(ticketType, seatId);
+            bookings.get(bookings.size() - 1).addTicket(ticket);
+            // update total price
+            totalPrice += ticketType.getPrice();
+            // set seat to unavailable
+            //ShowHandler.getInstance().setSeatAvailability(seatId, false); // !ask teamate
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * Calculate total price
-     * @param booking booking class
-     * @return total price
-     */
-    public double calculateTotalPrice(Booking booking) {
-        this.totalPrice = booking.calculateTotalPrice();
-        return totalPrice;
-    }
-
-    /**
-     * Make payment, takes in the payment method, and the total price, and make payment.
+     * completeBooking method: store booking to database
      * 
-     * @param paymentMethod payment method
-     * @param totalPrice total price
-     * @return true: payment will always be successful in this project
+     * @return true if complete successfully, false if not
      */
-    public boolean makePayment(String paymentMethod, double totalPrice) {
-        //payment will always be successful
-        return true;
+    public boolean completeBooking() {
+        // check if booking is empty
+        if (bookings.size() == 0) {
+            return false;
+        }
+        // generate transaction id
+        // The TID is of the format XXXYYYYMMDDhhmm
+        // (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code)
+        String transactionId = "TID"
+                + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+        bookings.get(bookings.size() - 1).setTransactionId(transactionId);
+        // store current booking to booking.csv
+        return Datasource.serializeData(this.bookings, "bookings.csv");
     }
 
     /**
-     * View booking history, takes in the customer's email and phone number, and view the booking history.
-     * 
-     * @param email customer's email
-     * @param mobile customer's mobile
-     * @return booking history
+     * view booking method: check the user's booking history from bookings.csv
+     * @param String email
+     * @param String mobile
+     * @return List<Booking> if view successfully, null if not
      */
-    
+    //! todo
 
+    public static void main(String[] args) {
+        //test code
+        BookingHandler bh = BookingHandler.getInstance();
+        bh.startBooking("testshowID", "Ryan", "89427828", "nomlasssssss@outlook.com");
+        bh.addTicket("testSeatID1", TicketType.STANDARD);
+        bh.addTicket("testSeatID2", TicketType.STUDENT);
+        bh.addTicket("testSeatID3", TicketType.SENIOR);
+        bh.completeBooking();
 
+        bh.startBooking("testshowID2", "Ryan2", "89427828", "nomlasssssss@outlook.com");
+        bh.addTicket("testSeatID1-2", TicketType.STANDARD);
+        bh.addTicket("testSeatID2-2", TicketType.STUDENT);
+        bh.addTicket("testSeatID3-2", TicketType.SENIOR);
+        bh.completeBooking();
+    }
 }
