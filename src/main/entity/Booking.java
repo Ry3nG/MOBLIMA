@@ -1,5 +1,6 @@
 package main.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,38 +14,69 @@ import java.util.List;
  */
 public class Booking {
     private String showId;
-    private List<Ticket> tickets;
+    private ArrayList <Ticket> tickets;
     private String transactionId;
     private String name;
     private String mobile;
     private String email;
 
+    //constructor
     public Booking(String showId, String name, String mobile, String email) {
         this.showId = showId;
         this.name = name;
         this.mobile = mobile;
         this.email = email;
+        this.tickets = new ArrayList <Ticket>();
     }
 
-    //add ticket to booking
-    public void addTicket(String seatId, String type) {
-        Ticket ticket = new Ticket(TicketType.valueOf(type), seatId);
+    //getters and setters
+
+    public String getShowId() {
+        return showId;
+    }
+
+    public void setShowId(String showId) {
+        this.showId = showId;
+    }
+
+    public List<Ticket> getTickets() {
+        return this.tickets;
+    }
+
+    public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
     }
 
-    //calculate total price
-    public double calculateTotalPrice() {
-        double totalPrice = 0;
-        for (Ticket ticket : tickets) {
-            totalPrice += ticket.getType().getPrice();
-        }
-        return totalPrice;
+    public String getTransactionId() {
+        return transactionId;
     }
-    //generate transaction id
-    public void generateTransactionId() {
-        //TODO
-        //The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters).
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }  
 
 }

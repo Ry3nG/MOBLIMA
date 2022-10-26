@@ -14,18 +14,26 @@ public class Ticket {
     TicketType type;
     String seatId;
 
+    //constructor
     public Ticket(TicketType type, String seatId) {
         this.type = type;
         this.seatId = seatId;
     }
 
-    //getType method
+    //getters and setters
     public TicketType getType() {
-        return this.type;
+        return type;
     }
 
-    //getPrice method
-    public double getPrice() {
-        return this.type.getPrice();
+    public void setType(TicketType type) {
+        this.type = type;
+    }
+
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
     }
 }
