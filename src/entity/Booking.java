@@ -142,7 +142,8 @@ public class Booking {
   public enum TicketType {
 
     SENIOR("Senior Citizen"),
-    STUDENT("Student"),
+    // STUDENT("Student"), - edit to fit req, not sure if may cause err
+    CHILD("Child"),
     NON_PEAK("Non Peak"),
     PEAK("Peak");
 
