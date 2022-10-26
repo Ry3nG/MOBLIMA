@@ -15,6 +15,7 @@ public abstract class Menu {
   /**
    * Pretty-printer for menu list
    */
+  //# displayMenuList(): void
   protected void displayMenuList() {
     this.displayMenuList(this.menuMap.keySet().stream().toList());
   }
@@ -139,8 +140,8 @@ public abstract class Menu {
    *
    * @param menuMap:LinkedHashMap<String, Runnable>
    */
-  //+ refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
-  public void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
+  //# refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
+  protected void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
     Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;
   }
@@ -148,5 +149,6 @@ public abstract class Menu {
   /**
    * Abstract method for showing menu
    */
+  //+ showMenu():void
   public abstract void showMenu();
 }

@@ -17,8 +17,8 @@ import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class CustomerMenu extends Menu {
   private static CustomerHandler handler;
-  private static CustomerMenu instance;
   private static CustomerController controller;
+  private static CustomerMenu instance;
 
   private CustomerMenu() {
     super();
@@ -272,6 +272,8 @@ public class CustomerMenu extends Menu {
         // Retrieve customer from idx
         Customer customer = handler.getCustomer(customerIdx);
         if (customer == null) return bookingIdx;
+        String strCustomer = "ACCOUNT: " + customer.getId() + " / NAME: " + customer.getName();
+        System.out.println(colorize(strCustomer, Preset.SUCCESS.color));
 
         // Redirect to controller for interactivity
         bookingIdx = controller.makeBooking(customer.getId(), showtime);
@@ -289,6 +291,10 @@ public class CustomerMenu extends Menu {
     return bookingIdx;
   }
 
+  /**
+   * View customer associated bookings
+   */
+  //+ viewBookings():void
   public void viewBookings() {
     // Get customer idx via login/register
     int customerIdx = this.getCurrentCustomer();

@@ -111,6 +111,7 @@ public class ShowtimeHandler {
    * @param seats:boolean[][]
    * @return status:boolean
    */
+  //+ updateShowtime(cineplexId:String, cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
   public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
     boolean status = false;
     if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
@@ -161,7 +162,7 @@ public class ShowtimeHandler {
    *
    * @param showtimeIdx:int
    */
-  //+printShowtimeDetails(showtimeIdx : int) : void
+  //+ printShowtimeDetails(showtimeIdx : int) : void
   public void printShowtimeDetails(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return;
@@ -213,7 +214,7 @@ public class ShowtimeHandler {
         String seat = isAvailable ? "|O|" : "|X|";
         System.out.print(colorize(seat, ((isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT).color));
       }
-      System.out.print(new StringBuilder(strRowIdx).reverse().toString());
+      System.out.print(new StringBuilder(strRowIdx).reverse());
       System.out.println();
     }
     System.out.println();
@@ -274,6 +275,7 @@ public class ShowtimeHandler {
    * @param availabilityAssignment:boolean
    * @return seats:boolean[][]
    */
+  //+ assignSeat(seats:boolean[][], seatCode:int[], availabilityAssignment:boolean):boolean[][]
   public boolean[][] assignSeat(boolean[][] seats, int[] seatCode, boolean availabilityAssignment) {
     seats[seatCode[0]][seatCode[1]] = !availabilityAssignment;
     return seats;
@@ -285,7 +287,7 @@ public class ShowtimeHandler {
    * @param showtimeIdx:int
    * @return seatCount:int
    */
-  //  +getAvailableSeatCount(showtimeIdx:int) : int
+  //+ getAvailableSeatCount(showtimeIdx:int) : int
   public int getAvailableSeatCount(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return -1;
@@ -300,45 +302,4 @@ public class ShowtimeHandler {
   protected boolean saveShowtimes() {
     return Datasource.serializeData(this.showtimes, "showtimes.csv");
   }
-
-//    // +getSelectedShowtimeIdx():int
-//  public int getSelectedShowtimeIdx() {
-//    return selectedShowtimeIdx;
-//  }
-
-
-//  //  + getSelected Showtime() : Showtime
-//  public Showtime getSelectedShowtime() {
-//    return (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) ? null : this.showtimes.get(this.selectedShowtimeIdx);
-//  }
-
-//  //1+ updateShowtime(showtime Showtime) : boolean
-//  public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
-//    boolean status = false;
-//    if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
-//
-//    Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
-//    if (showtime == null) return status;
-//
-//    return this.updateShowtime(cineplexId, cinemaId, movieId, datetime, showtime.getSeats());
-//  }
-
-
-//  //  +printShowtimeDetails(showtimeId : String) : void
-
-//  //+ printShowtimes() : void
-//  public void printShowtimes() {
-//    if (this.showtimes.isEmpty()) {
-//      System.out.println("No showtimes available");
-//      return;
-//    }
-//
-//    for (int i = 0; i < this.showtimes.size(); i++) {
-//      Showtime showtime = this.showtimes.get(i);
-//      System.out.println("> " + i + " " + showtime.getId());
-//    }
-//  }
-
-//+ printShowtimes(movield : String) : void
-
 }

@@ -24,6 +24,7 @@ public class CustomerController extends MovieBookingController {
     return instance;
   }
 
+  //+ getCustomerMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getCustomerMenu() {
     return new LinkedHashMap<String, Runnable>() {{
       put("Search/List Movies", () -> {
@@ -34,10 +35,12 @@ public class CustomerController extends MovieBookingController {
     }};
   }
 
+  //+ viewBookings(customerId:String): void
   public void viewBookings(String customerId) {
     bookingMenu.selectBookingIdx(customerId);
   }
 
+  //+ makeBooking(customerId:String, showtime:Showtime):int
   public int makeBooking(String customerId, Showtime showtime) {
     int bookingIdx = -1;
     int showtimeIdx = this.bookingHandler().getShowtimeIdx(showtime.getId());

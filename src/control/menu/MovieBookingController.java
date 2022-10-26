@@ -22,6 +22,11 @@ public abstract class MovieBookingController {
     return BookingMenu.getHandler();
   }
 
+  /**
+   * Interactive showtime display
+   * @return showtimeIdx:int
+   */
+  //+ viewShowtimeAvailability(): int
   public int viewShowtimeAvailability() {
     int showtimeIdx = -1;
 
@@ -46,6 +51,10 @@ public abstract class MovieBookingController {
     return showtimeIdx;
   }
 
+  /**
+   * Interactive showtime update
+   */
+  //+ updateShowtimes():void
   public void updateShowtimes() {
     // Select movie
     System.out.println("Select movie: ");
@@ -63,6 +72,10 @@ public abstract class MovieBookingController {
     bookingMenu.editShowtime(showtime.getId());
   }
 
+  /**
+   * Interactive movie update
+   */
+  //+ updateMovies():void
   public void updateMovies() {
     // Select movie
     System.out.println("Select movie: ");
@@ -72,6 +85,10 @@ public abstract class MovieBookingController {
     movieMenu.selectEditableAction(movieIdx);
   }
 
+  /**
+   * Interactive cinema update
+   */
+  //+ updateCinemas():void
   public void updateCinemas() {
     // Cinema ID / IDX is the same
     int cinemaIdx = bookingMenu.selectCinemaIdx();

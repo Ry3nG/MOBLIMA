@@ -50,7 +50,7 @@ public class BookingMenu extends Menu {
    *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
-  //+ getShowtimeMenu():LinkedHashMap<String, Runnable>
+  //+ getShowtimeMenu(showtimes:List<Showtime>):LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getShowtimeMenu(List<Showtime> showtimes) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     if (showtimes.size() < 1) {
@@ -74,7 +74,7 @@ public class BookingMenu extends Menu {
    *
    * @return menuMap:LinkedHashMap<String, Runnable>
    */
-  //+ getBookingMenu():LinkedHashMap<String, Runnable>
+  //+ getBookingMenu(customerId:String):LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getBookingMenu(String customerId) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Booking> bookings = handler.getBookings(customerId);
@@ -303,7 +303,7 @@ public class BookingMenu extends Menu {
    * @param showtimeId:String
    * @return status = true
    */
-  //+ updateMovieShowtimes(movieId:int) : boolean
+  //+ editShowtime(showtimeId:int) : boolean
   public boolean editShowtime(String showtimeId) {
     boolean status = false;
 
@@ -461,7 +461,7 @@ public class BookingMenu extends Menu {
    * @param cinemaId:int
    * @return status = true
    */
-  //+ updateMovieShowtimes(movieId:int) : boolean
+  //+ editCinema(cinemaId:int) : boolean
   public boolean editCinema(int cinemaId) {
     boolean status = false;
 

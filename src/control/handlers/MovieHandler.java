@@ -15,11 +15,11 @@ import java.util.List;
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class MovieHandler {
-  private final MovieDatasource dsMovie = new MovieDatasource();
-  private List<Movie> movies = new ArrayList<Movie>();
+  private final List<Movie> movies;
   private int selectedMovieIdx = -1;
 
   public MovieHandler() {
+    MovieDatasource dsMovie = new MovieDatasource();
     this.movies = dsMovie.getMovies();
   }
 
@@ -81,7 +81,7 @@ public class MovieHandler {
    *
    * @return movies:List<Movie>
    */
-  //+getMovies() : List <Movie>
+  //+ getMovies() : List <Movie>
   public List<Movie> getMovies() {
     return this.movies;
   }
@@ -92,7 +92,7 @@ public class MovieHandler {
    * @param showStatus:ShowStatus
    * @return movies:List<Movie>
    */
-  //+getMovies(showStatus : ShowStatus): List<Movie>
+  //+ getMovies(showStatus : ShowStatus): List<Movie>
   public List<Movie> getMovies(
       ShowStatus showStatus
   ) {
@@ -240,6 +240,12 @@ public class MovieHandler {
     }
   }
 
+  /**
+   * Print list of movie titles
+   *
+   * @param movies:List<Movie>
+   */
+  //+ printMovies(movies:List<Movie>) : void
   public void printMovies(List<Movie> movies) {
     if (movies.isEmpty()) {
       System.out.println("No movies available");
@@ -259,13 +265,5 @@ public class MovieHandler {
   public boolean saveMovies() {
     return Datasource.serializeData(this.movies, "movies.csv");
   }
-
-////+ printMovies(showStatus ShowStatus) : void
-
-//  // +getSelectedMovieIdx():int
-//  public int getSelectedMovieIdx() {
-//    return selectedMovieIdx;
-//  }
-
 
 }

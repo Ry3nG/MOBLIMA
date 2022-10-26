@@ -181,7 +181,7 @@ public class StaffHandler {
   /**
    * Serialize staff data to CSV
    */
-  //# saveCustomers():boolean
+  //# saveStaffs():boolean
   public boolean saveStaffs() {
     return Datasource.serializeData(this.staffs, "staffs.csv");
   }

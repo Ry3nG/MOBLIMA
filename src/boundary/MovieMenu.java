@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class MovieMenu extends Menu {
-  public static boolean showLimitedMovies = true;
+  private static boolean showLimitedMovies = true;
   private static MovieHandler handler;
   private static MovieMenu instance;
 
@@ -49,6 +49,12 @@ public class MovieMenu extends Menu {
     this.displayMenu();
   }
 
+  /**
+   * Filter movies by show status: NOW_SHOWING
+   *
+   * @return movies:List<Movie>
+   */
+  //+ getViewableMovie(): List<Movie>
   public List<Movie> getViewableMovies() {
     return showLimitedMovies ? handler.getMovies(ShowStatus.NOW_SHOWING) : handler.getMovies();
   }
@@ -112,7 +118,7 @@ public class MovieMenu extends Menu {
    *
    * @return selectedMovieIdx:int
    */
-  //+ selectMovieIdx():int
+  //+ selectEditableAction():int
   public boolean selectEditableAction(int movieIdx) {
     boolean status = false;
 

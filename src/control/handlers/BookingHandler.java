@@ -36,7 +36,7 @@ public class BookingHandler extends CinemaHandler {
    *
    * @param selectedBookingIdx:int
    */
-  //+ setSelectedBookingIdx(selectedBookingIdx:int) : void
+  //+
   public void setSelectedBookingIdx(int selectedBookingIdx) {
     this.selectedBookingIdx = selectedBookingIdx;
   }
@@ -266,7 +266,7 @@ public class BookingHandler extends CinemaHandler {
   /**
    * Serializes booking data to CSV
    */
-  //# saveBookings(): boolean
+  //#
   protected boolean saveBookings() {
     return Datasource.serializeData(this.bookings, "bookings.csv");
   }
