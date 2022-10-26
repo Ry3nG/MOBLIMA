@@ -2,9 +2,10 @@ package control.menu;
 
 import boundary.BookingMenu;
 import boundary.MovieMenu;
+import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
 import control.handlers.MovieHandler;
-import control.handlers.PriceHandler;
+// import control.handlers.SettingsHandler;
 import entity.Showtime;
 import moblima.entities.Movie;
 import utils.Helper;
@@ -14,7 +15,7 @@ import java.util.List;
 public abstract class MovieBookingController {
   protected static MovieMenu movieMenu = MovieMenu.getInstance(true);
   protected static BookingMenu bookingMenu = BookingMenu.getInstance();
-  protected static PriceHandler priceHandler = PriceHandler.getInstance();
+  protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
 
   public MovieHandler movieHandler() {
     return movieMenu.getHandler();
@@ -23,10 +24,11 @@ public abstract class MovieBookingController {
   public BookingHandler bookingHandler() {
     return bookingMenu.getHandler();
   }
-
-  public PriceHandler priceHandler(){
-    return this.priceHandler;
-  }
+  
+  // Doesn't seem to require - no references
+  // public SettingsHandler settingsHandler() {
+  //   return settingsMenu.getHandler();
+  // }
 
   /**
    * Interactive showtime display
@@ -102,4 +104,11 @@ public abstract class MovieBookingController {
     bookingMenu.editCinema(cinemaIdx);
   }
 
+  /**
+   * System Settings update
+   */
+  //+ updateSettings():void
+  public void updateSettings() {
+    settingsMenu.showMenu();
+  }
 }
