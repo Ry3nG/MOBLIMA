@@ -5,7 +5,7 @@ import boundary.MovieMenu;
 import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
 import control.handlers.MovieHandler;
-// import control.handlers.SettingsHandler;
+import control.handlers.SettingsHandler;
 import entity.Showtime;
 import moblima.entities.Movie;
 import utils.Helper;
@@ -18,17 +18,16 @@ public abstract class MovieBookingController {
   protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
 
   public MovieHandler movieHandler() {
-    return movieMenu.getHandler();
+    return movieMenu.getHandler();  // i think gotta figure out if u want static or non?
   }
 
   public BookingHandler bookingHandler() {
     return bookingMenu.getHandler();
   }
   
-  // Doesn't seem to require - no references
-  // public SettingsHandler settingsHandler() {
-  //   return settingsMenu.getHandler();
-  // }
+  public SettingsHandler settingsHandler() {
+    return settingsMenu.getHandler();
+  }
 
   /**
    * Interactive showtime display

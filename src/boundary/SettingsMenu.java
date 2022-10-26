@@ -110,10 +110,14 @@ public class SettingsMenu extends Menu {
     return instance;
   }
 
-  // KIV - no references, see MovieBookingController
-  // public SettingsHandler getHandler() {
-  //   return handler;
-  // }
+  /**
+   * Return instance of SettingsHandler - for singleton pattern implementation
+   * 
+   * @return handler - instance of SettingsHandler
+   */
+  public SettingsHandler getHandler() {
+    return handler;
+  }
 
   /**
    * Prints settings
@@ -267,7 +271,7 @@ public class SettingsMenu extends Menu {
 
   }
 
-  // MIN-SELF-NOTE: possible to move all these to handler for more backend processing?
+  //TODO: Try to offload menu
   /**
    * Helper method to check validity of price input
    * 
