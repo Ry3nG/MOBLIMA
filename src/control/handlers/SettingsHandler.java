@@ -1,5 +1,17 @@
 package control.handlers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import common.Datasource;
+import entity.Booking;
+import entity.Booking.TicketType;
+import entity.Cinema;
+import entity.Settings;
+import moblima.control.HolidayDatasource;
+import utils.Helper;
+
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -10,21 +22,9 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import entity.Booking;
-import entity.Cinema;
-import entity.SystemSettings;
-import entity.Booking.TicketType;
-import moblima.control.Datasource;
-import utils.Helper;
-
 /**
  * Settings Handler
- * 
+ *
  * @author SS11 Group 1
  * @version 1.0
  * @since 21 October 2022
@@ -34,47 +34,47 @@ public class SettingsHandler {
   /**
    * Static variable to store system settings for operations
    */
-  private SystemSettings currentSystemSettings;
+  private Settings currentSystemSettings;
 
   /**
    * Constructor for SettingsHandler
-   * 
+   * <p>
    * Calls loadData() to load saved settings into settings variable
    */
   public SettingsHandler() {
-    this.getCurrentSystemSettings();
+    this.currentSystemSettings = this.getCurrentSystemSettings();
   }
 
-  public boolean changeAdultPrice(SystemSettings clone, double newPrice) {
+  public boolean changeAdultPrice(Settings clone, double newPrice) {
     if (clone.getAdultTicket() == newPrice) return false;
     clone.setAdultTicket(newPrice);
     return true;
   }
 
-  public boolean changeBlockbusterSurcharge(SystemSettings clone, double newSurcharge) {
+  public boolean changeBlockbusterSurcharge(Settings clone, double newSurcharge) {
     if (clone.getBlockbusterSurcharge() == newSurcharge) return false;
     clone.setBlockbusterSurcharge(newSurcharge);
     return true;
   }
 
-  public void changeTicketSurcharges(SystemSettings clone, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
+  public void changeTicketSurcharges(Settings clone, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
     clone.setTicketSurcharges(newTicketSurcharges);
   }
 
-  public void changeCinemaSurcharges(SystemSettings clone, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
+  public void changeCinemaSurcharges(Settings clone, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
     clone.setCinemaSurcharges(newCinemaSurcharges);
   }
-  
+
   /**
    * Checks whether public holiday date entered is a valid date, and adds the date to the list of public holidays if valid
-   * 
+   *
    * @param clone:SystemSettings - clone of SystemSettings being used in Menu
-   * @param date:String - date to be added
+   * @param date:String          - date to be added
    * @return 1 - date is valid
    * @return 0 - date is invalid
    * @since 1.0
    */
-  public int addPublicHoliday(SystemSettings clone, String date) {
+  public int addPublicHoliday(Settings clone, String date) {
     try {
       // Check if valid date
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -93,12 +93,12 @@ public class SettingsHandler {
 
   /**
    * Checks whether public holiday date entered is in the list of public holidays, and removes if found.
-   * 
+   *
    * @param date - date to be removed
    * @return whether date is in the list of public holidays
    * @since 1.0
    */
-  public boolean removePublicHoliday(SystemSettings clone, String date) {
+  public boolean removePublicHoliday(Settings clone, String date) {
 
     try {
       // Check if valid date
@@ -119,13 +119,13 @@ public class SettingsHandler {
    * @param settings:SystemSettings
    */
   //+updatePrice(settings : SystemSettings) : void
-  public void updateSystemSettings(SystemSettings settings) {
+  public void updateSystemSettings(Settings settings) {
     // Replace current price
     this.currentSystemSettings = settings;
     Helper.logger("SettingsHandler.updateSystemSettings", "Settings: \n" + this.currentSystemSettings);
 
     // Serialize data
-    this.saveSystemSettingss();
+    this.saveSystemSettings();
   }
 
   /**
@@ -134,9 +134,9 @@ public class SettingsHandler {
    * @return systemSettings:SystemSettings | null
    */
   // + getCurrentPrice():Price
-  public SystemSettings getCurrentSystemSettings() {
-    this.getSystemSettings();
-    return new SystemSettings(this.currentSystemSettings);
+  public Settings getCurrentSystemSettings() {
+    if(this.currentSystemSettings == null) this.getSystemSettings();
+    return new Settings(this.currentSystemSettings);
   }
 
   /**
@@ -145,7 +145,7 @@ public class SettingsHandler {
    * @return defaultPrice:Price
    */
   //- getDefaultPricingScheme():Price
-  private SystemSettings getDefaultSettings() {
+  private Settings getDefaultSettings() {
     double adultTicketPrice = 10;
     double blockbusterSurcharge = 8;
 
@@ -161,9 +161,11 @@ public class SettingsHandler {
       put(Cinema.ClassType.Premium, 8.0);
     }};
 
-    ArrayList<LocalDate> publicHolidays = new ArrayList<LocalDate>();
+    // Public Holidays
+    HolidayDatasource dsHoliday = new HolidayDatasource();
+    List<LocalDate> publicHolidays = dsHoliday.fetchHolidays();
 
-    return new SystemSettings(adultTicketPrice, blockbusterSurcharge, ticketSurcharges, cinemaSurcharges, publicHolidays);
+    return new Settings(adultTicketPrice, blockbusterSurcharge, ticketSurcharges, cinemaSurcharges, publicHolidays);
   }
 
   /**
@@ -186,27 +188,16 @@ public class SettingsHandler {
     EnumMap<Cinema.ClassType, Double> cinemaSurcharge = this.currentSystemSettings.getCinemaSurcharges();
     if (cinemaSurcharge.containsKey(classType)) price += cinemaSurcharge.get(classType);
 
-    boolean peakTime = false;
-    // Check Weekend
+    // Check if PEAK
     DayOfWeek day = showDateTime.getDayOfWeek();
-    if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
-      // ticketType = TicketType.PEAK; // do not overwrite the ticket type of student or senior, suggest to take it out of tickettype and put it as individual setting (ref blockbuster surcharge)
-      peakTime = true;
-    }
-    
-    // Check Holiday
-    for (LocalDate holiday : this.currentSystemSettings.getHolidays()) {
-      // LocalDate holidayDate = LocalDate.parse(holiday, LocalDateDeserializer.dateFormatter);
-      if (holiday.isEqual(showDateTime.toLocalDate())) {
-        // ticketType = TicketType.PEAK;
-        peakTime = true;
-      }
-    }
+    boolean isWeekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
+    boolean isHoliday = this.currentSystemSettings.getHolidays().stream()
+        .anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
+    if (isHoliday || isWeekend) ticketType = TicketType.PEAK;
 
     // Ticket Surcharges
     EnumMap<Booking.TicketType, Double> ticketSurcharges = this.currentSystemSettings.getTicketSurcharges();
     if (ticketSurcharges.containsKey(ticketType)) price += ticketSurcharges.get(ticketType);
-    if (peakTime) if (ticketSurcharges.containsKey(TicketType.PEAK)) price += ticketSurcharges.get(TicketType.PEAK);  // peak surcharge
 
     return price;
   }
@@ -224,8 +215,8 @@ public class SettingsHandler {
   }
 
   //+ getPrices():Price
-  public SystemSettings getSystemSettings() {
-    List<SystemSettings> settings = new ArrayList<SystemSettings>();
+  public Settings getSystemSettings() {
+    List<Settings> settings = new ArrayList<Settings>();
 
     // Intialize with default pricing
     this.currentSystemSettings = this.getDefaultSettings();
@@ -262,22 +253,25 @@ public class SettingsHandler {
       EnumMap<Cinema.ClassType, Double> cinemaSurcharges = Datasource.getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
 
       String strPublicHolidays = p.get("publicHolidays").getAsString();
-      Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>(){}.getType();
+      Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>() {
+      }.getType();
       ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
-      this.currentSystemSettings = new SystemSettings(
-        adultTicket,
-        blockbusterSurcharge,
-        ticketSurcharges,
-        cinemaSurcharges,
-        publicHolidays
+      this.currentSystemSettings = new Settings(
+          adultTicket,
+          blockbusterSurcharge,
+          ticketSurcharges,
+          cinemaSurcharges,
+          publicHolidays
       );
     }
 
     if (settings.size() < 1) return this.currentSystemSettings;
 
+
     // Update current price
-    this.updateSystemSettings(settings.get(0));
+    this.updateSystemSettings(settings.get(settings.size()));
+    Helper.logger("SettingsHandler.getSystemSettings", "Settings: \n" + this.currentSystemSettings);
 
     return this.currentSystemSettings;
   }
@@ -286,10 +280,10 @@ public class SettingsHandler {
    * Serialize price data to CSV
    */
   //# saveSystemSettingss():boolean
-  protected boolean saveSystemSettingss() {
-    List<SystemSettings> settings = new ArrayList<SystemSettings>();
+  protected boolean saveSystemSettings() {
+    List<Settings> settings = new ArrayList<Settings>();
     settings.add(this.currentSystemSettings);
     return Datasource.serializeData(settings, "settings.csv");
   }
-  
+
 }

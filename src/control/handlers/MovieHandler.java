@@ -1,6 +1,6 @@
 package control.handlers;
 
-import moblima.control.Datasource;
+import common.Datasource;
 import moblima.control.MovieDatasource;
 import moblima.entities.Movie;
 import moblima.entities.Movie.ContentRating;

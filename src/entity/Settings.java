@@ -2,23 +2,22 @@ package entity;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Locale;
 
 import static utils.Helper.formatAsTable;
+import static utils.LocalDateDeserializer.dateFormatter;
 
-public class SystemSettings {
+public class Settings {
   private double adultTicket;
   private double blockbusterSurcharge;
   private EnumMap<Booking.TicketType, Double> ticketSurcharges;
   private EnumMap<Cinema.ClassType, Double> cinemaSurcharges;
-  private ArrayList<LocalDate> publicHolidays;
+  private List<LocalDate> publicHolidays;
 
-  public SystemSettings(double adultTicket,double blockbusterSurcharge, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, ArrayList<LocalDate> publicHolidays) {
+  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
     this.adultTicket = adultTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
     this.ticketSurcharges = ticketSurcharges;
@@ -31,7 +30,7 @@ public class SystemSettings {
    *
    * @param settings:SystemSettings
    */
-  public SystemSettings(SystemSettings settings) {
+  public Settings(Settings settings) {
     this(
         settings.adultTicket,
         settings.blockbusterSurcharge,
@@ -73,11 +72,11 @@ public class SystemSettings {
     this.cinemaSurcharges = cinemaSurcharges;
   }
 
-  public ArrayList<LocalDate> getHolidays() {
+  public List<LocalDate> getHolidays() {
     return this.publicHolidays;
   }
 
-  public void setHolidays(ArrayList<LocalDate> publicHolidays) {
+  public void setHolidays(List<LocalDate> publicHolidays) {
     this.publicHolidays = publicHolidays;
   }
 
@@ -92,6 +91,20 @@ public class SystemSettings {
   public String formatPrice(double price){
     DecimalFormat df = new DecimalFormat("0.00");
     return "SGD " + df.format(price);
+  }
+
+  public List<List<String>> printHolidayTable(){
+    List<List<String>> rows = new ArrayList<List<String>>();
+    // Public holidays
+    rows.add(Arrays.asList("\nPublic Holidays:",""));
+    if (this.publicHolidays.size() == 0) rows.add(Arrays.asList("No public holidays.",""));
+    else {
+      for (LocalDate holiday : this.publicHolidays) {
+        rows.add(Arrays.asList(holiday.format(dateFormatter), holiday.getDayOfWeek().toString()));
+      }
+    }
+
+    return rows;
   }
 
   @Override
@@ -112,15 +125,7 @@ public class SystemSettings {
         .stream()
         .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
-    // Public holidays
-    rows.add(Arrays.asList("\nPublic Holidays:",""));
-    if (this.publicHolidays.size() == 0) rows.add(Arrays.asList("No public holidays.",""));
-    else {
-      for (LocalDate holiday : this.publicHolidays) {
-        String strHoliday = String.format("%d %s %d", holiday.getDayOfMonth(), holiday.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH), holiday.getYear());
-        rows.add(Arrays.asList(strHoliday,""));
-      }
-    }
+    rows.addAll(this.printHolidayTable());
 
     return formatAsTable(rows);
   }

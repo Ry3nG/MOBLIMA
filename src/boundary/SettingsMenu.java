@@ -1,20 +1,22 @@
 package boundary;
 
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
-
+import control.handlers.SettingsHandler;
 import entity.Booking;
 import entity.Cinema;
-import entity.SystemSettings;
+import entity.Settings;
 import utils.Helper.Preset;
 
-import control.handlers.SettingsHandler;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.LocalDateDeserializer.dateFormatter;
+import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
  * System Settings Menu
- * 
+ *
  * @author SS11 Group 1
  * @version 1.2
  * @since 27 October 2022
@@ -32,17 +34,13 @@ public class SettingsMenu extends Menu {
   /**
    * Clone of SystemSettings for use across various functions
    */
-  private SystemSettings settings;
-  /**
-   * Bit to track modification of settings
-   */
-  private boolean mod;
-  
+  private Settings settings;
+
   /**
    * Constructor for SettingsMenu
-   * 
+   * <p>
    * Initialises SettingsMenu and obtains an instance of SettingsHandler.
-   * 
+   *
    * @since 1.0
    */
   private SettingsMenu() {
@@ -50,47 +48,36 @@ public class SettingsMenu extends Menu {
 
     // Setup
     this.settings = handler.getCurrentSystemSettings();
-    this.mod = false;
 
     // Menu
-    this.menuMap = new LinkedHashMap<String,Runnable>() {{
-    put("View Current Settings", () -> viewCurrentSettings());
-    put("Edit Adult (Standard) Ticket Price", () -> editAdultTicketPrice());
-    put("Edit Blockbuster Movie Surcharge", () -> editBlockbusterSurcharge());
-    put("Edit Ticket Surcharges", () -> editTicketSurcharges());
-    put("Edit Cinema Surcharges", () -> editCinemaSurcharges());
-    put("Add Public Holiday", () -> addPublicHoliday());
-    put("Remove Public Holiday", () -> removePublicHoliday());
-    put("Discard changes", () -> {
-      System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
-      settings = handler.getCurrentSystemSettings();
-      // System.out.println("\n" + settings); - can go viewCurrentSettings if wish to see the new settings
-      mod = false;
-    });
-    put("Save changes and return", () -> {
-      handler.updateSystemSettings(settings);
-      mod = false;
-      System.out.println("\t>>> Returning to Main Menu...");
-    });
-    put("Return to Main Menu", () -> {
-      if (mod) {
-        System.out.print("Any changes will be discarded! Are you sure? [YES / NO] : ");
-        String resp = scanner.next();
-        if (resp.equals("YES") || resp.equals("Y")) {
-          settings = handler.getCurrentSystemSettings();
-          System.out.println("\t>>> Returning to Main Menu...");
-        }
-        mod = false;
-      } else {
+    this.menuMap = new LinkedHashMap<String, Runnable>() {{
+      put("View Current Settings", () -> viewCurrentSettings());
+      put("Edit Adult (Standard) Ticket Price", () -> editAdultTicketPrice());
+      put("Edit Blockbuster Movie Surcharge", () -> editBlockbusterSurcharge());
+      put("Edit Ticket Surcharges", () -> editTicketSurcharges());
+      put("Edit Cinema Surcharges", () -> editCinemaSurcharges());
+//      put("Update Holidays", () -> {
+//        editPublicHolidays();
+//      });
+      put("Add Public Holiday", () -> addPublicHoliday());
+      put("Remove Public Holiday", () -> removePublicHoliday());
+      put("Discard changes", () -> {
+        settings = handler.getCurrentSystemSettings();
+        System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
+      });
+      put("Save changes and return", () -> {
+        handler.updateSystemSettings(settings);
+        System.out.println("\t>>> Saved and returning to Main Menu...");
+      });
+      put("Return to Main Menu", () -> {
         System.out.println("\t>>> Returning to Main Menu...");
-      }
-    });
+      });
     }};
   }
 
   /**
    * Displays the menu to Staff
-   * 
+   *
    * @see main.boundary.Menu#showMenu()
    * @since 1.0
    */
@@ -101,7 +88,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Return instance of SettingsMenu - for singleton pattern implementation
-   * 
+   *
    * @return instance - instance of SettingsMenu
    */
   // +getInstance() : SettingsMenu
@@ -112,7 +99,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Return instance of SettingsHandler - for singleton pattern implementation
-   * 
+   *
    * @return handler - instance of SettingsHandler
    */
   public SettingsHandler getHandler() {
@@ -121,7 +108,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Prints settings
-   * 
+   *
    * @since 1.1
    */
   // CD: -viewCurrentSettings()
@@ -132,7 +119,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Obtains and updates ticket price according based on Staff input
-   * 
+   *
    * @since 1.1
    */
   // CD: -editAdultTicketPrice()
@@ -154,8 +141,8 @@ public class SettingsMenu extends Menu {
         boolean changed = handler.changeAdultPrice(settings, checkInput);
         if (changed) {
           System.out.println(colorize("\n[CHANGED] Adult / Standard Ticket Price changed to " + settings.formatPrice(settings.getAdultTicket()), Preset.SUCCESS.color));
-          mod = true;
-        } else System.out.println("\n[NO CHANGE] Adult / Standard Ticket Price remains at " + settings.formatPrice(settings.getAdultTicket()));
+        } else
+          System.out.println("\n[NO CHANGE] Adult / Standard Ticket Price remains at " + settings.formatPrice(settings.getAdultTicket()));
       }
     } while (checkInput == 0);
 
@@ -163,7 +150,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Obtains and updates blockbuster surcharge according based on Staff input
-   * 
+   *
    * @since 1.2
    */
   // CD: -editBlockbusterSurcharge()
@@ -185,8 +172,8 @@ public class SettingsMenu extends Menu {
         boolean changed = handler.changeBlockbusterSurcharge(settings, checkInput);
         if (changed) {
           System.out.println(colorize("\n[CHANGED] Blockbuster Surcharge changed to " + settings.formatPrice(settings.getBlockbusterSurcharge()), Preset.SUCCESS.color));
-          mod = true;
-        } else System.out.println("\n[NO CHANGE] Blockbuster Surcharge remains at SGD " + settings.formatPrice(settings.getBlockbusterSurcharge ()));
+        } else
+          System.out.println("\n[NO CHANGE] Blockbuster Surcharge remains at SGD " + settings.formatPrice(settings.getBlockbusterSurcharge()));
       }
     } while (checkInput < -1);
 
@@ -194,11 +181,11 @@ public class SettingsMenu extends Menu {
 
   /**
    * Obtains and updates ticket surcharges according based on Staff input
-   * 
+   *
    * @since 1.2
    */
   private void editTicketSurcharges() {
-    
+
     // Setup
     scanner.nextLine();
     System.out.println("---------------------------------------------------------------------------");
@@ -220,8 +207,8 @@ public class SettingsMenu extends Menu {
           if (newSurcharge != surcharge.getValue()) {
             System.out.println(colorize("\n[CHANGED] " + surcharge.getKey().toString() + " Surcharge changed to " + newSurcharge, Preset.SUCCESS.color));
             surcharge.setValue(newSurcharge);
-            mod = true;
-          } else System.out.println("\n[NO CHANGE] " + surcharge.getKey().toString() + " Surcharge remains at " + surcharge.getValue());
+          } else
+            System.out.println("\n[NO CHANGE] " + surcharge.getKey().toString() + " Surcharge remains at " + surcharge.getValue());
         }
       } while (checkInput < -1);
       System.out.println();
@@ -234,7 +221,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Obtains and updates cinema surcharges according based on Staff input
-   * 
+   *
    * @since 1.2
    */
   private void editCinemaSurcharges() {
@@ -259,8 +246,8 @@ public class SettingsMenu extends Menu {
           if (checkInput != surcharge.getValue()) {
             System.out.println(colorize("\n[CHANGED] " + surcharge.getKey().toString() + " Surcharge changed to " + checkInput, Preset.SUCCESS.color));
             surcharge.setValue(checkInput);
-            mod = true;
-          } else System.out.println("\n[NO CHANGE] " + surcharge.getKey().toString() + " Surcharge remains at " + surcharge.getValue());
+          } else
+            System.out.println("\n[NO CHANGE] " + surcharge.getKey().toString() + " Surcharge remains at " + surcharge.getValue());
         }
       } while (checkInput < -1);
       System.out.println();
@@ -271,11 +258,97 @@ public class SettingsMenu extends Menu {
 
   }
 
+  public boolean editPublicHolidays() {
+    boolean status = false;
+    List<LocalDate> holidays = this.settings.getHolidays();
+
+    List<String> proceedOptions = holidays.stream()
+        .map(h -> h.format(dateFormatter) + ", " + h.getDayOfWeek().toString())
+        .collect(Collectors.toList());
+    proceedOptions.add("Add new public holiday");
+    proceedOptions.add("Return to previous menu");
+
+    while (!status) {
+      System.out.println("Next steps:");
+      this.displayMenuList(proceedOptions);
+      int proceedSelection = getListSelectionIdx(proceedOptions, false);
+
+      // Save changes & return OR Return to previous menu
+      if (proceedSelection == proceedOptions.size() - 1) {
+        System.out.println("\t>>> " + "Returning to previous menu...");
+        return status;
+      }
+
+      // Add new public holiday
+      if (proceedSelection == proceedOptions.size() - 2) {
+        this.addPublicHoliday();
+      }
+      // Update / Remove selected holiday
+      else {
+        LocalDate selectedHoliday = holidays.get(proceedSelection);
+        System.out.println("[CURRENT] Holiday: " + selectedHoliday.toString());
+
+        //TODO: Extract as separate function
+        List<String> updateOptions = new ArrayList<String>() {
+          {
+            add("Update holiday");
+            add("Remove holiday");
+          }
+        };
+
+        System.out.println("Update by:");
+        this.displayMenuList(updateOptions);
+        int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+        // Remove holiday
+        if (selectionIdx == updateOptions.size() - 1) {
+          holidays.remove(proceedSelection);
+        }
+
+        // Update holiday
+        else if (selectionIdx == 0) {
+
+          LocalDate prevStatus = selectedHoliday;
+          System.out.println("[CURRENT] Holiday: " + prevStatus.format(dateFormatter));
+
+          //TODO: Extract as separate function
+          scanner = new Scanner(System.in).useDelimiter("\n");
+          System.out.print("Set to (dd-MM-yyyy):");
+          String date = scanner.next().trim();
+          if (date.matches("^\\d{2}-\\d{2}-\\d{4}")) {
+            LocalDate holidayDate = LocalDate.parse(date, dateFormatter);
+
+            if (holidays.contains(holidayDate)) {
+              System.out.println("[NO CHANGE] Given date is already marked as an existing Public Holiday");
+            } else {
+              selectedHoliday = holidayDate;
+              if (prevStatus.isEqual(selectedHoliday)) {
+                System.out.println("[NO CHANGE] Datetime: " + prevStatus.format(dateTimeFormatter));
+              } else {
+                System.out.println("[UPDATED] Datetime: " + prevStatus.format(dateTimeFormatter) + " -> " + holidayDate.format(dateTimeFormatter));
+              }
+            }
+          } else {
+            System.out.println("Invalid input, expected format (dd-MM-yyyy hh:mma)");
+          }
+
+
+        }
+
+
+      }
+    }
+
+
+    return status;
+  }
+
   //TODO: Try to offload menu
+
   /**
    * Helper method to check validity of price input
-   * 
-   * @param input:String - input obained from Staff
+   *
+   * @param input:String      - input obained from Staff
    * @param checkZero:boolean - whether it is required to check for zero
    * @return -1 - if Staff does not want to change the price
    * @return -2 - if the price entered is invalid
@@ -292,8 +365,7 @@ public class SettingsMenu extends Menu {
       } else if (price < 0) { // less than 0
         System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
         return -2;
-      }
-      else return price; // valid
+      } else return price; // valid
     } catch (NumberFormatException e) { // characters other than -
       System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
       return -2;
@@ -302,7 +374,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Helper method to check validity of price input
-   * 
+   *
    * @param input:String - input obtained from Staff
    * @return 0 - if the price entered is valid
    * @return -2 - if the price entered is invalid (incl. non-digits)
@@ -320,7 +392,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Obtains date and adds to the list of public holidays
-   * 
+   *
    * @since 1.1
    */
   private void addPublicHoliday() {
@@ -342,19 +414,20 @@ public class SettingsMenu extends Menu {
 
       if (validDate == 1) {
         System.out.println(colorize(String.format("\n[ADDED] Public holiday %s has been added successfully.", dateInput), Preset.SUCCESS.color));
-        mod = true;
-      } else if (validDate == -1) System.out.println("[ERROR] Date is in the past. Please enter today's date or a date after today, or enter -  to cancel and return to the menu");
-      else System.out.println("[ERROR] Date is invalid. Please enter a valid date, or enter - to cancel and return to the menu.");
-    } while (validDate!=1);
+      } else if (validDate == -1)
+        System.out.println("[ERROR] Date is in the past. Please enter today's date or a date after today, or enter -  to cancel and return to the menu");
+      else
+        System.out.println("[ERROR] Date is invalid. Please enter a valid date, or enter - to cancel and return to the menu.");
+    } while (validDate != 1);
   }
 
   /**
    * Obtains date and removes from the list of public holidays
-   * 
+   *
    * @since 1.1
    */
   private void removePublicHoliday() {
-    
+
     // Setup
     scanner.nextLine(); // consume any remaining input in buffer - good practice before any method that gets input
     System.out.println("---------------------------------------------------------------------------");
@@ -371,9 +444,8 @@ public class SettingsMenu extends Menu {
       dateExist = handler.removePublicHoliday(settings, dateInput); // check if date exists in the settings, if yes, delete
       if (dateExist) {
         System.out.println(colorize(String.format("\n[REMOVED] Public holiday %s has been removed successfully.", dateInput), Preset.SUCCESS.color));
-        mod = true;
-      }
-      else System.out.println("[ERROR] Date is invalid. Please enter a valid date from the list of public holidays, or enter - to cancel and return to the menu.");
+      } else
+        System.out.println("[ERROR] Date is invalid. Please enter a valid date from the list of public holidays, or enter - to cancel and return to the menu.");
     } while (!dateExist);
   }
 }

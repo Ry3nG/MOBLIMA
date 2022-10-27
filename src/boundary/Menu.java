@@ -121,10 +121,7 @@ public abstract class Menu {
 
         Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice);
         return menuChoice;
-      } catch (NoSuchElementException e) {
-        System.out.println("[NIL]\nApplication is terminated via CTRL + C");
-        System.exit(1);
-      } catch (Exception e) {
+      }catch (Exception e) {
         String errMsg = !e.getMessage().isEmpty() ? e.getMessage() : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
         System.out.println(colorize(errMsg, Preset.ERROR.color));
 
