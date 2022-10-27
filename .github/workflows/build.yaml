@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-          os: [ubuntu-latest, macOS-latest, macOS-latest, windows-latest]
+          os: [ubuntu-latest, macOS-latest, windows-latest]
       fail-fast: false
       max-parallel: 4
 
@@ -18,4 +18,4 @@ jobs:
       with:
         distribution: 'zulu' 
         java-version: '17'
-    - run: java -jar build/moblima.jar 
+#    - run: java -jar build/moblima.jar
