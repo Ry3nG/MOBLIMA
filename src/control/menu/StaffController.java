@@ -23,6 +23,7 @@ public class StaffController extends MovieBookingController {
       put("View and update movie details", () -> updateMovies());
       put("View and update showtimes", () -> updateShowtimes());
       put("View and update cinemas", () -> updateCinemas());
+      put("View and update system settings", () -> updateSettings());
     }};
   }
 }

@@ -2,9 +2,10 @@ package control.menu;
 
 import boundary.BookingMenu;
 import boundary.MovieMenu;
+import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
 import control.handlers.MovieHandler;
-import control.handlers.PriceHandler;
+import control.handlers.SettingsHandler;
 import entity.Showtime;
 import moblima.entities.Movie;
 import utils.Helper;
@@ -14,18 +15,18 @@ import java.util.List;
 public abstract class MovieBookingController {
   protected static MovieMenu movieMenu = MovieMenu.getInstance(true);
   protected static BookingMenu bookingMenu = BookingMenu.getInstance();
-  protected static PriceHandler priceHandler = PriceHandler.getInstance();
+  protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
 
   public MovieHandler movieHandler() {
-    return MovieMenu.getHandler();
+    return movieMenu.getHandler();
   }
 
   public BookingHandler bookingHandler() {
-    return BookingMenu.getHandler();
+    return bookingMenu.getHandler();
   }
 
-  public PriceHandler priceHandler() {
-    return priceHandler;
+  public SettingsHandler settingsHandler() {
+    return settingsMenu.getHandler();
   }
 
   /**
@@ -46,7 +47,7 @@ public abstract class MovieBookingController {
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
     showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "showtimeIdx: " + showtimeIdx);
     if (showtimeIdx < 0) return showtimeIdx;
@@ -71,11 +72,11 @@ public abstract class MovieBookingController {
 
     // Select showtimes
     System.out.println("Select showtime slot: ");
-    List<Showtime> movieShowtimes = BookingMenu.getHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = bookingMenu.getHandler().getShowtimes(selectedMovie.getId());
     int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     if (showtimeIdx < 0) return;
 
-    Showtime showtime = BookingMenu.getHandler().getShowtime(showtimeIdx);
+    Showtime showtime = bookingMenu.getHandler().getShowtime(showtimeIdx);
     bookingMenu.editShowtime(showtime.getId());
   }
 
@@ -103,4 +104,11 @@ public abstract class MovieBookingController {
     bookingMenu.editCinema(cinemaIdx);
   }
 
+  /**
+   * System Settings update
+   */
+  //+ updateSettings():void
+  public void updateSettings() {
+    settingsMenu.showMenu();
+  }
 }

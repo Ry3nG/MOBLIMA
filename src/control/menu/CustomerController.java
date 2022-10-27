@@ -63,10 +63,11 @@ public class CustomerController extends MovieBookingController {
 
     // Compute total cost by multiplying num. of seats selected
     Booking.TicketType ticketType = Booking.TicketType.PEAK;
-    double totalCost = this.priceHandler().computeTotalCost(
+    double totalCost = this.settingsHandler().computeTotalCost(
         movie.isBlockbuster(),
         cinema.getClassType(),
         ticketType,
+        null, //add showtime (showDateTime) here PLEASE CHANGE
         seats.size()
     );
 
