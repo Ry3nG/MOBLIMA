@@ -11,8 +11,6 @@ jobs:
           os: [ubuntu-latest, macOS-latest, macOS-latest, windows-latest]
       fail-fast: false
       max-parallel: 4
-      fail-fast: false
-      max-parallel: 4
 
     steps:
     - uses: actions/checkout@v3
