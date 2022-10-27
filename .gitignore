@@ -1,15 +1,37 @@
-# VS Code 
-.vscode/*
-
-# Jetbrains
-.DS_Store
-.idea
-out/
-
-# Visual Paradigm 
+# Visual Paradigm
 *.vpp.bak_*
 
 # Class file
 bin/*
 .env
 
+### IntelliJ IDEA ###
+.idea
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
