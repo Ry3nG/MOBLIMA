@@ -67,9 +67,9 @@ public class SettingsMenu extends Menu {
       });
       put("Save changes and return", () -> {
         handler.updateSystemSettings(settings);
-        System.out.println("\t>>> Saved and returning to Main Menu...");
+        System.out.println("\t>>> Saved and returning to previous menu . . .");
       });
-      put("Return to Main Menu", () -> System.out.println("\t>>> Returning to Main Menu..."));
+      put("Return to previous menu", () -> System.out.println("\t>>> Returning to previous menu . . ."));
     }};
   }
 
