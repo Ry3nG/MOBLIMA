@@ -19,16 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-csv-1.9.0/commons-csv-1.9.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/tmdb/tmdb.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/moblima/moblima.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
