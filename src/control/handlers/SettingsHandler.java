@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import common.Datasource;
+import entity.Account;
 import entity.Booking;
 import entity.Booking.TicketType;
 import entity.Cinema;
@@ -31,18 +32,32 @@ import java.util.List;
  */
 public class SettingsHandler {
 
+  private static boolean isAuthenticated = false;
   /**
    * Static variable to store system settings for operations
    */
   private Settings currentSystemSettings;
+  private Account currentAccount;
 
   /**
    * Constructor for SettingsHandler
-   * <p>
    * Calls loadData() to load saved settings into settings variable
    */
   public SettingsHandler() {
     this.currentSystemSettings = this.getCurrentSystemSettings();
+  }
+
+  public boolean checkIfIsAuthenticated() {
+    return isAuthenticated;
+  }
+
+  public Account getCurrentAccount() {
+    return this.currentAccount;
+  }
+
+  public void setIsAuthenticated(Account account) {
+    this.currentAccount = account;
+    isAuthenticated = (this.currentAccount != null);
   }
 
   public boolean changeAdultPrice(Settings clone, double newPrice) {

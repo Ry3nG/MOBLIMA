@@ -9,7 +9,7 @@ public class StaffController extends MovieBookingController {
 
   private StaffController() {
     super();
-    movieMenu = MovieMenu.getInstance(false);
+    movieMenu = MovieMenu.getInstance(false, true);
   }
 
   public static StaffController getInstance() {
@@ -24,6 +24,9 @@ public class StaffController extends MovieBookingController {
       put("View and update showtimes", () -> updateShowtimes());
       put("View and update cinemas", () -> updateCinemas());
       put("View and update system settings", () -> updateSettings());
+      put("Switch to Customer Mode", () -> {
+
+      });
     }};
   }
 }

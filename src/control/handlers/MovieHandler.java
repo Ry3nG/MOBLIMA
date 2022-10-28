@@ -14,13 +14,15 @@ import java.util.List;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class MovieHandler {
+public class MovieHandler extends ReviewHandler {
   private final List<Movie> movies;
   private int selectedMovieIdx = -1;
 
   public MovieHandler() {
+    super();
     MovieDatasource dsMovie = new MovieDatasource();
     this.movies = dsMovie.getMovies();
+    this.reviews = dsMovie.getReviews();
   }
 
   /**
@@ -123,7 +125,7 @@ public class MovieHandler {
    * @return movieIdx:int
    */
   //+ addMovie(id:int, title:String, synopsis:String, director:String, castList:List<String>, runtime:int, releaseDate:LocalDate, isBlockbuster:boolean, showStatus:ShowStatus, contentRating:ContentRating): int
-  public int addMovie(int id, String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, Movie.ContentRating contentRating) {
+  public int addMovie(int id, String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, Movie.ContentRating contentRating, int overallRating) {
     this.movies.add(new Movie(
         id,
         title,
@@ -134,7 +136,8 @@ public class MovieHandler {
         releaseDate,
         isBlockbuster,
         showStatus,
-        contentRating
+        contentRating,
+        overallRating
     ));
 
     //Serialize data
@@ -158,7 +161,7 @@ public class MovieHandler {
    * @return status:boolean
    */
   //+ updateMovie(title:String, synopsis:String, director:String, castList:List<String>, runtime:int, releaseDate:LocalDate, isBlockbuster:boolean, showStatus:ShowStatus, contentRating:ContentRating):boolean
-  public boolean updateMovie(String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, ContentRating contentRating) {
+  public boolean updateMovie(String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, ContentRating contentRating, int overallRating) {
     boolean status = false;
     if (this.movies.size() < 1 || this.selectedMovieIdx < 0) return status;
 
@@ -176,7 +179,8 @@ public class MovieHandler {
         releaseDate,
         isBlockbuster,
         showStatus,
-        contentRating
+        contentRating,
+        overallRating
     ));
 
     //Serialize data

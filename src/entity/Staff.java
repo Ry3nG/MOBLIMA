@@ -1,22 +1,13 @@
 package entity;
 
-public class Staff {
-  private String id;
+public class Staff extends Account {
   private String username;
   private String password;
 
-  public Staff(String id, String username, String password) {
-    this.id = id;
+  public Staff(String id, String name, String username, String password) {
+    super(id, name);
     this.username = username;
     this.password = password;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
   }
 
   public String getUsername() {
