@@ -67,7 +67,7 @@ public class SettingsMenu extends Menu {
         System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
       });
       put("Save changes and return", () -> {
-        handler.updateSystemSettings(settings);
+        handler.updateSettings(settings);
         System.out.println("\t>>> Saved and returning to previous menu . . .");
       });
       put("Return to previous menu", () -> System.out.println("\t>>> Returning to previous menu . . ."));

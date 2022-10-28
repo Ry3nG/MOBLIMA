@@ -32,11 +32,10 @@ import java.util.List;
  */
 public class SettingsHandler {
 
-  private static boolean isAuthenticated = false;
   /**
    * Static variable to store system settings for operations
    */
-  private Settings currentSystemSettings;
+  private Settings currentSettings;
   private Account currentAccount;
 
   /**
@@ -44,40 +43,42 @@ public class SettingsHandler {
    * Calls loadData() to load saved settings into settings variable
    */
   public SettingsHandler() {
-    this.currentSystemSettings = this.getCurrentSystemSettings();
+    this.currentSettings = this.getCurrentSystemSettings();
   }
 
+  //+ checkIfIsAuthenticated():boolean
   public boolean checkIfIsAuthenticated() {
-    return isAuthenticated;
+    return (this.currentAccount != null);
   }
 
+  //+ getCurrentAccount():Account
   public Account getCurrentAccount() {
     return this.currentAccount;
   }
 
+  //+ setIsAuthenticated(account:Account):void
   public void setIsAuthenticated(Account account) {
     this.currentAccount = account;
-    isAuthenticated = (this.currentAccount != null);
   }
 
-  public boolean changeAdultPrice(Settings clone, double newPrice) {
-    if (clone.getAdultTicket() == newPrice) return false;
-    clone.setAdultTicket(newPrice);
+  public boolean changeAdultPrice(Settings settings, double newPrice) {
+    if (settings.getAdultTicket() == newPrice) return false;
+    settings.setAdultTicket(newPrice);
     return true;
   }
 
-  public boolean changeBlockbusterSurcharge(Settings clone, double newSurcharge) {
-    if (clone.getBlockbusterSurcharge() == newSurcharge) return false;
-    clone.setBlockbusterSurcharge(newSurcharge);
+  public boolean changeBlockbusterSurcharge(Settings settings, double newSurcharge) {
+    if (settings.getBlockbusterSurcharge() == newSurcharge) return false;
+    settings.setBlockbusterSurcharge(newSurcharge);
     return true;
   }
 
-  public void changeTicketSurcharges(Settings clone, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
-    clone.setTicketSurcharges(newTicketSurcharges);
+  public void changeTicketSurcharges(Settings settings, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
+    settings.setTicketSurcharges(newTicketSurcharges);
   }
 
-  public void changeCinemaSurcharges(Settings clone, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
-    clone.setCinemaSurcharges(newCinemaSurcharges);
+  public void changeCinemaSurcharges(Settings settings, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
+    settings.setCinemaSurcharges(newCinemaSurcharges);
   }
 
   /**
@@ -134,13 +135,13 @@ public class SettingsHandler {
    * @param settings:SystemSettings
    */
   //+updatePrice(settings : SystemSettings) : void
-  public void updateSystemSettings(Settings settings) {
+  public void updateSettings(Settings settings) {
     // Replace current price
-    this.currentSystemSettings = settings;
-    Helper.logger("SettingsHandler.updateSystemSettings", "Settings: \n" + this.currentSystemSettings);
+    this.currentSettings = settings;
+    Helper.logger("SettingsHandler.updateSystemSettings", "Settings: \n" + this.currentSettings);
 
     // Serialize data
-    this.saveSystemSettings();
+    this.saveSettings();
   }
 
   /**
@@ -150,8 +151,8 @@ public class SettingsHandler {
    */
   // + getCurrentPrice():Price
   public Settings getCurrentSystemSettings() {
-    if (this.currentSystemSettings == null) this.getSystemSettings();
-    return new Settings(this.currentSystemSettings);
+    if (this.currentSettings == null) this.getSettings();
+    return new Settings(this.currentSettings);
   }
 
   /**
@@ -187,7 +188,7 @@ public class SettingsHandler {
     // Check if PEAK
     DayOfWeek day = showDateTime.getDayOfWeek();
     boolean isWeekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
-    boolean isHoliday = this.currentSystemSettings.getHolidays().stream()
+    boolean isHoliday = this.currentSettings.getHolidays().stream()
         .anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
     if (isHoliday || isWeekend) ticketType = TicketType.PEAK;
 
@@ -204,21 +205,21 @@ public class SettingsHandler {
    */
   //+ computeTicketPrice(isBlockbuster:boolean, classType:ClassType, ticketType:TicketType):double
   public double computeTicketPrice(boolean isBlockbuster, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime) {
-    Helper.logger("SettingsHandler.computeTicketPrice", "currentPrice:\n" + this.currentSystemSettings.toString());
-    double price = this.currentSystemSettings.getAdultTicket();
+    Helper.logger("SettingsHandler.computeTicketPrice", "currentPrice:\n" + this.currentSettings.toString());
+    double price = this.currentSettings.getAdultTicket();
 
     // Blockbuster Surcharges
-    if (isBlockbuster) price += this.currentSystemSettings.getBlockbusterSurcharge();
+    if (isBlockbuster) price += this.currentSettings.getBlockbusterSurcharge();
 
     // Cinema Surcharges
-    EnumMap<Cinema.ClassType, Double> cinemaSurcharge = this.currentSystemSettings.getCinemaSurcharges();
+    EnumMap<Cinema.ClassType, Double> cinemaSurcharge = this.currentSettings.getCinemaSurcharges();
     if (cinemaSurcharge.containsKey(classType)) price += cinemaSurcharge.get(classType);
 
     // Check if PEAK
     ticketType = verifyTicketType(showDateTime, ticketType);
 
     // Ticket Surcharges
-    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.currentSystemSettings.getTicketSurcharges();
+    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.currentSettings.getTicketSurcharges();
     if (ticketSurcharges.containsKey(ticketType)) price += ticketSurcharges.get(ticketType);
 
     return price;
@@ -237,23 +238,23 @@ public class SettingsHandler {
   }
 
   //+ getPrices():Price
-  public Settings getSystemSettings() {
+  public Settings getSettings() {
     List<Settings> settings = new ArrayList<Settings>();
 
     // Intialize with default pricing
-    this.currentSystemSettings = this.getDefaultSettings();
+    this.currentSettings = this.getDefaultSettings();
 
     //Source from serialized datasource
     String fileName = "settings.csv";
     if (fileName == null || fileName.isEmpty()) {
       Helper.logger("SettingsHandler.getSystemSettingss", "Null and void filename provided, no data retrieved.");
-      return this.currentSystemSettings;
+      return this.currentSettings;
     }
 
     JsonArray settingsList = Datasource.readArrayFromCsv(fileName);
     if (settingsList == null) {
       Helper.logger("SettingsHandler.getSystemSettingss", "No serialized data available");
-      return this.currentSystemSettings;
+      return this.currentSettings;
     }
 
     for (JsonElement setting : settingsList) {
@@ -279,7 +280,7 @@ public class SettingsHandler {
       }.getType();
       ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
-      this.currentSystemSettings = new Settings(
+      this.currentSettings = new Settings(
           adultTicket,
           blockbusterSurcharge,
           ticketSurcharges,
@@ -288,23 +289,23 @@ public class SettingsHandler {
       );
     }
 
-    if (settings.size() < 1) return this.currentSystemSettings;
+    if (settings.size() < 1) return this.currentSettings;
 
 
     // Update current price
-    this.updateSystemSettings(settings.get(settings.size()));
-    Helper.logger("SettingsHandler.getSystemSettings", "Settings: \n" + this.currentSystemSettings);
+    this.updateSettings(settings.get(settings.size()));
+    Helper.logger("SettingsHandler.getSystemSettings", "Settings: \n" + this.currentSettings);
 
-    return this.currentSystemSettings;
+    return this.currentSettings;
   }
 
   /**
    * Serialize price data to CSV
    */
-  //# saveSystemSettingss():boolean
-  protected boolean saveSystemSettings() {
+  //# saveSettings():boolean
+  protected boolean saveSettings() {
     List<Settings> settings = new ArrayList<Settings>();
-    settings.add(this.currentSystemSettings);
+    settings.add(this.currentSettings);
     return Datasource.serializeData(settings, "settings.csv");
   }
 
