@@ -4,6 +4,7 @@ import control.handlers.SettingsHandler;
 import entity.Booking;
 import entity.Cinema;
 import entity.Settings;
+import utils.Helper;
 import utils.Helper.Preset;
 
 import java.time.LocalDate;
@@ -133,7 +134,7 @@ public class SettingsMenu extends Menu {
     do {
       System.out.print("New Price: SGD ");
       String input = scanner.nextLine();
-      checkInput = checkPriceInput(input, true); // check for character input, - input, 0 input, <0 input
+      checkInput = Helper.checkPriceInput(input, true); // check for character input, - input, 0 input, <0 input
       if (checkInput > 0) {
         boolean changed = handler.changeAdultPrice(settings, checkInput);
         if (changed) {
@@ -164,7 +165,7 @@ public class SettingsMenu extends Menu {
     do {
       System.out.print("New Surcharge: SGD ");
       String input = scanner.nextLine();
-      checkInput = checkPriceInput(input, false); // check for character input, - input, 0 input, <0 input
+      checkInput = Helper.checkPriceInput(input, false); // check for character input, - input, 0 input, <0 input
       if (checkInput >= 0) {
         boolean changed = handler.changeBlockbusterSurcharge(settings, checkInput);
         if (changed) {
@@ -198,7 +199,7 @@ public class SettingsMenu extends Menu {
       do {
         System.out.print("New Surcharge: SGD ");
         String input = scanner.nextLine();
-        checkInput = checkNoCharacters(input); // check for character input
+        checkInput = Helper.checkNoCharacters(input); // check for character input
         if (checkInput == 0) {
           double newSurcharge = Double.parseDouble(input);
           if (newSurcharge != surcharge.getValue()) {
@@ -238,7 +239,7 @@ public class SettingsMenu extends Menu {
       do {
         System.out.print("New Surcharge: SGD ");
         String input = scanner.nextLine();
-        checkInput = checkPriceInput(input, false); // check for character input and less than 0
+        checkInput = Helper.checkPriceInput(input, false); // check for character input and less than 0
         if (checkInput >= 0) {
           if (checkInput != surcharge.getValue()) {
             System.out.println(colorize("\n[CHANGED] " + surcharge.getKey().toString() + " Surcharge changed to " + checkInput, Preset.SUCCESS.color));
@@ -338,53 +339,6 @@ public class SettingsMenu extends Menu {
 
 
     return status;
-  }
-
-  //TODO: Try to offload menu
-
-  /**
-   * Helper method to check validity of price input
-   *
-   * @param input:String      - input obained from Staff
-   * @param checkZero:boolean - whether it is required to check for zero
-   * @return -1 - if Staff does not want to change the price
-   * @return -2 - if the price entered is invalid
-   * @return price - if the price entered is valid
-   * @since 1.1
-   */
-  private double checkPriceInput(String input, boolean checkZero) {
-    if (input.equals("-")) return -1; // Staff does not want to change
-    try {
-      double price = Double.parseDouble(input);
-      if (price <= 0 && checkZero) { // 0 or less
-        System.out.println("[ERROR] Please enter a price that is more than SGD 0, or - to keep the current price.");
-        return -2;
-      } else if (price < 0) { // less than 0
-        System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
-        return -2;
-      } else return price; // valid
-    } catch (NumberFormatException e) { // characters other than -
-      System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-      return -2;
-    }
-  }
-
-  /**
-   * Helper method to check validity of price input
-   *
-   * @param input:String - input obtained from Staff
-   * @return 0 - if the price entered is valid
-   * @return -2 - if the price entered is invalid (incl. non-digits)
-   */
-  private int checkNoCharacters(String input) {
-    if (input.equals("-")) return -1; // Staff does not want to change
-    try {
-      Double.parseDouble(input);
-      return 0;
-    } catch (NumberFormatException e) { // characters other than -
-      System.out.println("Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-      return -2;
-    }
   }
 
   /**

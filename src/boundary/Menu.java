@@ -67,8 +67,7 @@ public abstract class Menu {
           System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
         menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
         if (menuChoice != menuMap.size()) {
-          System.out.println(colorize("Press any key to continue . . .", Preset.LOG.color));
-          System.in.read();
+          this.awaitContinue();
         }
       } catch (Exception e) {
         if (!e.getMessage().isEmpty()) {
@@ -77,6 +76,14 @@ public abstract class Menu {
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       }
+    }
+  }
+
+  public void awaitContinue() {
+    try {
+      System.out.println(colorize("Press any key to continue . . .", Preset.LOG.color));
+      System.in.read();
+    } catch (Exception e) {
     }
   }
 

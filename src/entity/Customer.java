@@ -6,33 +6,14 @@ import java.util.List;
 
 import static utils.Helper.formatAsTable;
 
-public class Customer {
-  private String id;
-  private String name;
+public class Customer extends Account {
   private String contactNumber;
   private String emailAddress;
 
   public Customer(String id, String name, String contactNumber, String emailAddress) {
-    this.id = id;
-    this.name = name;
+    super(id, name);
     this.contactNumber = contactNumber;
     this.emailAddress = emailAddress;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getContactNumber() {
