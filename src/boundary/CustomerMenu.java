@@ -1,10 +1,11 @@
 package boundary;
 
-import control.handlers.CustomerHandler;
 import control.controllers.CustomerController;
+import control.handlers.CustomerHandler;
 import entity.Booking;
 import entity.Customer;
 import entity.Showtime;
+import org.apache.commons.validator.routines.EmailValidator;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -53,14 +54,21 @@ public class CustomerMenu extends Menu {
       // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
       // ratings", () -> {
       // });
-      put("Exit", () -> {
-        System.out.println("\t>>> Quitting application...");
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
-        scanner.close();
-        System.exit(0);
-      });
     }};
+
+    if(handler.getCurrentCustomer() != null){
+       addMenuMap.put("View account details", () -> {
+         System.out.println(handler.getCurrentCustomer().toString());
+       });
+    }
+
+    addMenuMap.put("Exit", () -> {
+      System.out.println("\t>>> Quitting application...");
+      System.out.println("---------------------------------------------------------------------------");
+      System.out.println("Thank you for using MOBLIMA. We hope to see you again soon!");
+      scanner.close();
+      System.exit(0);
+    });
 
     menuMap.putAll(addMenuMap);
     return menuMap;
@@ -105,6 +113,10 @@ public class CustomerMenu extends Menu {
 
     // Save current customer
     handler.setCurrentCustomer(customerIdx);
+
+    // Refresh menu
+    this.refreshMenu(this.getCustomerMenu());
+
     return customerIdx;
   }
 
@@ -118,7 +130,7 @@ public class CustomerMenu extends Menu {
     int customerIdx = -1;
 
     System.out.println("Account Registration");
-    String name = null, contactNumber = null;
+    String name = null, contactNumber = null, emailAddress = null;
     while (customerIdx == -1) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
@@ -141,8 +153,20 @@ public class CustomerMenu extends Menu {
           }
         }
 
+        // Prompt for registration requirements
+        if (emailAddress == null) {
+          System.out.print("Email: ");
+          emailAddress = scanner.next().trim();
+          /// VALIDATION: Valid email address
+          if (!EmailValidator.getInstance().isValid(emailAddress)) {
+            System.out.println(colorize("Invalid input, not a valid email address", Preset.ERROR.color));
+            emailAddress = null;
+            continue;
+          }
+        }
+
         // Initialize and append to existing customer list
-        customerIdx = handler.addCustomer(name, contactNumber);
+        customerIdx = handler.addCustomer(name, contactNumber, emailAddress);
         if (customerIdx < -1)
           throw new Exception("Unable to register, account with phone number already exists");
 

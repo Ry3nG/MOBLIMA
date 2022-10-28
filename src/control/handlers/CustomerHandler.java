@@ -126,7 +126,7 @@ public class CustomerHandler {
    * @return customerIdx:int
    */
   // +addCustomer(name:String, contactNumber:String) : int
-  public int addCustomer(String name, String contactNumber) {
+  public int addCustomer(String name, String contactNumber, String emailAddress) {
     if (checkIfAccountExists(contactNumber) != -1)
       return -1;
 
@@ -134,7 +134,8 @@ public class CustomerHandler {
     Customer customer = new Customer(
         UUID.randomUUID().toString(),
         name,
-        contactNumber
+        contactNumber,
+        emailAddress
     );
     this.customers.add(customer);
     this.currentCustomer = customer;
@@ -169,7 +170,8 @@ public class CustomerHandler {
    */
   // + checkIfAccountExists(contactNumber:String) : int
   public int checkIfAccountExists(
-      String contactNumber) {
+      String contactNumber
+  ) {
     int customerIdx = -1;
     if (this.customers.size() < 1)
       return customerIdx;
