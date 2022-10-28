@@ -38,6 +38,7 @@ public class App {
     }
 
     // Show menu
+    Helper.figPrint("MOBLIMA");
     instance.currentMenu.showMenu();
   }
 }
