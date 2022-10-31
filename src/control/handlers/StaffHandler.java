@@ -80,7 +80,7 @@ public class StaffHandler {
     JsonArray staffList = Datasource.readArrayFromCsv(fileName);
     if (staffList == null) {
       Helper.logger("StaffHandler.getStaffs", "No serialized data available");
-      this.addStaff("staff", "staff");
+      this.addStaff("Staff", "staff", "staff");
       staffs = this.staffs;
       return staffs;
     }
@@ -161,11 +161,12 @@ public class StaffHandler {
    * @return staffIdx:int
    */
   // +addStaff(username:String, password:String) : int
-  public int addStaff(String username, String password) {
+  public int addStaff(String name, String username, String password) {
 
     // Initialize new Staff
     Staff staff = new Staff(
         UUID.randomUUID().toString(),
+        name,
         username,
         password
     );

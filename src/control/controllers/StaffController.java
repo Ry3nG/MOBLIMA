@@ -9,7 +9,7 @@ public class StaffController extends MovieBookingController {
 
   private StaffController() {
     super();
-    movieMenu = MovieMenu.getInstance(false);
+    movieMenu = MovieMenu.getInstance(false, true);
   }
 
   public static StaffController getInstance() {

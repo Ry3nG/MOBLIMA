@@ -56,10 +56,14 @@ public class CustomerMenu extends Menu {
       // });
     }};
 
-    if(handler.getCurrentCustomer() != null){
-       addMenuMap.put("View account details", () -> {
-         System.out.println(handler.getCurrentCustomer().toString());
-       });
+    if (controller.settingsHandler().checkIfIsAuthenticated()) {
+      addMenuMap.put("View account details", () -> {
+        System.out.println(handler.getCurrentCustomer().toString());
+      });
+    } else {
+      addMenuMap.put("Login / Register Account", () -> {
+        this.getCurrentCustomer();
+      });
     }
 
     addMenuMap.put("Exit", () -> {
@@ -113,6 +117,7 @@ public class CustomerMenu extends Menu {
 
     // Save current customer
     handler.setCurrentCustomer(customerIdx);
+    controller.settingsHandler().setIsAuthenticated(handler.getCurrentCustomer());
 
     // Refresh menu
     this.refreshMenu(this.getCustomerMenu());

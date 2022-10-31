@@ -1,9 +1,11 @@
 package control.controllers;
 
+import entity.Account;
 import entity.Booking;
 import entity.Cinema;
 import entity.Showtime;
 import moblima.entities.Movie;
+import moblima.entities.Review;
 import utils.Helper;
 
 import java.util.Arrays;
@@ -25,13 +27,65 @@ public class CustomerController extends MovieBookingController {
 
   //+ getCustomerMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getCustomerMenu() {
-    return new LinkedHashMap<String, Runnable>() {{
+    Helper.logger("CustomerContoller.getCustomerMenu", "Retrieving customer menu . . .");
+    boolean authStatus = settingsHandler().checkIfIsAuthenticated();
+    Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
+
+    LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
       put("Search/List Movies", () -> {
         List<Movie> movies = movieMenu.getViewableMovies();
         movieHandler().printMovies(movies);
       });
-      put("View movie details – including reviews and ratings", movieMenu::showMenu);
+      put("View movie details – including reviews and ratings", () -> {
+        // Runnable injection if currently authenticated
+        if (authStatus) {
+          movieMenu.updateReviewMenu(() -> {
+            Account currentAccount = settingsHandler().getCurrentAccount();
+            String reviewerId = currentAccount.getId();
+            String reviewerName = currentAccount.getName();
+            movieMenu.selectReviewOptions(movieHandler().getSelectedMovie().getId(), reviewerName, reviewerId);
+          });
+        }
+
+        movieMenu.showMenu();
+      });
     }};
+
+    // Auth-enable menu options
+    if (!authStatus) return menuMap;
+    menuMap.put("View and update reviews", () -> {
+      String customerId = authStatus ? settingsHandler().getCurrentAccount().getId() : "";
+      Helper.logger("CustomerContoller.getCustomerMenu", "customerId: " + customerId);
+
+      int reviewIdx = -1;
+
+      // Select reviews for authenticated account
+      List<Review> customerReviews = movieHandler().getUserReviews(customerId);
+      reviewIdx = movieMenu.selectReviewIdx(customerReviews);
+      Helper.logger("CustomerContoller.getCustomerMenu", "reviewIdx: " + reviewIdx);
+      if (reviewIdx < 0) return;
+
+      Review review = movieHandler().getReview(reviewIdx);
+      System.out.println(review.toString());
+
+      movieMenu.selectUpdatableAction(review.getId());
+
+
+//        int showtimeIdx = -1;
+//
+//        // Select movie
+//        System.out.println("Select movie: ");
+//        int movieIdx = movieMenu.selectMovieIdx();
+//        if (movieIdx < 0) return showtimeIdx;
+//        Movie selectedMovie = this.movieHandler().getSelectedMovie();
+//        Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
+//
+//
+
+    });
+
+
+    return menuMap;
   }
 
   //+ viewBookings(customerId:String): void

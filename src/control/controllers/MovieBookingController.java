@@ -13,7 +13,7 @@ import utils.Helper;
 import java.util.List;
 
 public abstract class MovieBookingController {
-  protected static MovieMenu movieMenu = MovieMenu.getInstance(true);
+  protected static MovieMenu movieMenu = MovieMenu.getInstance();
   protected static BookingMenu bookingMenu = BookingMenu.getInstance();
   protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
 

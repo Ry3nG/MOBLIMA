@@ -1,7 +1,7 @@
 package boundary;
 
-import control.handlers.StaffHandler;
 import control.controllers.StaffController;
+import control.handlers.StaffHandler;
 import entity.Staff;
 import utils.Helper;
 import utils.Helper.Preset;
@@ -36,8 +36,11 @@ public class StaffMenu extends Menu {
 
   @Override
   public void showMenu() {
-    if (isAuthenticated()) {
-      System.out.println(colorize("STAFF: " + handler.getCurrentStaff().getUsername(), Preset.SUCCESS.color));
+    boolean isAuthenticated = isAuthenticated();
+    if (isAuthenticated) {
+      Staff currentStaff = handler.getCurrentStaff();
+      controller.settingsHandler().setIsAuthenticated(currentStaff);
+      System.out.println(colorize("STAFF: " + currentStaff.getUsername(), Preset.SUCCESS.color));
     }
     this.displayMenu();
   }
@@ -141,11 +144,16 @@ public class StaffMenu extends Menu {
   public boolean register() {
     boolean status = false;
 
-    String username = null, password = null;
+    String name = null, username = null, password = null;
     System.out.println("Staff Account Registration");
     while (!status && scanner.hasNextLine()) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
+
+        if (name == null) {
+          System.out.print("Name: ");
+          name = scanner.next().trim();
+        }
 
         if (username == null) {
           System.out.print("Username: ");
@@ -163,7 +171,7 @@ public class StaffMenu extends Menu {
           password = scanner.next().trim();
         }
 
-        int staffIdx = handler.addStaff(username, password);
+        int staffIdx = handler.addStaff(name, username, password);
         if (staffIdx < 0) throw new Exception("Unable to register, account with username already exists");
 
         status = true;
