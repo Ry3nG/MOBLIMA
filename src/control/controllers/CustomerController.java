@@ -1,11 +1,6 @@
 package control.controllers;
 
-import entity.Account;
-import entity.Booking;
-import entity.Cinema;
-import entity.Showtime;
-import moblima.entities.Movie;
-import moblima.entities.Review;
+import entity.*;
 import utils.Helper;
 
 import java.util.Arrays;

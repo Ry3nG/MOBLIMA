@@ -1,5 +1,7 @@
 package entity;
 
+import utils.LocalDateDeserializer;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +10,6 @@ import java.util.EnumMap;
 import java.util.List;
 
 import static utils.Helper.formatAsTable;
-import static utils.LocalDateDeserializer.dateFormatter;
 
 public class Settings {
   private double adultTicket;
@@ -100,7 +101,7 @@ public class Settings {
     if (this.publicHolidays.size() == 0) rows.add(Arrays.asList("No public holidays.", ""));
     else {
       for (LocalDate holiday : this.publicHolidays) {
-        rows.add(Arrays.asList(holiday.format(dateFormatter), holiday.getDayOfWeek().toString()));
+        rows.add(Arrays.asList(holiday.format(LocalDateDeserializer.dateFormatter), holiday.getDayOfWeek().toString()));
       }
     }
 

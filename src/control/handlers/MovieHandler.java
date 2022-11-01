@@ -1,10 +1,10 @@
 package control.handlers;
 
-import common.Datasource;
-import moblima.control.MovieDatasource;
-import moblima.entities.Movie;
-import moblima.entities.Movie.ContentRating;
-import moblima.entities.Movie.ShowStatus;
+import entity.Movie;
+import entity.Movie.ContentRating;
+import entity.Movie.ShowStatus;
+import sources.Datasource;
+import sources.MovieDatasource;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.Helper.colorizer;
 
 public class MovieHandler extends ReviewHandler {
   private final List<Movie> movies;
@@ -161,7 +161,7 @@ public class MovieHandler extends ReviewHandler {
    * @return status:boolean
    */
   //+ updateMovie(title:String, synopsis:String, director:String, castList:List<String>, runtime:int, releaseDate:LocalDate, isBlockbuster:boolean, showStatus:ShowStatus, contentRating:ContentRating):boolean
-  public boolean updateMovie(String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, ContentRating contentRating, int overallRating) {
+  public boolean updateMovie(String title, String synopsis, String director, List<String> castList, int runtime, LocalDate releaseDate, boolean isBlockbuster, ShowStatus showStatus, ContentRating contentRating, double overallRating) {
     boolean status = false;
     if (this.movies.size() < 1 || this.selectedMovieIdx < 0) return status;
 
@@ -224,8 +224,8 @@ public class MovieHandler extends ReviewHandler {
     if (movie == null) return;
 
     this.selectedMovieIdx = movieIdx;
-    System.out.println(colorize("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
-    System.out.println(colorize(movie.toString(), Preset.HIGHLIGHT.color));
+    System.out.println(colorizer("/// MOVIE DETAILS ///", Preset.HIGHLIGHT));
+    System.out.println(colorizer(movie.toString(), Preset.HIGHLIGHT));
   }
 
   /**

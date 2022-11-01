@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.Helper.colorizer;
 
 public class CustomerMenu extends Menu {
   private static CustomerHandler handler;
@@ -152,7 +152,7 @@ public class CustomerMenu extends Menu {
           contactNumber = scanner.next().trim();
           /// VALIDATION: SG Phone Numbers requires exactly 8 digits
           if (!handler.validatePhoneNumber(contactNumber)) {
-            System.out.println(colorize("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR.color));
+            System.out.println(colorizer("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR));
             contactNumber = null;
             continue;
           }
@@ -164,7 +164,7 @@ public class CustomerMenu extends Menu {
           emailAddress = scanner.next().trim();
           /// VALIDATION: Valid email address
           if (!EmailValidator.getInstance().isValid(emailAddress)) {
-            System.out.println(colorize("Invalid input, not a valid email address", Preset.ERROR.color));
+            System.out.println(colorizer("Invalid input, not a valid email address", Preset.ERROR));
             emailAddress = null;
             continue;
           }
@@ -175,11 +175,11 @@ public class CustomerMenu extends Menu {
         if (customerIdx < -1)
           throw new Exception("Unable to register, account with phone number already exists");
 
-        System.out.println(colorize("Successful account registration", Preset.SUCCESS.color));
+        System.out.println(colorizer("Successful account registration", Preset.SUCCESS));
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         name = contactNumber = null;
 
         // Prompt for proceed options
@@ -227,7 +227,7 @@ public class CustomerMenu extends Menu {
         String contactNumber = scanner.next().trim();
         /// VALIDATION: SG Phone Numbers requires exactly 8 digits
         if (!handler.validatePhoneNumber(contactNumber)) {
-          System.out.println(colorize("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR.color));
+          System.out.println(colorizer("Invalid input, SG phone numbers requires exactly 8 digits.", Preset.ERROR));
           continue;
         }
 
@@ -236,11 +236,11 @@ public class CustomerMenu extends Menu {
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
-        System.out.println(colorize("Successful account login", Preset.SUCCESS.color));
+        System.out.println(colorizer("Successful account login", Preset.SUCCESS));
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
 
         // Prompt for proceed options
         List<String> proceedOptions = new ArrayList<String>() {{
@@ -302,7 +302,7 @@ public class CustomerMenu extends Menu {
         Customer customer = handler.getCustomer(customerIdx);
         if (customer == null) return bookingIdx;
         String strCustomer = "ACCOUNT: " + customer.getId() + " / NAME: " + customer.getName();
-        System.out.println(colorize(strCustomer, Preset.SUCCESS.color));
+        System.out.println(colorizer(strCustomer, Preset.SUCCESS));
 
         // Redirect to controller for interactivity
         bookingIdx = controller.makeBooking(customer.getId(), showtime);
@@ -313,7 +313,7 @@ public class CustomerMenu extends Menu {
         Booking booking = controller.bookingHandler().getBooking(bookingIdx);
         if (booking == null) return bookingIdx;
         Helper.logger("CustomerMenu.makeBooking", "Booking: " + booking);
-        System.out.println(colorize("Successfully booked. Reference: " + booking.getTransactionId(), Preset.SUCCESS.color));
+        System.out.println(colorizer("Successfully booked. Reference: " + booking.getTransactionId(), Preset.SUCCESS));
       }
     }
 

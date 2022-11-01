@@ -1,10 +1,10 @@
 package boundary;
 
 import control.handlers.MovieHandler;
-import moblima.entities.Movie;
-import moblima.entities.Movie.ContentRating;
-import moblima.entities.Movie.ShowStatus;
-import moblima.entities.Review;
+import entity.Movie;
+import entity.Movie.ContentRating;
+import entity.Movie.ShowStatus;
+import entity.Review;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.Helper.colorizer;
 
 public class MovieMenu extends Menu {
   private static boolean showLimitedMovies = true;
@@ -195,7 +195,7 @@ public class MovieMenu extends Menu {
 
                 // VALIDATION: Verify valid rating
                 if (rating < 1 || rating > 5) {
-                  System.out.println(colorize("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR.color));
+                  System.out.println(colorizer("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR));
                   rating = -1;
                   continue;
                 }
@@ -212,14 +212,14 @@ public class MovieMenu extends Menu {
             reviewIdx = handler.addReview(movieId, review, rating, reviewerName, reviewerId);
             if (reviewIdx < 0) throw new Exception("Unable to add review");
 
-            System.out.println(colorize("Successfully added review", Preset.SUCCESS.color));
+            System.out.println(colorizer("Successfully added review", Preset.SUCCESS));
 
             // Flush excess scanner buffer
             scanner = new Scanner(System.in);
 
             status = true;
           } catch (Exception e) {
-            System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+            System.out.println(colorizer(e.getMessage(), Preset.ERROR));
             review = null;
             rating = -1;
           }
@@ -332,7 +332,7 @@ public class MovieMenu extends Menu {
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
-          System.out.println(colorize("[UPDATED] Review removed", Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Review removed", Preset.SUCCESS));
           status = handler.removeReview(reviewId);
         }
 
@@ -342,7 +342,7 @@ public class MovieMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
+        System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
         review = handler.getReview(reviewId);
         System.out.println(review);
       }
@@ -365,7 +365,7 @@ public class MovieMenu extends Menu {
 
             // VALIDATION: Verify valid rating
             if (curStatus < 1 || curStatus > 5) {
-              System.out.println(colorize("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR.color));
+              System.out.println(colorizer("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR));
               curStatus = -1;
               continue;
             }
@@ -376,9 +376,9 @@ public class MovieMenu extends Menu {
 
 
         if (prevStatus == curStatus) {
-          System.out.println(colorize("[NO CHANGE] Rating: " + prevStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[NO CHANGE] Rating: " + prevStatus, Preset.SUCCESS));
         } else {
-          System.out.println(colorize("[UPDATED] Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
         }
       }
 
@@ -396,9 +396,9 @@ public class MovieMenu extends Menu {
         review.setReview(curStatus);
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println(colorize("[NO CHANGE] Review: " + prevStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[NO CHANGE] Review: " + prevStatus, Preset.SUCCESS));
         } else {
-          System.out.println(colorize("[UPDATED] Review: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Review: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
         }
       }
 
@@ -445,7 +445,7 @@ public class MovieMenu extends Menu {
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
-          System.out.println(colorize("[UPDATED] Movie removed", Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Movie removed", Preset.SUCCESS));
           status = handler.removeMovie(movieIdx);
         }
 
@@ -455,7 +455,7 @@ public class MovieMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println(colorize("[REVERTED] Changes discarded", Preset.SUCCESS.color));
+        System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
         movie = handler.getMovie(movieIdx);
         System.out.println(movie);
       }
@@ -481,9 +481,9 @@ public class MovieMenu extends Menu {
         String curStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println(colorize("[NO CHANGE] Blockbuster Status: " + prevStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[NO CHANGE] Blockbuster Status: " + prevStatus, Preset.SUCCESS));
         } else {
-          System.out.println(colorize("[UPDATED] Blockbuster Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Blockbuster Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
         }
       }
 
@@ -504,9 +504,9 @@ public class MovieMenu extends Menu {
         ShowStatus curStatus = movie.getShowStatus();
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println(colorize("[NO CHANGE] Showing Status: " + prevStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[NO CHANGE] Showing Status: " + prevStatus, Preset.SUCCESS));
         } else {
-          System.out.println(colorize("[UPDATED] Showing Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Showing Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
         }
       }
 
@@ -526,9 +526,9 @@ public class MovieMenu extends Menu {
         ContentRating curStatus = movie.getContentRating();
 
         if (prevStatus.equals(curStatus)) {
-          System.out.println(colorize("[NO CHANGE] Current Rating: " + prevStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[NO CHANGE] Current Rating: " + prevStatus, Preset.SUCCESS));
         } else {
-          System.out.println(colorize("[UPDATED] Current Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS.color));
+          System.out.println(colorizer("[UPDATED] Current Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
         }
       }
     }

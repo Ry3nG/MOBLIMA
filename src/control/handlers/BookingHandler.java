@@ -5,11 +5,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import common.Datasource;
 import entity.Booking;
 import entity.Booking.TicketType;
 import entity.Showtime;
 import org.apache.commons.lang3.EnumUtils;
+import sources.Datasource;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.Helper.colorizer;
 
 public class BookingHandler extends CinemaHandler {
   private static final MovieHandler movieHandler = MovieMenu.getHandler();
@@ -83,7 +83,7 @@ public class BookingHandler extends CinemaHandler {
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {
-      System.out.println(colorize("No showtimes available to fulfil bookings", Preset.ERROR.color));
+      System.out.println(colorizer("No showtimes available to fulfil bookings", Preset.ERROR));
       return bookings;
     }
 
@@ -249,15 +249,15 @@ public class BookingHandler extends CinemaHandler {
     if (booking == null) return;
 
     System.out.println("---------------------------------------------------------------------------");
-    System.out.println(colorize("/// BOOKING DETAILS ///", Preset.HIGHLIGHT.color));
-    System.out.println(colorize(booking.toString(), Preset.HIGHLIGHT.color));
+    System.out.println(colorizer("/// BOOKING DETAILS ///", Preset.HIGHLIGHT));
+    System.out.println(colorizer(booking.toString(), Preset.HIGHLIGHT));
 
     // Showtime
     int showtimeIdx = this.getShowtimeIdx(booking.getShowtimeId());
     this.printShowtimeDetails(showtimeIdx);
 
     // Movie
-//    System.out.println(colorize("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
+//    System.out.println(colorizer("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
     movieHandler.printMovieDetails(movieIdx);
     System.out.println("---------------------------------------------------------------------------");

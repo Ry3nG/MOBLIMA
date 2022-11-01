@@ -1,7 +1,7 @@
 package control.handlers;
 
-import common.Datasource;
-import moblima.entities.Review;
+import entity.Review;
+import sources.Datasource;
 import utils.Helper;
 
 import java.util.ArrayList;

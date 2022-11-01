@@ -5,8 +5,8 @@ import utils.Helper.Preset;
 
 import java.util.*;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
 import static java.lang.System.exit;
+import static utils.Helper.colorizer;
 
 public abstract class Menu {
   protected static Scanner scanner = new Scanner(System.in);
@@ -71,7 +71,7 @@ public abstract class Menu {
         }
       } catch (Exception e) {
         if (!e.getMessage().isEmpty()) {
-          System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+          System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         }
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
@@ -81,9 +81,10 @@ public abstract class Menu {
 
   public void awaitContinue() {
     try {
-      System.out.println(colorize("Press any key to continue . . .", Preset.LOG.color));
+      System.out.println(colorizer("Press any key to continue . . .", Preset.LOG));
       System.in.read();
     } catch (Exception e) {
+
     }
   }
 
@@ -130,7 +131,7 @@ public abstract class Menu {
         return menuChoice;
       } catch (Exception e) {
         String errMsg = !e.getMessage().isEmpty() ? e.getMessage() : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
-        System.out.println(colorize(errMsg, Preset.ERROR.color));
+        System.out.println(colorizer(errMsg, Preset.ERROR));
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
