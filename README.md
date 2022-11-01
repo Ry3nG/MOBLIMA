@@ -45,6 +45,7 @@
  ┃ ┣ 📦moblima.jar
  ┣ 📂diagram
  ┣ 📂lib
+ ┣ 📂datasource
  ┣ 📂src
  ┣ 📂test
  ┣ 📜README.md
@@ -55,6 +56,7 @@
  [`/data`](./data) - stores all the serialized data to be utilized <br/>
  [`/diagram`](./diagram) - contains project UML documentation <br/>
  [`/lib`](./lib) - contains the project dependencies<br/> 
+ [`/datasource`](./datasource) - internal module to fetch real-world data from various APIs<br/> 
  [`/src`](./src) - contains the project source files<br/> 
  [`/test`](./test) - contains the unit test cases<br/> 
 
