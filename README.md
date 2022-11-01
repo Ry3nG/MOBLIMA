@@ -12,7 +12,7 @@
 
   - Clone repository
     ```
-    git clone https://github.com/crystalcheong/MOBLIMA.git
+    git clone https://github.com/Ry3nG/MOBLIMA.git
     ```
 
   - Run build executable 
