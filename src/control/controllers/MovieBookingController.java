@@ -13,20 +13,26 @@ import utils.Helper;
 import java.util.List;
 
 public abstract class MovieBookingController {
-  protected static MovieMenu movieMenu = MovieMenu.getInstance();
-  protected static BookingMenu bookingMenu = BookingMenu.getInstance();
-  protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
+  protected static MovieMenu movieMenu;
+  protected static BookingMenu bookingMenu;
+  protected static SettingsMenu settingsMenu;
 
   public MovieHandler movieHandler() {
-    return MovieMenu.getHandler();
+    return movieMenu.getHandler();
   }
 
   public BookingHandler bookingHandler() {
-    return BookingMenu.getHandler();
+    return bookingMenu.getHandler();
   }
 
   public SettingsHandler settingsHandler() {
     return settingsMenu.getHandler();
+  }
+
+  public MovieBookingController() {
+    movieMenu = MovieMenu.getInstance();
+    bookingMenu = BookingMenu.getInstance();
+    settingsMenu = settingsMenu.getInstance();
   }
 
   /**

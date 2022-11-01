@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import static utils.Helper.formatAsTable;
 
+
 public class Showtime {
   private String id;
   private String cineplexId;

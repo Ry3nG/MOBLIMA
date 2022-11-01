@@ -9,8 +9,9 @@ import entity.Booking;
 import entity.Booking.TicketType;
 import entity.Cinema;
 import entity.Settings;
-import sources.HolidayDatasource;
 import utils.Helper;
+import utils.datasource.Datasource;
+import utils.datasource.HolidayDatasource;
 
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
@@ -21,8 +22,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
-
-import static sources.Datasource.*;
 
 /**
  * Settings Handler
@@ -152,7 +151,9 @@ public class SettingsHandler {
    */
   // + getCurrentPrice():Price
   public Settings getCurrentSystemSettings() {
-    if (this.currentSettings == null) this.getSettings();
+    if (this.currentSettings == null) this.currentSettings = this.getSettings();
+    Helper.logger("SettingsHandler.getCurrentSystemSettings", "Settings: \n" + this.currentSettings);
+
     return new Settings(this.currentSettings);
   }
 
@@ -252,7 +253,7 @@ public class SettingsHandler {
       return this.currentSettings;
     }
 
-    JsonArray settingsList = readArrayFromCsv(fileName);
+    JsonArray settingsList = Datasource.readArrayFromCsv(fileName);
     if (settingsList == null) {
       Helper.logger("SettingsHandler.getSystemSettingss", "No serialized data available");
       return this.currentSettings;
@@ -268,18 +269,18 @@ public class SettingsHandler {
       String strTicketSurcharges = p.get("ticketSurcharges").getAsString();
       Type typeTicketSurcharges = new TypeToken<EnumMap<TicketType, Double>>() {
       }.getType();
-      EnumMap<Booking.TicketType, Double> ticketSurcharges = getGson().fromJson(strTicketSurcharges, typeTicketSurcharges);
+      EnumMap<Booking.TicketType, Double> ticketSurcharges = Datasource.getGson().fromJson(strTicketSurcharges, typeTicketSurcharges);
 
       // Cinema Surcharge
       String strCinemaSurcharges = p.get("cinemaSurcharges").getAsString();
       Type typeCinemaSurcharges = new TypeToken<EnumMap<Cinema.ClassType, Double>>() {
       }.getType();
-      EnumMap<Cinema.ClassType, Double> cinemaSurcharges = getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
+      EnumMap<Cinema.ClassType, Double> cinemaSurcharges = Datasource.getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
 
       String strPublicHolidays = p.get("publicHolidays").getAsString();
       Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>() {
       }.getType();
-      ArrayList<LocalDate> publicHolidays = getGson().fromJson(strPublicHolidays, typePublicHolidays);
+      ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
       this.currentSettings = new Settings(
           adultTicket,
@@ -307,7 +308,7 @@ public class SettingsHandler {
   protected boolean saveSettings() {
     List<Settings> settings = new ArrayList<Settings>();
     settings.add(this.currentSettings);
-    return serializeData(settings, "settings.csv");
+    return Datasource.serializeData(settings, "settings.csv");
   }
 
 }
