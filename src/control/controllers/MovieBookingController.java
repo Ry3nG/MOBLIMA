@@ -6,8 +6,8 @@ import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
 import control.handlers.MovieHandler;
 import control.handlers.SettingsHandler;
+import entity.Movie;
 import entity.Showtime;
-import moblima.entities.Movie;
 import utils.Helper;
 
 import java.util.List;

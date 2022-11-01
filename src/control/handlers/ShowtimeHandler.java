@@ -1,7 +1,7 @@
 package control.handlers;
 
-import common.Datasource;
 import entity.Showtime;
+import sources.Datasource;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static utils.Helper.colorizer;
 
 public class ShowtimeHandler {
   protected List<Showtime> showtimes = new ArrayList<Showtime>();
@@ -91,7 +91,7 @@ public class ShowtimeHandler {
   public List<Showtime> getShowtimes(int movieId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || movieId < 0) {
-      System.out.println(colorize("No cinemas available to host showtimes", Preset.ERROR.color));
+      System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
       return showtimes;
     }
 
@@ -168,8 +168,8 @@ public class ShowtimeHandler {
     if (showtime == null) return;
     this.selectedShowtimeIdx = showtimeIdx;
 
-    System.out.println(colorize("/// SHOWTIME DETAILS ///", Preset.HIGHLIGHT.color));
-    System.out.println(colorize(showtime.toString(), Preset.HIGHLIGHT.color));
+    System.out.println(colorizer("/// SHOWTIME DETAILS ///", Preset.HIGHLIGHT));
+    System.out.println(colorizer(showtime.toString(), Preset.HIGHLIGHT));
   }
 
   /**
@@ -212,7 +212,7 @@ public class ShowtimeHandler {
         }
         boolean isAvailable = (seats[row][col]);
         String seat = isAvailable ? "|O|" : "|X|";
-        System.out.print(colorize(seat, ((isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT).color));
+        System.out.print(colorizer(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT));
       }
       System.out.print(new StringBuilder(strRowIdx).reverse());
       System.out.println();

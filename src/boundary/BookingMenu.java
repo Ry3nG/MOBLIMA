@@ -3,9 +3,9 @@ package boundary;
 import control.handlers.BookingHandler;
 import entity.Booking;
 import entity.Cinema;
+import entity.Movie;
+import entity.Movie.ShowStatus;
 import entity.Showtime;
-import moblima.entities.Movie;
-import moblima.entities.Movie.ShowStatus;
 import utils.Helper;
 
 import java.time.LocalDateTime;
