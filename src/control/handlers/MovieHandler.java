@@ -1,12 +1,12 @@
 package control.handlers;
 
-import entity.Movie;
-import entity.Movie.ContentRating;
-import entity.Movie.ShowStatus;
-import sources.Datasource;
-import sources.MovieDatasource;
+import entities.Movie;
+import entities.Movie.ContentRating;
+import entities.Movie.ShowStatus;
 import utils.Helper;
 import utils.Helper.Preset;
+import utils.datasource.Datasource;
+import utils.datasource.MovieDatasource;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,15 +14,13 @@ import java.util.List;
 
 import static utils.Helper.colorizer;
 
-public class MovieHandler extends ReviewHandler {
-  private final List<Movie> movies;
-  private int selectedMovieIdx = -1;
+public class MovieHandler {
+  protected List<Movie> movies;
+  protected int selectedMovieIdx = -1;
 
   public MovieHandler() {
-    super();
     MovieDatasource dsMovie = new MovieDatasource();
     this.movies = dsMovie.getMovies();
-    this.reviews = dsMovie.getReviews();
   }
 
   /**
@@ -76,6 +74,13 @@ public class MovieHandler extends ReviewHandler {
     }
 
     return -1;
+  }
+
+  public boolean updateMovieRating(int movieId, double overallRating) {
+    Movie movie = this.getMovie(this.getMovieIdx(movieId));
+    movie.setOverallRating(overallRating);
+
+    return this.updateMovie(movie.getTitle(), movie.getSynopsis(), movie.getDirector(), movie.getCastList(), movie.getRuntime(), movie.getReleaseDate(), movie.isBlockbuster(), movie.getShowStatus(), movie.getContentRating(), movie.getOverallRating());
   }
 
   /**

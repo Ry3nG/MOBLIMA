@@ -20,14 +20,14 @@ public class Helper {
   ) {
     if (!Constants.DEBUG_MODE) return;
     String outputStr = "[LOG/" + methodName + "] " + msg;
-    System.out.println(colorizer(outputStr, Preset.LOG));
+    System.out.println(colorize(outputStr, Preset.LOG.color));
   }
 
   /**
    * Clone helper of colorize
    *
    * @param text:String
-   * @param attributes:com.diogonunes.jcolor.Attribute
+   * @param preset:Preset
    * @return colorizedText:String
    */
   public static String colorizer(String text, Preset preset) {

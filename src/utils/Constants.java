@@ -42,7 +42,7 @@ public class Constants {
       String envKey
   ) {
     _instance = getInstance();
-    return !entries.isEmpty() ? entries.get(envKey) : null;
+    return entries.get(envKey);
   }
 
   /**
@@ -53,8 +53,6 @@ public class Constants {
    */
   private boolean loadEnv() {
     boolean isLoaded = false;
-
-    entries = new HashMap<String, String>();
     try {
       Dotenv dotenv = Dotenv.configure()
           .ignoreIfMalformed()
@@ -62,10 +60,11 @@ public class Constants {
           .filename(".env")
           .load();
 
-
+      entries = new HashMap<String, String>();
       for (DotenvEntry e : dotenv.entries()) {
         entries.put(e.getKey(), e.getValue());
       }
+
       isLoaded = true;
     } catch (Exception e) {
       e.getStackTrace();

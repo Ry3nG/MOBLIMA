@@ -1,4 +1,4 @@
-package sources;
+package utils.datasource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import org.apache.commons.io.FileUtils;
 import org.json.CDL;
 import org.json.JSONArray;
+import org.json.JSONTokener;
 import utils.Catcher;
 import utils.Helper;
 import utils.LocalDateDeserializer;
@@ -99,9 +100,12 @@ public class Datasource {
       String jsonStringified = gson.toJson(responseObj);
       JSONArray jsonArray = new JSONArray(jsonStringified);
       String csvString = CDL.toString(jsonArray);
+      if (csvString == null) csvString = CDL.rowToString(jsonArray);
 
       Helper.logger("Datasource.serializeDataToCSV", "jsonArray: " + jsonArray);
       Helper.logger("Datasource.serializeDataToCSV", "csvString: " + csvString);
+
+
       isSuccessful = saveCsv(file, csvString, overwrite);
     } catch (Catcher e) {
       isSuccessful = true;
@@ -207,6 +211,7 @@ public class Datasource {
 
       String content = Files.readString(Paths.get(path));
       JSONArray jsonArray = CDL.toJSONArray(content);
+      if (jsonArray == null) jsonArray = CDL.rowToJSONArray(new JSONTokener(content));
       String jsonStringified = jsonArray.toString();
       jsonStringified = jsonStringified.replaceAll("\\[]", "");
 
@@ -241,7 +246,6 @@ public class Datasource {
     }
 
     Helper.logger("Datasource.requestPagination", "Output: " + allResults);
-
     return allResults;
   }
 

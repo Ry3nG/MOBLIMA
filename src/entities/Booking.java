@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package boundary;
+package boundaries;
 
-import control.handlers.MovieHandler;
-import entity.Movie;
-import entity.Movie.ContentRating;
-import entity.Movie.ShowStatus;
-import entity.Review;
+import control.handlers.ReviewHandler;
+import entities.Movie;
+import entities.Movie.ContentRating;
+import entities.Movie.ShowStatus;
+import entities.Review;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -17,12 +17,12 @@ import static utils.Helper.colorizer;
 public class MovieMenu extends Menu {
   private static boolean showLimitedMovies = true;
   private static boolean showReviews = true;
-  private static MovieHandler handler;
+  private static ReviewHandler handler;
   private static MovieMenu instance;
 
   private MovieMenu() {
     super();
-    handler = new MovieHandler();
+    handler = new ReviewHandler();
     this.refreshMenu(this.getMovieMenu());
   }
 
@@ -43,7 +43,7 @@ public class MovieMenu extends Menu {
    * @return movieHandler:MovieHandler
    */
   //+ getHandler():MovieHandler
-  public static MovieHandler getHandler() {
+  public static ReviewHandler getHandler() {
     return handler;
   }
 

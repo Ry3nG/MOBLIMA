@@ -1,13 +1,13 @@
-package sources;
+package utils.datasource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Movie;
-import entity.Movie.ContentRating;
-import entity.Movie.ShowStatus;
-import entity.Review;
+import entities.Movie;
+import entities.Movie.ContentRating;
+import entities.Movie.ShowStatus;
+import entities.Review;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import utils.Constants;
@@ -47,16 +47,16 @@ public class MovieDatasource extends Datasource {
       return reviews;
     }
 
-    JsonArray reviewList = readArrayFromCsv(fileName);
+    JsonArray reviewList = Datasource.readArrayFromCsv(fileName);
     if (reviewList == null) {
       Helper.logger("MovieDatasource.getReviews", "No serialized data available");
       return reviews;
     }
 
-    String strReviewList = getGson().toJson(reviewList);
+    String strReviewList = Datasource.getGson().toJson(reviewList);
     Type typeReviewList = new TypeToken<List<Review>>() {
     }.getType();
-    reviews = getGson().fromJson(strReviewList, typeReviewList);
+    reviews = Datasource.getGson().fromJson(strReviewList, typeReviewList);
 
     return reviews;
   }
@@ -71,7 +71,7 @@ public class MovieDatasource extends Datasource {
     List<Movie> movies = new ArrayList<Movie>();
 
     String fileName = "movies.csv";
-    JsonArray movieList = readArrayFromCsv(fileName);
+    JsonArray movieList = Datasource.readArrayFromCsv(fileName);
 
     if (movieList == null) {
       if (API_KEY != null) {

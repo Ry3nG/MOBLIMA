@@ -1,6 +1,6 @@
 package control.controllers;
 
-import entity.*;
+import entities.*;
 import utils.Helper;
 
 import java.util.Arrays;
@@ -12,9 +12,11 @@ public class CustomerController extends MovieBookingController {
 
   private CustomerController() {
     super();
+    Helper.logger("CustomerController", "Initialization");
   }
 
   public static CustomerController getInstance() {
+    Helper.logger("CustomerController.getInstance", "Instance: " + instance);
     if (instance == null)
       instance = new CustomerController();
     return instance;
@@ -27,18 +29,26 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Search/List Movies", () -> {
-        List<Movie> movies = movieMenu.getViewableMovies();
-        movieHandler().printMovies(movies);
+//      put("Search/List Movies", () -> {
+//        List<Movie> movies = movieMenu.getViewableMovies();
+//        reviewHandler().printMovies(movies);
+//      });
+      put("Top 5 movies by ticket sales", () -> {
+        List<Movie> rankedMovies = rankMoviesByBooking();
+        reviewHandler().printMovies(rankedMovies);
       });
-      put("View movie details – including reviews and ratings", () -> {
+      put("Top 5 movies by overall rating", () -> {
+        List<Movie> rankedMovies = rankMoviesByRatings();
+        reviewHandler().printMovies(rankedMovies);
+      });
+      put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
         if (authStatus) {
           movieMenu.updateReviewMenu(() -> {
             Account currentAccount = settingsHandler().getCurrentAccount();
             String reviewerId = currentAccount.getId();
             String reviewerName = currentAccount.getName();
-            movieMenu.selectReviewOptions(movieHandler().getSelectedMovie().getId(), reviewerName, reviewerId);
+            movieMenu.selectReviewOptions(reviewHandler().getSelectedMovie().getId(), reviewerName, reviewerId);
           });
         }
 
@@ -55,12 +65,12 @@ public class CustomerController extends MovieBookingController {
       int reviewIdx = -1;
 
       // Select reviews for authenticated account
-      List<Review> customerReviews = movieHandler().getUserReviews(customerId);
+      List<Review> customerReviews = reviewHandler().getUserReviews(customerId);
       reviewIdx = movieMenu.selectReviewIdx(customerReviews);
       Helper.logger("CustomerContoller.getCustomerMenu", "reviewIdx: " + reviewIdx);
       if (reviewIdx < 0) return;
 
-      Review review = movieHandler().getReview(reviewIdx);
+      Review review = reviewHandler().getReview(reviewIdx);
       System.out.println(review.toString());
 
       movieMenu.selectUpdatableAction(review.getId());
@@ -72,7 +82,7 @@ public class CustomerController extends MovieBookingController {
 //        System.out.println("Select movie: ");
 //        int movieIdx = movieMenu.selectMovieIdx();
 //        if (movieIdx < 0) return showtimeIdx;
-//        Movie selectedMovie = this.movieHandler().getSelectedMovie();
+//        Movie selectedMovie = this.reviewHandler().getSelectedMovie();
 //        Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 //
 //
@@ -95,8 +105,8 @@ public class CustomerController extends MovieBookingController {
     if (showtimeIdx < 0) return bookingIdx;
 
     // Get movie details
-    int movieIdx = this.movieHandler().getMovieIdx(showtime.getMovieId());
-    Movie movie = this.movieHandler().getMovie(movieIdx);
+    int movieIdx = this.reviewHandler().getMovieIdx(showtime.getMovieId());
+    Movie movie = this.reviewHandler().getMovie(movieIdx);
     if (movie == null) return bookingIdx;
 
     // Get cinema details

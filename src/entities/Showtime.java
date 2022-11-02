@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -10,25 +10,24 @@ import java.util.Objects;
 
 import static utils.Helper.formatAsTable;
 
+
 public class Showtime {
   private String id;
-  private String cineplexId;
   private int cinemaId;
   private int movieId;
   private LocalDateTime datetime;
   private boolean[][] seats;
 
-  public Showtime(String id, String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
+  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
     this.id = id;
-    this.cineplexId = cineplexId;
     this.cinemaId = cinemaId;
     this.movieId = movieId;
     this.datetime = datetime;
     this.seats = seats;
   }
 
-  public Showtime(String id, String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
-    this(id, cineplexId, cinemaId, movieId, datetime, new boolean[][]{
+  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime) {
+    this(id, cinemaId, movieId, datetime, new boolean[][]{
         {true, true, true, true, true, true, true, true},
         {true, true, true, true, true, true, true, true},
         {true, true, true, true, true, true, true, true},
@@ -45,7 +44,6 @@ public class Showtime {
   public Showtime(Showtime cloneShowtime) {
     this(
         cloneShowtime.id,
-        cloneShowtime.cineplexId,
         cloneShowtime.cinemaId,
         cloneShowtime.movieId,
         cloneShowtime.datetime,
@@ -59,14 +57,6 @@ public class Showtime {
 
   public void setId(String id) {
     this.id = id;
-  }
-
-  public String getCineplexId() {
-    return cineplexId;
-  }
-
-  public void setCineplexId(String cineplexId) {
-    this.cineplexId = cineplexId;
   }
 
   public int getCinemaId() {
@@ -91,6 +81,18 @@ public class Showtime {
 
   public void setDatetime(LocalDateTime datetime) {
     this.datetime = datetime;
+  }
+
+  public DayOfWeek getDay() {
+    DayOfWeek day = datetime.getDayOfWeek();
+
+    return day;
+  }
+
+  public String getFormattedDatetime() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
+
+    return this.datetime.format(formatter);
   }
 
   public boolean[][] getSeats() {
@@ -136,14 +138,10 @@ public class Showtime {
 
   @Override
   public String toString() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
-    DayOfWeek day = datetime.getDayOfWeek();
 
     List<List<String>> rows = new ArrayList<List<String>>();
-    rows.add(Arrays.asList("Datetime:", day + ", " + this.datetime.format(formatter)));
-    rows.add(Arrays.asList("Movie ID:", Integer.toString(this.movieId)));
+    rows.add(Arrays.asList("Datetime:", this.getDay() + ", " + this.getFormattedDatetime()));
     rows.add(Arrays.asList("Cinema ID:", Integer.toString(this.cinemaId)));
-    rows.add(Arrays.asList("Cineplex ID:", this.cineplexId));
     rows.add(Arrays.asList("Booked Seats:", this.getSeatCount(false) + "/" + this.getSeatCount()));
 
     return formatAsTable(rows);

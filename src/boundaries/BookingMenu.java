@@ -1,11 +1,11 @@
-package boundary;
+package boundaries;
 
 import control.handlers.BookingHandler;
-import entity.Booking;
-import entity.Cinema;
-import entity.Movie;
-import entity.Movie.ShowStatus;
-import entity.Showtime;
+import entities.Booking;
+import entities.Cinema;
+import entities.Movie;
+import entities.Movie.ShowStatus;
+import entities.Showtime;
 import utils.Helper;
 
 import java.time.LocalDateTime;
@@ -187,7 +187,7 @@ public class BookingMenu extends Menu {
 
     // Initialize options with a return at the end
     List<String> showtimeOptions = showtimes.stream()
-        .map(Showtime::toString)
+        .map((s) -> handler.printedShowtime(s.getId()))
         .collect(Collectors.toList());
     showtimeOptions.add((showtimeOptions.size()), "Return to previous menu");
 
@@ -345,7 +345,6 @@ public class BookingMenu extends Menu {
         // Save changes
         if (proceedSelection == proceedOptions.size() - 2) {
           handler.updateShowtime(
-              showtime.getCineplexId(),
               showtime.getCinemaId(),
               showtime.getMovieId(),
               showtime.getDatetime(),
@@ -365,7 +364,7 @@ public class BookingMenu extends Menu {
           handler.removeShowtime(showtime.getId());
         }
 
-        System.out.println("\t>>> " + "Returning to previous menu...");
+        System.out.println("\t>>> " + "Retfurning to previous menu...");
         return status;
       }
 
@@ -505,7 +504,8 @@ public class BookingMenu extends Menu {
         if (proceedSelection == proceedOptions.size() - 2) {
           handler.updateCinema(
               cinema.getClassType(),
-              cinema.getShowtimes()
+              cinema.getShowtimes(),
+              cinema.getCineplexCode()
           );
           status = true;
         }
@@ -607,13 +607,25 @@ public class BookingMenu extends Menu {
         this.displayMenuList(typeOptions);
         int typeSelection = getListSelectionIdx(typeOptions, false);
 
+        // Prompt for Cineplex Code
+        String cineplexCode = null;
+        while (cineplexCode == null) {
+          System.out.println("Cineplex Code (i.e, XYZ):");
+          String inputCineplexCode = scanner.next();
+
+          // VALIDATION: Check if it's exactly 3 characters
+          if (!inputCineplexCode.matches("^([A-Z-0-9]{3})\\b")) continue;
+
+          cineplexCode = inputCineplexCode;
+        }
+
         // Return to previous menu
         if (typeSelection == typeOptions.size() - 1) {
           System.out.println("\t>>> " + "Returning to previous menu...");
           return cinemaId;
         }
         Cinema.ClassType classType = classTypes.get(typeSelection);
-        cinemaId = handler.addCinema(classType, new ArrayList<Showtime>());
+        cinemaId = handler.addCinema(classType, new ArrayList<Showtime>(), cineplexCode);
         this.refreshMenu(this.getCinemaMenu());
 
         System.out.println("Successful cinema registration");

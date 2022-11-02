@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class Account {
   protected String id;

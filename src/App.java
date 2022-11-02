@@ -1,6 +1,6 @@
-import boundary.CustomerMenu;
-import boundary.Menu;
-import boundary.StaffMenu;
+import boundaries.CustomerMenu;
+import boundaries.Menu;
+import boundaries.StaffMenu;
 import utils.Constants;
 import utils.Helper;
 
@@ -9,10 +9,6 @@ import java.util.Arrays;
 public class App {
   private static App instance = null;
   private Menu currentMenu;
-
-  private App() {
-
-  }
 
   public static App getInstance() {
     if (instance == null) instance = new App();

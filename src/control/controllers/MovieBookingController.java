@@ -1,23 +1,34 @@
 package control.controllers;
 
-import boundary.BookingMenu;
-import boundary.MovieMenu;
-import boundary.SettingsMenu;
+import boundaries.BookingMenu;
+import boundaries.MovieMenu;
+import boundaries.SettingsMenu;
 import control.handlers.BookingHandler;
-import control.handlers.MovieHandler;
+import control.handlers.ReviewHandler;
 import control.handlers.SettingsHandler;
-import entity.Movie;
-import entity.Showtime;
+import entities.Booking;
+import entities.Movie;
+import entities.Showtime;
 import utils.Helper;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class MovieBookingController {
-  protected static MovieMenu movieMenu = MovieMenu.getInstance();
-  protected static BookingMenu bookingMenu = BookingMenu.getInstance();
-  protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
+  protected static MovieMenu movieMenu;
+  protected static BookingMenu bookingMenu;
+  protected static SettingsMenu settingsMenu;
 
-  public MovieHandler movieHandler() {
+  public MovieBookingController() {
+    Helper.logger("MovieBookingController", "Initialization");
+    movieMenu = MovieMenu.getInstance();
+    bookingMenu = BookingMenu.getInstance();
+    settingsMenu = SettingsMenu.getInstance();
+  }
+
+  public ReviewHandler reviewHandler() {
     return MovieMenu.getHandler();
   }
 
@@ -42,7 +53,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return showtimeIdx;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 
     // Select showtimes for selected movie
@@ -68,7 +79,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
 
     // Select showtimes
     System.out.println("Select showtime slot: ");
@@ -110,5 +121,38 @@ public abstract class MovieBookingController {
   //+ updateSettings():void
   public void updateSettings() {
     settingsMenu.showMenu();
+  }
+
+  public List<Movie> rankMoviesByBooking() {
+    List<Movie> movies = reviewHandler().getMovies();
+    List<Booking> bookings = bookingHandler().getBookings();
+    if (bookings.isEmpty()) return movies;
+
+    Map<Integer, Long> bookedMovieIds = bookings.stream()
+        .collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
+    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + bookedMovieIds);
+
+    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream()
+        .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+        .map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey())))
+        .toList();
+    Helper.logger("BookingHandler.sortBookingMovies", "rankedMovies: \n" + rankedMovies);
+
+
+    return rankedMovies;
+  }
+
+  public List<Movie> rankMoviesByRatings() {
+    List<Movie> movies = reviewHandler().getMovies();
+    if (movies.isEmpty()) return movies;
+
+    List<Movie> rankedMovies = movies.stream()
+        .sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed())
+        .limit(5)
+        .collect(Collectors.toList());
+
+    Helper.logger("BookingHandler.rankMoviesByRatings", "rankedMovies: \n" + rankedMovies);
+
+    return rankedMovies;
   }
 }

@@ -1,17 +1,17 @@
 package control.handlers;
 
-import boundary.MovieMenu;
+import boundaries.MovieMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Booking;
-import entity.Booking.TicketType;
-import entity.Showtime;
+import entities.Booking;
+import entities.Booking.TicketType;
+import entities.Showtime;
 import org.apache.commons.lang3.EnumUtils;
-import sources.Datasource;
 import utils.Helper;
 import utils.Helper.Preset;
+import utils.datasource.Datasource;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
@@ -22,13 +22,18 @@ import java.util.List;
 import static utils.Helper.colorizer;
 
 public class BookingHandler extends CinemaHandler {
-  private static final MovieHandler movieHandler = MovieMenu.getHandler();
+  protected static final MovieHandler movieHandler = MovieMenu.getHandler();
   protected List<Booking> bookings;
   protected int selectedBookingIdx = -1;
 
   public BookingHandler() {
     super();
+
     bookings = this.getBookings();
+
+    Helper.logger("BookingHandler", "Cinema:\n" + this.cinemas);
+    Helper.logger("BookingHandler", "Showtimes:\n" + this.showtimes);
+    Helper.logger("BookingHandler", "Bookings:\n" + this.bookings);
   }
 
   /**
@@ -80,6 +85,8 @@ public class BookingHandler extends CinemaHandler {
    */
   //+getBookings() : List<Booking>
   public List<Booking> getBookings() {
+    cinemas = this.getCinemas();
+    showtimes = this.getShowtimes();
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {
@@ -182,8 +189,8 @@ public class BookingHandler extends CinemaHandler {
     // The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
     String timestamp = (LocalDateTime.now()).format(formatter);
-    String cineplexId = showtime.getCineplexId();
-    String transactionId = cineplexId + timestamp;
+    String cineplexCode = this.getShowtimeCinema(showtimeId).getCineplexCode().toUpperCase();
+    String transactionId = cineplexCode + timestamp;
 
     bookings.add(new Booking(transactionId, customerId, cinemaId, movieId, showtimeId, seats, totalPrice, type));
     this.bookings = bookings;
@@ -257,7 +264,6 @@ public class BookingHandler extends CinemaHandler {
     this.printShowtimeDetails(showtimeIdx);
 
     // Movie
-//    System.out.println(colorizer("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
     movieHandler.printMovieDetails(movieIdx);
     System.out.println("---------------------------------------------------------------------------");

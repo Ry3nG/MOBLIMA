@@ -2,9 +2,9 @@ package control.handlers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import entity.Staff;
-import sources.Datasource;
+import entities.Staff;
 import utils.Helper;
+import utils.datasource.Datasource;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class StaffHandler {
-  private List<Staff> staffs;
-  private Staff currentStaff = null;
+  protected List<Staff> staffs;
+  protected Staff currentStaff = null;
 
   public StaffHandler() {
     this.staffs = this.getStaffs();

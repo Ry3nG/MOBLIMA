@@ -1,8 +1,8 @@
-package boundary;
+package boundaries;
 
 import control.controllers.StaffController;
 import control.handlers.StaffHandler;
-import entity.Staff;
+import entities.Staff;
 import utils.Helper;
 import utils.Helper.Preset;
 
@@ -23,6 +23,8 @@ public class StaffMenu extends Menu {
 
     handler = new StaffHandler();
     controller = StaffController.getInstance();
+
+    Helper.logger("StaffMenu", "Init: \n" + controller.settingsHandler().getSettings());
 
     // Require account authentication first
     this.isAuthenticated();

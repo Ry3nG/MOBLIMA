@@ -1,26 +1,28 @@
 package control.handlers;
 
-import boundary.MovieMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Cinema;
-import entity.Cinema.ClassType;
-import entity.Movie;
-import entity.Showtime;
-import sources.Datasource;
+import entities.Cinema;
+import entities.Cinema.ClassType;
+import entities.Movie;
+import entities.Showtime;
+import org.apache.commons.lang3.RandomStringUtils;
 import utils.Helper;
 import utils.Helper.Preset;
+import utils.datasource.Datasource;
 
 import java.lang.reflect.Type;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import static utils.Helper.colorizer;
+import static utils.Helper.formatAsTable;
 import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
 
 public class CinemaHandler extends ShowtimeHandler {
@@ -29,8 +31,8 @@ public class CinemaHandler extends ShowtimeHandler {
 
   public CinemaHandler() {
     super();
-    cinemas = this.getCinemas();
-    showtimes = this.getShowtimes();
+    this.cinemas = this.getCinemas();
+    this.showtimes = this.getShowtimes();
   }
 
   /**
@@ -75,9 +77,10 @@ public class CinemaHandler extends ShowtimeHandler {
       for (int c = 0; c <= min; c++) {
         ClassType classType = ClassType.values()[random.nextInt(ClassType.values().length)];
         List<Showtime> showtimes = new ArrayList<Showtime>();
+        String cineplexCode = RandomStringUtils.random(3, true, false).toUpperCase();
 
         // Appending new Cinema to this.cinema
-        this.addCinema(classType, showtimes);
+        this.addCinema(classType, showtimes, cineplexCode);
       }
       cinemas = this.cinemas;
     }
@@ -96,16 +99,21 @@ public class CinemaHandler extends ShowtimeHandler {
     if (this.cinemas.size() < 1 || min < 1) return showtimes;
 
     SecureRandom random = new SecureRandom();
-    List<Movie> movies = (MovieMenu.getHandler()).getMovies();
+    MovieHandler movieHandler = new MovieHandler();
+    List<Movie> movies = movieHandler.getMovies();
+    Helper.logger("CinemaHandler.generateShowtimes", "Movies: \n" + movies);
     for (Movie movie : movies) {
       for (int s = 0; s < min; s++) {
-        String cineplexId = "XYZ";
+        String cineplexId = RandomStringUtils.random(3, true, false).toUpperCase();
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movie.getId();
         LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
-        this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
+        int showtimeIdx = this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
+        Helper.logger("CinemaHandler.generateShowtimes", "Generated: \n" + this.getShowtime(showtimeIdx));
+
       }
     }
+
     return this.showtimes;
   }
 
@@ -118,6 +126,9 @@ public class CinemaHandler extends ShowtimeHandler {
   public List<Cinema> getCinemas() {
     List<Cinema> cinemas = new ArrayList<Cinema>();
 
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + cinemas);
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + this.cinemas);
+
     //Source from serialized datasource
     String fileName = "cinemas.csv";
     if (fileName == null || fileName.isEmpty()) {
@@ -129,14 +140,16 @@ public class CinemaHandler extends ShowtimeHandler {
     JsonArray cinemaList = Datasource.readArrayFromCsv(fileName);
     if (cinemaList == null) {
       Helper.logger("CinemaHandler.getCinemas", "No serialized data available, generating data instead");
-      this.generateCinemas(3);
-      return this.cinemas;
+      cinemas = this.generateCinemas(3);
+      this.cinemas = cinemas;
+      return cinemas;
     }
 
     for (JsonElement cinema : cinemaList) {
       JsonObject c = cinema.getAsJsonObject();
 
       int id = c.get("id").getAsInt();
+      String cineplexCode = c.get("cineplexCode").getAsString();
 
       /// ClassType
       String classTypeStr = c.get("classType").getAsString();
@@ -147,7 +160,8 @@ public class CinemaHandler extends ShowtimeHandler {
       cinemas.add(new Cinema(
           id,
           classType,
-          showtimes
+          showtimes,
+          cineplexCode
       ));
     }
 
@@ -168,7 +182,7 @@ public class CinemaHandler extends ShowtimeHandler {
    * @return status:boolean
    */
   //+updateCinema( classType : ClassType, showtimes : List<Showtime>):boolean
-  public boolean updateCinema(ClassType classType, List<Showtime> showtimes) {
+  public boolean updateCinema(ClassType classType, List<Showtime> showtimes, String cineplexCode) {
     boolean status = false;
     if (this.cinemas.size() < 1 || this.selectedCinemaIdx < 0) return status;
 
@@ -178,7 +192,8 @@ public class CinemaHandler extends ShowtimeHandler {
     this.cinemas.set(this.selectedCinemaIdx, new Cinema(
         selectedCinemaIdx,
         classType,
-        showtimes
+        showtimes,
+        cineplexCode
     ));
 
     status = true;
@@ -197,14 +212,15 @@ public class CinemaHandler extends ShowtimeHandler {
    * @return showtimeIdx:int
    */
   //  +addCinema(classType:ClassType, showtimes : List<Showtime>) : int
-  public int addCinema(ClassType classType, List<Showtime> showtimes) {
+  public int addCinema(ClassType classType, List<Showtime> showtimes, String cineplexCode) {
     List<Cinema> cinemas = new ArrayList<Cinema>();
     if (this.cinemas != null) cinemas = this.cinemas;
 
     cinemas.add(new Cinema(
         cinemas.size(),
         classType,
-        showtimes
+        showtimes,
+        cineplexCode
     ));
 
     this.cinemas = cinemas;
@@ -255,7 +271,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
     // Update showtimes
     this.showtimes.addAll(showtimes);
-    Helper.logger("CinemaHandler.cinema", this.cinemas.toString());
+    Helper.logger("CinemaHandler.cinema", this.getCinema(cinemaId).toString());
 
     status = true;
 
@@ -297,7 +313,6 @@ public class CinemaHandler extends ShowtimeHandler {
       JsonObject s = showtime.getAsJsonObject();
 
       String id = s.get("id").getAsString();
-      String cineplexId = s.get("cineplexId").getAsString();
       int cinemaId = s.get("cinemaId").getAsInt();
       int movieId = s.get("movieId").getAsInt();
       String datetimeStr = s.get("datetime").getAsString();
@@ -311,7 +326,6 @@ public class CinemaHandler extends ShowtimeHandler {
 
       Showtime cinemaShowtime = new Showtime(
           id,
-          cineplexId,
           cinemaId,
           movieId,
           dateTime,
@@ -322,15 +336,43 @@ public class CinemaHandler extends ShowtimeHandler {
 
     this.showtimes = showtimes;
 
+    // Serialize data
+    this.saveShowtimes();
+
     // Append showtimes to existing cinemas
     for (Cinema cinema : this.cinemas) {
       List<Showtime> cinemaShowtimes = this.getCinemaShowtimes(cinema.getId());
       this.addShowtimes(cinema.getId(), cinemaShowtimes);
+      Helper.logger("CinemaHandler.getShowtimes", "Cinema: " + this.getCinema(cinema.getId()));
+
     }
 
-    Helper.logger("CinemaHandler.getShowtimes", "Cinema: " + this.cinemas);
 
     return showtimes;
+  }
+
+  public String printedShowtime(String showtimeId) {
+
+    Showtime showtime = this.getShowtime(showtimeId);
+
+    List<List<String>> rows = new ArrayList<List<String>>();
+    rows.add(Arrays.asList("Datetime:", showtime.getDay() + ", " + showtime.getFormattedDatetime()));
+    rows.add(Arrays.asList("Movie ID:", Integer.toString(showtime.getMovieId())));
+    rows.add(Arrays.asList("Cineplex Code:", this.getShowtimeCinema(showtime.getId()).getCineplexCode()));
+    rows.add(Arrays.asList("Cinema ID:", Integer.toString(showtime.getCinemaId())));
+    rows.add(Arrays.asList("Booked Seats:", showtime.getSeatCount(false) + "/" + showtime.getSeatCount()));
+
+    return formatAsTable(rows);
+  }
+
+  //+ getShowtimeCinema(showtimeId : String) : Cinema
+  public Cinema getShowtimeCinema(String showtimeId) {
+    Cinema cinema = null;
+
+    Showtime showtime = this.getShowtime(showtimeId);
+    if (showtime == null) return cinema;
+
+    return this.getCinema(showtime.getCinemaId());
   }
 
   /**
@@ -377,7 +419,6 @@ public class CinemaHandler extends ShowtimeHandler {
     // Initializes new showtime
     Showtime showtime = new Showtime(
         UUID.randomUUID().toString(),
-        cineplexId,
         cinemaId,
         movieId,
         datetime

@@ -2,9 +2,9 @@ package control.handlers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import entity.Customer;
-import sources.Datasource;
+import entities.Customer;
 import utils.Helper;
+import utils.datasource.Datasource;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class CustomerHandler {
-  private final List<Customer> customers;
-  private Customer currentCustomer = null;
+  protected final List<Customer> customers;
+  protected Customer currentCustomer = null;
 
   public CustomerHandler() {
     this.customers = this.getCustomers();
