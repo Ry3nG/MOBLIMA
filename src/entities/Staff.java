@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class Staff extends Account {
   private String username;

@@ -1,6 +1,6 @@
 package control.controllers;
 
-import entity.*;
+import entities.*;
 import utils.Helper;
 
 import java.util.Arrays;
@@ -12,10 +12,11 @@ public class CustomerController extends MovieBookingController {
 
   private CustomerController() {
     super();
-    Helper.logger("MovieBookingController.CustomerController", "Initialization");
+    Helper.logger("CustomerController", "Initialization");
   }
 
   public static CustomerController getInstance() {
+    Helper.logger("CustomerController.getInstance", "Instance: " + instance);
     if (instance == null)
       instance = new CustomerController();
     return instance;
@@ -28,11 +29,19 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Search/List Movies", () -> {
-        List<Movie> movies = movieMenu.getViewableMovies();
-        reviewHandler().printMovies(movies);
+//      put("Search/List Movies", () -> {
+//        List<Movie> movies = movieMenu.getViewableMovies();
+//        reviewHandler().printMovies(movies);
+//      });
+      put("Top 5 movies by ticket sales", () -> {
+        List<Movie> rankedMovies = rankMoviesByBooking();
+        reviewHandler().printMovies(rankedMovies);
       });
-      put("View movie details – including reviews and ratings", () -> {
+      put("Top 5 movies by overall rating", () -> {
+        List<Movie> rankedMovies = rankMoviesByRatings();
+        reviewHandler().printMovies(rankedMovies);
+      });
+      put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
         if (authStatus) {
           movieMenu.updateReviewMenu(() -> {

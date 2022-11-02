@@ -4,10 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Movie;
-import entity.Movie.ContentRating;
-import entity.Movie.ShowStatus;
-import entity.Review;
+import entities.Movie;
+import entities.Movie.ContentRating;
+import entities.Movie.ShowStatus;
+import entities.Review;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import utils.Constants;
@@ -258,7 +258,7 @@ public class MovieDatasource extends Datasource {
 
           JsonElement ratingObject = r.get("author_details").getAsJsonObject().get("rating");
           if (ratingObject.isJsonNull()) continue;
-          int rating = Math.round(ratingObject.getAsInt() / 2);
+          int rating = ratingObject.getAsInt();
 
           // Initialise and append to list
           reviews.add(new Review(

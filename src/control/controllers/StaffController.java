@@ -1,6 +1,6 @@
 package control.controllers;
 
-import boundary.MovieMenu;
+import boundaries.MovieMenu;
 import utils.Helper;
 
 import java.util.LinkedHashMap;

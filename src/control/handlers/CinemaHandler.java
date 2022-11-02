@@ -1,14 +1,13 @@
 package control.handlers;
 
-import boundary.MovieMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Cinema;
-import entity.Cinema.ClassType;
-import entity.Movie;
-import entity.Showtime;
+import entities.Cinema;
+import entities.Cinema.ClassType;
+import entities.Movie;
+import entities.Showtime;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.Helper;
 import utils.Helper.Preset;
@@ -100,7 +99,9 @@ public class CinemaHandler extends ShowtimeHandler {
     if (this.cinemas.size() < 1 || min < 1) return showtimes;
 
     SecureRandom random = new SecureRandom();
-    List<Movie> movies = (MovieMenu.getHandler()).getMovies();
+    MovieHandler movieHandler = new MovieHandler();
+    List<Movie> movies = movieHandler.getMovies();
+    Helper.logger("CinemaHandler.generateShowtimes", "Movies: \n" + movies);
     for (Movie movie : movies) {
       for (int s = 0; s < min; s++) {
         String cineplexId = RandomStringUtils.random(3, true, false).toUpperCase();
@@ -125,6 +126,9 @@ public class CinemaHandler extends ShowtimeHandler {
   public List<Cinema> getCinemas() {
     List<Cinema> cinemas = new ArrayList<Cinema>();
 
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + cinemas);
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + this.cinemas);
+
     //Source from serialized datasource
     String fileName = "cinemas.csv";
     if (fileName == null || fileName.isEmpty()) {
@@ -136,8 +140,9 @@ public class CinemaHandler extends ShowtimeHandler {
     JsonArray cinemaList = Datasource.readArrayFromCsv(fileName);
     if (cinemaList == null) {
       Helper.logger("CinemaHandler.getCinemas", "No serialized data available, generating data instead");
-      this.generateCinemas(3);
-      return this.cinemas;
+      cinemas = this.generateCinemas(3);
+      this.cinemas = cinemas;
+      return cinemas;
     }
 
     for (JsonElement cinema : cinemaList) {

@@ -1,10 +1,10 @@
-package boundary;
+package boundaries;
 
 import control.controllers.CustomerController;
 import control.handlers.CustomerHandler;
-import entity.Booking;
-import entity.Customer;
-import entity.Showtime;
+import entities.Booking;
+import entities.Customer;
+import entities.Showtime;
 import org.apache.commons.validator.routines.EmailValidator;
 import utils.Helper;
 import utils.Helper.Preset;
@@ -33,6 +33,7 @@ public class CustomerMenu extends Menu {
   }
 
   public static CustomerMenu getInstance() {
+    Helper.logger("CustomerMenu", "getInstance");
     if (instance == null)
       instance = new CustomerMenu();
     return instance;
@@ -40,9 +41,8 @@ public class CustomerMenu extends Menu {
 
   @Override
   public void showMenu() {
-
-    controller.bookingHandler().sortBookingMovies();
-
+    Helper.logger("CustomerMenu.showMenu", "Cinemas:\n" + controller.bookingHandler().getShowtimes());
+    controller.rankMoviesByRatings();
     this.displayMenu();
   }
 
@@ -57,9 +57,6 @@ public class CustomerMenu extends Menu {
     LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
       put("Book and purchase ticket", () -> makeBooking());
       put("View booking history", () -> viewBookings());
-      // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
-      // ratings", () -> {
-      // });
     }};
 
     if (controller.settingsHandler().checkIfIsAuthenticated()) {
