@@ -27,11 +27,11 @@ public class SettingsMenu extends Menu {
   /**
    * An instance of SettingsHandler
    */
-  private static final SettingsHandler handler = new SettingsHandler();
+  private static SettingsHandler handler;
   /**
    * An instance of SettingsMenu - for singleton pattern implementation
    */
-  private static SettingsMenu instance = null;
+  private static SettingsMenu instance;
   /**
    * Clone of SystemSettings for use across various functions
    */
@@ -47,8 +47,8 @@ public class SettingsMenu extends Menu {
   private SettingsMenu() {
     super();
 
-    // Setup
-    this.settings = handler.getCurrentSystemSettings();
+    this.handler = new SettingsHandler();
+    this.settings = this.handler.getCurrentSystemSettings();
 
     // Menu
     this.menuMap = new LinkedHashMap<String, Runnable>() {{

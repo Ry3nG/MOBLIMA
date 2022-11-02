@@ -1,16 +1,24 @@
 package control.handlers;
 
 import entity.Review;
-import sources.Datasource;
 import utils.Helper;
+import utils.datasource.Datasource;
+import utils.datasource.MovieDatasource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ReviewHandler {
+public class ReviewHandler extends MovieHandler{
   protected List<Review> reviews;
-  private int selectedReviewIdx = -1;
+  protected int selectedReviewIdx = -1;
+
+  public ReviewHandler(){
+    super();
+    MovieDatasource dsMovie = new MovieDatasource();
+    this.movies = dsMovie.getMovies();
+    this.reviews = dsMovie.getReviews();
+  }
 
   /**
    * Get selected review
@@ -116,6 +124,9 @@ public class ReviewHandler {
         review.getAuthorId()
     ));
 
+    // Compute movie's overall rating
+    this.updateMovieRating(review.getMovieId(), this.computeMovieRatings(review.getMovieId()));
+
     //Serialize data
     this.saveReviews();
     status = true;
@@ -138,7 +149,11 @@ public class ReviewHandler {
     int reviewIdx = this.getReviewIdx(reviewId);
     if (reviewIdx < 0) return status;
 
+    Review review = this.getReview(reviewIdx);
     this.reviews.remove(reviewIdx);
+
+    // Compute movie's overall rating
+    this.updateMovieRating(review.getMovieId(), this.computeMovieRatings(review.getMovieId()));
 
     //Serialize data
     this.saveReviews();
@@ -204,10 +219,25 @@ public class ReviewHandler {
         authorId
     ));
 
+    // Compute movie's overall rating
+    this.updateMovieRating(movieId, this.computeMovieRatings(movieId));
+
     //Serialize data
     this.saveReviews();
 
     return this.reviews.size() - 1;
+  }
+
+  public double computeMovieRatings(int movieId) {
+    double overallRatings = 0;
+    List<Review> reviews = this.getMovieReviews(movieId);
+    if (reviews.size() < 1) return overallRatings;
+
+    int totalRatings = 0;
+    for (Review review : reviews) totalRatings += review.getRating();
+    overallRatings = Double.valueOf(totalRatings) / reviews.size();
+
+    return overallRatings;
   }
 
   /**

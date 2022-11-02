@@ -4,7 +4,7 @@ import boundary.BookingMenu;
 import boundary.MovieMenu;
 import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
-import control.handlers.MovieHandler;
+import control.handlers.ReviewHandler;
 import control.handlers.SettingsHandler;
 import entity.Movie;
 import entity.Showtime;
@@ -13,20 +13,26 @@ import utils.Helper;
 import java.util.List;
 
 public abstract class MovieBookingController {
-  protected static MovieMenu movieMenu = MovieMenu.getInstance();
-  protected static BookingMenu bookingMenu = BookingMenu.getInstance();
-  protected static SettingsMenu settingsMenu = SettingsMenu.getInstance();
+  protected static MovieMenu movieMenu;
+  protected static BookingMenu bookingMenu;
+  protected static SettingsMenu settingsMenu;
 
-  public MovieHandler movieHandler() {
-    return MovieMenu.getHandler();
+  public ReviewHandler reviewHandler() {
+    return movieMenu.getHandler();
   }
 
   public BookingHandler bookingHandler() {
-    return BookingMenu.getHandler();
+    return bookingMenu.getHandler();
   }
 
   public SettingsHandler settingsHandler() {
     return settingsMenu.getHandler();
+  }
+
+  public MovieBookingController() {
+    movieMenu = MovieMenu.getInstance();
+    bookingMenu = BookingMenu.getInstance();
+    settingsMenu = settingsMenu.getInstance();
   }
 
   /**
@@ -42,7 +48,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return showtimeIdx;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 
     // Select showtimes for selected movie
@@ -68,7 +74,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
 
     // Select showtimes
     System.out.println("Select showtime slot: ");

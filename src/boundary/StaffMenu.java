@@ -24,6 +24,8 @@ public class StaffMenu extends Menu {
     handler = new StaffHandler();
     controller = StaffController.getInstance();
 
+    Helper.logger("StaffMenu", "Init: \n" + controller.settingsHandler().getSettings());
+
     // Require account authentication first
     this.isAuthenticated();
   }
