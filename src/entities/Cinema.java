@@ -1,28 +1,21 @@
-package entity;
+package entities;
 
 import java.util.List;
 
 public class Cinema {
 
-  public enum Cineplex {
-    ABC,
-    XYZ
-  }
-
-  ;
-
   private int id;
+
   private ClassType classType;
   private List<Showtime> showtimes;
   private String cineplexCode;
-
-
   public Cinema(int id, ClassType classType, List<Showtime> showtimes, String cineplexCode) {
     this.id = id;
     this.classType = classType;
     this.showtimes = showtimes;
     this.cineplexCode = cineplexCode;
   }
+
 
   /**
    * Clone constructor
@@ -78,6 +71,11 @@ public class Cinema {
     printed += "Total Showtimes: " + this.showtimes.size() + "\n";
 
     return printed;
+  }
+
+  public enum Cineplex {
+    ABC,
+    XYZ
   }
 
   public enum ClassType {

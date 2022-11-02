@@ -12,8 +12,8 @@ import static org.junit.platform.commons.function.Try.success;
 
 @Tag("AppTest")
 public class AppTest {
-  private static App app;
   private static final int MAX_TIMEOUT = 3;
+  private static App app;
 
   @BeforeAll
   public static void testInit() {
@@ -24,7 +24,7 @@ public class AppTest {
   @Test
   public void testDefault() {
     String[] args = {};
-    Runnable runApp = () -> assertDoesNotThrow(() -> this.app.main(args));
+    Runnable runApp = () -> assertDoesNotThrow(() -> App.main(args));
 
     Future<String> executor
         = (Future<String>) Executors.newSingleThreadExecutor().submit(runApp);
@@ -41,7 +41,7 @@ public class AppTest {
   @Test
   public void testDebug() {
     String[] args = {"--debug"};
-    Runnable runApp = () -> assertDoesNotThrow(() -> this.app.main(args));
+    Runnable runApp = () -> assertDoesNotThrow(() -> App.main(args));
 
     Future<String> executor
         = (Future<String>) Executors.newSingleThreadExecutor().submit(runApp);
@@ -58,7 +58,7 @@ public class AppTest {
   @Test
   public void testStaff() {
     String[] args = {"--staff"};
-    Runnable runApp = () -> assertDoesNotThrow(() -> this.app.main(args));
+    Runnable runApp = () -> assertDoesNotThrow(() -> App.main(args));
 
     Future<String> executor
         = (Future<String>) Executors.newSingleThreadExecutor().submit(runApp);

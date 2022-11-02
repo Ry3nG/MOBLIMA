@@ -1,14 +1,13 @@
 package control.handlers;
 
-import boundary.MovieMenu;
+import boundaries.MovieMenu;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Booking;
-import entity.Booking.TicketType;
-import entity.Movie;
-import entity.Showtime;
+import entities.Booking;
+import entities.Booking.TicketType;
+import entities.Showtime;
 import org.apache.commons.lang3.EnumUtils;
 import utils.Helper;
 import utils.Helper.Preset;
@@ -29,37 +28,12 @@ public class BookingHandler extends CinemaHandler {
 
   public BookingHandler() {
     super();
+
     bookings = this.getBookings();
-  }
 
-  public List<Movie> sortBookingMovies() {
-    List<Movie> movies = movieHandler.getMovies();
-    List<Booking> bookings = this.getBookings();
-
-//    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
-//    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
-//
-//    List<Integer> freqMovieIds = bookedMovieIds.stream()
-//        .map(mId -> Collections.frequency(bookedMovieIds, mId))
-//        .collect(Collectors.toList());
-
-//    Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
-//        .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
-////        .entrySet().stream()
-////        .sorted(Map.Entry.comparingByValue())
-////        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-//
-//
-//    List<Movie> topMoviesBooked = countMovieIds.keySet().stream()
-//            .map(mId -> movieHandler.getMovie(movieHandler.getMovieIdx(mId)))
-//        .sorted()
-//                .collect(Collectors.toList());
-//
-//    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieIds: " + Arrays.deepToString(freqMovieIds.toArray()));
-//    Helper.logger("BookingHandler.sortBookingMovies", "countMovieIds: " + countMovieIds);
-//    Helper.logger("BookingHandler.sortBookingMovies", "topMoviesBooked: " + topMoviesBooked);
-
-    return movies;
+    Helper.logger("BookingHandler", "Cinema:\n" + this.cinemas);
+    Helper.logger("BookingHandler", "Showtimes:\n" + this.showtimes);
+    Helper.logger("BookingHandler", "Bookings:\n" + this.bookings);
   }
 
   /**
@@ -111,6 +85,8 @@ public class BookingHandler extends CinemaHandler {
    */
   //+getBookings() : List<Booking>
   public List<Booking> getBookings() {
+    cinemas = this.getCinemas();
+    showtimes = this.getShowtimes();
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {

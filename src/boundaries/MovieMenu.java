@@ -1,10 +1,10 @@
-package boundary;
+package boundaries;
 
 import control.handlers.ReviewHandler;
-import entity.Movie;
-import entity.Movie.ContentRating;
-import entity.Movie.ShowStatus;
-import entity.Review;
+import entities.Movie;
+import entities.Movie.ContentRating;
+import entities.Movie.ShowStatus;
+import entities.Review;
 import utils.Helper;
 import utils.Helper.Preset;
 

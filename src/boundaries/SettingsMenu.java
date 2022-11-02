@@ -1,9 +1,9 @@
-package boundary;
+package boundaries;
 
 import control.handlers.SettingsHandler;
-import entity.Booking;
-import entity.Cinema;
-import entity.Settings;
+import entities.Booking;
+import entities.Cinema;
+import entities.Settings;
 import utils.Helper;
 import utils.Helper.Preset;
 import utils.LocalDateDeserializer;
@@ -47,8 +47,8 @@ public class SettingsMenu extends Menu {
   private SettingsMenu() {
     super();
 
-    this.handler = new SettingsHandler();
-    this.settings = this.handler.getCurrentSystemSettings();
+    handler = new SettingsHandler();
+    this.settings = handler.getCurrentSystemSettings();
 
     // Menu
     this.menuMap = new LinkedHashMap<String, Runnable>() {{

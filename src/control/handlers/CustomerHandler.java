@@ -2,7 +2,7 @@ package control.handlers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import entity.Customer;
+import entities.Customer;
 import utils.Helper;
 import utils.datasource.Datasource;
 

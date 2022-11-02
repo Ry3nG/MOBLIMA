@@ -1,11 +1,11 @@
-package boundary;
+package boundaries;
 
 import control.handlers.BookingHandler;
-import entity.Booking;
-import entity.Cinema;
-import entity.Movie;
-import entity.Movie.ShowStatus;
-import entity.Showtime;
+import entities.Booking;
+import entities.Cinema;
+import entities.Movie;
+import entities.Movie.ShowStatus;
+import entities.Showtime;
 import utils.Helper;
 
 import java.time.LocalDateTime;
@@ -364,7 +364,7 @@ public class BookingMenu extends Menu {
           handler.removeShowtime(showtime.getId());
         }
 
-        System.out.println("\t>>> " + "Returning to previous menu...");
+        System.out.println("\t>>> " + "Retfurning to previous menu...");
         return status;
       }
 
@@ -609,12 +609,12 @@ public class BookingMenu extends Menu {
 
         // Prompt for Cineplex Code
         String cineplexCode = null;
-        while(cineplexCode == null){
+        while (cineplexCode == null) {
           System.out.println("Cineplex Code (i.e, XYZ):");
           String inputCineplexCode = scanner.next();
 
           // VALIDATION: Check if it's exactly 3 characters
-          if(!inputCineplexCode.matches("^([A-Z-0-9]{3})\\b")) continue;
+          if (!inputCineplexCode.matches("^([A-Z-0-9]{3})\\b")) continue;
 
           cineplexCode = inputCineplexCode;
         }

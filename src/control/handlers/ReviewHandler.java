@@ -1,6 +1,6 @@
 package control.handlers;
 
-import entity.Review;
+import entities.Review;
 import utils.Helper;
 import utils.datasource.Datasource;
 import utils.datasource.MovieDatasource;
@@ -9,14 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ReviewHandler extends MovieHandler{
+public class ReviewHandler extends MovieHandler {
   protected List<Review> reviews;
   protected int selectedReviewIdx = -1;
 
-  public ReviewHandler(){
+  public ReviewHandler() {
     super();
     MovieDatasource dsMovie = new MovieDatasource();
-    this.movies = dsMovie.getMovies();
     this.reviews = dsMovie.getReviews();
   }
 

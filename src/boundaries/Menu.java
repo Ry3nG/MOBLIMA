@@ -1,4 +1,4 @@
-package boundary;
+package boundaries;
 
 import utils.Helper;
 import utils.Helper.Preset;
@@ -17,6 +17,7 @@ public abstract class Menu {
    */
   //# displayMenuList(): void
   protected void displayMenuList() {
+    Helper.logger("Menu.displayMenuList", "Menu: \n" + this.menuMap.keySet());
     this.displayMenuList(this.menuMap.keySet().stream().toList());
   }
 
@@ -28,7 +29,7 @@ public abstract class Menu {
   //# displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1) exit(0);
-    Helper.logger("Menu.displayMenuList", "MENU LIST: " + Arrays.deepToString(menuList.toArray()));
+    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
 
     int menuIdx = 1;
     System.out.println("---------------------------------------------------------------------------");
@@ -44,37 +45,22 @@ public abstract class Menu {
    */
   //# displayMenu(): void
   protected void displayMenu() {
-    int menuChoice = 0;
+    Helper.logger("Menu.displayMenu", "Displaying menu . . .");
+
+    int menuChoice = -1;
+    int lastChoice = menuMap.size() - 1;
     scanner = new Scanner(System.in);
-    while ((menuChoice != menuMap.size())) {
-      try {
-        displayMenuList();
-        System.out.print("SELECTED: ");
+    while (menuChoice != lastChoice) {
+      List<String> menuList = this.menuMap.keySet().stream().toList();
+      menuChoice = this.getListSelectionIdx(menuList, true);
 
-        if (scanner.hasNextInt()) {
-          menuChoice = scanner.nextInt();
-          if ((menuChoice - 1) < -1)
-            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-          else if (menuChoice > menuMap.size() || menuChoice == 0)
-            throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + menuMap.size());
-        } else {
-          // next in buffer is not int: clear buffer
-          scanner.next();
-          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
-        }
+      // Display selection choice
+      if (menuChoice != menuMap.size()) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      menuMap.get(menuList.get(menuChoice)).run();
 
-        if (menuChoice != menuMap.size())
-          System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice - 1] + "\n");
-        menuMap.get(menuMap.keySet().toArray()[menuChoice - 1]).run();
-        if (menuChoice != menuMap.size()) {
-          this.awaitContinue();
-        }
-      } catch (Exception e) {
-        if (!e.getMessage().isEmpty()) {
-          System.out.println(colorizer(e.getMessage(), Preset.ERROR));
-        }
-        // Flush excess scanner buffer
-        scanner = new Scanner(System.in);
+      // Await continue
+      if (menuChoice != lastChoice) {
+        this.awaitContinue();
       }
     }
   }

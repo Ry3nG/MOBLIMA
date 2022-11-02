@@ -1,38 +1,43 @@
 package control.controllers;
 
-import boundary.BookingMenu;
-import boundary.MovieMenu;
-import boundary.SettingsMenu;
+import boundaries.BookingMenu;
+import boundaries.MovieMenu;
+import boundaries.SettingsMenu;
 import control.handlers.BookingHandler;
 import control.handlers.ReviewHandler;
 import control.handlers.SettingsHandler;
-import entity.Movie;
-import entity.Showtime;
+import entities.Booking;
+import entities.Movie;
+import entities.Showtime;
 import utils.Helper;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class MovieBookingController {
   protected static MovieMenu movieMenu;
   protected static BookingMenu bookingMenu;
   protected static SettingsMenu settingsMenu;
 
+  public MovieBookingController() {
+    Helper.logger("MovieBookingController", "Initialization");
+    movieMenu = MovieMenu.getInstance();
+    bookingMenu = BookingMenu.getInstance();
+    settingsMenu = SettingsMenu.getInstance();
+  }
+
   public ReviewHandler reviewHandler() {
-    return movieMenu.getHandler();
+    return MovieMenu.getHandler();
   }
 
   public BookingHandler bookingHandler() {
-    return bookingMenu.getHandler();
+    return BookingMenu.getHandler();
   }
 
   public SettingsHandler settingsHandler() {
     return settingsMenu.getHandler();
-  }
-
-  public MovieBookingController() {
-    movieMenu = MovieMenu.getInstance();
-    bookingMenu = BookingMenu.getInstance();
-    settingsMenu = settingsMenu.getInstance();
   }
 
   /**
@@ -116,5 +121,38 @@ public abstract class MovieBookingController {
   //+ updateSettings():void
   public void updateSettings() {
     settingsMenu.showMenu();
+  }
+
+  public List<Movie> rankMoviesByBooking() {
+    List<Movie> movies = reviewHandler().getMovies();
+    List<Booking> bookings = bookingHandler().getBookings();
+    if (bookings.isEmpty()) return movies;
+
+    Map<Integer, Long> bookedMovieIds = bookings.stream()
+        .collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
+    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + bookedMovieIds);
+
+    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream()
+        .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+        .map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey())))
+        .toList();
+    Helper.logger("BookingHandler.sortBookingMovies", "rankedMovies: \n" + rankedMovies);
+
+
+    return rankedMovies;
+  }
+
+  public List<Movie> rankMoviesByRatings() {
+    List<Movie> movies = reviewHandler().getMovies();
+    if (movies.isEmpty()) return movies;
+
+    List<Movie> rankedMovies = movies.stream()
+        .sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed())
+        .limit(5)
+        .collect(Collectors.toList());
+
+    Helper.logger("BookingHandler.rankMoviesByRatings", "rankedMovies: \n" + rankedMovies);
+
+    return rankedMovies;
   }
 }

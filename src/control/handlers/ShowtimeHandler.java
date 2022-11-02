@@ -1,6 +1,6 @@
 package control.handlers;
 
-import entity.Showtime;
+import entities.Showtime;
 import utils.Helper;
 import utils.Helper.Preset;
 import utils.datasource.Datasource;

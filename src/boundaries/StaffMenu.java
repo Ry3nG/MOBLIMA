@@ -1,8 +1,8 @@
-package boundary;
+package boundaries;
 
 import control.controllers.StaffController;
 import control.handlers.StaffHandler;
-import entity.Staff;
+import entities.Staff;
 import utils.Helper;
 import utils.Helper.Preset;
 
