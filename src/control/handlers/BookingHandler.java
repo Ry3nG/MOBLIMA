@@ -18,10 +18,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static utils.Helper.colorizer;
 
@@ -39,12 +36,12 @@ public class BookingHandler extends CinemaHandler {
     List<Movie> movies = movieHandler.getMovies();
     List<Booking> bookings = this.getBookings();
 
-    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
-    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
-
-    List<Integer> freqMovieIds = bookedMovieIds.stream()
-        .map(mId -> Collections.frequency(bookedMovieIds, mId))
-        .collect(Collectors.toList());
+//    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
+//    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
+//
+//    List<Integer> freqMovieIds = bookedMovieIds.stream()
+//        .map(mId -> Collections.frequency(bookedMovieIds, mId))
+//        .collect(Collectors.toList());
 
 //    Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
 //        .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
