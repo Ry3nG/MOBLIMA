@@ -32,8 +32,8 @@ public class CinemaHandler extends ShowtimeHandler {
 
   public CinemaHandler() {
     super();
-    cinemas = this.getCinemas();
-    showtimes = this.getShowtimes();
+    this.cinemas = this.getCinemas();
+    this.showtimes = this.getShowtimes();
   }
 
   /**

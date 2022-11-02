@@ -1,6 +1,7 @@
 package control.controllers;
 
 import boundary.MovieMenu;
+import utils.Helper;
 
 import java.util.LinkedHashMap;
 
@@ -9,6 +10,7 @@ public class StaffController extends MovieBookingController {
 
   private StaffController() {
     super();
+    Helper.logger("MovieBookingController.StaffController", "Initialization");
     movieMenu = MovieMenu.getInstance(false, true);
   }
 

@@ -23,8 +23,11 @@ public class CustomerMenu extends Menu {
 
   private CustomerMenu() {
     super();
+
     handler = new CustomerHandler();
     controller = CustomerController.getInstance();
+
+    Helper.logger("CustomerMenu", "Initialization");
 
     this.refreshMenu(this.getCustomerMenu());
   }

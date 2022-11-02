@@ -29,7 +29,12 @@ public class BookingHandler extends CinemaHandler {
 
   public BookingHandler() {
     super();
+
     bookings = this.getBookings();
+
+    Helper.logger("BookingHandler", "Cinema:\n" + this.cinemas);
+    Helper.logger("BookingHandler", "Showtimes:\n" + this.showtimes);
+    Helper.logger("BookingHandler", "Bookings:\n" + this.bookings);
   }
 
   public List<Movie> sortBookingMovies() {
@@ -111,6 +116,8 @@ public class BookingHandler extends CinemaHandler {
    */
   //+getBookings() : List<Booking>
   public List<Booking> getBookings() {
+    cinemas = this.getCinemas();
+    showtimes = this.getShowtimes();
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {

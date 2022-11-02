@@ -12,6 +12,7 @@ public class CustomerController extends MovieBookingController {
 
   private CustomerController() {
     super();
+    Helper.logger("MovieBookingController.CustomerController", "Initialization");
   }
 
   public static CustomerController getInstance() {

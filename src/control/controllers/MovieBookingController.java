@@ -30,6 +30,7 @@ public abstract class MovieBookingController {
   }
 
   public MovieBookingController() {
+    Helper.logger("MovieBookingController", "Initialization");
     movieMenu = MovieMenu.getInstance();
     bookingMenu = BookingMenu.getInstance();
     settingsMenu = settingsMenu.getInstance();
