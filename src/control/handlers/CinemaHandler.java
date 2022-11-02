@@ -107,9 +107,12 @@ public class CinemaHandler extends ShowtimeHandler {
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movie.getId();
         LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
-        this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
+        int showtimeIdx = this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
+        Helper.logger("CinemaHandler.generateShowtimes", "Generated: \n" + this.getShowtime(showtimeIdx));
+
       }
     }
+
     return this.showtimes;
   }
 
@@ -263,7 +266,7 @@ public class CinemaHandler extends ShowtimeHandler {
 
     // Update showtimes
     this.showtimes.addAll(showtimes);
-    Helper.logger("CinemaHandler.cinema", this.cinemas.toString());
+    Helper.logger("CinemaHandler.cinema", this.getCinema(cinemaId).toString());
 
     status = true;
 
@@ -335,9 +338,10 @@ public class CinemaHandler extends ShowtimeHandler {
     for (Cinema cinema : this.cinemas) {
       List<Showtime> cinemaShowtimes = this.getCinemaShowtimes(cinema.getId());
       this.addShowtimes(cinema.getId(), cinemaShowtimes);
+      Helper.logger("CinemaHandler.getShowtimes", "Cinema: " + this.getCinema(cinema.getId()));
+
     }
 
-    Helper.logger("CinemaHandler.getShowtimes", "Cinema: " + this.cinemas);
 
     return showtimes;
   }
