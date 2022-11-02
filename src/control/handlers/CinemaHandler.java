@@ -328,6 +328,9 @@ public class CinemaHandler extends ShowtimeHandler {
 
     this.showtimes = showtimes;
 
+    // Serialize data
+    this.saveShowtimes();
+
     // Append showtimes to existing cinemas
     for (Cinema cinema : this.cinemas) {
       List<Showtime> cinemaShowtimes = this.getCinemaShowtimes(cinema.getId());
