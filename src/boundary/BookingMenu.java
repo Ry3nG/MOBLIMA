@@ -364,7 +364,7 @@ public class BookingMenu extends Menu {
           handler.removeShowtime(showtime.getId());
         }
 
-        System.out.println("\t>>> " + "Retfurning to previous menu...");
+        System.out.println("\t>>> " + "Returning to previous menu...");
         return status;
       }
 

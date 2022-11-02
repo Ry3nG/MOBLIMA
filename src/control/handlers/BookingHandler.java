@@ -47,46 +47,21 @@ public class BookingHandler extends CinemaHandler {
 
     Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
         .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
+//        .entrySet().stream()
+//        .sorted(Map.Entry.comparingByValue())
+//        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
     List<Movie> topMoviesBooked = countMovieIds.keySet().stream()
             .map(mId -> movieHandler.getMovie(movieHandler.getMovieIdx(mId)))
+        .sorted()
                 .collect(Collectors.toList());
 
     Helper.logger("BookingHandler.sortBookingMovies", "freqMovieIds: " + Arrays.deepToString(freqMovieIds.toArray()));
     Helper.logger("BookingHandler.sortBookingMovies", "countMovieIds: " + countMovieIds);
     Helper.logger("BookingHandler.sortBookingMovies", "topMoviesBooked: " + topMoviesBooked);
 
-
-//    List<Integer> allMovieIds = bookings.stream().map(Booking::getMovieId).toList();
-//    List<Integer> freqMovieId = movies.stream()
-//        .map(movie -> Collections.frequency(allMovieIds, movie.getId())).toList();
-//
-//    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieId: " + Arrays.deepToString(freqMovieId.toArray()));
-//
-//
-//    List<Movie> listMovieIds =
-//        IntStream.range(0, freqMovieId.size())
-//            .filter(i -> freqMovieId.get(i) != 0)
-//            .mapToObj(movies::get).toList();
-//
-//
-//    Map<Movie, Integer> movieRanked = IntStream.range(0, listMovieIds.size()).boxed()
-//        .collect(Collectors.toMap(listMovieIds::get, freqMovieId::get));
-//
-//    List<Movie> rankedMovies = movieRanked.entrySet().stream()
-//        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-//        .map(Map.Entry::getKey).toList();
-//
-//    Helper.logger("BookingHandler.sortBookingMovies", "sortedMovieList: " + Arrays.deepToString(rankedMovies.toArray()));
-//
-
-//    Map<String, Long> counts =
-//        list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
-//    Set<String> unique = new HashSet<String>(wordList);
-
-
-    return movies;
+    return topMoviesBooked;
   }
 
   /**
