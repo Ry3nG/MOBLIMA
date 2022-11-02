@@ -4,7 +4,7 @@ import boundary.BookingMenu;
 import boundary.MovieMenu;
 import boundary.SettingsMenu;
 import control.handlers.BookingHandler;
-import control.handlers.MovieHandler;
+import control.handlers.ReviewHandler;
 import control.handlers.SettingsHandler;
 import entity.Movie;
 import entity.Showtime;
@@ -17,7 +17,7 @@ public abstract class MovieBookingController {
   protected static BookingMenu bookingMenu;
   protected static SettingsMenu settingsMenu;
 
-  public MovieHandler movieHandler() {
+  public ReviewHandler reviewHandler() {
     return movieMenu.getHandler();
   }
 
@@ -48,7 +48,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return showtimeIdx;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 
     // Select showtimes for selected movie
@@ -74,7 +74,7 @@ public abstract class MovieBookingController {
     System.out.println("Select movie: ");
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return;
-    Movie selectedMovie = this.movieHandler().getSelectedMovie();
+    Movie selectedMovie = this.reviewHandler().getSelectedMovie();
 
     // Select showtimes
     System.out.println("Select showtime slot: ");

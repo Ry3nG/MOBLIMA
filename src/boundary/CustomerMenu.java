@@ -37,6 +37,9 @@ public class CustomerMenu extends Menu {
 
   @Override
   public void showMenu() {
+
+    controller.bookingHandler().sortBookingMovies();
+
     this.displayMenu();
   }
 
@@ -314,6 +317,7 @@ public class CustomerMenu extends Menu {
         if (booking == null) return bookingIdx;
         Helper.logger("CustomerMenu.makeBooking", "Booking: " + booking);
         System.out.println(colorizer("Successfully booked. Reference: " + booking.getTransactionId(), Preset.SUCCESS));
+
       }
     }
 

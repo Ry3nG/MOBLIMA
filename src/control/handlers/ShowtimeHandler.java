@@ -32,9 +32,7 @@ public class ShowtimeHandler {
    * @return showtimeIdx:int
    */
   //+ getShowtimeIdx (showtimeId:String) : int
-  public int getShowtimeIdx(
-      String showtimeId
-  ) {
+  public int getShowtimeIdx(String showtimeId) {
     int showtimeIdx = -1;
     if (this.showtimes.size() < 1 || showtimeId.isEmpty()) return showtimeIdx;
 
@@ -104,22 +102,20 @@ public class ShowtimeHandler {
   /**
    * Updates showtime (by selectedShowtimeIdx)
    *
-   * @param cineplexId:String
    * @param cinemaId:int
    * @param movieId:int
    * @param datetime:LocalDateTime
    * @param seats:boolean[][]
    * @return status:boolean
    */
-  //+ updateShowtime(cineplexId:String, cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
-  public boolean updateShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
+  //+ updateShowtime(cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
+  public boolean updateShowtime(int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
     boolean status = false;
     if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
 
     Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
     if (showtime == null) return status;
 
-    showtime.setCineplexId(cineplexId);
     showtime.setCinemaId(cinemaId);
     showtime.setMovieId(movieId);
     showtime.setDatetime(datetime);
@@ -259,7 +255,7 @@ public class ShowtimeHandler {
     showtime.setSeats(seats);
     this.selectedShowtimeIdx = showtimeIdx;
 
-    this.updateShowtime(showtime.getCineplexId(), showtime.getCinemaId(), showtime.getMovieId(), showtime.getDatetime(), seats);
+    this.updateShowtime(showtime.getCinemaId(), showtime.getMovieId(), showtime.getDatetime(), seats);
 
     Helper.logger("ShowtimeHandler.assignSeat", "Showtime-SEATS: " + this.getAvailableSeatCount(showtimeIdx));
     Helper.logger("ShowtimeHandler.assignSeat", "SEATS: " + this.getAvailableSeatCount(showtimeIdx));

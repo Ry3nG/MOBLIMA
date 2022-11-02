@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class StaffHandler {
-  private List<Staff> staffs;
-  private Staff currentStaff = null;
+  protected List<Staff> staffs;
+  protected Staff currentStaff = null;
 
   public StaffHandler() {
     this.staffs = this.getStaffs();

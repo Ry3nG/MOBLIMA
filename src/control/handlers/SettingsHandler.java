@@ -35,8 +35,8 @@ public class SettingsHandler {
   /**
    * Static variable to store system settings for operations
    */
-  private Settings currentSettings;
-  private Account currentAccount;
+  protected Settings currentSettings;
+  protected Account currentAccount;
 
   /**
    * Constructor for SettingsHandler

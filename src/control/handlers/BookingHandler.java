@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import entity.Booking;
 import entity.Booking.TicketType;
+import entity.Movie;
 import entity.Showtime;
 import org.apache.commons.lang3.EnumUtils;
 import utils.Helper;
@@ -16,19 +17,76 @@ import utils.datasource.Datasource;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static utils.Helper.colorizer;
 
 public class BookingHandler extends CinemaHandler {
-  private static final MovieHandler movieHandler = MovieMenu.getHandler();
+  protected static final MovieHandler movieHandler = MovieMenu.getHandler();
   protected List<Booking> bookings;
   protected int selectedBookingIdx = -1;
 
   public BookingHandler() {
     super();
     bookings = this.getBookings();
+  }
+
+  public List<Movie> sortBookingMovies() {
+    List<Movie> movies = movieHandler.getMovies();
+    List<Booking> bookings = this.getBookings();
+
+    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
+    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
+
+    List<Integer> freqMovieIds = bookedMovieIds.stream()
+        .map(mId -> Collections.frequency(bookedMovieIds, mId))
+        .collect(Collectors.toList());
+
+    Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
+        .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
+
+
+    List<Movie> topMoviesBooked = countMovieIds.keySet().stream()
+            .map(mId -> movieHandler.getMovie(movieHandler.getMovieIdx(mId)))
+                .collect(Collectors.toList());
+
+    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieIds: " + Arrays.deepToString(freqMovieIds.toArray()));
+    Helper.logger("BookingHandler.sortBookingMovies", "countMovieIds: " + countMovieIds);
+    Helper.logger("BookingHandler.sortBookingMovies", "topMoviesBooked: " + topMoviesBooked);
+
+
+//    List<Integer> allMovieIds = bookings.stream().map(Booking::getMovieId).toList();
+//    List<Integer> freqMovieId = movies.stream()
+//        .map(movie -> Collections.frequency(allMovieIds, movie.getId())).toList();
+//
+//    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieId: " + Arrays.deepToString(freqMovieId.toArray()));
+//
+//
+//    List<Movie> listMovieIds =
+//        IntStream.range(0, freqMovieId.size())
+//            .filter(i -> freqMovieId.get(i) != 0)
+//            .mapToObj(movies::get).toList();
+//
+//
+//    Map<Movie, Integer> movieRanked = IntStream.range(0, listMovieIds.size()).boxed()
+//        .collect(Collectors.toMap(listMovieIds::get, freqMovieId::get));
+//
+//    List<Movie> rankedMovies = movieRanked.entrySet().stream()
+//        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+//        .map(Map.Entry::getKey).toList();
+//
+//    Helper.logger("BookingHandler.sortBookingMovies", "sortedMovieList: " + Arrays.deepToString(rankedMovies.toArray()));
+//
+
+//    Map<String, Long> counts =
+//        list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+//    Set<String> unique = new HashSet<String>(wordList);
+
+
+    return movies;
   }
 
   /**
@@ -182,8 +240,8 @@ public class BookingHandler extends CinemaHandler {
     // The TID is of the format XXXYYYYMMDDhhmm (Y : year, M : month, D : day, h : hour, m : minutes, XXX : cinema code in letters)
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmm");
     String timestamp = (LocalDateTime.now()).format(formatter);
-    String cineplexId = showtime.getCineplexId();
-    String transactionId = cineplexId + timestamp;
+    String cineplexCode = this.getShowtimeCinema(showtimeId).getCineplexCode().toUpperCase();
+    String transactionId = cineplexCode + timestamp;
 
     bookings.add(new Booking(transactionId, customerId, cinemaId, movieId, showtimeId, seats, totalPrice, type));
     this.bookings = bookings;
@@ -257,7 +315,6 @@ public class BookingHandler extends CinemaHandler {
     this.printShowtimeDetails(showtimeIdx);
 
     // Movie
-//    System.out.println(colorizer("/// MOVIE DETAILS ///", Preset.HIGHLIGHT.color));
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
     movieHandler.printMovieDetails(movieIdx);
     System.out.println("---------------------------------------------------------------------------");

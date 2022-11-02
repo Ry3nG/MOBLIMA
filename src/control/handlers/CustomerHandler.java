@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class CustomerHandler {
-  private final List<Customer> customers;
-  private Customer currentCustomer = null;
+  protected final List<Customer> customers;
+  protected Customer currentCustomer = null;
 
   public CustomerHandler() {
     this.customers = this.getCustomers();
