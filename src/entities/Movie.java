@@ -1,6 +1,5 @@
-package entity;
+package entities;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +41,19 @@ public class Movie {
    * @param cloneMovie:Movie
    */
   public Movie(Movie cloneMovie) {
-    this(cloneMovie.id, cloneMovie.title, cloneMovie.synopsis, cloneMovie.director, cloneMovie.castList, cloneMovie.runtime, cloneMovie.releaseDate, cloneMovie.isBlockbuster, cloneMovie.showStatus, cloneMovie.contentRating, cloneMovie.overallRating);
+    this(
+        cloneMovie.id,
+        cloneMovie.title,
+        cloneMovie.synopsis,
+        cloneMovie.director,
+        cloneMovie.castList,
+        cloneMovie.runtime,
+        cloneMovie.releaseDate,
+        cloneMovie.isBlockbuster,
+        cloneMovie.showStatus,
+        cloneMovie.contentRating,
+        cloneMovie.overallRating
+    );
   }
 
   public int getId() {
@@ -139,13 +150,12 @@ public class Movie {
 
   @Override
   public String toString() {
-    DecimalFormat df = new DecimalFormat("0.00");
 
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Title:", this.title));
     rows.add(Arrays.asList("Runtime:", this.runtime + " minutes"));
     rows.add(Arrays.asList("Synopsis:", this.synopsis));
-    rows.add(Arrays.asList("Review Rating:", df.format(this.overallRating) + " /" + Double.toString(5)));
+    rows.add(Arrays.asList("Review Rating:", Double.toString(this.overallRating) + " /" + Double.toString(5)));
     rows.add(Arrays.asList("Content Rating:", this.contentRating.toString()));
     rows.add(Arrays.asList("Showing Status:", this.showStatus.toString()));
     rows.add(Arrays.asList("Blockbuster Status:", (this.isBlockbuster ? "BLOCKBUSTER" : "NON-BLOCKBUSTER")));
@@ -169,7 +179,10 @@ public class Movie {
 
   public enum ShowStatus {
 
-    COMING_SOON("Coming Soon"), PREVIEW("Preview"), NOW_SHOWING("Now Showing"), END_SHOWING("End of Showing");
+    COMING_SOON("Coming Soon"),
+    PREVIEW("Preview"),
+    NOW_SHOWING("Now Showing"),
+    END_SHOWING("End of Showing");
 
     private final String displayName;
 

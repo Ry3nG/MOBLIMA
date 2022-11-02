@@ -22,12 +22,11 @@ public class Constants {
 
   /**
    * Configure debug mode
-   *
    * @param isDebug:boolean
    */
   public static void setDebugMode(
       boolean isDebug
-  ) {
+  ){
     DEBUG_MODE = isDebug;
   }
 

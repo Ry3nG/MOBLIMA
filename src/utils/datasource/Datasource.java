@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import org.apache.commons.io.FileUtils;
 import org.json.CDL;
 import org.json.JSONArray;
+import org.json.JSONTokener;
 import utils.Catcher;
 import utils.Helper;
 import utils.LocalDateDeserializer;
@@ -28,13 +29,13 @@ import java.util.List;
 
 public class Datasource {
   protected static final String DATA_DIR = "./data/";
+  protected String ENDPOINT = null;
+  protected String API_KEY;
   protected static final Gson gson = new GsonBuilder().setLenient().setPrettyPrinting()
       .enableComplexMapKeySerialization()
       .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
       .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
       .create();
-  protected String ENDPOINT = null;
-  protected String API_KEY;
 
   /// UTILS
   public static Gson getGson() {
@@ -54,6 +55,72 @@ public class Datasource {
   }
 
   /// REQUESTERS
+
+  /**
+   * Makes paginated requests
+   *
+   * @param query:String
+   * @param startIdx:int
+   * @param endIdx:int
+   * @return result:JsonArray
+   */
+  public JsonArray requestPagination(String query, int startIdx, int endIdx) {
+    JsonArray allResults = new JsonArray();
+
+    for (int i = startIdx; i < endIdx; i++) {
+      String pageRequest = query + "&page=" + i;
+
+      JsonArray results = (request(pageRequest).getAsJsonObject()).get("results").getAsJsonArray();
+      allResults.addAll(results);
+    }
+
+    Helper.logger("Datasource.requestPagination", "Output: " + allResults);
+    return allResults;
+  }
+
+  /**
+   * Makes API request
+   *
+   * @param query:String
+   * @return result:JsonObject
+   */
+  public JsonElement request(String query) {
+    JsonElement responseJson = null;
+
+    if (this.ENDPOINT == null && this.ENDPOINT.isEmpty()) {
+      Helper.logger("ERROR/Datasource.request", "ENDPOINT does not exist");
+      return responseJson;
+    }
+    if (this.API_KEY != null) {
+      // Prep URI with API Key
+      query += "&api_key=" + API_KEY;
+    }
+
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(ENDPOINT + query)).method("GET", HttpRequest.BodyPublishers.noBody()).build();
+    Helper.logger("Datasource.request", "Request URI: " + request.uri().toString());
+    HttpResponse<String> response = null;
+    try {
+      response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+      if (response.statusCode() != 200)
+        throw new Exception("Status " + response.statusCode() + "\nhttps://www.themoviedb.org/documentation/api/status-codes");
+
+      String data = response.body().trim();
+
+      // Convert JSON to JsonElement
+      responseJson = gson.fromJson(data, JsonElement.class);
+
+      Helper.logger("Datasource.request", "Endpoint requested: " + request.uri().toString());
+      Helper.logger("Datasource.request", "Output: " + data);
+    } catch (Exception e) {
+      Helper.logger("Datasource.request", e.getMessage());
+      return responseJson;
+    }
+
+    return responseJson;
+  }
+
+
+  /// SERIALIZERS
 
   /**
    * Save and export list data to CSV
@@ -99,9 +166,12 @@ public class Datasource {
       String jsonStringified = gson.toJson(responseObj);
       JSONArray jsonArray = new JSONArray(jsonStringified);
       String csvString = CDL.toString(jsonArray);
+      if(csvString == null) csvString = CDL.rowToString(jsonArray);
 
       Helper.logger("Datasource.serializeDataToCSV", "jsonArray: " + jsonArray);
       Helper.logger("Datasource.serializeDataToCSV", "csvString: " + csvString);
+
+
       isSuccessful = saveCsv(file, csvString, overwrite);
     } catch (Catcher e) {
       isSuccessful = true;
@@ -110,8 +180,7 @@ public class Datasource {
     return isSuccessful;
   }
 
-
-  /// SERIALIZERS
+  /// SAVERS
 
   /**
    * Serialize stringified JSON to output file
@@ -186,7 +255,7 @@ public class Datasource {
     return isSaved;
   }
 
-  /// SAVERS
+  /// READERS
 
   /**
    * Extract JsonArray from CSV file
@@ -207,6 +276,7 @@ public class Datasource {
 
       String content = Files.readString(Paths.get(path));
       JSONArray jsonArray = CDL.toJSONArray(content);
+      if(jsonArray == null) jsonArray = CDL.rowToJSONArray(new JSONTokener(content));
       String jsonStringified = jsonArray.toString();
       jsonStringified = jsonStringified.replaceAll("\\[]", "");
 
@@ -220,72 +290,6 @@ public class Datasource {
     }
 
     return result;
-  }
-
-  /**
-   * Makes paginated requests
-   *
-   * @param query:String
-   * @param startIdx:int
-   * @param endIdx:int
-   * @return result:JsonArray
-   */
-  public JsonArray requestPagination(String query, int startIdx, int endIdx) {
-    JsonArray allResults = new JsonArray();
-
-    for (int i = startIdx; i < endIdx; i++) {
-      String pageRequest = query + "&page=" + i;
-
-      JsonArray results = (request(pageRequest).getAsJsonObject()).get("results").getAsJsonArray();
-      allResults.addAll(results);
-    }
-
-    Helper.logger("Datasource.requestPagination", "Output: " + allResults);
-
-    return allResults;
-  }
-
-  /// READERS
-
-  /**
-   * Makes API request
-   *
-   * @param query:String
-   * @return result:JsonObject
-   */
-  public JsonElement request(String query) {
-    JsonElement responseJson = null;
-
-    if (this.ENDPOINT == null && this.ENDPOINT.isEmpty()) {
-      Helper.logger("ERROR/Datasource.request", "ENDPOINT does not exist");
-      return responseJson;
-    }
-    if (this.API_KEY != null) {
-      // Prep URI with API Key
-      query += "&api_key=" + API_KEY;
-    }
-
-    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(ENDPOINT + query)).method("GET", HttpRequest.BodyPublishers.noBody()).build();
-    Helper.logger("Datasource.request", "Request URI: " + request.uri().toString());
-    HttpResponse<String> response = null;
-    try {
-      response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-      if (response.statusCode() != 200)
-        throw new Exception("Status " + response.statusCode() + "\nhttps://www.themoviedb.org/documentation/api/status-codes");
-
-      String data = response.body().trim();
-
-      // Convert JSON to JsonElement
-      responseJson = gson.fromJson(data, JsonElement.class);
-
-      Helper.logger("Datasource.request", "Endpoint requested: " + request.uri().toString());
-      Helper.logger("Datasource.request", "Output: " + data);
-    } catch (Exception e) {
-      Helper.logger("Datasource.request", e.getMessage());
-      return responseJson;
-    }
-
-    return responseJson;
   }
 
 }
