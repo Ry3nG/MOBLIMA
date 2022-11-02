@@ -29,7 +29,7 @@ public abstract class Menu {
   //# displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1) exit(0);
-    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet().toString());
+    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
 
     int menuIdx = 1;
     System.out.println("---------------------------------------------------------------------------");
@@ -48,16 +48,18 @@ public abstract class Menu {
     Helper.logger("Menu.displayMenu", "Displaying menu . . .");
 
     int menuChoice = -1;
+    int lastChoice = menuMap.size() - 1;
     scanner = new Scanner(System.in);
-    while ((menuChoice != menuMap.size())) {
-      menuChoice = this.getListSelectionIdx(Arrays.asList(this.menuMap.keySet().toArray()), true);
+    while (menuChoice != lastChoice) {
+      List<String> menuList = this.menuMap.keySet().stream().toList();
+      menuChoice = this.getListSelectionIdx(menuList, true);
 
       // Display selection choice
-      if (menuChoice != menuMap.size()) System.out.print("\t>>> " + menuMap.keySet().toArray()[menuChoice] + "\n");
-      menuMap.get(menuMap.keySet().toArray()[menuChoice]).run();
+      if (menuChoice != menuMap.size()) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
-      if (menuChoice != menuMap.size()) {
+      if (menuChoice != lastChoice) {
         this.awaitContinue();
       }
     }

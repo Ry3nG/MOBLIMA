@@ -155,7 +155,7 @@ public class Movie {
     rows.add(Arrays.asList("Title:", this.title));
     rows.add(Arrays.asList("Runtime:", this.runtime + " minutes"));
     rows.add(Arrays.asList("Synopsis:", this.synopsis));
-    rows.add(Arrays.asList("Review Rating:", Double.toString(this.overallRating) + " /" + Double.toString(5)));
+    rows.add(Arrays.asList("Review Rating:", this.overallRating + " /" + Double.toString(5)));
     rows.add(Arrays.asList("Content Rating:", this.contentRating.toString()));
     rows.add(Arrays.asList("Showing Status:", this.showStatus.toString()));
     rows.add(Arrays.asList("Blockbuster Status:", (this.isBlockbuster ? "BLOCKBUSTER" : "NON-BLOCKBUSTER")));

@@ -42,7 +42,7 @@ public class CustomerMenu extends Menu {
   @Override
   public void showMenu() {
     Helper.logger("CustomerMenu.showMenu", "Cinemas:\n" + controller.bookingHandler().getShowtimes());
-controller.rankMoviesByRatings();
+    controller.rankMoviesByRatings();
     this.displayMenu();
   }
 
@@ -57,9 +57,6 @@ controller.rankMoviesByRatings();
     LinkedHashMap<String, Runnable> addMenuMap = new LinkedHashMap<String, Runnable>() {{
       put("Book and purchase ticket", () -> makeBooking());
       put("View booking history", () -> viewBookings());
-      // put("List the Top 5 ranking by ticket sales OR by overall reviewers’
-      // ratings", () -> {
-      // });
     }};
 
     if (controller.settingsHandler().checkIfIsAuthenticated()) {

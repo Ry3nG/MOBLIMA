@@ -78,19 +78,21 @@ public class Showtime {
   public LocalDateTime getDatetime() {
     return datetime;
   }
-  public DayOfWeek getDay(){
+
+  public void setDatetime(LocalDateTime datetime) {
+    this.datetime = datetime;
+  }
+
+  public DayOfWeek getDay() {
     DayOfWeek day = datetime.getDayOfWeek();
 
     return day;
   }
-  public String getFormattedDatetime(){
+
+  public String getFormattedDatetime() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
 
     return this.datetime.format(formatter);
-  }
-
-  public void setDatetime(LocalDateTime datetime) {
-    this.datetime = datetime;
   }
 
   public boolean[][] getSeats() {

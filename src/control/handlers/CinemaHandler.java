@@ -126,8 +126,8 @@ public class CinemaHandler extends ShowtimeHandler {
   public List<Cinema> getCinemas() {
     List<Cinema> cinemas = new ArrayList<Cinema>();
 
-    Helper.logger("CinemaHandler.getCinemas" , "Cinemas: \n" + cinemas);
-    Helper.logger("CinemaHandler.getCinemas" , "Cinemas: \n" + this.cinemas);
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + cinemas);
+    Helper.logger("CinemaHandler.getCinemas", "Cinemas: \n" + this.cinemas);
 
     //Source from serialized datasource
     String fileName = "cinemas.csv";

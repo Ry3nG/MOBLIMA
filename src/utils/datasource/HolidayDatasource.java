@@ -70,7 +70,7 @@ public class HolidayDatasource extends Datasource {
     Helper.logger("HolidayDatasource.fetchHolidays", "Total holidays: " + holidays.size());
 
     // Serialize data to CSV
-    this.serializeData(holidays, "holidays.csv");
+    serializeData(holidays, "holidays.csv");
 
     return holidays;
   }

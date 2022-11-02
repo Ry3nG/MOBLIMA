@@ -18,7 +18,7 @@ public class MovieHandler {
   protected List<Movie> movies;
   protected int selectedMovieIdx = -1;
 
-  public MovieHandler(){
+  public MovieHandler() {
     MovieDatasource dsMovie = new MovieDatasource();
     this.movies = dsMovie.getMovies();
   }
@@ -76,11 +76,11 @@ public class MovieHandler {
     return -1;
   }
 
-  public boolean updateMovieRating(int movieId, double overallRating){
+  public boolean updateMovieRating(int movieId, double overallRating) {
     Movie movie = this.getMovie(this.getMovieIdx(movieId));
     movie.setOverallRating(overallRating);
 
-    return this.updateMovie(movie.getTitle(), movie.getSynopsis(), movie.getDirector(), movie.getCastList(),movie.getRuntime(), movie.getReleaseDate(), movie.isBlockbuster(), movie.getShowStatus(), movie.getContentRating(), movie.getOverallRating());
+    return this.updateMovie(movie.getTitle(), movie.getSynopsis(), movie.getDirector(), movie.getCastList(), movie.getRuntime(), movie.getReleaseDate(), movie.isBlockbuster(), movie.getShowStatus(), movie.getContentRating(), movie.getOverallRating());
   }
 
   /**

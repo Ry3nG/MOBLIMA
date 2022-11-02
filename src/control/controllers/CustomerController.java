@@ -29,11 +29,19 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-      put("Search/List Movies", () -> {
-        List<Movie> movies = movieMenu.getViewableMovies();
-        reviewHandler().printMovies(movies);
+//      put("Search/List Movies", () -> {
+//        List<Movie> movies = movieMenu.getViewableMovies();
+//        reviewHandler().printMovies(movies);
+//      });
+      put("Top 5 movies by ticket sales", () -> {
+        List<Movie> rankedMovies = rankMoviesByBooking();
+        reviewHandler().printMovies(rankedMovies);
       });
-      put("View movie details – including reviews and ratings", () -> {
+      put("Top 5 movies by overall rating", () -> {
+        List<Movie> rankedMovies = rankMoviesByRatings();
+        reviewHandler().printMovies(rankedMovies);
+      });
+      put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
         if (authStatus) {
           movieMenu.updateReviewMenu(() -> {
@@ -45,14 +53,6 @@ public class CustomerController extends MovieBookingController {
         }
 
         movieMenu.showMenu();
-      });
-      put("Top 5 movies by ticket sales", () -> {
-        List<Movie> rankedMovies = rankMoviesByBooking();
-        reviewHandler().printMovies(rankedMovies);
-      });
-      put("Top 5 movies by overall rating", () -> {
-        List<Movie> rankedMovies = rankMoviesByRatings();
-        reviewHandler().printMovies(rankedMovies);
       });
     }};
 

@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import entities.Booking;
 import entities.Booking.TicketType;
-import entities.Movie;
 import entities.Showtime;
 import org.apache.commons.lang3.EnumUtils;
 import utils.Helper;
@@ -19,8 +18,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static utils.Helper.colorizer;
 

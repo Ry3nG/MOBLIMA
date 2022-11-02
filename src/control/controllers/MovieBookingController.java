@@ -21,23 +21,23 @@ public abstract class MovieBookingController {
   protected static BookingMenu bookingMenu;
   protected static SettingsMenu settingsMenu;
 
-  public ReviewHandler reviewHandler() {
-    return movieMenu.getHandler();
-  }
-
-  public BookingHandler bookingHandler() {
-    return bookingMenu.getHandler();
-  }
-
-  public SettingsHandler settingsHandler() {
-    return settingsMenu.getHandler();
-  }
-
   public MovieBookingController() {
     Helper.logger("MovieBookingController", "Initialization");
     movieMenu = MovieMenu.getInstance();
     bookingMenu = BookingMenu.getInstance();
-    settingsMenu = settingsMenu.getInstance();
+    settingsMenu = SettingsMenu.getInstance();
+  }
+
+  public ReviewHandler reviewHandler() {
+    return MovieMenu.getHandler();
+  }
+
+  public BookingHandler bookingHandler() {
+    return BookingMenu.getHandler();
+  }
+
+  public SettingsHandler settingsHandler() {
+    return settingsMenu.getHandler();
   }
 
   /**
@@ -126,7 +126,7 @@ public abstract class MovieBookingController {
   public List<Movie> rankMoviesByBooking() {
     List<Movie> movies = reviewHandler().getMovies();
     List<Booking> bookings = bookingHandler().getBookings();
-    if(bookings.isEmpty()) return movies;
+    if (bookings.isEmpty()) return movies;
 
     Map<Integer, Long> bookedMovieIds = bookings.stream()
         .collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
@@ -144,7 +144,7 @@ public abstract class MovieBookingController {
 
   public List<Movie> rankMoviesByRatings() {
     List<Movie> movies = reviewHandler().getMovies();
-    if(movies.isEmpty()) return movies;
+    if (movies.isEmpty()) return movies;
 
     List<Movie> rankedMovies = movies.stream()
         .sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed())

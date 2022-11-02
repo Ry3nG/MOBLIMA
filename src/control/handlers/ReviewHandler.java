@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ReviewHandler extends MovieHandler{
+public class ReviewHandler extends MovieHandler {
   protected List<Review> reviews;
   protected int selectedReviewIdx = -1;
 
-  public ReviewHandler(){
+  public ReviewHandler() {
     super();
     MovieDatasource dsMovie = new MovieDatasource();
     this.reviews = dsMovie.getReviews();
