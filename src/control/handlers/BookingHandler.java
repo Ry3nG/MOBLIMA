@@ -17,10 +17,8 @@ import utils.datasource.Datasource;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Helper.colorizer;
 
@@ -38,30 +36,30 @@ public class BookingHandler extends CinemaHandler {
     List<Movie> movies = movieHandler.getMovies();
     List<Booking> bookings = this.getBookings();
 
-    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
-    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
+//    List<Integer> bookedMovieIds = bookings.stream().map(Booking::getMovieId).toList();
+//    Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + Arrays.deepToString(bookedMovieIds.toArray()));
+//
+//    List<Integer> freqMovieIds = bookedMovieIds.stream()
+//        .map(mId -> Collections.frequency(bookedMovieIds, mId))
+//        .collect(Collectors.toList());
 
-    List<Integer> freqMovieIds = bookedMovieIds.stream()
-        .map(mId -> Collections.frequency(bookedMovieIds, mId))
-        .collect(Collectors.toList());
+//    Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
+//        .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
+////        .entrySet().stream()
+////        .sorted(Map.Entry.comparingByValue())
+////        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//
+//
+//    List<Movie> topMoviesBooked = countMovieIds.keySet().stream()
+//            .map(mId -> movieHandler.getMovie(movieHandler.getMovieIdx(mId)))
+//        .sorted()
+//                .collect(Collectors.toList());
+//
+//    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieIds: " + Arrays.deepToString(freqMovieIds.toArray()));
+//    Helper.logger("BookingHandler.sortBookingMovies", "countMovieIds: " + countMovieIds);
+//    Helper.logger("BookingHandler.sortBookingMovies", "topMoviesBooked: " + topMoviesBooked);
 
-    Map<Integer, Integer> countMovieIds = IntStream.range(0, freqMovieIds.size()).boxed()
-        .collect(Collectors.toMap(bookedMovieIds::get, Function.identity(), (o1, o2) -> freqMovieIds.get(o1)));
-//        .entrySet().stream()
-//        .sorted(Map.Entry.comparingByValue())
-//        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-
-    List<Movie> topMoviesBooked = countMovieIds.keySet().stream()
-            .map(mId -> movieHandler.getMovie(movieHandler.getMovieIdx(mId)))
-        .sorted()
-                .collect(Collectors.toList());
-
-    Helper.logger("BookingHandler.sortBookingMovies", "freqMovieIds: " + Arrays.deepToString(freqMovieIds.toArray()));
-    Helper.logger("BookingHandler.sortBookingMovies", "countMovieIds: " + countMovieIds);
-    Helper.logger("BookingHandler.sortBookingMovies", "topMoviesBooked: " + topMoviesBooked);
-
-    return topMoviesBooked;
+    return movies;
   }
 
   /**
