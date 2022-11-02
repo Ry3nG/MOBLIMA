@@ -1,23 +1,40 @@
+import boundaries.CustomerMenu;
+import boundaries.Menu;
+import boundaries.StaffMenu;
 import utils.Constants;
 import utils.Helper;
-import utils.datasource.HolidayDatasource;
-import utils.datasource.MovieDatasource;
+
+import java.util.Arrays;
 
 public class App {
+  private static App instance = null;
+  private Menu currentMenu;
+
+  public static App getInstance() {
+    if (instance == null) instance = new App();
+    return instance;
+  }
 
   public static void main(String[] args) {
+    instance = App.getInstance();
 
-    Constants.setDebugMode(true);
-    Helper.logger("App.main", "Initialization");
+    // Default - Customer
+    instance.currentMenu = CustomerMenu.getInstance();
 
-    MovieDatasource dsMovie = new MovieDatasource();
-    // Movies
-    Helper.logger("App.main", "Movies:" + dsMovie.getMovies().size());
-    // Reviews
-    Helper.logger("App.main", "Reviews: " + dsMovie.getReviews().size());
+    // Debug
+    if (Arrays.stream(args).anyMatch(("--debug")::contains)) {
+      Constants.setDebugMode(true);
+      Helper.logger("App.main", "ARGS: " + Arrays.deepToString(args));
+      Helper.logger("App.main", "DEBUG MODE: " + Constants.DEBUG_MODE);
+    }
 
-    HolidayDatasource dsHoliday = new HolidayDatasource();
-    // Holidays
-    Helper.logger("App.main", "Holidays: " + dsHoliday.getHolidays().size());
+    if (args.length > 0) {
+      // Staff [--staff]
+      if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
+    }
+
+    // Show menu
+    Helper.figPrint("MOBLIMA");
+    instance.currentMenu.showMenu();
   }
 }

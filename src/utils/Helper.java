@@ -24,6 +24,18 @@ public class Helper {
   }
 
   /**
+   * Clone helper of colorize
+   *
+   * @param text:String
+   * @param preset:Preset
+   * @return colorizedText:String
+   */
+  public static String colorizer(String text, Preset preset) {
+    Attribute color = preset.color;
+    return colorize(text, color);
+  }
+
+  /**
    * Parse string to integer values.
    *
    * @param inputStr:String
@@ -47,14 +59,13 @@ public class Helper {
 
   /**
    * Pretty-print table
+   *
    * @param rows:List<List<String>> rows
    * @return tableStr:String
    */
-  public static String formatAsTable(List<List<String>> rows)
-  {
+  public static String formatAsTable(List<List<String>> rows) {
     int[] maxLengths = new int[rows.get(0).size()];
-    for (List<String> row : rows)
-    {
+    for (List<String> row : rows) {
       for (int i = 0; i < row.size(); i++)
         maxLengths[i] = Math.max(maxLengths[i], row.get(i).length());
 
@@ -75,9 +86,10 @@ public class Helper {
 
   /**
    * Figlet font printer for single-line text
+   *
    * @param lineText:String
    */
-  public static void figPrint(String lineText){
+  public static void figPrint(String lineText) {
     String asciiArt = null;
     try {
       asciiArt = FigletFont.convertOneLine(lineText);
