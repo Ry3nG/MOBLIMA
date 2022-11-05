@@ -241,7 +241,12 @@ public class Datasource {
     for (int i = startIdx; i < endIdx; i++) {
       String pageRequest = query + "&page=" + i;
 
-      JsonArray results = (request(pageRequest).getAsJsonObject()).get("results").getAsJsonArray();
+      JsonElement response = request(pageRequest);
+      if(response == null) {
+        Helper.logger("Datasource.requestPagination", "Unable to fetch response, possibly the lack of internet connectivity");
+        break;
+      }
+      JsonArray results = (response.getAsJsonObject()).get("results").getAsJsonArray();
       allResults.addAll(results);
     }
 

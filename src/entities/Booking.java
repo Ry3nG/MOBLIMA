@@ -142,7 +142,7 @@ public class Booking {
   public enum TicketType {
 
     SENIOR("Senior Citizen"),
-    CHILD("Child"),
+    STUDENT("Student"),
     NON_PEAK("Non Peak"),
     PEAK("Peak");
 

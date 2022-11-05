@@ -4,15 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entities.Account;
-import entities.Booking;
+import entities.*;
 import entities.Booking.TicketType;
-import entities.Cinema;
-import entities.Settings;
 import utils.Helper;
 import utils.datasource.Datasource;
 import utils.datasource.HolidayDatasource;
 
+import javax.swing.text.DateFormatter;
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -22,6 +20,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+
+import static utils.LocalDateDeserializer.dateFormatter;
 
 /**
  * Settings Handler
@@ -93,8 +93,8 @@ public class SettingsHandler {
   public int addPublicHoliday(Settings clone, String date) {
     try {
       // Check if valid date
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateAdd = LocalDate.parse(date, formatter);
+//      DateFormatter formatter = DateFormatter.ofPattern("dd/MM/yyyy");
+      LocalDate dateAdd = LocalDate.parse(date, dateFormatter);
 
       // tentative - because there are some movies which might be showing on a date that has passed
       if (dateAdd.isBefore(LocalDate.now())) return -1;
@@ -118,8 +118,8 @@ public class SettingsHandler {
 
     try {
       // Check if valid date
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateRemove = LocalDate.parse(date, formatter);
+//      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      LocalDate dateRemove = LocalDate.parse(date, dateFormatter);
 
       // Remove date
       boolean dateExist = clone.removeHoliday(dateRemove);
@@ -167,8 +167,13 @@ public class SettingsHandler {
     double adultTicketPrice = 10;
     double blockbusterSurcharge = 8;
 
+    EnumMap<Showtime.ShowType, Double> showSurcharges = new EnumMap<Showtime.ShowType, Double>(Showtime.ShowType.class) {{
+      put(Showtime.ShowType.Digital, 0.0);
+      put(Showtime.ShowType.ThreeDimensional, 5.0);
+    }};
+
     EnumMap<Booking.TicketType, Double> ticketSurcharges = new EnumMap<Booking.TicketType, Double>(Booking.TicketType.class) {{
-      put(Booking.TicketType.CHILD, -5.0);
+      put(Booking.TicketType.STUDENT, -5.0);
       put(Booking.TicketType.SENIOR, -5.0);
       put(Booking.TicketType.PEAK, 5.0);
       put(Booking.TicketType.NON_PEAK, 0.0);
@@ -181,9 +186,9 @@ public class SettingsHandler {
 
     // Public Holidays
     HolidayDatasource dsHoliday = new HolidayDatasource();
-    List<LocalDate> publicHolidays = dsHoliday.fetchHolidays();
+    List<LocalDate> publicHolidays = dsHoliday.getHolidays();
 
-    return new Settings(adultTicketPrice, blockbusterSurcharge, ticketSurcharges, cinemaSurcharges, publicHolidays);
+    return new Settings(adultTicketPrice, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
   }
 
   public TicketType verifyTicketType(LocalDateTime showDateTime, TicketType ticketType) {
@@ -206,12 +211,16 @@ public class SettingsHandler {
    * @return
    */
   //+ computeTicketPrice(isBlockbuster:boolean, classType:ClassType, ticketType:TicketType):double
-  public double computeTicketPrice(boolean isBlockbuster, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime) {
+  public double computeTicketPrice(boolean isBlockbuster, Showtime.ShowType showType, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime) {
     Helper.logger("SettingsHandler.computeTicketPrice", "currentPrice:\n" + this.currentSettings.toString());
     double price = this.currentSettings.getAdultTicket();
 
     // Blockbuster Surcharges
     if (isBlockbuster) price += this.currentSettings.getBlockbusterSurcharge();
+
+    // ShowType Surcharges
+    EnumMap<Showtime.ShowType, Double> showSurcharge = this.currentSettings.getShowSurcharges();
+    if (showSurcharge.containsKey(showType)) price += showSurcharge.get(showType);
 
     // Cinema Surcharges
     EnumMap<Cinema.ClassType, Double> cinemaSurcharge = this.currentSettings.getCinemaSurcharges();
@@ -228,12 +237,12 @@ public class SettingsHandler {
   }
 
   //+ computeTotalCost(
-  public double computeTotalCost(boolean isBlockbuster, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime, int seatCount) {
+  public double computeTotalCost(boolean isBlockbuster, Showtime.ShowType showType, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime, int seatCount) {
     // NOTE; this current implementation of computeTotalCost assumes that all tickets booked are of the same type, which is NOT TRUE
     // final double GST_PERCENT = 0.07;
 
     if (seatCount <= 0) return 0;
-    double totalCost = this.computeTicketPrice(isBlockbuster, classType, ticketType, showDateTime) * seatCount;
+    double totalCost = this.computeTicketPrice(isBlockbuster, showType, classType, ticketType, showDateTime) * seatCount;
     // totalCost += totalCost * GST_PERCENT;
 
     return totalCost;
@@ -265,6 +274,12 @@ public class SettingsHandler {
       double adultTicket = p.get("adultTicket").getAsDouble();
       double blockbusterSurcharge = p.get("blockbusterSurcharge").getAsDouble();
 
+      // Show Surcharge
+      String strShowSurcharges = p.get("showSurcharges").getAsString();
+      Type typeShowSurcharges = new TypeToken<EnumMap<Showtime.ShowType, Double>>() {
+      }.getType();
+      EnumMap<Showtime.ShowType, Double> showSurcharges = Datasource.getGson().fromJson(strShowSurcharges, typeShowSurcharges);
+
       // Ticket Surcharge
       String strTicketSurcharges = p.get("ticketSurcharges").getAsString();
       Type typeTicketSurcharges = new TypeToken<EnumMap<TicketType, Double>>() {
@@ -277,6 +292,7 @@ public class SettingsHandler {
       }.getType();
       EnumMap<Cinema.ClassType, Double> cinemaSurcharges = Datasource.getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
 
+      // Public Holidays
       String strPublicHolidays = p.get("publicHolidays").getAsString();
       Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>() {
       }.getType();
@@ -285,6 +301,7 @@ public class SettingsHandler {
       this.currentSettings = new Settings(
           adultTicket,
           blockbusterSurcharge,
+          showSurcharges,
           ticketSurcharges,
           cinemaSurcharges,
           publicHolidays
@@ -308,6 +325,7 @@ public class SettingsHandler {
   protected boolean saveSettings() {
     List<Settings> settings = new ArrayList<Settings>();
     settings.add(this.currentSettings);
+    HolidayDatasource.saveHolidays(this.currentSettings.getHolidays());
     return Datasource.serializeData(settings, "settings.csv");
   }
 

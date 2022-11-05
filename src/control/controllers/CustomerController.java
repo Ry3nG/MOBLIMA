@@ -35,11 +35,11 @@ public class CustomerController extends MovieBookingController {
 //      });
       put("Top 5 movies by ticket sales", () -> {
         List<Movie> rankedMovies = rankMoviesByBooking();
-        reviewHandler().printMovies(rankedMovies);
+        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Top 5 movies by overall rating", () -> {
         List<Movie> rankedMovies = rankMoviesByRatings();
-        reviewHandler().printMovies(rankedMovies);
+        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
@@ -119,10 +119,18 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerMenu.makeBooking", "Selected seats: " + Arrays.deepToString(seats.toArray()));
     if (seats.size() < 1) return bookingIdx;
 
-    // Compute total cost by multiplying num. of seats selected
+    // Select TicketType (only if not PEAK)
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
+    if (ticketType != Booking.TicketType.PEAK) {
+      ticketType = bookingMenu.selectTicket(showtime.getDatetime());
+    }
+    System.out.println("Ticket type: " + ticketType.toString());
+    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType.toString());
+
+    // Compute total cost by multiplying num. of seats selected
     double totalCost = this.settingsHandler().computeTotalCost(
         movie.isBlockbuster(),
+        showtime.getType(),
         cinema.getClassType(),
         ticketType,
         showtime.getDatetime(),

@@ -12,28 +12,40 @@ import static utils.Helper.formatAsTable;
 
 
 public class Showtime {
+  public enum ShowType {
+
+    Digital("Digital"), ThreeDimensional("3D");
+
+    private final String displayName;
+
+    ShowType(String displayName) {
+      this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+      return displayName;
+    }
+  }
+
   private String id;
   private int cinemaId;
   private int movieId;
   private LocalDateTime datetime;
+  private ShowType type;
   private boolean[][] seats;
 
-  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
+  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type, boolean[][] seats) {
     this.id = id;
     this.cinemaId = cinemaId;
     this.movieId = movieId;
     this.datetime = datetime;
+    this.type = type;
     this.seats = seats;
   }
 
-  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime) {
-    this(id, cinemaId, movieId, datetime, new boolean[][]{
-        {true, true, true, true, true, true, true, true},
-        {true, true, true, true, true, true, true, true},
-        {true, true, true, true, true, true, true, true},
-        {true, true, true, true, true, true, true, true},
-        {true, true, true, true, true, true, true, true},
-    });
+  public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
+    this(id, cinemaId, movieId, datetime, type, new boolean[][]{{true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true},});
   }
 
   /**
@@ -42,13 +54,7 @@ public class Showtime {
    * @param cloneShowtime:Showtime
    */
   public Showtime(Showtime cloneShowtime) {
-    this(
-        cloneShowtime.id,
-        cloneShowtime.cinemaId,
-        cloneShowtime.movieId,
-        cloneShowtime.datetime,
-        cloneShowtime.seats
-    );
+    this(cloneShowtime.id, cloneShowtime.cinemaId, cloneShowtime.movieId, cloneShowtime.datetime, cloneShowtime.type, cloneShowtime.seats);
   }
 
   public String getId() {
@@ -93,6 +99,14 @@ public class Showtime {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
 
     return this.datetime.format(formatter);
+  }
+
+  public ShowType getType() {
+    return type;
+  }
+
+  public void setType(ShowType type) {
+    this.type = type;
   }
 
   public boolean[][] getSeats() {
@@ -142,6 +156,7 @@ public class Showtime {
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Datetime:", this.getDay() + ", " + this.getFormattedDatetime()));
     rows.add(Arrays.asList("Cinema ID:", Integer.toString(this.cinemaId)));
+    rows.add(Arrays.asList("Show Type:", this.type.toString()));
     rows.add(Arrays.asList("Booked Seats:", this.getSeatCount(false) + "/" + this.getSeatCount()));
 
     return formatAsTable(rows);

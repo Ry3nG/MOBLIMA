@@ -210,6 +210,24 @@ public class BookingMenu extends Menu {
     return showtimeIdx;
   }
 
+  public Booking.TicketType selectTicket(LocalDateTime showDatetime) {
+    List<String> ticketOptions = Stream.of(Booking.TicketType.values())
+        .filter(t -> !t.equals(Booking.TicketType.PEAK))
+        .map(Booking.TicketType::toString)
+        .collect(Collectors.toList());
+
+    int selectionIdx = -1;
+    while(selectionIdx < 0){
+      System.out.println("Select ticket type:");
+      this.displayMenuList(ticketOptions);
+      selectionIdx = getListSelectionIdx(ticketOptions, false);
+    }
+
+    // Retrieve ticket type
+    Booking.TicketType selectedTicket = Booking.TicketType.values()[selectionIdx];
+    return selectedTicket;
+  }
+
   /**
    * Retrieves the user list of seat selection idx with specified showtime idx
    *
@@ -323,6 +341,7 @@ public class BookingMenu extends Menu {
     int showtimeIdx = handler.getShowtimeIdx(showtimeId);
     handler.printShowtimeDetails(showtimeIdx);
 
+    //TODO: Update with ShowType
     List<String> proceedOptions = new ArrayList<String>() {
       {
         add("Set Cinema ID");
@@ -474,7 +493,6 @@ public class BookingMenu extends Menu {
   public boolean editCinema(int cinemaId) {
     boolean status = false;
 
-    //TODO: Task here
     Cinema cinema = handler.getCinema(cinemaId);
     List<Showtime> cinemaShowtimes = handler.getCinemaShowtimes(cinemaId);
     cinema.setShowtimes(cinemaShowtimes);

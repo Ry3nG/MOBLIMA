@@ -11,10 +11,13 @@ import entities.Movie;
 import entities.Showtime;
 import utils.Helper;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static utils.Helper.colorizer;
 
 public abstract class MovieBookingController {
   protected static MovieMenu movieMenu;
@@ -126,7 +129,10 @@ public abstract class MovieBookingController {
   public List<Movie> rankMoviesByBooking() {
     List<Movie> movies = reviewHandler().getMovies();
     List<Booking> bookings = bookingHandler().getBookings();
-    if (bookings.isEmpty()) return movies;
+    if (bookings.isEmpty()) {
+      System.out.println(colorizer("No bookings made yet", Helper.Preset.ERROR));
+      return new ArrayList<Movie>();
+    }
 
     Map<Integer, Long> bookedMovieIds = bookings.stream()
         .collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
@@ -144,7 +150,10 @@ public abstract class MovieBookingController {
 
   public List<Movie> rankMoviesByRatings() {
     List<Movie> movies = reviewHandler().getMovies();
-    if (movies.isEmpty()) return movies;
+    if (movies.isEmpty()) {
+      System.out.println(colorizer("No movies available", Helper.Preset.ERROR));
+      return movies;
+    }
 
     List<Movie> rankedMovies = movies.stream()
         .sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed())

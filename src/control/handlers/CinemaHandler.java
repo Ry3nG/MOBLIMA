@@ -8,6 +8,8 @@ import entities.Cinema;
 import entities.Cinema.ClassType;
 import entities.Movie;
 import entities.Showtime;
+import entities.Showtime.ShowType;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.Helper;
 import utils.Helper.Preset;
@@ -108,7 +110,9 @@ public class CinemaHandler extends ShowtimeHandler {
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movie.getId();
         LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
-        int showtimeIdx = this.addShowtime(cineplexId, cinemaId, movieId, showDatetime);
+        ShowType[] showTypes = ShowType.values();
+        ShowType showType = showTypes[random.nextInt(0, showTypes.length)];
+        int showtimeIdx = this.addShowtime(cineplexId, cinemaId, movieId, showDatetime, showType);
         Helper.logger("CinemaHandler.generateShowtimes", "Generated: \n" + this.getShowtime(showtimeIdx));
 
       }
@@ -318,6 +322,13 @@ public class CinemaHandler extends ShowtimeHandler {
       String datetimeStr = s.get("datetime").getAsString();
       LocalDateTime dateTime = LocalDateTime.parse(datetimeStr, dateTimeFormatter);
 
+      /// ShowType
+      String showType = s.get("type").getAsString();
+      boolean isValidStatus = EnumUtils.isValidEnum(ShowType.class, showType);
+      if (!isValidStatus) continue;
+//      ShowType type = Arrays.stream(ShowType.values()).find
+      ShowType type = ShowType.valueOf(showType);
+
       /// Seats
       String seatsArr = s.get("seats").getAsString();
       Type seatsType = new TypeToken<boolean[][]>() {
@@ -329,6 +340,7 @@ public class CinemaHandler extends ShowtimeHandler {
           cinemaId,
           movieId,
           dateTime,
+          type,
           seats
       );
       showtimes.add(cinemaShowtime);
@@ -344,9 +356,7 @@ public class CinemaHandler extends ShowtimeHandler {
       List<Showtime> cinemaShowtimes = this.getCinemaShowtimes(cinema.getId());
       this.addShowtimes(cinema.getId(), cinemaShowtimes);
       Helper.logger("CinemaHandler.getShowtimes", "Cinema: " + this.getCinema(cinema.getId()));
-
     }
-
 
     return showtimes;
   }
@@ -357,9 +367,10 @@ public class CinemaHandler extends ShowtimeHandler {
 
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Datetime:", showtime.getDay() + ", " + showtime.getFormattedDatetime()));
-    rows.add(Arrays.asList("Movie ID:", Integer.toString(showtime.getMovieId())));
+//    rows.add(Arrays.asList("Movie ID:", Integer.toString(showtime.getMovieId())));
     rows.add(Arrays.asList("Cineplex Code:", this.getShowtimeCinema(showtime.getId()).getCineplexCode()));
     rows.add(Arrays.asList("Cinema ID:", Integer.toString(showtime.getCinemaId())));
+    rows.add(Arrays.asList("Show Type:", showtime.getType().toString()));
     rows.add(Arrays.asList("Booked Seats:", showtime.getSeatCount(false) + "/" + showtime.getSeatCount()));
 
     return formatAsTable(rows);
@@ -406,7 +417,7 @@ public class CinemaHandler extends ShowtimeHandler {
    * @return showtimeIdx:int
    */
   //+addShowtime(cineplexId:String, cinemaId:int, movieId:int, datetime:LocalDateTime) : int
-  public int addShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime) {
+  public int addShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
     List<Showtime> showtimes = this.getCinemaShowtimes(cinemaId);
     if (showtimes.size() < 0) {
       System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
@@ -421,7 +432,8 @@ public class CinemaHandler extends ShowtimeHandler {
         UUID.randomUUID().toString(),
         cinemaId,
         movieId,
-        datetime
+        datetime,
+        type
     );
     showtimes.add(showtime);
 
