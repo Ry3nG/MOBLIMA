@@ -20,4 +20,4 @@ jobs:
         java-version: '17'
       env:
           TMDB_API_KEY: ${{ secrets.project.TMDB_API_KEY }}
-    - run: java -jar ./build/moblima.jar --generate --debug
+    - run: java -jar ./build/MOBLIMA.jar --generate --debug
