@@ -109,7 +109,7 @@ public class ShowtimeHandler {
    * @return status:boolean
    */
   //+ updateShowtime(cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
-  public boolean updateShowtime(int cinemaId, int movieId, LocalDateTime datetime, boolean[][] seats) {
+  public boolean updateShowtime(int cinemaId, int movieId, Showtime.ShowType showType, LocalDateTime datetime, boolean[][] seats) {
     boolean status = false;
     if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
 
@@ -118,6 +118,7 @@ public class ShowtimeHandler {
 
     showtime.setCinemaId(cinemaId);
     showtime.setMovieId(movieId);
+    showtime.setType(showType);
     showtime.setDatetime(datetime);
     showtime.setSeats(seats);
     this.showtimes.set(this.selectedShowtimeIdx, showtime);
@@ -255,7 +256,7 @@ public class ShowtimeHandler {
     showtime.setSeats(seats);
     this.selectedShowtimeIdx = showtimeIdx;
 
-    this.updateShowtime(showtime.getCinemaId(), showtime.getMovieId(), showtime.getDatetime(), seats);
+    this.updateShowtime(showtime.getCinemaId(), showtime.getMovieId(), showtime.getType(), showtime.getDatetime(), seats);
 
     Helper.logger("ShowtimeHandler.assignSeat", "Showtime-SEATS: " + this.getAvailableSeatCount(showtimeIdx));
     Helper.logger("ShowtimeHandler.assignSeat", "SEATS: " + this.getAvailableSeatCount(showtimeIdx));

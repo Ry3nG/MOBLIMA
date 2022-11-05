@@ -6,6 +6,11 @@ import io.github.cdimascio.dotenv.DotenvEntry;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * App-global environment variables and debug mode toggle
+ *
+ * @author Crystal Cheong
+ */
 public class Constants {
   public static boolean DEBUG_MODE = false;
   private static Map<String, String> entries;

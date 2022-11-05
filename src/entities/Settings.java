@@ -1,6 +1,6 @@
 package entities;
 
-import utils.LocalDateDeserializer;
+import utils.deserializers.LocalDateDeserializer;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -14,13 +14,15 @@ import static utils.Helper.formatAsTable;
 public class Settings {
   private double adultTicket;
   private double blockbusterSurcharge;
+  private EnumMap<Showtime.ShowType, Double> showSurcharges;
   private EnumMap<Booking.TicketType, Double> ticketSurcharges;
   private EnumMap<Cinema.ClassType, Double> cinemaSurcharges;
   private List<LocalDate> publicHolidays;
 
-  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
+  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<Showtime.ShowType, Double> showSurcharges, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
     this.adultTicket = adultTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
+    this.showSurcharges = showSurcharges;
     this.ticketSurcharges = ticketSurcharges;
     this.cinemaSurcharges = cinemaSurcharges;
     this.publicHolidays = publicHolidays;
@@ -35,6 +37,7 @@ public class Settings {
     this(
         settings.adultTicket,
         settings.blockbusterSurcharge,
+        settings.showSurcharges,
         settings.ticketSurcharges,
         settings.cinemaSurcharges,
         settings.publicHolidays
@@ -55,6 +58,22 @@ public class Settings {
 
   public void setBlockbusterSurcharge(double blockbusterSurcharge) {
     this.blockbusterSurcharge = blockbusterSurcharge;
+  }
+
+  public EnumMap<Showtime.ShowType, Double> getShowSurcharges() {
+    return showSurcharges;
+  }
+
+  public void setShowSurcharges(EnumMap<Showtime.ShowType, Double> showSurcharges) {
+    this.showSurcharges = showSurcharges;
+  }
+
+  public List<LocalDate> getPublicHolidays() {
+    return publicHolidays;
+  }
+
+  public void setPublicHolidays(List<LocalDate> publicHolidays) {
+    this.publicHolidays = publicHolidays;
   }
 
   public EnumMap<Booking.TicketType, Double> getTicketSurcharges() {
@@ -113,6 +132,12 @@ public class Settings {
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Adult Ticket:", formatPrice(this.adultTicket)));
     rows.add(Arrays.asList("Blockbuster Surcharge:", formatPrice(this.blockbusterSurcharge)));
+
+    // Show surcharges
+    rows.add(Arrays.asList("\nShow Surcharges:", ""));
+    this.showSurcharges.entrySet()
+        .stream()
+        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
     // Ticket surcharges
     rows.add(Arrays.asList("\nTicket Surcharges:", ""));

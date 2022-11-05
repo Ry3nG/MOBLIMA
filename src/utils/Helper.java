@@ -7,6 +7,11 @@ import java.util.List;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
+/**
+ * Reusable functions and presets
+ *
+ * @author Crystal Cheong
+ */
 public class Helper {
 
   /**

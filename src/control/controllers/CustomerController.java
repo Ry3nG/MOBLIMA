@@ -4,8 +4,11 @@ import entities.*;
 import utils.Helper;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CustomerController extends MovieBookingController {
   private static CustomerController instance;
@@ -35,11 +38,11 @@ public class CustomerController extends MovieBookingController {
 //      });
       put("Top 5 movies by ticket sales", () -> {
         List<Movie> rankedMovies = rankMoviesByBooking();
-        reviewHandler().printMovies(rankedMovies);
+        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Top 5 movies by overall rating", () -> {
         List<Movie> rankedMovies = rankMoviesByRatings();
-        reviewHandler().printMovies(rankedMovies);
+        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
@@ -119,15 +122,41 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerMenu.makeBooking", "Selected seats: " + Arrays.deepToString(seats.toArray()));
     if (seats.size() < 1) return bookingIdx;
 
-    // Compute total cost by multiplying num. of seats selected
+    // Select TicketType (only if not PEAK)
+    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSystemSettings().getTicketSurcharges();
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
+    if (ticketType != Booking.TicketType.PEAK) {
+      List<String> ticketOptions = Stream.of(Booking.TicketType.values())
+          .filter(t -> !t.equals(Booking.TicketType.PEAK))
+          .map(t -> {
+            double estimatedCost = this.settingsHandler().computeTotalCost(
+                movie.isBlockbuster(),
+                showtime.getType(),
+                cinema.getClassType(),
+                t,
+                showtime.getDatetime(),
+                seats.size()
+            );
+
+            return t + " - " + estimatedCost;
+          })
+          .collect(Collectors.toList());
+
+      ticketType = bookingMenu.selectTicket(ticketOptions);
+    }
+    System.out.println("Ticket type: " + ticketType.toString());
+
+    // Compute total cost by multiplying num. of seats selected
     double totalCost = this.settingsHandler().computeTotalCost(
         movie.isBlockbuster(),
+        showtime.getType(),
         cinema.getClassType(),
         ticketType,
         showtime.getDatetime(),
         seats.size()
     );
+    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType + " - " + totalCost);
+
 
     // Make booking
     bookingIdx = bookingHandler().addBooking(customerId, showtime.getCinemaId(), showtime.getMovieId(),

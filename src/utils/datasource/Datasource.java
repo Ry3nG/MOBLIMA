@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONTokener;
 import utils.Catcher;
 import utils.Helper;
-import utils.LocalDateDeserializer;
-import utils.LocalDateTimeDeserializer;
+import utils.deserializers.LocalDateDeserializer;
+import utils.deserializers.LocalDateTimeDeserializer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +27,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * All-purpose datasource parser and serializer
+ *
+ * @author Crystal Cheong
+ */
 public class Datasource {
   protected static final String DATA_DIR = "./data/";
   protected static final Gson gson = new GsonBuilder().setLenient().setPrettyPrinting()
@@ -37,7 +42,6 @@ public class Datasource {
   protected String ENDPOINT = null;
   protected String API_KEY;
 
-  /// UTILS
   public static Gson getGson() {
     return gson;
   }
@@ -241,7 +245,12 @@ public class Datasource {
     for (int i = startIdx; i < endIdx; i++) {
       String pageRequest = query + "&page=" + i;
 
-      JsonArray results = (request(pageRequest).getAsJsonObject()).get("results").getAsJsonArray();
+      JsonElement response = request(pageRequest);
+      if (response == null) {
+        Helper.logger("Datasource.requestPagination", "Unable to fetch response, possibly the lack of internet connectivity");
+        break;
+      }
+      JsonArray results = (response.getAsJsonObject()).get("results").getAsJsonArray();
       allResults.addAll(results);
     }
 

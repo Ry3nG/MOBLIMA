@@ -22,8 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import static utils.LocalDateDeserializer.dateFormatter;
+import static utils.deserializers.LocalDateDeserializer.dateFormatter;
 
+/**
+ * Real-world datasource to fetch movie data from the TMDB api
+ *
+ * @author Crystal Cheong
+ */
 public class MovieDatasource extends Datasource {
   protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

@@ -4,11 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entities.Account;
-import entities.Booking;
+import entities.*;
 import entities.Booking.TicketType;
-import entities.Cinema;
-import entities.Settings;
 import utils.Helper;
 import utils.datasource.Datasource;
 import utils.datasource.HolidayDatasource;
@@ -17,11 +14,12 @@ import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+
+import static utils.deserializers.LocalDateDeserializer.dateFormatter;
 
 /**
  * Settings Handler
@@ -73,57 +71,45 @@ public class SettingsHandler {
     return true;
   }
 
-  public void changeTicketSurcharges(Settings settings, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
-    settings.setTicketSurcharges(newTicketSurcharges);
-  }
-
-  public void changeCinemaSurcharges(Settings settings, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
-    settings.setCinemaSurcharges(newCinemaSurcharges);
-  }
-
   /**
    * Checks whether public holiday date entered is a valid date, and adds the date to the list of public holidays if valid
    *
-   * @param clone:SystemSettings - clone of SystemSettings being used in Menu
-   * @param date:String          - date to be added
-   * @return 1 - date is valid
-   * @return 0 - date is invalid
+   * @param settings:Settings
+   * @param strHolidayDate:String
+   * @return holidayIdx:int
    * @since 1.0
    */
-  public int addPublicHoliday(Settings clone, String date) {
+  public int addPublicHoliday(Settings settings, String strHolidayDate) {
+    int holidayIdx = -1;
     try {
-      // Check if valid date
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateAdd = LocalDate.parse(date, formatter);
+      LocalDate dateAdd = LocalDate.parse(strHolidayDate, dateFormatter);
 
-      // tentative - because there are some movies which might be showing on a date that has passed
-      if (dateAdd.isBefore(LocalDate.now())) return -1;
+      // VALIDATION: Check if holidayDate is in the past
+      if (dateAdd.isBefore(LocalDate.now())) return holidayIdx;
 
-      // Add date
-      clone.addHoliday(dateAdd);
-      return 1;
+      // Add holiday to settings
+      settings.addHoliday(dateAdd);
+      holidayIdx = settings.getHolidays().size() - 1;
+
+      return holidayIdx;
     } catch (DateTimeParseException e) { // Invalid date
-      return 0;
+      return holidayIdx;
     }
   }
 
   /**
    * Checks whether public holiday date entered is in the list of public holidays, and removes if found.
    *
-   * @param date - date to be removed
-   * @return whether date is in the list of public holidays
+   * @param settings:Settings
+   * @param strHolidayDate:String
+   * @return isRemoved:boolean
    * @since 1.0
    */
-  public boolean removePublicHoliday(Settings clone, String date) {
-
+  public boolean removePublicHoliday(Settings settings, String strHolidayDate) {
     try {
-      // Check if valid date
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateRemove = LocalDate.parse(date, formatter);
+      LocalDate dateRemove = LocalDate.parse(strHolidayDate, dateFormatter);
 
-      // Remove date
-      boolean dateExist = clone.removeHoliday(dateRemove);
-      return dateExist;
+      return settings.removeHoliday(dateRemove);
     } catch (DateTimeParseException e) {
       return false;
     }
@@ -132,7 +118,7 @@ public class SettingsHandler {
   /**
    * Updates current system settings
    *
-   * @param settings:SystemSettings
+   * @param settings:Settings
    */
   //+updatePrice(settings : SystemSettings) : void
   public void updateSettings(Settings settings) {
@@ -167,8 +153,13 @@ public class SettingsHandler {
     double adultTicketPrice = 10;
     double blockbusterSurcharge = 8;
 
+    EnumMap<Showtime.ShowType, Double> showSurcharges = new EnumMap<Showtime.ShowType, Double>(Showtime.ShowType.class) {{
+      put(Showtime.ShowType.Digital, 0.0);
+      put(Showtime.ShowType.ThreeDimensional, 5.0);
+    }};
+
     EnumMap<Booking.TicketType, Double> ticketSurcharges = new EnumMap<Booking.TicketType, Double>(Booking.TicketType.class) {{
-      put(Booking.TicketType.CHILD, -5.0);
+      put(Booking.TicketType.STUDENT, -5.0);
       put(Booking.TicketType.SENIOR, -5.0);
       put(Booking.TicketType.PEAK, 5.0);
       put(Booking.TicketType.NON_PEAK, 0.0);
@@ -181,17 +172,16 @@ public class SettingsHandler {
 
     // Public Holidays
     HolidayDatasource dsHoliday = new HolidayDatasource();
-    List<LocalDate> publicHolidays = dsHoliday.fetchHolidays();
+    List<LocalDate> publicHolidays = dsHoliday.getHolidays();
 
-    return new Settings(adultTicketPrice, blockbusterSurcharge, ticketSurcharges, cinemaSurcharges, publicHolidays);
+    return new Settings(adultTicketPrice, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
   }
 
   public TicketType verifyTicketType(LocalDateTime showDateTime, TicketType ticketType) {
     // Check if PEAK
     DayOfWeek day = showDateTime.getDayOfWeek();
     boolean isWeekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
-    boolean isHoliday = this.currentSettings.getHolidays().stream()
-        .anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
+    boolean isHoliday = this.currentSettings.getHolidays().stream().anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
     if (isHoliday || isWeekend) ticketType = TicketType.PEAK;
 
     return ticketType;
@@ -206,12 +196,16 @@ public class SettingsHandler {
    * @return
    */
   //+ computeTicketPrice(isBlockbuster:boolean, classType:ClassType, ticketType:TicketType):double
-  public double computeTicketPrice(boolean isBlockbuster, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime) {
+  public double computeTicketPrice(boolean isBlockbuster, Showtime.ShowType showType, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime) {
     Helper.logger("SettingsHandler.computeTicketPrice", "currentPrice:\n" + this.currentSettings.toString());
     double price = this.currentSettings.getAdultTicket();
 
     // Blockbuster Surcharges
     if (isBlockbuster) price += this.currentSettings.getBlockbusterSurcharge();
+
+    // ShowType Surcharges
+    EnumMap<Showtime.ShowType, Double> showSurcharge = this.currentSettings.getShowSurcharges();
+    if (showSurcharge.containsKey(showType)) price += showSurcharge.get(showType);
 
     // Cinema Surcharges
     EnumMap<Cinema.ClassType, Double> cinemaSurcharge = this.currentSettings.getCinemaSurcharges();
@@ -227,18 +221,32 @@ public class SettingsHandler {
     return price;
   }
 
+  /**
+   * Computes the cost of a single ticket
+   * @param isBlockbuster:boolean
+   * @param showType:ShowType
+   * @param classType:ClassType
+   * @param ticketType:TicketType
+   * @param showDateTime:LocalDateTime
+   * @param seatCount:int
+   * @return totalCost:double
+   */
   //+ computeTotalCost(
-  public double computeTotalCost(boolean isBlockbuster, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime, int seatCount) {
+  public double computeTotalCost(boolean isBlockbuster, Showtime.ShowType showType, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime, int seatCount) {
     // NOTE; this current implementation of computeTotalCost assumes that all tickets booked are of the same type, which is NOT TRUE
     // final double GST_PERCENT = 0.07;
 
     if (seatCount <= 0) return 0;
-    double totalCost = this.computeTicketPrice(isBlockbuster, classType, ticketType, showDateTime) * seatCount;
+    double totalCost = this.computeTicketPrice(isBlockbuster, showType, classType, ticketType, showDateTime) * seatCount;
     // totalCost += totalCost * GST_PERCENT;
 
     return totalCost;
   }
 
+  /**
+   * Retrieves settings from serialized data
+   * @return settings:Settings;
+   */
   //+ getPrices():Price
   public Settings getSettings() {
     List<Settings> settings = new ArrayList<Settings>();
@@ -265,6 +273,12 @@ public class SettingsHandler {
       double adultTicket = p.get("adultTicket").getAsDouble();
       double blockbusterSurcharge = p.get("blockbusterSurcharge").getAsDouble();
 
+      // Show Surcharge
+      String strShowSurcharges = p.get("showSurcharges").getAsString();
+      Type typeShowSurcharges = new TypeToken<EnumMap<Showtime.ShowType, Double>>() {
+      }.getType();
+      EnumMap<Showtime.ShowType, Double> showSurcharges = Datasource.getGson().fromJson(strShowSurcharges, typeShowSurcharges);
+
       // Ticket Surcharge
       String strTicketSurcharges = p.get("ticketSurcharges").getAsString();
       Type typeTicketSurcharges = new TypeToken<EnumMap<TicketType, Double>>() {
@@ -277,18 +291,13 @@ public class SettingsHandler {
       }.getType();
       EnumMap<Cinema.ClassType, Double> cinemaSurcharges = Datasource.getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
 
+      // Public Holidays
       String strPublicHolidays = p.get("publicHolidays").getAsString();
       Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>() {
       }.getType();
       ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
-      this.currentSettings = new Settings(
-          adultTicket,
-          blockbusterSurcharge,
-          ticketSurcharges,
-          cinemaSurcharges,
-          publicHolidays
-      );
+      this.currentSettings = new Settings(adultTicket, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
     }
 
     if (settings.size() < 1) return this.currentSettings;
@@ -303,11 +312,13 @@ public class SettingsHandler {
 
   /**
    * Serialize price data to CSV
+   * @return isSaved:boolean
    */
   //# saveSettings():boolean
   protected boolean saveSettings() {
     List<Settings> settings = new ArrayList<Settings>();
     settings.add(this.currentSettings);
+    HolidayDatasource.saveHolidays(this.currentSettings.getHolidays());
     return Datasource.serializeData(settings, "settings.csv");
   }
 
