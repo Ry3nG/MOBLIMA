@@ -14,7 +14,6 @@ import utils.Constants;
 import utils.Helper;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,11 +46,6 @@ public class MovieDatasource extends Datasource {
 
     //Source from serialized datasource
     String fileName = "reviews.csv";
-    if (fileName == null || fileName.isEmpty()) {
-      Helper.logger("MovieDatasource.getReviews", "Null and void filename provided, no data retrieved.");
-      return reviews;
-    }
-
     JsonArray reviewList = Datasource.readArrayFromCsv(fileName);
     if (reviewList == null) {
       Helper.logger("MovieDatasource.getReviews", "No serialized data available");
@@ -81,55 +75,56 @@ public class MovieDatasource extends Datasource {
     if (movieList == null) {
       if (API_KEY != null) {
         Helper.logger("MovieDatasource.getMovies", "No serialized data available, requesting from API");
-        try {
-          movies = this.fetchMovies();
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
+        movies = this.fetchMovies();
       }
       return movies;
     }
 
-    for (JsonElement movie : movieList) {
-      JsonObject m = movie.getAsJsonObject();
+    try{
+      for (JsonElement movie : movieList) {
+        JsonObject m = movie.getAsJsonObject();
 
-      int id = m.get("id").getAsInt();
-      String title = m.get("title").getAsString();
-      String synopsis = m.get("synopsis").getAsString();
-      String director = m.get("director").getAsString();
-      List<String> castList = List.of(StringUtils.substringBetween(m.get("castList").getAsString(), "[", "]").split(","));
-      int runtime = m.get("runtime").getAsInt();
-      boolean isBlockbuster = m.get("isBlockbuster").getAsBoolean();
+        int id = m.get("id").getAsInt();
+        String title = m.get("title").getAsString();
+        String synopsis = m.get("synopsis").getAsString();
+        String director = m.get("director").getAsString();
+        List<String> castList = List.of(StringUtils.substringBetween(m.get("castList").getAsString(), "[", "]").split(","));
+        int runtime = m.get("runtime").getAsInt();
+        boolean isBlockbuster = m.get("isBlockbuster").getAsBoolean();
 
-      String releaseDate = m.get("releaseDate").getAsString();
-      LocalDate dateRelease = LocalDate.parse(releaseDate, dateFormatter);
+        String releaseDate = m.get("releaseDate").getAsString();
+        LocalDate dateRelease = LocalDate.parse(releaseDate, dateFormatter);
 
-      String status = m.get("showStatus").getAsString();
-      boolean isValidStatus = EnumUtils.isValidEnum(ShowStatus.class, status);
-      if (!isValidStatus) continue;
-      ShowStatus showStatus = ShowStatus.valueOf(status);
+        String status = m.get("showStatus").getAsString();
+        boolean isValidStatus = EnumUtils.isValidEnum(ShowStatus.class, status);
+        if (!isValidStatus) continue;
+        ShowStatus showStatus = ShowStatus.valueOf(status);
 
-      String rating = m.get("contentRating").getAsString();
-      boolean isValidRating = EnumUtils.isValidEnum(ContentRating.class, rating);
-      if (!isValidRating) continue;
-      ContentRating contentRating = ContentRating.valueOf(rating);
+        String rating = m.get("contentRating").getAsString();
+        boolean isValidRating = EnumUtils.isValidEnum(ContentRating.class, rating);
+        if (!isValidRating) continue;
+        ContentRating contentRating = ContentRating.valueOf(rating);
 
-      double overallRating = m.get("overallRating").getAsDouble();
+        double overallRating = m.get("overallRating").getAsDouble();
 
-      // Initialise and append to list
-      movies.add(new Movie(
-          id,
-          title,
-          synopsis,
-          director,
-          castList,
-          runtime,
-          dateRelease,
-          isBlockbuster,
-          showStatus,
-          contentRating,
-          overallRating
-      ));
+        // Initialise and append to list
+        movies.add(new Movie(
+            id,
+            title,
+            synopsis,
+            director,
+            castList,
+            runtime,
+            dateRelease,
+            isBlockbuster,
+            showStatus,
+            contentRating,
+            overallRating
+        ));
+      }
+    }
+    catch (Exception e){
+      Helper.logger("MovieDatasource.getMovies", "An error has occurred in the deserialization process.");
     }
 
     Helper.logger("MovieDatasource.getMovies", "Total movies: " + movies.size());
@@ -142,7 +137,7 @@ public class MovieDatasource extends Datasource {
    * @return movies:List<Movie>
    * <a href="https://api.themoviedb.org/3/movie/now_playing?api_key=&language=en-US">TMDB Endpoint</a>
    */
-  public List<Movie> fetchMovies() throws ParseException {
+  public List<Movie> fetchMovies()  {
     List<Movie> movies = new ArrayList<Movie>();
     List<Review> reviews = new ArrayList<Review>();
 
@@ -183,7 +178,7 @@ public class MovieDatasource extends Datasource {
       boolean isBlockbuster = voteAverage >= 7.5;
 
       //// Overall Rating
-      double overallRating = (voteAverage / 2);
+      double overallRating = (voteAverage / 2.0);
 
       //// ShowingStatus
       //// @see https://stackoverflow.com/a/8995988
