@@ -3,8 +3,11 @@ import boundaries.Menu;
 import boundaries.StaffMenu;
 import utils.Constants;
 import utils.Helper;
+import utils.datasource.MovieDatasource;
 
 import java.util.Arrays;
+
+import static java.lang.System.exit;
 
 public class App {
   private static App instance = null;
@@ -31,6 +34,14 @@ public class App {
     if (args.length > 0) {
       // Staff [--staff]
       if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
+
+      // Generate [--generate]
+      if (args[0].equals("--generate")) {
+        MovieDatasource dsMovie = new MovieDatasource();
+        dsMovie.getMovies();
+
+        exit(0);
+      }
     }
 
     // Show menu

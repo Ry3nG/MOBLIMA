@@ -223,6 +223,7 @@ public class SettingsHandler {
 
   /**
    * Computes the cost of a single ticket
+   *
    * @param isBlockbuster:boolean
    * @param showType:ShowType
    * @param classType:ClassType
@@ -245,6 +246,7 @@ public class SettingsHandler {
 
   /**
    * Retrieves settings from serialized data
+   *
    * @return settings:Settings;
    */
   //+ getPrices():Price
@@ -312,6 +314,7 @@ public class SettingsHandler {
 
   /**
    * Serialize price data to CSV
+   *
    * @return isSaved:boolean
    */
   //# saveSettings():boolean

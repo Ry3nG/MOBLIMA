@@ -18,6 +18,7 @@ public class Showtime {
   private LocalDateTime datetime;
   private ShowType type;
   private boolean[][] seats;
+
   public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type, boolean[][] seats) {
     this.id = id;
     this.cinemaId = cinemaId;

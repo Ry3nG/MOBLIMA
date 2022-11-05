@@ -1,6 +1,5 @@
 package control.handlers;
 
-import control.controllers.MovieBookingController;
 import entities.Review;
 import utils.Helper;
 import utils.datasource.Datasource;
