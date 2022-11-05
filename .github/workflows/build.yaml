@@ -1,4 +1,4 @@
-name: Build
+name: JDK Build Compatibility
 
 on: [push]
 
@@ -18,4 +18,5 @@ jobs:
       with:
         distribution: 'zulu' 
         java-version: '17'
+    - run: java -jar ./lib/junit-5.8.1/junit-platform-console-standalone-1.9.1.jar --class-path out/test --scan-class-path
 #    - run: java -jar build/moblima.jar
