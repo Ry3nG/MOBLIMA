@@ -242,7 +242,7 @@ public class Datasource {
       String pageRequest = query + "&page=" + i;
 
       JsonElement response = request(pageRequest);
-      if(response == null) {
+      if (response == null) {
         Helper.logger("Datasource.requestPagination", "Unable to fetch response, possibly the lack of internet connectivity");
         break;
       }

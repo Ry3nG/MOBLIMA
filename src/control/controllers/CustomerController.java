@@ -138,7 +138,7 @@ public class CustomerController extends MovieBookingController {
                 seats.size()
             );
 
-            return t.toString() + " - " + Double.toString(estimatedCost);
+            return t + " - " + estimatedCost;
           })
           .collect(Collectors.toList());
 
@@ -155,7 +155,7 @@ public class CustomerController extends MovieBookingController {
         showtime.getDatetime(),
         seats.size()
     );
-    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType.toString() + " - " + Double.toString(totalCost));
+    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType + " - " + totalCost);
 
 
     // Make booking

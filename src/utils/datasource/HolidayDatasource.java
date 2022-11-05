@@ -18,6 +18,10 @@ public class HolidayDatasource extends Datasource {
     API_KEY = null;
   }
 
+  public static boolean saveHolidays(List<LocalDate> holidays) {
+    return serializeData(holidays, "holidays.csv");
+  }
+
   public List<LocalDate> getHolidays() {
     List<LocalDate> holidays = new ArrayList<LocalDate>();
 
@@ -48,7 +52,7 @@ public class HolidayDatasource extends Datasource {
     // API Request to get the list of holidays
     String queryHolidayList = currentYear + "/data.json";
     JsonElement response = request(queryHolidayList);
-    if(response == null) {
+    if (response == null) {
       Helper.logger("HolidayDatasource.fetchHolidays", "Unable to fetch response, possibly the lack of internet connectivity");
       return holidays;
     }
@@ -75,12 +79,8 @@ public class HolidayDatasource extends Datasource {
     Helper.logger("HolidayDatasource.fetchHolidays", "Total holidays: " + holidays.size());
 
     // Serialize data to CSV
-    this.saveHolidays(holidays);
+    saveHolidays(holidays);
 
     return holidays;
-  }
-
-  public static boolean saveHolidays(List<LocalDate> holidays){
-    return serializeData(holidays, "holidays.csv");
   }
 }

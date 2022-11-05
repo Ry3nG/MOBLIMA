@@ -12,29 +12,12 @@ import static utils.Helper.formatAsTable;
 
 
 public class Showtime {
-  public enum ShowType {
-
-    Digital("Digital"), ThreeDimensional("3D");
-
-    private final String displayName;
-
-    ShowType(String displayName) {
-      this.displayName = displayName;
-    }
-
-    @Override
-    public String toString() {
-      return displayName;
-    }
-  }
-
   private String id;
   private int cinemaId;
   private int movieId;
   private LocalDateTime datetime;
   private ShowType type;
   private boolean[][] seats;
-
   public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type, boolean[][] seats) {
     this.id = id;
     this.cinemaId = cinemaId;
@@ -171,5 +154,21 @@ public class Showtime {
   public int hashCode() {
     int prime = 31;
     return prime + Objects.hashCode(this.id);
+  }
+
+  public enum ShowType {
+
+    Digital("Digital"), ThreeDimensional("3D");
+
+    private final String displayName;
+
+    ShowType(String displayName) {
+      this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+      return displayName;
+    }
   }
 }

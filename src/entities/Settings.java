@@ -19,7 +19,7 @@ public class Settings {
   private EnumMap<Cinema.ClassType, Double> cinemaSurcharges;
   private List<LocalDate> publicHolidays;
 
-  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<Showtime.ShowType, Double> showSurcharges,EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
+  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<Showtime.ShowType, Double> showSurcharges, EnumMap<Booking.TicketType, Double> ticketSurcharges, EnumMap<Cinema.ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
     this.adultTicket = adultTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
     this.showSurcharges = showSurcharges;

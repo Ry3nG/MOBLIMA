@@ -7,8 +7,6 @@ import entities.Settings;
 import entities.Showtime;
 import utils.Helper;
 import utils.Helper.Preset;
-import utils.LocalDateDeserializer;
-import utils.LocalDateTimeDeserializer;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -180,6 +178,7 @@ public class SettingsMenu extends Menu {
 
   /**
    * Generic surcharge editor
+   *
    * @param surcharges:EnumMap
    * @return surcharges:EnumMap
    */
@@ -238,7 +237,6 @@ public class SettingsMenu extends Menu {
     List<LocalDate> holidays = this.settings.getHolidays();
 
 
-
     while (!status) {
       List<String> proceedOptions = holidays.stream()
           .map(h -> h.format(dateFormatter) + ", " + h.getDayOfWeek().toString())
@@ -282,7 +280,7 @@ public class SettingsMenu extends Menu {
         // Remove holiday
         if (selectionIdx >= updateOptions.size() - 2) {
           // Remove holiday
-          if((selectionIdx == updateOptions.size() - 2)){
+          if ((selectionIdx == updateOptions.size() - 2)) {
             holidays.remove(proceedSelection);
             System.out.println(colorizer("[SUCCESS] Holiday removed", Preset.SUCCESS));
           }
@@ -307,7 +305,7 @@ public class SettingsMenu extends Menu {
             if (holidays.contains(holidayDate)) {
               System.out.println("[NO CHANGE] Given date is already marked as an existing Public Holiday");
             } else {
-              LocalDate curStatus  = holidayDate;
+              LocalDate curStatus = holidayDate;
 
               holidays.set(proceedSelection, curStatus);
               logger("SettingsMenu.editPublicHolidays", "Holidays: \n" + holidays);

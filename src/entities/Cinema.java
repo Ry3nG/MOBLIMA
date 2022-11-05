@@ -9,6 +9,7 @@ public class Cinema {
   private ClassType classType;
   private List<Showtime> showtimes;
   private String cineplexCode;
+
   public Cinema(int id, ClassType classType, List<Showtime> showtimes, String cineplexCode) {
     this.id = id;
     this.classType = classType;
