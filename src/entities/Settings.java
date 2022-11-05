@@ -1,6 +1,6 @@
 package entities;
 
-import utils.LocalDateDeserializer;
+import utils.deserializers.LocalDateDeserializer;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
-import static utils.LocalDateDeserializer.dateFormatter;
+import static utils.deserializers.LocalDateDeserializer.dateFormatter;
 
 /**
  * Settings Handler
@@ -71,57 +71,45 @@ public class SettingsHandler {
     return true;
   }
 
-  public void changeTicketSurcharges(Settings settings, EnumMap<Booking.TicketType, Double> newTicketSurcharges) {
-    settings.setTicketSurcharges(newTicketSurcharges);
-  }
-
-  public void changeCinemaSurcharges(Settings settings, EnumMap<Cinema.ClassType, Double> newCinemaSurcharges) {
-    settings.setCinemaSurcharges(newCinemaSurcharges);
-  }
-
   /**
    * Checks whether public holiday date entered is a valid date, and adds the date to the list of public holidays if valid
    *
-   * @param clone:SystemSettings - clone of SystemSettings being used in Menu
-   * @param date:String          - date to be added
-   * @return 1 - date is valid
-   * @return 0 - date is invalid
+   * @param settings:Settings
+   * @param strHolidayDate:String
+   * @return holidayIdx:int
    * @since 1.0
    */
-  public int addPublicHoliday(Settings clone, String date) {
+  public int addPublicHoliday(Settings settings, String strHolidayDate) {
+    int holidayIdx = -1;
     try {
-      // Check if valid date
-//      DateFormatter formatter = DateFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateAdd = LocalDate.parse(date, dateFormatter);
+      LocalDate dateAdd = LocalDate.parse(strHolidayDate, dateFormatter);
 
-      // tentative - because there are some movies which might be showing on a date that has passed
-      if (dateAdd.isBefore(LocalDate.now())) return -1;
+      // VALIDATION: Check if holidayDate is in the past
+      if (dateAdd.isBefore(LocalDate.now())) return holidayIdx;
 
-      // Add date
-      clone.addHoliday(dateAdd);
-      return 1;
+      // Add holiday to settings
+      settings.addHoliday(dateAdd);
+      holidayIdx = settings.getHolidays().size() - 1;
+
+      return holidayIdx;
     } catch (DateTimeParseException e) { // Invalid date
-      return 0;
+      return holidayIdx;
     }
   }
 
   /**
    * Checks whether public holiday date entered is in the list of public holidays, and removes if found.
    *
-   * @param date - date to be removed
-   * @return whether date is in the list of public holidays
+   * @param settings:Settings
+   * @param strHolidayDate:String
+   * @return isRemoved:boolean
    * @since 1.0
    */
-  public boolean removePublicHoliday(Settings clone, String date) {
-
+  public boolean removePublicHoliday(Settings settings, String strHolidayDate) {
     try {
-      // Check if valid date
-//      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      LocalDate dateRemove = LocalDate.parse(date, dateFormatter);
+      LocalDate dateRemove = LocalDate.parse(strHolidayDate, dateFormatter);
 
-      // Remove date
-      boolean dateExist = clone.removeHoliday(dateRemove);
-      return dateExist;
+      return settings.removeHoliday(dateRemove);
     } catch (DateTimeParseException e) {
       return false;
     }
@@ -130,7 +118,7 @@ public class SettingsHandler {
   /**
    * Updates current system settings
    *
-   * @param settings:SystemSettings
+   * @param settings:Settings
    */
   //+updatePrice(settings : SystemSettings) : void
   public void updateSettings(Settings settings) {
@@ -193,8 +181,7 @@ public class SettingsHandler {
     // Check if PEAK
     DayOfWeek day = showDateTime.getDayOfWeek();
     boolean isWeekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
-    boolean isHoliday = this.currentSettings.getHolidays().stream()
-        .anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
+    boolean isHoliday = this.currentSettings.getHolidays().stream().anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
     if (isHoliday || isWeekend) ticketType = TicketType.PEAK;
 
     return ticketType;
@@ -234,6 +221,16 @@ public class SettingsHandler {
     return price;
   }
 
+  /**
+   * Computes the cost of a single ticket
+   * @param isBlockbuster:boolean
+   * @param showType:ShowType
+   * @param classType:ClassType
+   * @param ticketType:TicketType
+   * @param showDateTime:LocalDateTime
+   * @param seatCount:int
+   * @return totalCost:double
+   */
   //+ computeTotalCost(
   public double computeTotalCost(boolean isBlockbuster, Showtime.ShowType showType, Cinema.ClassType classType, Booking.TicketType ticketType, LocalDateTime showDateTime, int seatCount) {
     // NOTE; this current implementation of computeTotalCost assumes that all tickets booked are of the same type, which is NOT TRUE
@@ -246,6 +243,10 @@ public class SettingsHandler {
     return totalCost;
   }
 
+  /**
+   * Retrieves settings from serialized data
+   * @return settings:Settings;
+   */
   //+ getPrices():Price
   public Settings getSettings() {
     List<Settings> settings = new ArrayList<Settings>();
@@ -296,14 +297,7 @@ public class SettingsHandler {
       }.getType();
       ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
-      this.currentSettings = new Settings(
-          adultTicket,
-          blockbusterSurcharge,
-          showSurcharges,
-          ticketSurcharges,
-          cinemaSurcharges,
-          publicHolidays
-      );
+      this.currentSettings = new Settings(adultTicket, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
     }
 
     if (settings.size() < 1) return this.currentSettings;
@@ -318,6 +312,7 @@ public class SettingsHandler {
 
   /**
    * Serialize price data to CSV
+   * @return isSaved:boolean
    */
   //# saveSettings():boolean
   protected boolean saveSettings() {

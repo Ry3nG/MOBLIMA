@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static utils.Helper.colorizer;
-import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
+import static utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 public class BookingMenu extends Menu {
   private static BookingHandler handler;

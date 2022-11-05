@@ -12,16 +12,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Real-world datasource to fetch holiday data
+ *
+ * @author Crystal Cheong
+ */
 public class HolidayDatasource extends Datasource {
   public HolidayDatasource() {
     ENDPOINT = "https://notes.rjchow.com/singapore_public_holidays/api/";
     API_KEY = null;
   }
 
+  /**
+   * Serializes holiday data
+   *
+   * @param holidays:List<LocalDate>
+   * @return status:boolean
+   */
   public static boolean saveHolidays(List<LocalDate> holidays) {
     return serializeData(holidays, "holidays.csv");
   }
 
+  /**
+   * Retrieves holidays from serialized data
+   *
+   * @return holidays:List<LocalDate>
+   */
   public List<LocalDate> getHolidays() {
     List<LocalDate> holidays = new ArrayList<LocalDate>();
 
@@ -43,6 +59,12 @@ public class HolidayDatasource extends Datasource {
     return holidays;
   }
 
+  /**
+   * Requests the current year's holiday data from API
+   *
+   * @return holidays:List<LocalDate>
+   * <a href="https://notes.rjchow.com/singapore_public_holidays/api/2022/data.json">Holidays Endpoint</a>
+   */
   public List<LocalDate> fetchHolidays() {
     List<LocalDate> holidays = new ArrayList<LocalDate>();
 

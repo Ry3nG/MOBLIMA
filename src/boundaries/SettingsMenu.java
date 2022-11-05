@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import static utils.Helper.colorizer;
 import static utils.Helper.logger;
-import static utils.LocalDateDeserializer.dateFormatter;
+import static utils.deserializers.LocalDateDeserializer.dateFormatter;
 
 /**
  * System Settings Menu

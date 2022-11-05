@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static utils.Helper.colorizer;
 import static utils.Helper.formatAsTable;
-import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
+import static utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 public class CinemaHandler extends ShowtimeHandler {
   protected List<Cinema> cinemas;
