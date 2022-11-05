@@ -4,8 +4,11 @@ import entities.*;
 import utils.Helper;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CustomerController extends MovieBookingController {
   private static CustomerController instance;
@@ -120,12 +123,28 @@ public class CustomerController extends MovieBookingController {
     if (seats.size() < 1) return bookingIdx;
 
     // Select TicketType (only if not PEAK)
+    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSystemSettings().getTicketSurcharges();
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
     if (ticketType != Booking.TicketType.PEAK) {
-      ticketType = bookingMenu.selectTicket(showtime.getDatetime());
+      List<String> ticketOptions = Stream.of(Booking.TicketType.values())
+          .filter(t -> !t.equals(Booking.TicketType.PEAK))
+          .map(t -> {
+            double estimatedCost = this.settingsHandler().computeTotalCost(
+                movie.isBlockbuster(),
+                showtime.getType(),
+                cinema.getClassType(),
+                t,
+                showtime.getDatetime(),
+                seats.size()
+            );
+
+            return t.toString() + " - " + Double.toString(estimatedCost);
+          })
+          .collect(Collectors.toList());
+
+      ticketType = bookingMenu.selectTicket(ticketOptions);
     }
     System.out.println("Ticket type: " + ticketType.toString());
-    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType.toString());
 
     // Compute total cost by multiplying num. of seats selected
     double totalCost = this.settingsHandler().computeTotalCost(
@@ -136,6 +155,8 @@ public class CustomerController extends MovieBookingController {
         showtime.getDatetime(),
         seats.size()
     );
+    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType.toString() + " - " + Double.toString(totalCost));
+
 
     // Make booking
     bookingIdx = bookingHandler().addBooking(customerId, showtime.getCinemaId(), showtime.getMovieId(),

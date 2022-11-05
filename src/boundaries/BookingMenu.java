@@ -210,11 +210,7 @@ public class BookingMenu extends Menu {
     return showtimeIdx;
   }
 
-  public Booking.TicketType selectTicket(LocalDateTime showDatetime) {
-    List<String> ticketOptions = Stream.of(Booking.TicketType.values())
-        .filter(t -> !t.equals(Booking.TicketType.PEAK))
-        .map(Booking.TicketType::toString)
-        .collect(Collectors.toList());
+  public Booking.TicketType selectTicket(List<String> ticketOptions) {
 
     int selectionIdx = -1;
     while(selectionIdx < 0){
