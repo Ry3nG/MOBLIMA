@@ -1,7 +1,7 @@
 ### SC2002 Object-Oriented Project — *MOBLIMA*
 
 > A console-based Movie Booking and Listing Management application.
-
+> [`/docs`](./docs)
 
 <br/>
 
@@ -44,6 +44,7 @@
  ┣ 📂build
  ┃ ┣ 📦moblima.jar
  ┣ 📂diagram
+ ┣ 📂docs
  ┣ 📂lib
  ┣ 📂datasource
  ┣ 📂src
@@ -55,6 +56,7 @@
  [`/build`](./build) - contains the compiled executable of the project<br/> 
  [`/data`](./data) - stores all the serialized data to be utilized <br/>
  [`/diagram`](./diagram) - contains project UML documentation <br/>
+ [`/docs`](./docs) - contains the Javadoc <br/>
  [`/lib`](./lib) - contains the project dependencies<br/> 
  [`/datasource`](./datasource) - internal module to fetch real-world data from various APIs<br/> 
  [`/src`](./src) - contains the project source files<br/> 
