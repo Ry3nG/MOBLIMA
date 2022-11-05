@@ -329,6 +329,7 @@ public class MovieMenu extends Menu {
         if (proceedSelection == proceedOptions.size() - 2) {
           Helper.logger("MovieMenu.selectUpdatableAction", "Saved Review: \n" + review);
           status = handler.updateReview(review.getRating(), review.getReview());
+          System.out.println(colorizer("[UPDATED] Review updated", Preset.SUCCESS));
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {

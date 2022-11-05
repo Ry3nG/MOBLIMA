@@ -62,20 +62,13 @@ public class SettingsMenu extends Menu {
       put("Edit Ticket Surcharges", () -> editTicketSurcharges());
       put("Edit Cinema Surcharges", () -> editCinemaSurcharges());
       put("Edit Holidays", () -> editPublicHolidays());
-
-
-
-//      put("Add Public Holiday", () -> addPublicHoliday());
-//      put("Remove Public Holiday", () -> removePublicHoliday());
-
-
       put("Discard changes", () -> {
         settings = handler.getCurrentSystemSettings();
         System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
       });
-      put("Save changes and return", () -> {
+      put("Save changes", () -> {
         handler.updateSettings(settings);
-        System.out.println("\t>>> Saved and returning to previous menu . . .");
+        System.out.println(colorizer("[UPDATED] Settings updated", Preset.SUCCESS));
       });
       put("Return to previous menu", () -> {
         settings = handler.getCurrentSystemSettings();

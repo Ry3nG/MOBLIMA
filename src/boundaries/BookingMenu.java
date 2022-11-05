@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static utils.Helper.colorizer;
 import static utils.LocalDateTimeDeserializer.dateTimeFormatter;
 
 public class BookingMenu extends Menu {
@@ -213,7 +214,7 @@ public class BookingMenu extends Menu {
   public Booking.TicketType selectTicket(List<String> ticketOptions) {
 
     int selectionIdx = -1;
-    while(selectionIdx < 0){
+    while (selectionIdx < 0) {
       System.out.println("Select ticket type:");
       this.displayMenuList(ticketOptions);
       selectionIdx = getListSelectionIdx(ticketOptions, false);
@@ -343,6 +344,7 @@ public class BookingMenu extends Menu {
         add("Set Cinema ID");
         add("Set Movie ID");
         add("Set Datetime");
+        add("Set Show Type");
         add("Discard changes");
         add("Remove showtime");
         add("Save changes & return");
@@ -362,24 +364,26 @@ public class BookingMenu extends Menu {
           handler.updateShowtime(
               showtime.getCinemaId(),
               showtime.getMovieId(),
+              showtime.getType(),
               showtime.getDatetime(),
               showtime.getSeats()
           );
           status = true;
+          System.out.println(colorizer("[UPDATED] Showtime updated", Helper.Preset.SUCCESS));
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
           // VALIDATION: Check if showtime has associated bookings
           if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-            System.out.println("Unable to remove showtime with associated bookings");
+            System.out.println(colorizer("[FAILED] Unable to remove showtime with associated bookings", Helper.Preset.ERROR));
             continue;
           }
 
-          System.out.println("[UPDATED] Showtime removed");
+          System.out.println(colorizer("[UPDATED] Showtime removed", Helper.Preset.SUCCESS));
           handler.removeShowtime(showtime.getId());
         }
 
-        System.out.println("\t>>> " + "Retfurning to previous menu...");
+        System.out.println("\t>>> " + "Returning to previous menu...");
         return status;
       }
 
@@ -474,6 +478,37 @@ public class BookingMenu extends Menu {
         } else {
           System.out.println("Invalid input, expected format (dd-MM-yyyy hh:mma)");
         }
+      }
+
+      // Set Show Type
+      else if (proceedSelection == 3) {
+        Showtime.ShowType prevStatus = showtime.getType();
+        System.out.println("[CURRENT] Show Type: " + prevStatus.toString());
+
+        //TODO: Extract as separate function
+        List<String> updateOptions = Stream.of(Showtime.ShowType.values())
+            .map(Showtime.ShowType::toString)
+            .collect(Collectors.toList());
+
+        System.out.println("Set to:");
+        this.displayMenuList(updateOptions);
+        int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+        // VALIDATION: Check if showtime has associated bookings
+        if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
+          System.out.println("[NO CHANGE] Unable to change movie ID of showtime with associated bookings");
+          continue;
+        }
+
+        showtime.setType(Showtime.ShowType.values()[selectionIdx]);
+        Showtime.ShowType curStatus = showtime.getType();
+
+        if (prevStatus == curStatus) {
+          System.out.println("[NO CHANGE] Show Type: " + prevStatus);
+        } else {
+          System.out.println("[UPDATED] Show Type: " + prevStatus + " -> " + curStatus);
+        }
+
       }
     }
     return status;
