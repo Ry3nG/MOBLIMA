@@ -1,5 +1,11 @@
 package entities;
 
+/**
+ * Encapsulates account details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Account {
   protected String id;
   protected String name;

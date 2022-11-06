@@ -10,7 +10,12 @@ import java.util.Objects;
 
 import static utils.Helper.formatAsTable;
 
-
+/**
+ * Encapsulates showtimes details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Showtime {
   private String id;
   private int cinemaId;
@@ -19,6 +24,16 @@ public class Showtime {
   private ShowType type;
   private boolean[][] seats;
 
+  /**
+   * Default constructor
+   *
+   * @param id:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param datetime:LocalDateTime
+   * @param type:ShowType
+   * @param seats:boolean[][]
+   */
   public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type, boolean[][] seats) {
     this.id = id;
     this.cinemaId = cinemaId;
@@ -28,6 +43,15 @@ public class Showtime {
     this.seats = seats;
   }
 
+  /**
+   * Subset constructor with default seat arrangements
+   *
+   * @param id:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param datetime:LocalDateTime
+   * @param type:ShowType
+   */
   public Showtime(String id, int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
     this(id, cinemaId, movieId, datetime, type, new boolean[][]{{true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true}, {true, true, true, true, true, true, true, true},});
   }
@@ -73,18 +97,6 @@ public class Showtime {
     this.datetime = datetime;
   }
 
-  public DayOfWeek getDay() {
-    DayOfWeek day = datetime.getDayOfWeek();
-
-    return day;
-  }
-
-  public String getFormattedDatetime() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
-
-    return this.datetime.format(formatter);
-  }
-
   public ShowType getType() {
     return type;
   }
@@ -99,6 +111,25 @@ public class Showtime {
 
   public void setSeats(boolean[][] seats) {
     this.seats = seats;
+  }
+
+  /**
+   * Gets the day of showtime
+   *
+   * @return showtimeDay:DayOfWeek
+   */
+  public DayOfWeek getDay() {
+    return datetime.getDayOfWeek();
+  }
+
+  /**
+   * Pretty print show datetime
+   *
+   * @return strShowDateTime:String
+   */
+  public String getFormattedDatetime() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' hh:mma");
+    return this.datetime.format(formatter);
   }
 
   /**
@@ -128,12 +159,15 @@ public class Showtime {
   public int getSeatCount() {
     int seatCount = 0;
     if (this.seats.length < 1) return seatCount;
-
     for (boolean[] seat : this.seats) for (int col = 0; col < seat.length; col++) seatCount++;
-
     return seatCount;
   }
 
+  /**
+   * Pretty print Showtime object
+   *
+   * @return strShowtime:String
+   */
   @Override
   public String toString() {
 
@@ -146,6 +180,12 @@ public class Showtime {
     return formatAsTable(rows);
   }
 
+  /**
+   * Compares Showtime ID to determine object equality
+   *
+   * @param obj:Object
+   * @return isEqual:boolean
+   */
   @Override
   public boolean equals(Object obj) {
     return obj instanceof Showtime && ((Showtime) obj).id.equals(this.id);
@@ -157,12 +197,24 @@ public class Showtime {
     return prime + Objects.hashCode(this.id);
   }
 
+  /**
+   * Constant values of all possible Showtime show types
+   *
+   * @author Crystal Cheong
+   * @version 1.0
+   */
   public enum ShowType {
 
-    Digital("Digital"), ThreeDimensional("3D");
+    Digital("Digital"),
+    ThreeDimensional("3D");
 
     private final String displayName;
 
+    /**
+     * Default constructor to initialize Enum value with display name
+     *
+     * @param displayName:String
+     */
     ShowType(String displayName) {
       this.displayName = displayName;
     }

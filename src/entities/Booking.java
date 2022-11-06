@@ -8,6 +8,12 @@ import java.util.Objects;
 
 import static utils.Helper.formatAsTable;
 
+/**
+ * Encapsulates booking details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Booking {
   private String transactionId;
   private String customerId;
@@ -18,6 +24,18 @@ public class Booking {
   private double totalPrice;
   private TicketType type;
 
+  /**
+   * Default constructor
+   *
+   * @param transactionId:String
+   * @param customerId:String
+   * @param cinemaId:int
+   * @param movieId:int
+   * @param showtimeId:String
+   * @param seats:List<int[]>
+   * @param totalPrice:double
+   * @param type:TicketType
+   */
   public Booking(String transactionId, String customerId, int cinemaId, int movieId, String showtimeId, List<int[]> seats, double totalPrice, TicketType type) {
     this.transactionId = transactionId;
     this.customerId = customerId;
@@ -35,16 +53,7 @@ public class Booking {
    * @param cloneBooking:Booking
    */
   public Booking(Booking cloneBooking) {
-    this(
-        cloneBooking.transactionId,
-        cloneBooking.customerId,
-        cloneBooking.cinemaId,
-        cloneBooking.movieId,
-        cloneBooking.showtimeId,
-        cloneBooking.seats,
-        cloneBooking.totalPrice,
-        cloneBooking.type
-    );
+    this(cloneBooking.transactionId, cloneBooking.customerId, cloneBooking.cinemaId, cloneBooking.movieId, cloneBooking.showtimeId, cloneBooking.seats, cloneBooking.totalPrice, cloneBooking.type);
   }
 
   public String getTransactionId() {
@@ -111,13 +120,17 @@ public class Booking {
     this.type = type;
   }
 
+  /**
+   * Pretty print Booking object
+   *
+   * @return strBooking:String
+   */
   @Override
   public String toString() {
     DecimalFormat df = new DecimalFormat("0.00");
 
     // Parse seatCodes
-    List<String> seatCodes = this.seats.stream()
-        .map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1))).toList();
+    List<String> seatCodes = this.seats.stream().map(s -> ("R" + (s[0] + 1) + "C" + (s[1] + 1))).toList();
 
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Transaction ID:", this.transactionId));
@@ -128,6 +141,12 @@ public class Booking {
     return formatAsTable(rows);
   }
 
+  /**
+   * Compares Booking ID to determine object equality
+   *
+   * @param obj:Object
+   * @return isEqual:boolean
+   */
   @Override
   public boolean equals(Object obj) {
     return obj instanceof Booking && ((Booking) obj).transactionId.equals(this.transactionId);
@@ -139,15 +158,23 @@ public class Booking {
     return prime + Objects.hashCode(this.transactionId);
   }
 
+  /**
+   * Constant values of all possible Booking ticket types
+   *
+   * @author Crystal Cheong
+   * @version 1.0
+   */
   public enum TicketType {
 
-    SENIOR("Senior Citizen"),
-    STUDENT("Student"),
-    NON_PEAK("Non Peak"),
-    PEAK("Peak");
+    SENIOR("Senior Citizen"), STUDENT("Student"), NON_PEAK("Non Peak"), PEAK("Peak");
 
     private final String displayName;
 
+    /**
+     * Default constructor to initialize Enum value with display name
+     *
+     * @param displayName:String
+     */
     TicketType(String displayName) {
       this.displayName = displayName;
     }
