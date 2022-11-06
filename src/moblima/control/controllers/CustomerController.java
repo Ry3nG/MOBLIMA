@@ -49,12 +49,14 @@ public class CustomerController extends MovieBookingController {
 //        reviewHandler().printMovies(movies);
 //      });
       put("Top 5 movies by ticket sales", () -> {
-        List<Movie> rankedMovies = rankMoviesByBooking(5);
-        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
+        printRankedMoviesByBooking(false);
+//        List<Movie> rankedMovies = rankMoviesByBooking(5);
+//        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Top 5 movies by overall rating", () -> {
-        List<Movie> rankedMovies = rankMoviesByRatings(5);
-        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
+        printRankedMoviesByRatings(false);
+//        List<Movie> rankedMovies = rankMoviesByRatings(5);
+//        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated

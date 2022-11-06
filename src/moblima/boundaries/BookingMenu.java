@@ -158,7 +158,7 @@ public class BookingMenu extends Menu {
     // Initialize options with a return at the end
     List<Cinema> cinemas = handler.getCinemas();
     List<String> cinemaOptions = cinemas.stream()
-        .map(Cinema::toString)
+        .map(c -> "\n" + c.toString())
         .collect(Collectors.toList());
     cinemaOptions.add((cinemaOptions.size()), "Add new cinema");
     cinemaOptions.add((cinemaOptions.size()), "Return to previous menu");
@@ -551,6 +551,7 @@ public class BookingMenu extends Menu {
       {
         add("Set Class");
         add("Set Showtimes");
+        add("Set Cineplex Code");
         add("Discard changes");
         add("Remove cinema");
         add("Save changes & return");
@@ -637,7 +638,29 @@ public class BookingMenu extends Menu {
           showtimes = handler.getCinemaShowtimes(cinemaId);
           showtimeIdx = this.selectShowtimeIdx(showtimes);
         }
+      }
 
+      // Set Cineplex Code
+      else if (proceedSelection == 2) {
+        String prevStatus = cinema.getCineplexCode();
+        System.out.println("[CURRENT] Cineplex Code: " + prevStatus);
+
+        List<String> cineplexCodes = handler.getCineplexCodes().stream()
+            .filter(c -> !c.equals(prevStatus))
+            .collect(Collectors.toList());
+
+        System.out.println("Set to:");
+        this.displayMenuList(cineplexCodes);
+        int selectionIdx = getListSelectionIdx(cineplexCodes, false);
+
+        cinema.setCineplexCode(cineplexCodes.get(selectionIdx));
+        String curStatus = cinema.getCineplexCode();
+
+        if (prevStatus.equals(curStatus)) {
+          System.out.println("[NO CHANGE] Cineplex Code: " + prevStatus);
+        } else {
+          System.out.println("[UPDATED] Cineplex Code: " + prevStatus + " -> " + curStatus);
+        }
       }
 
       // Print updated cinema

@@ -75,7 +75,15 @@ public class MovieMenu extends Menu {
    */
 //+ getViewableMovie(): List<Movie>
   public List<Movie> getViewableMovies() {
-    return showLimitedMovies ? handler.getMovies(ShowStatus.NOW_SHOWING) : handler.getMovies();
+    List<Movie> movies = handler.getMovies();
+
+    List<ShowStatus> unbookableStatus = Arrays.asList(ShowStatus.END_SHOWING, ShowStatus.COMING_SOON);
+    if(showLimitedMovies && movies.size() > 0){
+      movies = movies.stream()
+          .filter(m -> !unbookableStatus.contains(m.getShowStatus()))
+          .collect(Collectors.toList());
+    }
+    return movies;
   }
 
   /**
