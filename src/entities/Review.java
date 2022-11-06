@@ -6,6 +6,12 @@ import java.util.List;
 
 import static utils.Helper.formatAsTable;
 
+/**
+ * Encapsulates review details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Review {
   private String id;
   private int movieId;
@@ -14,6 +20,16 @@ public class Review {
   private String authorName;
   private String authorId;
 
+  /**
+   * Default constructor
+   *
+   * @param id:String
+   * @param movieId:int
+   * @param review:String
+   * @param rating:int
+   * @param authorName:String
+   * @param authorId:String
+   */
   public Review(String id, int movieId, String review, int rating, String authorName, String authorId) {
     this.id = id;
     this.movieId = movieId;
@@ -87,6 +103,11 @@ public class Review {
     this.authorId = authorId;
   }
 
+  /**
+   * Pretty print Review object
+   *
+   * @return strReview:String
+   */
   @Override
   public String toString() {
 

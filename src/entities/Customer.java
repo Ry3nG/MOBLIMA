@@ -6,10 +6,24 @@ import java.util.List;
 
 import static utils.Helper.formatAsTable;
 
+/**
+ * Encapsulates customer account details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Customer extends Account {
   private String contactNumber;
   private String emailAddress;
 
+  /**
+   * Default constructor
+   *
+   * @param id:String
+   * @param name:String
+   * @param contactNumber:String
+   * @param emailAddress:String
+   */
   public Customer(String id, String name, String contactNumber, String emailAddress) {
     super(id, name);
     this.contactNumber = contactNumber;
@@ -32,6 +46,11 @@ public class Customer extends Account {
     this.emailAddress = emailAddress;
   }
 
+  /**
+   * Pretty print Customer object
+   *
+   * @return strCustomer:String
+   */
   @Override
   public String toString() {
     List<List<String>> rows = new ArrayList<List<String>>();

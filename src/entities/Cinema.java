@@ -24,12 +24,7 @@ public class Cinema {
    * @param cloneCinema:Cinema
    */
   public Cinema(Cinema cloneCinema) {
-    this(
-        cloneCinema.id,
-        cloneCinema.classType,
-        cloneCinema.showtimes,
-        cloneCinema.cineplexCode
-    );
+    this(cloneCinema.id, cloneCinema.classType, cloneCinema.showtimes, cloneCinema.cineplexCode);
   }
 
   public int getId() {
@@ -64,6 +59,11 @@ public class Cinema {
     this.cineplexCode = cineplexCode;
   }
 
+  /**
+   * Pretty print cinema object
+   *
+   * @return strCinema:String
+   */
   @Override
   public String toString() {
     String printed = "ID: " + this.id + "\n";
@@ -74,11 +74,22 @@ public class Cinema {
     return printed;
   }
 
+  /**
+   * Constant values of all possible Cineplex codes
+   *
+   * @author Crystal Cheong
+   * @version 1.0
+   */
   public enum Cineplex {
-    ABC,
-    XYZ
+    ABC, XYZ
   }
 
+  /**
+   * Constant values of all possible Cinema class types
+   *
+   * @author Crystal Cheong
+   * @version 1.0
+   */
   public enum ClassType {
     Normal, Premium
   }
