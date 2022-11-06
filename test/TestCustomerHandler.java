@@ -3,6 +3,8 @@ import moblima.entities.Customer;
 import moblima.utils.datasource.Datasource;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.System.exit;
@@ -82,6 +84,21 @@ public class TestCustomerHandler {
     actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
     customerCount = handler.getCustomers().size();
     assertEquals(isAdded, (actualIdx > -1));
+    success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: Duplicate contactNumber = PASSED");
+
+    // CASE: Invalid contactNumber
+    isAdded = false;
+    List<String> invalidInputs = new ArrayList<String>(Arrays.asList(
+        contactNumber,
+        contactNumber.substring(0, contactNumber.length() -1),
+        "abcdefg",
+        "abc123",
+        ";dfdfwe.,/"
+    ));
+    for(String input:invalidInputs){
+      actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
+      assertEquals(isAdded, (actualIdx > -1));
+    }
     success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: Duplicate contactNumber = PASSED");
   }
 }

@@ -133,7 +133,7 @@ public class CustomerHandler {
 // +addCustomer(name:String, contactNumber:String) : int
   public int addCustomer(String name, String contactNumber, String emailAddress) {
     if (checkIfAccountExists(contactNumber) >= 0) return -1;
-
+    if(!validatePhoneNumber(contactNumber)) return -1;
 
     // Initialize new Customer
     Customer customer = new Customer(UUID.randomUUID().toString(), name, contactNumber, emailAddress);
