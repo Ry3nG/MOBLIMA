@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Global environment variables and debug mode toggle
  *
- * @author Crystal Cheong
+ * @author SC2002 /SS11 Group 1
  * @version 1.0
  */
 public class Constants {
@@ -57,7 +57,6 @@ public class Constants {
    *
    * @param envKey :String
    * @return String | null
-   * @author Crystal Cheong
    */
   public static String getEnv(String envKey) {
     _instance = getInstance();
@@ -68,7 +67,6 @@ public class Constants {
    * Load enviroment variables from project .env file
    *
    * @return boolean
-   * @author Crystal Cheong
    */
   private boolean loadEnv() {
     boolean isLoaded = false;

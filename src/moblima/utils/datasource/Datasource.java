@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * All-purpose datasource parser and serializer
  *
- * @author Crystal Cheong
+ * @author SC2002 /SS11 Group 1
  * @version 1.0
  */
 public class Datasource {
