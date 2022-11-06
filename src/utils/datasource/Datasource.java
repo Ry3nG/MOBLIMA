@@ -68,12 +68,8 @@ public class Datasource {
    * @return isSuccess:boolean
    */
   public static boolean serializeData(List list, String outputFileName) {
-    boolean isSuccess = false;
-
-    isSuccess = Datasource.serializeDataToCSV(Datasource.convertToJsonArray(list), outputFileName, true);
-    Helper.logger("Datasource.serializeData", "Exported to " + outputFileName);
-
-    return isSuccess;
+    Helper.logger("Datasource.serializeData", "Exporting to " + outputFileName + "...");
+    return Datasource.serializeDataToCSV(Datasource.convertToJsonArray(list), outputFileName, true);
   }
 
   /**
@@ -82,7 +78,7 @@ public class Datasource {
    * @param responseObj:JsonArray
    * @param outputFileName:String
    * @param overwrite:boolean
-   * @return
+   * @return isSuccessful:boolean
    */
   public static boolean serializeDataToCSV(JsonArray responseObj, String outputFileName, boolean overwrite) {
     boolean isSuccessful = false;
@@ -124,10 +120,10 @@ public class Datasource {
   /**
    * Serialize stringified JSON to output file
    *
-   * @param outputFile
-   * @param jsonObject
-   * @param overwrite
-   * @return
+   * @param outputFile:File
+   * @param jsonObject:String
+   * @param overwrite:boolean
+   * @return isSaved:boolean
    */
   public static boolean saveJson(File outputFile, String jsonObject, boolean overwrite) {
     boolean isSaved = false;

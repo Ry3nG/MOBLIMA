@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.platform.commons.function.Try.success;
 
@@ -16,7 +18,7 @@ public class AppTest {
   private static App app;
 
   @BeforeAll
-  public static void testInit() {
+  public static void init() {
     app = App.getInstance();
     assertNotNull(app, "App instance was null");
   }
@@ -70,5 +72,12 @@ public class AppTest {
     } catch (Exception ex) {
       fail("[FAIL/AppTest.testStaff] Executor did not timeout as expected");
     }
+  }
+
+  @AfterAll
+  public static void teardown() {
+    app = null;
+    assertNull(app, "App instance is null");
+    exit(0);
   }
 }

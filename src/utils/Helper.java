@@ -57,7 +57,7 @@ public class Helper {
       result = Integer.parseInt(inputStr);
     } catch (NumberFormatException ex) {
       logger("Helper.parseStrToInt", ex.getMessage());
-      return -1;
+      return result;
     }
     return result;
   }
@@ -84,7 +84,7 @@ public class Helper {
 
     StringBuilder result = new StringBuilder();
     for (List<String> row : rows)
-      result.append(String.format(format, row.toArray(new String[0]))).append("\n");
+      result.append(String.format(format, (String[]) row.toArray(new String[0]))).append("\n");
 
     return result.toString();
   }
@@ -95,12 +95,10 @@ public class Helper {
    * @param lineText:String
    */
   public static void figPrint(String lineText) {
-    String asciiArt = null;
     try {
-      asciiArt = FigletFont.convertOneLine(lineText);
+      String asciiArt = FigletFont.convertOneLine(lineText);
       System.out.println(asciiArt);
     } catch (Exception e) {
-
     }
   }
 
@@ -110,9 +108,7 @@ public class Helper {
    *
    * @param input:String      - input obained from Staff
    * @param checkZero:boolean - whether it is required to check for zero
-   * @return -1 - if Staff does not want to change the price
-   * @return -2 - if the price entered is invalid
-   * @return price - if the price entered is valid
+   * @return price:double
    * @since 1.1
    */
   public static double checkPriceInput(String input, boolean checkZero) {

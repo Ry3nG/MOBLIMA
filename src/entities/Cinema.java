@@ -2,6 +2,12 @@ package entities;
 
 import java.util.List;
 
+/**
+ * Encapsulates cinema details
+ *
+ * @author Crystal Cheong
+ * @version 1.0
+ */
 public class Cinema {
 
   private int id;
@@ -10,6 +16,13 @@ public class Cinema {
   private List<Showtime> showtimes;
   private String cineplexCode;
 
+  /**
+   * Default constructor
+   * @param id:int
+   * @param classType:ClassType
+   * @param showtimes:List<Showtime>
+   * @param cineplexCode:String
+   */
   public Cinema(int id, ClassType classType, List<Showtime> showtimes, String cineplexCode) {
     this.id = id;
     this.classType = classType;
@@ -72,16 +85,6 @@ public class Cinema {
     printed += "Total Showtimes: " + this.showtimes.size() + "\n";
 
     return printed;
-  }
-
-  /**
-   * Constant values of all possible Cineplex codes
-   *
-   * @author Crystal Cheong
-   * @version 1.0
-   */
-  public enum Cineplex {
-    ABC, XYZ
   }
 
   /**

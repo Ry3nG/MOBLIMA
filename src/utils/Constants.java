@@ -30,9 +30,7 @@ public class Constants {
    *
    * @param isDebug:boolean
    */
-  public static void setDebugMode(
-      boolean isDebug
-  ) {
+  public static void setDebugMode(boolean isDebug) {
     DEBUG_MODE = isDebug;
   }
 
@@ -43,9 +41,7 @@ public class Constants {
    * @return String | null
    * @author Crystal Cheong
    */
-  public static String getEnv(
-      String envKey
-  ) {
+  public static String getEnv(String envKey) {
     _instance = getInstance();
     return entries.get(envKey);
   }
@@ -59,11 +55,7 @@ public class Constants {
   private boolean loadEnv() {
     boolean isLoaded = false;
     try {
-      Dotenv dotenv = Dotenv.configure()
-          .ignoreIfMalformed()
-          .ignoreIfMissing()
-          .filename(".env")
-          .load();
+      Dotenv dotenv = Dotenv.configure().ignoreIfMalformed().ignoreIfMissing().filename(".env").load();
 
       entries = new HashMap<String, String>();
       for (DotenvEntry e : dotenv.entries()) {
@@ -72,7 +64,7 @@ public class Constants {
 
       isLoaded = true;
     } catch (Exception e) {
-      e.getStackTrace();
+      Helper.logger("Constants.loadEnv", "No env found");
     }
     return isLoaded;
   }
