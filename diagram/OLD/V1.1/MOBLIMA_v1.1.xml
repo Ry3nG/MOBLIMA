@@ -3341,7 +3341,7 @@
 			</MasterView>
 		</Usage>
 		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="lHhSY8GGAqE.AQox" Leaf="false" Name="entity" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-10-12T09:44:07.111" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
-		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="HPIk48GGAqE.ARAB" Leaf="false" Name="control" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-10-12T09:44:07.123" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="HPIk48GGAqE.ARAB" Leaf="false" Name="moblima.control" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-10-12T09:44:07.123" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 		<AutoAttributeTypeModelContainer Id="fMxk48GGAqE.ARA_" Name="AutoAttributeTypeModelContainer">
 			<AutoAttributes>
 				<AutoAttributeTypeModel DefaultValue_IsNull="true" Id="OYBk48GGAqE.ARA1" Name="movieType" Type="String"/>
@@ -3498,7 +3498,7 @@
 		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="Xk8c48GGAqE.ARH9" Leaf="false" Name="enumeration" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-10-12T09:44:07.123" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="QCTK48GGAqE.ARNB" Leaf="false" Name="main.MoblimaApp" PmAuthor="Min" PmCreateDateTime="2022-10-11T21:54:18.242" PmLastModified="2022-10-12T10:57:00.461" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="control"/>
+				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="BxF148GGAqE.ARjX" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="roleType" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:34:07.840" PmLastModified="2022-10-12T09:44:07.127" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="Role" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true"/>
@@ -3630,7 +3630,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="TJUN48GGAqE.ARj5" Leaf="false" Name="StaffHandler" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:36:27.186" PmLastModified="2022-10-12T11:01:53.228" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="control"/>
+				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="3Mf948GGAqE.ARqZ" Leaf="false" Lower_IsNull="true" Name="loadSavedData" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:53:05.083" PmLastModified="2022-10-12T11:01:53.228" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true"/>
@@ -3727,7 +3727,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="KsAd48GGAqE.ARmw" Leaf="false" Name="CustomerHandler" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:44:29.012" PmLastModified="2022-10-12T11:00:22.830" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="control"/>
+				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="n2YD48GGAqE.ARqu" Leaf="false" Lower_IsNull="true" Name="loadSavedData" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:53:38.809" PmLastModified="2022-10-12T10:57:22.340" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true"/>
@@ -3825,7 +3825,7 @@
 		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Usage" Documentation_plain="" IconPath_IsNull="true" Id="dr_D48GGAqE.ARrQ" Leaf="false" Name="use" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:57:33.934" PmLastModified="2022-10-12T09:44:07.099" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="lowj48GGAqE.ARr7" Leaf="false" Name="VendorHandler" PmAuthor="Min" PmCreateDateTime="2022-10-11T23:57:47.241" PmLastModified="2022-10-12T11:14:26.354" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="control"/>
+				<Stereotype Idref="HPIk48GGAqE.ARAB" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="X5JEU8GGAqE.AQuM" Leaf="false" Lower_IsNull="true" Name="loadSavedDate" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-10-12T10:59:48.346" PmLastModified="2022-10-12T11:00:02.489" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true"/>

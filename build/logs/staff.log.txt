@@ -1,0 +1,19 @@
+Account Login
+Username: Password: Successful account login
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) View and update movie details
+(2) View and update showtimes
+(3) View and update cinemas
+(4) View and update system settings
+(5) Register new staff account
+(6) Exit
+---------------------------------------------------------------------------
+SELECTED: 

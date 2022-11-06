@@ -1,0 +1,253 @@
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Search / View all movies
+(4) Book and purchase ticket
+(5) View booking history
+(6) Login / Register Account
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Search / View all movies
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. Jeepers Creepers: Reborn
+(4) 4. Fall
+(5) 5. Orphan: First Kill
+(6) 6. The Stranger
+(7) 7. Halloween Ends
+(8) 8. Piggy
+(9) 9. Top Gun: Maverick
+(10) 10. One Piece Film Red
+(11) 11. Blackout
+(12) 12. Smile
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. All Quiet on the Western Front
+(15) 15. Spider-Man: No Way Home
+(16) 16. Don't Worry Darling
+(17) 17. The Quintessential Quintuplets Movie
+(18) 18. Barbarian
+(19) 19. Black Panther: Wakanda Forever
+(20) 20. Deinfluencer
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> 21. Return to previous menu
+	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Search / View all movies
+(4) Book and purchase ticket
+(5) View booking history
+(6) Login / Register Account
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Book and purchase ticket
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. Jeepers Creepers: Reborn
+(4) 4. Fall
+(5) 5. Orphan: First Kill
+(6) 6. The Stranger
+(7) 7. Halloween Ends
+(8) 8. Piggy
+(9) 9. Top Gun: Maverick
+(10) 10. One Piece Film Red
+(11) 11. Blackout
+(12) 12. Smile
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. All Quiet on the Western Front
+(15) 15. Spider-Man: No Way Home
+(16) 16. Don't Worry Darling
+(17) 17. The Quintessential Quintuplets Movie
+(18) 18. Barbarian
+(19) 19. Black Panther: Wakanda Forever
+(20) 20. Deinfluencer
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Black Adam                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+Runtime:             125 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+Synopsis:            Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+Review Rating:       3.0 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+Directed By:         Jaume Collet-Serra                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+Cast:                [Dwayne Johnson, Aldis Hodge, Noah Centineo, Sarah Shahi, Quintessa Swindell, Marwan Kenzari, Mo Amer, Bodhi Sabongui, Pierce Brosnan, James Cusati-Moyer, Jalon Christian, Benjamin Patterson, Odelya Halevi, Uli Latukefu, Jennifer Holland, Henry Winkler, Chaim Jeraffi, Sharon Gee, Stephan Jones, A. Manuel Miranda, Djimon Hounsou, Raj Kala, E. Lloyd Napier, Kiara Rashawn, Onye Eme-Akwari, Sanna Erica, Vince Canlas, Tonea Stewart, Meghna Nagarajan, Patrick Sabongui, Alex Parkinson, Joseph Gatt, Kamen Casey, Dennis Dawson, Mike Senior, Jermaine Rivers, Regina Ting Chen, Sekou Laidlow, Cameron Moir, Donny Carrington, Boone Platt, Philip Fornah, Derek Russo, Angel Rosario Jr., Tang Nguyen, Christopher Matthew Cook, Natasha Ellie, Daniel Danca, Yssa Mei Panganiban, Viola Davis, Henry Cavill]  
+Link:                https://www.themoviedb.org/movie/436270                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+Press any key to continue . . .
+Select showtime slot: 
+---------------------------------------------------------------------------
+(1) Datetime:       SUNDAY, 06-11-2022 at 07:09pm  
+Cineplex Code:  NSL                            
+Cinema ID:      0                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(2) Datetime:       TUESDAY, 08-11-2022 at 09:09pm  
+Cineplex Code:  NSL                             
+Cinema ID:      0                               
+Show Type:      Digital                         
+Booked Seats:   0/40                            
+
+(3) Datetime:       WEDNESDAY, 09-11-2022 at 10:09pm  
+Cineplex Code:  NSL                               
+Cinema ID:      0                                 
+Show Type:      Digital                           
+Booked Seats:   0/40                              
+
+(4) Datetime:       MONDAY, 07-11-2022 at 08:09pm  
+Cineplex Code:  KUS                            
+Cinema ID:      1                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// SHOWTIME DETAILS ///
+Datetime:      SUNDAY, 06-11-2022 at 07:09pm  
+Cinema ID:     0                              
+Show Type:     3D                             
+Booked Seats:  0/40                           
+
+================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |O||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Proceed to make booking
+(2) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Next steps:
+---------------------------------------------------------------------------
+(1) Already have an account? Login
+(2) Create account
+---------------------------------------------------------------------------
+SELECTED: Account Login
+Account Contact No.: Successful account login
+ACCOUNT: 35c15dba-1e13-4508-a803-971a73b9bf69 / NAME: Test
+================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |O||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Enter the seat row: 
+SELECTED: Enter the seat column: 
+SELECTED: ================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |X||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Continue selecting more seats
+(2) Confirm booking
+(3) Discard selection
+(4) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: ================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |X||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Enter the seat row: 
+SELECTED: Enter the seat column: 
+SELECTED: ================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |X||X| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Continue selecting more seats
+(2) Confirm booking
+(3) Discard selection
+(4) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Confirmed Seat Selection
+================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |X||X| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Ticket type: Peak
+---------------------------------------------------------------------------
+/// BOOKING DETAILS ///
+Transaction ID:  NSL202211060653  
+Seats:           [R3C1, R3C2]     
+Type:            Peak             
+Total Price:     SGD $56.00       
+
+/// SHOWTIME DETAILS ///
+Datetime:      SUNDAY, 06-11-2022 at 07:09pm  
+Cinema ID:     0                              
+Show Type:     3D                             
+Booked Seats:  2/40                           
+
+/// MOVIE DETAILS ///
+Title:               Black Adam                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+Runtime:             125 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+Synopsis:            Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+Review Rating:       3.0 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+Directed By:         Jaume Collet-Serra                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+Cast:                [Dwayne Johnson, Aldis Hodge, Noah Centineo, Sarah Shahi, Quintessa Swindell, Marwan Kenzari, Mo Amer, Bodhi Sabongui, Pierce Brosnan, James Cusati-Moyer, Jalon Christian, Benjamin Patterson, Odelya Halevi, Uli Latukefu, Jennifer Holland, Henry Winkler, Chaim Jeraffi, Sharon Gee, Stephan Jones, A. Manuel Miranda, Djimon Hounsou, Raj Kala, E. Lloyd Napier, Kiara Rashawn, Onye Eme-Akwari, Sanna Erica, Vince Canlas, Tonea Stewart, Meghna Nagarajan, Patrick Sabongui, Alex Parkinson, Joseph Gatt, Kamen Casey, Dennis Dawson, Mike Senior, Jermaine Rivers, Regina Ting Chen, Sekou Laidlow, Cameron Moir, Donny Carrington, Boone Platt, Philip Fornah, Derek Russo, Angel Rosario Jr., Tang Nguyen, Christopher Matthew Cook, Natasha Ellie, Daniel Danca, Yssa Mei Panganiban, Viola Davis, Henry Cavill]  
+Link:                https://www.themoviedb.org/movie/436270                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+---------------------------------------------------------------------------
+Successfully booked. Reference: NSL202211060653
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Search / View all movies
+(4) View and update reviews
+(5) Book and purchase ticket
+(6) View booking history
+(7) View account details
+(8) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Exit
+	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!

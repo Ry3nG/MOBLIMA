@@ -1,0 +1,2 @@
+totalPrice,cinemaId,customerId,movieId,showtimeId,type,seats,transactionId
+56.0,0,35c15dba-1e13-4508-a803-971a73b9bf69,436270,c372cb72-5781-4a16-b823-5375d9a0254a,PEAK,"[[2,0],[2,1]]",NSL202211060653
