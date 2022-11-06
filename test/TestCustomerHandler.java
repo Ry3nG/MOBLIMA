@@ -22,14 +22,34 @@ public class TestCustomerHandler {
     handler = new CustomerHandler();
     customers = handler.getCustomers();
     assertNotNull(handler, "Handler instance was null");
-    assertEquals(customers.size(), handler.getCustomers().size(), "Customers: " + customers.size());
+
+    int customerCount = handler.getCustomers().size();
+    int storedCustomerCount = customers.size();
+    assertEquals(storedCustomerCount, customerCount, "Customers: " + customers.size());
   }
 
+
   @BeforeEach
-  @AfterEach
   public void reset() {
     boolean isResetted = Datasource.deleteFile("customers.csv");
     assertEquals(true, isResetted, "Resetted customer list by deletion");
+  }
+
+
+  @AfterEach
+  public void restore(){
+    reset();
+    // Restore customers
+    int customerCount = handler.getCustomers().size();
+    int storedCustomerCount = customers.size();
+
+    if(customers.size() > 0){
+      Datasource.serializeData(customers, "customers.csv");
+
+      customerCount = handler.getCustomers().size();
+      storedCustomerCount = customers.size();
+      assertEquals(storedCustomerCount, customerCount, "Restored customer list");
+    }
   }
 
   /**
@@ -37,12 +57,6 @@ public class TestCustomerHandler {
    */
   @AfterAll
   public static void teardown() {
-    // Restore customers
-    if(customers.size() > 0){
-      for (Customer c : customers) handler.addCustomer(c.getName(), c.getContactNumber(), c.getEmailAddress());
-      assertEquals(customers.size(), handler.getCustomers().size(), "Restored customer list");
-    }
-
     handler = null;
     assertNull(handler, "Handler instance is null");
     exit(0);
@@ -50,6 +64,7 @@ public class TestCustomerHandler {
 
   @Test
   public void testAddCustomer() {
+    int customerCount = handler.getCustomers().size();
     String name = "Test Testy";
     String contactNumber = "12345678";
     String emailAddress = "tttesttt@mail.com";
@@ -58,12 +73,14 @@ public class TestCustomerHandler {
     boolean isAdded = true;
     int actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
     boolean output = (actualIdx > -1);
+    customerCount = handler.getCustomers().size();
     assertEquals(isAdded, output);
     success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: Added = PASSED");
 
     // CASE: Duplicate contactNumber
     isAdded = false;
     actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
+    customerCount = handler.getCustomers().size();
     assertEquals(isAdded, (actualIdx > -1));
     success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: Duplicate contactNumber = PASSED");
   }
