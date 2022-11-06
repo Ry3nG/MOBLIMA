@@ -4195,7 +4195,7 @@
 		</Usage>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="odWZdCGGAqE.AQ7r" Leaf="false" Name="MovieHandler" PmAuthor="Min" PmCreateDateTime="2022-10-31T23:12:13.701" PmLastModified="2022-11-02T23:44:39.496" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="eOpZdCGGAqE.AQ8E" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="movies" PmAuthor="Min" PmCreateDateTime="2022-10-31T23:12:57.630" PmLastModified="2022-11-02T23:44:39.496" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="List" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true">
@@ -4485,7 +4485,7 @@
 				<Class Idref="A2HldCGGAqE.ARBW" Name="Movie"/>
 			</MasterView>
 		</Class>
-		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="85PldCGGAqE.ARBn" Leaf="false" Name="control" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-11-02T23:44:39.479" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="85PldCGGAqE.ARBn" Leaf="false" Name="moblima.control" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-11-02T23:44:39.479" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="FrE9dCGGAqE.ARH7" Leaf="false" Name="ShowStatus" PmAuthor="Min" PmCreateDateTime="2022-10-31T23:50:19.752" PmLastModified="2022-11-02T23:44:39.481" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
 				<Stereotype Idref="9rE9dCGGAqE.ARH8" Name="enumeration"/>
@@ -4528,7 +4528,7 @@
 		<Stereotype Abstract="false" BacklogActivityId="0" BaseType="Class" Documentation_plain="" IconPath="" Id="wMvjdCGGAqE.ARaS" Leaf="false" Name="entity" PmAuthor="Min" PmCreateDateTime="2022-09-04T00:45:05.954" PmLastModified="2022-11-02T23:44:39.506" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="_pQTdCGGAqE.ARey" Leaf="false" Name="MovieBookingController" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:03:00.607" PmLastModified="2022-11-02T23:44:39.514" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="h66TdCGGAqE.ARjT" Leaf="false" Lower_IsNull="true" Name="movieHandler" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:04:25.697" PmLastModified="2022-11-02T23:44:39.514" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true">
@@ -4585,7 +4585,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="DhizdCGGAqE.ARyg" Leaf="false" Name="CustomerController" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:08:23.920" PmLastModified="2022-11-02T23:44:39.470" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="VAqzdCGGAqE.ARzH" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="instance" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:08:38.186" PmLastModified="2022-11-02T23:44:39.471" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="CustomerController" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true"/>
@@ -4730,7 +4730,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="YCcbdCGGAqE.ASj2" Leaf="false" Name="CustomerHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:21:16.934" PmLastModified="2022-11-02T23:44:39.491" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="VYubdCGGAqE.ASk9" Leaf="false" Lower_IsNull="true" Name="validatePhoneNumber" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:22:17.770" PmLastModified="2022-11-02T23:44:39.491" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true">
@@ -4932,7 +4932,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="5VOXdCGGAqE.ATRN" Leaf="false" Name="SettingsHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T00:39:44.551" PmLastModified="2022-11-02T23:44:39.511" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="rq5KzCGGAqE.AZGr" Leaf="false" Lower_IsNull="true" Name="checkIfIsAuthenticated" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:12:32.885" PmLastModified="2022-11-02T23:44:39.511" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true">
@@ -5244,7 +5244,7 @@
 		</ShapeEditorShape>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="1y9DTCGGAqE.ASWk" Leaf="false" Name="ReviewHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T18:35:48.331" PmLastModified="2022-11-02T23:44:39.472" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="jaHDTCGGAqE.ASYV" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="reviews" PmAuthor="Min" PmCreateDateTime="2022-11-01T18:36:25.393" PmLastModified="2022-11-02T23:44:39.472" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="List" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="protected" Visible="true">
@@ -5464,7 +5464,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="FCASzCGGAqE.AYi7" Leaf="false" Name="StaffController" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:01:08.520" PmLastModified="2022-11-02T23:44:39.494" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="WOsSzCGGAqE.AYn8" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="instance" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:02:02.522" PmLastModified="2022-11-02T23:44:39.494" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="StaffController" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true"/>
@@ -5567,7 +5567,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="kwUyzCGGAqE.AYz2" Leaf="false" Name="StaffHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:06:10.761" PmLastModified="2022-11-02T23:44:39.478" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="BQiyzCGGAqE.AY1i" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="staffs" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:06:39.392" PmLastModified="2022-11-02T23:44:39.478" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="List" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true">
@@ -5683,18 +5683,18 @@
 				<SERoundedRectangle Idref="wfiqzCGGAqE.AZ16" Name="STAFF"/>
 			</MasterView>
 		</ShapeEditorShape>
-		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="03WqzCGGAqE.AZ4_" Leaf="false" Name="App" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:16:04.171" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
+		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="03WqzCGGAqE.AZ4_" Leaf="false" Name="moblima.App" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:16:04.171" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
-				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="mvhqzCGGAqE.AZ6g" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="instance" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:16:32.985" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="App" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true"/>
+				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="mvhqzCGGAqE.AZ6g" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="instance" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:16:32.985" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="moblima.App" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true"/>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="XLJqzCGGAqE.AZ6k" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="currentMenu" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:16:44.730" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true">
 					<Type>
 						<Class Idref="b2ThdCGGAqE.AQ2u" Name="Menu"/>
 					</Type>
 				</Attribute>
-				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="LxzqzCGGAqE.AZ6q" Leaf="false" Lower_IsNull="true" Name="getInstance" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:17:45.076" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnType="App" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true"/>
+				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="LxzqzCGGAqE.AZ6q" Leaf="false" Lower_IsNull="true" Name="getInstance" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:17:45.076" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnType="moblima.App" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true"/>
 				<Operation Abstract="false" BacklogActivityId="0" BodyCondition_IsNull="true" ConnectToCodeModel="1" Documentation_plain="" Id="1VrqzCGGAqE.AZ6u" Leaf="false" Lower_IsNull="true" Name="main" Ordered="false" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:17:53.707" PmLastModified="2022-11-02T23:44:39.493" QualityReason_IsNull="true" QualityScore="-1" Query="false" ReturnTypeDocumentation_plain="" Scope="instance" Static="false" TypeModifier="" Unique="true" Upper_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public" Visible="true">
 					<ReturnType>
 						<DataType Idref="lteAnCGGAqE.AQBY" Name="void"/>
@@ -5709,7 +5709,7 @@
 				<Usage Idref="TBwazCGGAqE.AaX7" Name=""/>
 			</FromSimpleRelationships>
 			<MasterView>
-				<Class Idref="03WqzCGGAqE.AZ4." Name="App"/>
+				<Class Idref="03WqzCGGAqE.AZ4." Name="moblima.App"/>
 			</MasterView>
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="7V6azCGGAqE.Aaj1" Leaf="false" Name="BookingMenu" PmAuthor="Min" PmCreateDateTime="2022-11-01T21:20:12.983" PmLastModified="2022-11-02T23:44:39.459" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
@@ -5897,7 +5897,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="6CxFzCGGAqE.AbE8" Leaf="false" Name="BookingHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T22:39:39.031" PmLastModified="2022-11-02T23:44:39.503" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="E9xVzCGGAqE.AbFv" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="movieHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T22:48:25.288" PmLastModified="2022-11-02T23:44:39.503" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="private" Visible="true">
@@ -6165,7 +6165,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="F7lNzCGGAqE.AcVH" Leaf="false" Name="ShowtimeHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T22:57:34.696" PmLastModified="2022-11-02T23:44:39.507" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="lMNNzCGGAqE.AcWx" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="showtimes" PmAuthor="Min" PmCreateDateTime="2022-11-01T22:57:44.233" PmLastModified="2022-11-02T23:44:39.507" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="List" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="protected" Visible="true">
@@ -6427,7 +6427,7 @@
 		</Class>
 		<Class Abstract="false" Active="false" BacklogActivityId="0" BusinessKeyMutable="true" BusinessModel="false" ConnectToCodeModel="1" Documentation_plain="" Id="rZ.dzCGGAqE.Acon" Leaf="false" Name="CinemaHandler" PmAuthor="Min" PmCreateDateTime="2022-11-01T23:05:36.949" PmLastModified="2022-11-02T23:44:39.454" QualityReason_IsNull="true" QualityScore="-1" Root="false" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="public">
 			<Stereotypes>
-				<Stereotype Idref="85PldCGGAqE.ARBn" Name="control"/>
+				<Stereotype Idref="85PldCGGAqE.ARBn" Name="moblima.control"/>
 			</Stereotypes>
 			<ModelChildren>
 				<Attribute Abstract="false" Aggregation="None" AllowEmptyName="false" BacklogActivityId="0" ConnectToCodeModel="1" Derived="false" DerivedUnion="false" Documentation_plain="" HasGetter="false" HasSetter="false" Id="KcNdzCGGAqE.Ac2r" IsID="false" Leaf="false" Multiplicity="Unspecified" Name="cinemas" PmAuthor="Min" PmCreateDateTime="2022-11-01T23:06:28.628" PmLastModified="2022-11-02T23:44:39.455" QualityReason_IsNull="true" QualityScore="-1" ReadOnly="false" Scope="instance" Type="List" TypeModifier="" UserIDLastNumericValue="0" UserID_IsNull="true" Visibility="protected" Visible="true">
@@ -7242,7 +7242,7 @@
 					<Caption Height="884" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Invisible" Visible="false" Width="429" X="2253" Y="871"/>
 					<FillColor Color="rgb(240, 240, 240)" Style="1" Transparency="0" Type="1"/>
 				</SERoundedRectangle>
-				<Class AttributeSortType="0" Background="rgb(255, 219, 255)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ClassDiagram" CustomText="" DisplayAsRobustnessAnalysisIcon="false" EnumerationLiteralSortType="0" Foreground="rgb(0, 0, 0)" Height="105" Id="03WqzCGGAqE.AZ4." InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="0" MShDrAt="false" MSwTpPts="true" MetaModelElement="03WqzCGGAqE.AZ4_" Model="03WqzCGGAqE.AZ4_" ModelElementNameAlignment="9" Name="App" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" ReceptionSortType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowEnumerationLiteralType="1" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowReceptionType="1" ShowStereotypeIconName="0" ShowTypeOption="0" Style="PV0RdCGGAqE.AQ3H" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="140" WpMbs="false" X="2177" Y="1180" ZOrder="26">
+				<Class AttributeSortType="0" Background="rgb(255, 219, 255)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ClassDiagram" CustomText="" DisplayAsRobustnessAnalysisIcon="false" EnumerationLiteralSortType="0" Foreground="rgb(0, 0, 0)" Height="105" Id="03WqzCGGAqE.AZ4." InterfaceBall="false" KShDrOp="false" KSwCsMbSt="true" LShCmMl="false" LshRfAts="0" MShDrAt="false" MSwTpPts="true" MetaModelElement="03WqzCGGAqE.AZ4_" Model="03WqzCGGAqE.AZ4_" ModelElementNameAlignment="9" Name="moblima.App" OperationSortType="0" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" ReceptionSortType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowAttributeType="1" ShowAttributesCodeDetails="0" ShowAttributesPropertyModifiers="0" ShowAttributesType="0" ShowClassMemberConstraints="true" ShowEllipsisForUnshownMembers="0" ShowEmptyCompartments="0" ShowEnumerationLiteralType="1" ShowInitialAttributeValue="true" ShowOperationParameterDirection="false" ShowOperationProperties="false" ShowOperationRaisedExceptions="false" ShowOperationSignature="true" ShowOperationTemplateParameters="false" ShowOperationType="1" ShowOperationsCodeDetails="0" ShowOperationsParameters="0" ShowOperationsReturnType="0" ShowOwnerOption="3" ShowParameterNameInOperationSignature="true" ShowParametersCodeDetails="0" ShowReceptionType="1" ShowStereotypeIconName="0" ShowTypeOption="0" Style="PV0RdCGGAqE.AQ3H" SuppressImplied1MultiplicityForAttribute="0" VisibilityStyle="1" Width="140" WpMbs="false" X="2177" Y="1180" ZOrder="26">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
