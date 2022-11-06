@@ -1,0 +1,23 @@
+name: Data Generation
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+          os: [ubuntu-latest, macOS-latest]
+      fail-fast: false
+      max-parallel: 4
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu' 
+        java-version: '17'
+      env:
+          TMDB_API_KEY: ${{ secrets.project.TMDB_API_KEY }}
+    - run: java -jar ./build/MOBLIMA.jar --generate --debug
