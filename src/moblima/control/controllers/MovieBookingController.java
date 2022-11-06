@@ -11,13 +11,12 @@ import moblima.entities.Movie;
 import moblima.entities.Showtime;
 import moblima.utils.Helper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.formatAsTable;
 
 /**
  * The type Movie booking controller.
@@ -162,22 +161,56 @@ public abstract class MovieBookingController {
    * @param maxRanking the max ranking
    * @return the list
    */
-  public List<Movie> rankMoviesByBooking(int maxRanking) {
+  public LinkedHashMap<Movie, Integer> rankMoviesByBooking(int maxRanking) {
     List<Movie> movies = reviewHandler().getMovies();
     List<Booking> bookings = bookingHandler().getBookings();
-    if (bookings.isEmpty()) {
-      System.out.println(colorizer("No bookings made yet", Helper.Preset.ERROR));
-      return new ArrayList<Movie>();
-    }
+    if (bookings.isEmpty()) return new LinkedHashMap<>();
 
     Map<Integer, Long> bookedMovieIds = bookings.stream().collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
     Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + bookedMovieIds);
 
-    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed()).map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey()))).limit(maxRanking).toList();
-    Helper.logger("BookingHandler.sortBookingMovies", "rankedMovies: \n" + rankedMovies);
+//    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed()).map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey()))).limit(maxRanking).toList();
+//    Helper.logger("BookingHandler.sortBookingMovies", "rankedMovies: \n" + rankedMovies);
+
+    LinkedHashMap<Movie, Integer> rankedMovies = new LinkedHashMap<Movie, Integer>();
+    bookedMovieIds.entrySet().stream()
+        .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+        .limit(maxRanking)
+        .forEach(e -> rankedMovies.put(reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey())), Math.toIntExact(e.getValue())));
+
+//    List<String> strRankedMovies = rankedMovies.entrySet().stream()
+//        .map(e -> e.getKey().getTitle() + " - " + e.getValue())
+//        .collect(Collectors.toList());
+//    Helper.logger("BookingHandler.sortBookingMovies", "strRankedMovies: \n" + strRankedMovies);
 
 
     return rankedMovies;
+  }
+
+  /**
+   * Print ranked movies by booking.
+   *
+   * @param showBookingCount the show booking count
+   */
+  public void printRankedMoviesByBooking(boolean showBookingCount) {
+    LinkedHashMap<Movie, Integer> rankedMovies = this.rankMoviesByBooking(5);
+    if (rankedMovies.size() < 1) {
+      System.out.println(colorizer("No bookings made yet", Helper.Preset.ERROR));
+      return;
+    }
+
+    List<List<String>> strRankedMovies = IntStream.range(0, rankedMovies.size())
+        .mapToObj(idx -> {
+          String labelStart = "> " + (idx + 1) + ". " + ((new ArrayList<Movie>(rankedMovies.keySet())).get(idx)).getTitle();
+          String labelEnd = showBookingCount ? " | Sales: " + (new ArrayList<Integer>(rankedMovies.values()).get(idx)) : "";
+
+          return Arrays.asList(labelStart, labelEnd);
+        })
+        .collect(Collectors.toList());
+
+    String output = formatAsTable(strRankedMovies);
+    Helper.logger("BookingHandler.printRankedMoviesByBooking", "strRankedMovies: \n" + output);
+    System.out.println(output);
   }
 
   /**
@@ -188,15 +221,41 @@ public abstract class MovieBookingController {
    */
   public List<Movie> rankMoviesByRatings(int maxRanking) {
     List<Movie> movies = reviewHandler().getMovies();
-    if (movies.isEmpty()) {
-      System.out.println(colorizer("No movies available", Helper.Preset.ERROR));
-      return movies;
-    }
+    if (movies.isEmpty()) return movies;
 
-    List<Movie> rankedMovies = movies.stream().sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed()).limit(maxRanking).collect(Collectors.toList());
-
+    List<Movie> rankedMovies = movies.stream()
+        .sorted(Comparator.comparingDouble(Movie::getOverallRating).reversed())
+        .limit(maxRanking)
+        .collect(Collectors.toList());
     Helper.logger("BookingHandler.rankMoviesByRatings", "rankedMovies: \n" + rankedMovies);
 
     return rankedMovies;
+  }
+
+  /**
+   * Print ranked movies by ratings.
+   *
+   * @param showRatingCount the show rating count
+   */
+  public void printRankedMoviesByRatings(boolean showRatingCount) {
+    List<Movie> rankedMovies = this.rankMoviesByRatings(5);
+    if (rankedMovies.size() < 1) {
+      System.out.println(colorizer("No movies available", Helper.Preset.ERROR));
+      return;
+    }
+
+    List<List<String>> strRankedMovies = IntStream.range(0, rankedMovies.size())
+        .mapToObj(idx -> {
+          Movie m = rankedMovies.get(idx);
+          String labelStart = "> " + (idx + 1) + ". " + (m.getTitle());
+          String labelEnd = showRatingCount ? " | Rating: " + Double.toString(m.getOverallRating()) : "";
+
+          return Arrays.asList(labelStart, labelEnd);
+        })
+        .collect(Collectors.toList());
+
+    String output = formatAsTable(strRankedMovies);
+    Helper.logger("BookingHandler.printRankedMoviesByRatings", "strRankedMovies: \n" + output);
+    System.out.println(output);
   }
 }

@@ -1,6 +1,10 @@
 package moblima.entities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static moblima.utils.Helper.formatAsTable;
 
 /**
  * The type Cinema.
@@ -112,12 +116,13 @@ public class Cinema {
 
   @Override
   public String toString() {
-    String printed = "ID: " + this.id + "\n";
-    printed += "Cineplex Code: " + this.cineplexCode + "\n";
-    printed += "Class Type: " + this.classType + "\n";
-    printed += "Total Showtimes: " + this.showtimes.size() + "\n";
+    List<List<String>> rows = new ArrayList<List<String>>();
+    rows.add(Arrays.asList("ID:", Integer.toString(this.id)));
+    rows.add(Arrays.asList("Cineplex Code:", this.cineplexCode));
+    rows.add(Arrays.asList("Class Type:", this.classType.toString()));
+    rows.add(Arrays.asList("Total Showtimes:", Integer.toString(this.showtimes.size())));
 
-    return printed;
+    return formatAsTable(rows);
   }
 
   /**

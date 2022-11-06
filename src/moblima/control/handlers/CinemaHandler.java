@@ -36,6 +36,10 @@ public class CinemaHandler extends ShowtimeHandler {
    */
   protected List<Cinema> cinemas;
   /**
+   * The Cineplex codes.
+   */
+  protected List<String> cineplexCodes;
+  /**
    * The Selected cinema idx.
    */
   protected int selectedCinemaIdx = -1;
@@ -45,6 +49,7 @@ public class CinemaHandler extends ShowtimeHandler {
    */
   public CinemaHandler() {
     super();
+    this.cineplexCodes = this.getCineplexCodes();
     this.cinemas = this.getCinemas();
     this.showtimes = this.getShowtimes();
   }
@@ -85,17 +90,27 @@ public class CinemaHandler extends ShowtimeHandler {
     if (min < 1) return cinemas;
 
     SecureRandom random = new SecureRandom();
-    if (cinemas.size() < min) {
-      for (int c = 0; c <= min; c++) {
-        ClassType classType = ClassType.values()[random.nextInt(ClassType.values().length)];
-        List<Showtime> showtimes = new ArrayList<Showtime>();
-        String cineplexCode = RandomStringUtils.random(3, true, false).toUpperCase();
+    int totalCinemas = min * min;
+    while(cinemas.size() < totalCinemas){
 
-        // Appending new Cinema to this.cinema
-        this.addCinema(classType, showtimes, cineplexCode);
+      if(cinemas.size() % min == 0){
+        // Generate min cinemas for each Cineplex code
+        String cineplexCode = RandomStringUtils.random(3, true, false).toUpperCase();
+        this.addCineplexCode(cineplexCode);
       }
+
+      ClassType classType = ClassType.values()[random.nextInt(ClassType.values().length)];
+      List<Showtime> showtimes = new ArrayList<Showtime>();
+
+      List<String> cineplexCodes = this.getCineplexCodes();
+      int cineplexCodeIdx = cineplexCodes.size() - 1;
+
+      // Appending new Cinema to this.cinema
+      this.addCinema(classType, showtimes, cineplexCodes.get(cineplexCodeIdx));
       cinemas = this.cinemas;
+
     }
+
     return cinemas;
   }
 
@@ -116,13 +131,12 @@ public class CinemaHandler extends ShowtimeHandler {
     Helper.logger("CinemaHandler.generateShowtimes", "Movies: \n" + movies);
     for (Movie movie : movies) {
       for (int s = 0; s < min; s++) {
-        String cineplexId = RandomStringUtils.random(3, true, false).toUpperCase();
         int cinemaId = random.nextInt(0, this.cinemas.size() - 1);
         int movieId = movie.getId();
         LocalDateTime showDatetime = (LocalDateTime.now()).plusDays(s).plusHours(s + 1).plusMinutes((s / 6) * 60L);
         ShowType[] showTypes = ShowType.values();
         ShowType showType = showTypes[random.nextInt(0, showTypes.length)];
-        int showtimeIdx = this.addShowtime(cineplexId, cinemaId, movieId, showDatetime, showType);
+        int showtimeIdx = this.addShowtime(cinemaId, movieId, showDatetime, showType);
         Helper.logger("CinemaHandler.generateShowtimes", "Generated: \n" + this.getShowtime(showtimeIdx));
 
       }
@@ -172,6 +186,7 @@ public class CinemaHandler extends ShowtimeHandler {
       /// Showtimes (empty by default)
       List<Showtime> showtimes = new ArrayList<Showtime>();
       cinemas.add(new Cinema(id, classType, showtimes, cineplexCode));
+      this.addCineplexCode(cineplexCode);
     }
 
     this.cinemas = cinemas;
@@ -222,6 +237,10 @@ public class CinemaHandler extends ShowtimeHandler {
     List<Cinema> cinemas = new ArrayList<Cinema>();
     if (this.cinemas != null) cinemas = this.cinemas;
 
+    // Append to existing list of Cineplex code only if it didn't already exist
+    this.addCineplexCode(cineplexCode);
+
+    // Append to existing list of Cinemas
     cinemas.add(new Cinema(cinemas.size(), classType, showtimes, cineplexCode));
 
     this.cinemas = cinemas;
@@ -412,15 +431,14 @@ public class CinemaHandler extends ShowtimeHandler {
   /**
    * Add showtime int.
    *
-   * @param cineplexId the cineplex id
-   * @param cinemaId   the cinema id
-   * @param movieId    the movie id
-   * @param datetime   the datetime
-   * @param type       the type
+   * @param cinemaId the cinema id
+   * @param movieId  the movie id
+   * @param datetime the datetime
+   * @param type     the type
    * @return the int
    */
 //+addShowtime(cineplexId:String, cinemaId:int, movieId:int, datetime:LocalDateTime) : int
-  public int addShowtime(String cineplexId, int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
+  public int addShowtime(int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
     List<Showtime> showtimes = this.getCinemaShowtimes(cinemaId);
     if (showtimes.size() < 0) {
       System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
@@ -465,6 +483,32 @@ public class CinemaHandler extends ShowtimeHandler {
       }
     }
     return hasClash;
+  }
+
+  /**
+   * Get cineplex codes list.
+   *
+   * @return the list
+   */
+  public List<String> getCineplexCodes() {
+    List<String> cineplexCodes = new ArrayList<String>();
+    if (this.cineplexCodes != null) cineplexCodes = this.cineplexCodes;
+
+    Helper.logger("CinemaHandler.getCineplexCodes", "Cineplexes: " + cineplexCodes);
+    return cineplexCodes;
+  }
+
+  /**
+   * Add cineplex code.
+   *
+   * @param cineplexCode the cineplex code
+   */
+  public void addCineplexCode(String cineplexCode) {
+    List<String> cineplexCodes = this.getCineplexCodes();
+    if (cineplexCodes.size() < 1 || !cineplexCodes.contains(cineplexCode)) cineplexCodes.add(cineplexCode);
+
+    Helper.logger("CinemaHandler.addCineplexCode", "Cineplexes: " + cineplexCodes);
+    this.cineplexCodes = cineplexCodes;
   }
 
   /**
