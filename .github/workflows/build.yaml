@@ -20,4 +20,5 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+      - name: Run JUnit
         run: java -jar ./lib/junit-5.8.1/junit-platform-console-standalone-1.9.1.jar --class-path './test' --scan-class-path
