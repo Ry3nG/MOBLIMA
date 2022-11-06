@@ -132,6 +132,16 @@ public class Datasource {
     return isSuccessful;
   }
 
+  public static boolean deleteFile(String fileName) {
+    // Configure output path
+    String path = DATA_DIR + fileName;
+    File file = new File(path);
+
+    boolean isDeleted = !file.exists() || file.delete();
+    Helper.logger("Datasource.deleteFile", "File " + file.getName() + " deletion " + (isDeleted ? "successful" : "failed"));
+    return isDeleted;
+  }
+
 
   /// SERIALIZERS
 

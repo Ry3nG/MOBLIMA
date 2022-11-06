@@ -181,7 +181,7 @@ public class CustomerMenu extends Menu {
 
         // Initialize and append to existing customer list
         customerIdx = handler.addCustomer(name, contactNumber, emailAddress);
-        if (customerIdx < -1)
+        if (customerIdx < 0)
           throw new Exception("Unable to register, account with phone number already exists");
 
         System.out.println(colorizer("Successful account registration", Preset.SUCCESS));

@@ -14,27 +14,18 @@
 (6) Login / Register Account
 (7) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Search / View all movies
+SELECTED: 	>>> Login / Register Account
+Next steps:
 ---------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. Black Adam
-(3) 3. Jeepers Creepers: Reborn
-(4) 4. Fall
-(5) 5. Orphan: First Kill
-(6) 6. The Stranger
-(7) 7. Halloween Ends
-(8) 8. Piggy
-(9) 9. Top Gun: Maverick
-(10) 10. One Piece Film Red
-(11) 11. Blackout
-(12) 12. Smile
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. All Quiet on the Western Front
-(15) 15. Spider-Man: No Way Home
-(16) 16. Don't Worry Darling
-(17) 17. The Quintessential Quintuplets Movie
-(18) 18. Barbarian
-(19) 19. Deinfluencer
-(20) 20. Return to previous menu
+(1) Already have an account? Login
+(2) Create account
+---------------------------------------------------------------------------
+SELECTED: Account Registration
+Name: Contact No.: Email: Unable to register, account with phone number already exists
+Next steps:
+---------------------------------------------------------------------------
+(1) Proceed with registration
+(2) Login with account instead
+(3) Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: 

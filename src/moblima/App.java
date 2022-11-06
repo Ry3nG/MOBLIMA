@@ -52,8 +52,8 @@ public class App {
     // Debug
     if (Arrays.stream(args).anyMatch(("--debug")::contains)) {
       Constants.setDebugMode(true);
-      Helper.logger("moblima.App.main", "ARGS: " + Arrays.deepToString(args));
-      Helper.logger("moblima.App.main", "DEBUG MODE: " + Constants.DEBUG_MODE);
+      Helper.logger("App.main", "ARGS: " + Arrays.deepToString(args));
+      Helper.logger("App.main", "DEBUG MODE: " + Constants.DEBUG_MODE);
     }
 
     if (args.length > 0) {
