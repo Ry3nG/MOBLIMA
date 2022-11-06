@@ -675,7 +675,7 @@ public class BookingMenu extends Menu {
         // Prompt for Cineplex Code
         String cineplexCode = null;
         while (cineplexCode == null) {
-          System.out.println("Cineplex Code (i.e, XYZ):");
+          System.out.print("Cineplex Code (i.e, XYZ):");
           String inputCineplexCode = scanner.next();
 
           // VALIDATION: Check if it's exactly 3 characters

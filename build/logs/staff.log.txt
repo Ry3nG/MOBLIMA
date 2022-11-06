@@ -16,4 +16,36 @@ STAFF: staff
 (5) Register new staff account
 (6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: 	>>> View and update cinemas
+---------------------------------------------------------------------------
+(1) ID: 0
+Cineplex Code: NSL
+Class Type: Premium
+Total Showtimes: 26
+
+(2) ID: 1
+Cineplex Code: KUS
+Class Type: Premium
+Total Showtimes: 33
+
+(3) ID: 2
+Cineplex Code: QMC
+Class Type: Premium
+Total Showtimes: 21
+
+(4) ID: 3
+Cineplex Code: SCY
+Class Type: Normal
+Total Showtimes: 0
+
+(5) Add new cinema
+(6) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Cinema Registration
+Class type:
+---------------------------------------------------------------------------
+(1) Normal
+(2) Premium
+(3) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Cineplex Code (i.e, XYZ):
