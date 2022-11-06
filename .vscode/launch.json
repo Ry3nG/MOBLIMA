@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Customer",
+      "request": "launch",
+      "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar"
+    },
+    {
+      "type": "java",
+      "name": "Staff",
+      "request": "launch",
+      "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar --staff"
+    },
+    {
+      "type": "java",
+      "name": "[DEBUG] Customer",
+      "request": "launch",
+      "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar --debug"
+    },
+    {
+      "type": "java",
+      "name": "[DEBUG] Staff",
+      "request": "launch",
+      "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar --staff --debug"
+    },
+    {
+      "type": "java",
+      "name": "[DEBUG] Generate",
+      "request": "launch",
+      "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar --generate --debug"
+    },
+  ]
+}
