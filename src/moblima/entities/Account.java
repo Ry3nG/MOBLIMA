@@ -1,5 +1,7 @@
 package moblima.entities;
 
+import java.util.UUID;
+
 /**
  * The type Account.
  */
@@ -21,6 +23,16 @@ public abstract class Account {
    */
   public Account(String id, String name) {
     this.id = id;
+    this.name = name;
+  }
+
+  /**
+   * Instantiates a new Account.
+   *
+   * @param name the name
+   */
+  public Account(String name) {
+    this.id = UUID.randomUUID().toString();
     this.name = name;
   }
 

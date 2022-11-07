@@ -699,7 +699,7 @@ public class BookingMenu extends Menu {
         String cineplexCode = null;
         while (cineplexCode == null) {
           System.out.print("Cineplex Code (i.e, XYZ):");
-          String inputCineplexCode = scanner.next();
+          String inputCineplexCode = scanner.next().trim();
 
           // VALIDATION: Check if it's exactly 3 characters
           if (!inputCineplexCode.matches("^([A-Z-0-9]{3})\\b")) continue;

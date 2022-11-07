@@ -241,7 +241,7 @@ public class CustomerMenu extends Menu {
         }
 
         // Retrieve customer idx of contact number
-        customerIdx = handler.checkIfAccountExists(contactNumber);
+        customerIdx = handler.checkIfAccountExists(contactNumber, "");
         if (customerIdx == -1)
           throw new Exception("Invalid login credentials, unable to authenticate");
 
