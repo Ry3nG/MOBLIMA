@@ -16,8 +16,8 @@ import static org.junit.platform.commons.function.Try.success;
 /**
  * The type App test.
  */
-@Tag("AppTest")
-public class AppTest {
+@Tag("TestApp")
+public class TestApp {
   private static final int MAX_TIMEOUT = 3;
   private static App app;
 
@@ -27,7 +27,7 @@ public class AppTest {
   @BeforeAll
   public static void init() {
     app = App.getInstance();
-    assertNotNull(app, "moblima.App instance was null");
+    assertNotNull(app, "App instance was null");
   }
 
   /**
@@ -36,7 +36,7 @@ public class AppTest {
   @AfterAll
   public static void teardown() {
     app = null;
-    assertNull(app, "moblima.App instance is null");
+    assertNull(app, "App instance is null");
     exit(0);
   }
 
@@ -54,9 +54,9 @@ public class AppTest {
       executor.get(MAX_TIMEOUT, TimeUnit.SECONDS);
     } catch (TimeoutException ex) {
       executor.cancel(true);
-      success("[SUCCESS/AppTest.testDefault] Executor timed out as expected");
+      success("[SUCCESS/TestApp.testDefault] Executor timed out as expected");
     } catch (Exception ex) {
-      fail("[FAIL/AppTest.testDefault] Executor did not timeout as expected");
+      fail("[FAIL/TestApp.testDefault] Executor did not timeout as expected");
     }
   }
 
@@ -74,9 +74,9 @@ public class AppTest {
       executor.get(MAX_TIMEOUT, TimeUnit.SECONDS);
     } catch (TimeoutException ex) {
       executor.cancel(true);
-      success("[SUCCESS/AppTest.testDebug] Executor timed out as expected");
+      success("[SUCCESS/TestApp.testDebug] Executor timed out as expected");
     } catch (Exception ex) {
-      fail("[FAIL/AppTest.testDebug] Executor did not timeout as expected");
+      fail("[FAIL/TestApp.testDebug] Executor did not timeout as expected");
     }
   }
 
@@ -94,9 +94,9 @@ public class AppTest {
       executor.get(MAX_TIMEOUT, TimeUnit.SECONDS);
     } catch (TimeoutException ex) {
       executor.cancel(true);
-      success("[SUCCESS/AppTest.testStaff] Executor timed out as expected");
+      success("[SUCCESS/TestApp.testStaff] Executor timed out as expected");
     } catch (Exception ex) {
-      fail("[FAIL/AppTest.testStaff] Executor did not timeout as expected");
+      fail("[FAIL/TestApp.testStaff] Executor did not timeout as expected");
     }
   }
 }
