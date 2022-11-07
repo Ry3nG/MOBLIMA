@@ -13,11 +13,158 @@
 (5) Login / Register Account
 (6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Top 5 movies by overall rating
-> 1. The Quintessential Quintuplets Movie    
-> 2. Top Gun: Maverick                       
-> 3. Dragon Ball Super: Super Hero           
-> 4. Spider-Man: No Way Home                 
-> 5. Black Panther: Wakanda Forever          
+SELECTED: 	>>> Book and purchase ticket
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. Jeepers Creepers: Reborn
+(4) 4. Fall
+(5) 5. Orphan: First Kill
+(6) 6. The Stranger
+(7) 7. Halloween Ends
+(8) 8. Piggy
+(9) 9. Top Gun: Maverick
+(10) 10. One Piece Film Red
+(11) 11. Blackout
+(12) 12. Smile
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. All Quiet on the Western Front
+(15) 15. Spider-Man: No Way Home
+(16) 16. Don't Worry Darling
+(17) 17. The Quintessential Quintuplets Movie
+(18) 18. Barbarian
+(19) 19. Deinfluencer
+(20) 20. Test
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+Cast:                [Lauren LaVera, David Howard Thornton, Elliott Fullam, Sarah Voigt, Kailey Hyman, Casey Hartnett, Amelie McLain, Charlie McElveen, Felissa Rose, Samantha Scaffidi, Sarah Grace Sanders, Griffin Santopietro, Tamara Glynn, Devon Roth, Chris Irvine, Catherine Corcoran, Katie Maguire, Jackie Adragna, Georgia MacPhail, Rachel Keefe, Rick Styczynski, Amy Russ, Marcus Slabine, Leah Voysey, Cory DuVal, Jason Leavy, Owen Myre, Ryan James, Gilbrando Acevedo, Wesley Holloway, Johnath Davis, Mark A. Langston, Elizabeth Piper S., Thomas Rickman, Nedim Jahić, Briana Calcagno, Michelle Santiago, Jonathan A. Streetzel, Reid Richards, Craig Sapenoff, Ross Caudill Jr., Sheri Fairchild, Geordie McGillivray, Mick Gaughan, Matthew Hammond, Craig Loydgren, Robert Privitera, Marisa Bertani, Ryan Denning, Steven Kiseleski, Miche Brill, Curtis J. Watson, Sarah Brill, Ava O'Donnell, Bengt Emil Johnson, Scout Taylor-Compton, Emily Sue Bengtson]  
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 Press any key to continue . . .
+Select showtime slot: 
+---------------------------------------------------------------------------
+(1) Datetime:       MONDAY, 07-11-2022 at 10:37pm  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      3D                             
+Booked Seats:   1/40                           
+
+(2) Datetime:       SUNDAY, 13-11-2022 at 04:37am  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(3) Datetime:       MONDAY, 14-11-2022 at 05:37am  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(4) Datetime:       FRIDAY, 11-11-2022 at 01:37am  
+Cineplex Code:  OKR                            
+Cinema ID:      3                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(5) Datetime:       SATURDAY, 12-11-2022 at 02:37am  
+Cineplex Code:  OKR                              
+Cinema ID:      3                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(6) Datetime:       TUESDAY, 15-11-2022 at 06:37am  
+Cineplex Code:  OKR                             
+Cinema ID:      5                               
+Show Type:      Digital                         
+Booked Seats:   0/40                            
+
+(7) Datetime:       SUNDAY, 06-11-2022 at 09:37pm  
+Cineplex Code:  RLZ                            
+Cinema ID:      6                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(8) Datetime:       TUESDAY, 08-11-2022 at 11:37pm  
+Cineplex Code:  RLZ                             
+Cinema ID:      6                               
+Show Type:      3D                              
+Booked Seats:   0/40                            
+
+(9) Datetime:       THURSDAY, 10-11-2022 at 12:37am  
+Cineplex Code:  RLZ                              
+Cinema ID:      6                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(10) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// SHOWTIME DETAILS ///
+Datetime:      THURSDAY, 10-11-2022 at 12:37am  
+Cinema ID:     6                                
+Show Type:     Digital                          
+Booked Seats:  0/40                             
+
+================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |O||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Proceed to make booking
+(2) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. Jeepers Creepers: Reborn
+(4) 4. Fall
+(5) 5. Orphan: First Kill
+(6) 6. The Stranger
+(7) 7. Halloween Ends
+(8) 8. Piggy
+(9) 9. Top Gun: Maverick
+(10) 10. One Piece Film Red
+(11) 11. Blackout
+(12) 12. Smile
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. All Quiet on the Western Front
+(15) 15. Spider-Man: No Way Home
+(16) 16. Don't Worry Darling
+(17) 17. The Quintessential Quintuplets Movie
+(18) 18. Barbarian
+(19) 19. Deinfluencer
+(20) 20. Test
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Exit
+	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!
