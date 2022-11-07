@@ -189,7 +189,7 @@ public class SettingsHandler {
     boolean isPeakDay = peakDays.contains(day);
     boolean isBeforePeakEnd = hour >= endPeakHour;
 
-    if(isPeakDay && isBeforePeakEnd) ticketType = TicketType.PEAK;
+    if(isPeakDay && isBeforePeakEnd) return ticketType = TicketType.PEAK;
 
     List<DayOfWeek> weekendDays = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
     boolean isWeekend = weekendDays.contains(day);
