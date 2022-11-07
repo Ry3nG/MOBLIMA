@@ -19,8 +19,33 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update movie details
+SELECTED: 	>>> View and update showtimes
 Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. Jeepers Creepers: Reborn
+(4) 4. Fall
+(5) 5. Orphan: First Kill
+(6) 6. The Stranger
+(7) 7. Halloween Ends
+(8) 8. Piggy
+(9) 9. Top Gun: Maverick
+(10) 10. One Piece Film Red
+(11) 11. Blackout
+(12) 12. Smile
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. All Quiet on the Western Front
+(15) 15. Spider-Man: No Way Home
+(16) 16. Don't Worry Darling
+(17) 17. The Quintessential Quintuplets Movie
+(18) 18. Barbarian
+(19) 19. Black Panther: Wakanda Forever
+(20) 20. Deinfluencer
+(21) 21. Test
+(22) 22. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [ERROR] Invalid non-numerical value - input must be an integer
 ---------------------------------------------------------------------------
 (1) 1. Terrifier 2
 (2) 2. Black Adam
@@ -58,3 +83,79 @@ Cast:                [Lauren LaVera, David Howard Thornton, Elliott Fullam, Sara
 Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 Press any key to continue . . .
+Select showtime slot: 
+---------------------------------------------------------------------------
+(1) Datetime:       MONDAY, 07-11-2022 at 10:37pm  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      3D                             
+Booked Seats:   1/40                           
+
+(2) Datetime:       SUNDAY, 13-11-2022 at 04:37am  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(3) Datetime:       MONDAY, 14-11-2022 at 05:37am  
+Cineplex Code:  DMT                            
+Cinema ID:      0                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(4) Datetime:       FRIDAY, 11-11-2022 at 01:37am  
+Cineplex Code:  OKR                            
+Cinema ID:      3                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(5) Datetime:       SATURDAY, 12-11-2022 at 02:37am  
+Cineplex Code:  OKR                              
+Cinema ID:      3                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(6) Datetime:       TUESDAY, 15-11-2022 at 06:37am  
+Cineplex Code:  OKR                             
+Cinema ID:      5                               
+Show Type:      Digital                         
+Booked Seats:   0/40                            
+
+(7) Datetime:       SUNDAY, 06-11-2022 at 09:37pm  
+Cineplex Code:  RLZ                            
+Cinema ID:      6                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(8) Datetime:       TUESDAY, 08-11-2022 at 11:37pm  
+Cineplex Code:  RLZ                             
+Cinema ID:      6                               
+Show Type:      3D                              
+Booked Seats:   0/40                            
+
+(9) Datetime:       THURSDAY, 10-11-2022 at 12:37am  
+Cineplex Code:  RLZ                              
+Cinema ID:      6                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(10) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// SHOWTIME DETAILS ///
+Datetime:      MONDAY, 07-11-2022 at 10:37pm  
+Cinema ID:     0                              
+Show Type:     3D                             
+Booked Seats:  1/40                           
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 

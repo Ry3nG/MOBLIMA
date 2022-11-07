@@ -44,15 +44,11 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-//      put("Search/List Movies", () -> {
-//        List<Movie> movies = movieMenu.getViewableMovies();
-//        reviewHandler().printMovies(movies);
+//      put("Top 5 movies by ticket sales", () -> {
+//        printRankedMoviesByBooking(false);
+////        List<Movie> rankedMovies = rankMoviesByBooking(5);
+////        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
 //      });
-      put("Top 5 movies by ticket sales", () -> {
-        printRankedMoviesByBooking(false);
-//        List<Movie> rankedMovies = rankMoviesByBooking(5);
-//        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
-      });
       put("Top 5 movies by overall rating", () -> {
         printRankedMoviesByRatings(false);
 //        List<Movie> rankedMovies = rankMoviesByRatings(5);
