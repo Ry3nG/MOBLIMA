@@ -314,7 +314,7 @@ public class SettingsMenu extends Menu {
 
       validDate = handler.addPublicHoliday(settings, dateInput); // check if date is valid, and add if valid
 
-      if (validDate == 1) {
+      if (validDate >= 0) {
         System.out.println(colorizer(String.format("\n[ADDED] Public holiday %s has been added successfully.", dateInput), Preset.SUCCESS));
       } else if (validDate == -1)
         System.out.println("[ERROR] Date is in the past. Please enter today's date or a date after today, or enter -  to cancel and return to the menu");
