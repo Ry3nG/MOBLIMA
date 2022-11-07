@@ -11,11 +11,11 @@ import moblima.utils.datasource.Datasource;
 import moblima.utils.datasource.HolidayDatasource;
 
 import java.lang.reflect.Type;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -153,10 +153,11 @@ public class SettingsHandler {
     }};
 
     EnumMap<Booking.TicketType, Double> ticketSurcharges = new EnumMap<Booking.TicketType, Double>(Booking.TicketType.class) {{
-      put(Booking.TicketType.STUDENT, -5.0);
-      put(Booking.TicketType.SENIOR, -5.0);
-      put(Booking.TicketType.PEAK, 5.0);
-      put(Booking.TicketType.NON_PEAK, 0.0);
+      put(TicketType.STUDENT, -5.0);
+      put(TicketType.SENIOR, -5.0);
+      put(TicketType.PEAK, 5.0);
+      put(TicketType.SUPER_PEAK, 8.0);
+      put(TicketType.NON_PEAK, 0.0);
     }};
 
     EnumMap<Cinema.ClassType, Double> cinemaSurcharges = new EnumMap<Cinema.ClassType, Double>(Cinema.ClassType.class) {{
@@ -181,9 +182,19 @@ public class SettingsHandler {
   public TicketType verifyTicketType(LocalDateTime showDateTime, TicketType ticketType) {
     // Check if PEAK
     DayOfWeek day = showDateTime.getDayOfWeek();
-    boolean isWeekend = (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
+    int hour = showDateTime.getHour();
+
+    List<DayOfWeek> peakDays = Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY);
+    int endPeakHour = 18;
+    boolean isPeakDay = peakDays.contains(day);
+    boolean isBeforePeakEnd = hour >= endPeakHour;
+
+    if(isPeakDay && isBeforePeakEnd) ticketType = TicketType.PEAK;
+
+    List<DayOfWeek> weekendDays = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+    boolean isWeekend = weekendDays.contains(day);
     boolean isHoliday = this.currentSettings.getHolidays().stream().anyMatch(h -> h.isEqual(showDateTime.toLocalDate()));
-    if (isHoliday || isWeekend) ticketType = TicketType.PEAK;
+    if (isHoliday || isWeekend) ticketType = TicketType.SUPER_PEAK;
 
     return ticketType;
   }

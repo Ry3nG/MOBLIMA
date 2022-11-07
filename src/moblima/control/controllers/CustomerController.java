@@ -135,8 +135,10 @@ public class CustomerController extends MovieBookingController {
     // Select TicketType (only if not PEAK)
     EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSystemSettings().getTicketSurcharges();
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
-    if (ticketType != Booking.TicketType.PEAK) {
-      List<String> ticketOptions = Stream.of(Booking.TicketType.values()).filter(t -> !t.equals(Booking.TicketType.PEAK)).map(t -> {
+
+    List<Booking.TicketType> peakTickets = Arrays.asList(Booking.TicketType.PEAK, Booking.TicketType.SUPER_PEAK);
+    if (!peakTickets.contains(ticketType)) {
+      List<String> ticketOptions = Stream.of(Booking.TicketType.values()).filter(t -> !peakTickets.contains(t)).map(t -> {
         double estimatedCost = this.settingsHandler().computeTotalCost(movie.isBlockbuster(), showtime.getType(), cinema.getClassType(), t, showtime.getDatetime(), seats.size());
 
         return t + " - " + estimatedCost;

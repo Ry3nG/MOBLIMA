@@ -244,7 +244,8 @@ public class Booking {
     /**
      * Peak ticket type.
      */
-    PEAK("Peak");
+    PEAK("Peak"),
+    SUPER_PEAK("Super Peak");
 
     private final String displayName;
 
