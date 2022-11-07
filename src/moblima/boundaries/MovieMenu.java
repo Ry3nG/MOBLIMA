@@ -9,14 +9,11 @@ import moblima.utils.Helper;
 import moblima.utils.Helper.Preset;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static moblima.utils.Helper.colorizer;
-import static moblima.utils.deserializers.LocalDateDeserializer.dateFormatter;
-import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
  * The type Movie menu.
@@ -514,75 +511,6 @@ public class MovieMenu extends Menu {
     return castList;
   }
 
-  public LocalDate setDate(String promptMsg) {
-    LocalDate date = null;
-
-    while (date == null) {
-      System.out.print(promptMsg);
-      scanner = new Scanner(System.in).useDelimiter("\n");
-      try {
-        String strDate = scanner.next().trim();
-        if (strDate.matches("^\\d{2}-\\d{2}-\\d{4}")) {
-          date = LocalDate.parse(strDate, dateFormatter);
-        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
-      } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
-        date = null;
-      }
-    }
-
-    return date;
-  }
-
-  public LocalDateTime setDateTime(String promptMsg) {
-    LocalDateTime datetime = null;
-
-    while (datetime == null) {
-      System.out.print(promptMsg);
-      scanner = new Scanner(System.in).useDelimiter("\n");
-      try {
-        String strDateTime = scanner.next().trim();
-        if (strDateTime.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}[AP]M$")) {
-          datetime = LocalDateTime.parse(strDateTime, dateTimeFormatter);
-        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
-      } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
-        datetime = null;
-      }
-    }
-
-    return datetime;
-  }
-
-  public int setInt(String promptMsg) {
-    int val = -1;
-    while (val < 0) {
-      System.out.print(promptMsg);
-      scanner = new Scanner(System.in);
-      try {
-        if (scanner.hasNextInt()) { // if the next in buffer is int
-          val = scanner.nextInt();
-          if (val <= 0)
-            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-        } else { // next in buffer is not int
-          scanner.next(); // clear buffer
-          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
-        }
-      } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
-        val = -1;
-      }
-    }
-    return val;
-  }
-
-  public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
-    if (isSame) {
-      System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));
-    } else {
-      System.out.println(colorizer("[UPDATED] " + label + ": " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-    }
-  }
 
   /**
    * Select editable action boolean.

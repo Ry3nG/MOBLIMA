@@ -91,9 +91,9 @@ public class CinemaHandler extends ShowtimeHandler {
 
     SecureRandom random = new SecureRandom();
     int totalCinemas = min * min;
-    while(cinemas.size() < totalCinemas){
+    while (cinemas.size() < totalCinemas) {
 
-      if(cinemas.size() % min == 0){
+      if (cinemas.size() % min == 0) {
         // Generate min cinemas for each Cineplex code
         String cineplexCode = RandomStringUtils.random(3, true, false).toUpperCase();
         this.addCineplexCode(cineplexCode);

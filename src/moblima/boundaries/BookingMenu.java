@@ -186,13 +186,6 @@ public class BookingMenu extends Menu {
     return selectedIdx;
   }
 
-  /**
-   * Select showtime idx int.
-   *
-   * @param showtimes the showtimes
-   * @return the int
-   */
-//+ selectShowtimeIdx(showtimes:List<Showtime>):int
   public int selectShowtimeIdx(List<Showtime> showtimes) {
     this.refreshMenu(this.getShowtimeMenu(showtimes));
 
@@ -204,13 +197,55 @@ public class BookingMenu extends Menu {
 
     // Display options and get selection input
     this.displayMenuList(showtimeOptions);
-    int selectedIdx = this.getListSelectionIdx(showtimes, false);
+    int selectedIdx = this.getListSelectionIdx(showtimeOptions, false);
 
     // Return to previous menu
     if (selectedIdx == (showtimeOptions.size() - 1)) {
       System.out.println("\t>>> " + "Returning to previous menu...");
       return -1;
     }
+
+    // Retrieve showtime idx from showtime id
+    Showtime showtime = showtimes.get(selectedIdx);
+    int showtimeIdx = handler.getShowtimeIdx(showtime.getId());
+    // Store selection idx
+    handler.setSelectedShowtimeIdx(showtimeIdx);
+
+    return showtimeIdx;
+  }
+
+  /**
+   * Select showtime idx int.
+   *
+   * @param showtimes the showtimes
+   * @return the int
+   */
+//+ selectShowtimeIdx(showtimes:List<Showtime>):int
+  public int selectMovieShowtimeIdx(int movieId, List<Showtime> showtimes, boolean showAdd) {
+    this.refreshMenu(this.getShowtimeMenu(showtimes));
+
+    // Initialize options with a return at the end
+    List<String> showtimeOptions = showtimes.stream()
+        .map((s) -> handler.printedShowtime(s.getId()))
+        .collect(Collectors.toList());
+    if (showAdd) showtimeOptions.add((showtimeOptions.size()), "Add showtime");
+    showtimeOptions.add((showtimeOptions.size()), "Return to previous menu");
+
+    // Display options and get selection input
+    this.displayMenuList(showtimeOptions);
+    int selectedIdx = this.getListSelectionIdx(showtimeOptions, false);
+
+    // Return to previous menu
+    if (selectedIdx == (showtimeOptions.size() - 1)) {
+      System.out.println("\t>>> " + "Returning to previous menu...");
+      return -1;
+    }
+
+    // Add showtime
+    if (showAdd && (selectedIdx == (showtimeOptions.size() - 2))) {
+      return this.createMovieShowtime(movieId);
+    }
+
 
     // Retrieve showtime idx from showtime id
     Showtime showtime = showtimes.get(selectedIdx);
@@ -338,13 +373,67 @@ public class BookingMenu extends Menu {
     return seatCode;
   }
 
-  public int addShowtime(int movieId){
+  public int createMovieShowtime(int movieId) {
     int showtimeIdx = -1;
 
     //TODO:
-//    while(showtimeIdx)
+    while (showtimeIdx < 0) {
+      scanner = new Scanner(System.in).useDelimiter("\n");
+
+      System.out.print("Cinema ID: ");
+      int cinemaId = this.setCinemaId();
+      System.out.println("Cinema ID: " + cinemaId + "\n");
+
+      LocalDateTime showDateTime = this.setDateTime("Show Datetime (dd-MM-yyyy hh:mm[AM/PM]):");
+
+      Showtime.ShowType showType = this.setShowType();
+      System.out.println("Show Type: " + showType);
+
+      showtimeIdx = handler.addShowtime(cinemaId, movieId, showDateTime, showType);
+      if (showtimeIdx < 0) System.out.println(colorizer("[FAILED] Unable to add showtime", Helper.Preset.ERROR));
+      else System.out.println(colorizer("[SUCCESS] Added new showtime", Helper.Preset.SUCCESS));
+
+      this.awaitContinue();
+    }
 
     return showtimeIdx;
+  }
+
+  public int setCinemaId() {
+    List<String> updateOptions = handler.getCinemas().stream()
+        .map(Cinema::toString)
+        .collect(Collectors.toList());
+
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    return selectionIdx;
+  }
+
+  public int setMovieId() {
+    List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
+    List<String> updateOptions = movies.stream()
+        .map(Movie::getTitle)
+        .collect(Collectors.toList());
+
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    return (selectionIdx < 0) ? selectionIdx : movies.get(selectionIdx).getId();
+  }
+
+  public Showtime.ShowType setShowType() {
+    List<String> updateOptions = Stream.of(Showtime.ShowType.values())
+        .map(Showtime.ShowType::toString)
+        .collect(Collectors.toList());
+
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    return Showtime.ShowType.values()[selectionIdx];
   }
 
   /**
@@ -425,19 +514,21 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Cinema ID: " + prevStatus);
 
         //TODO: Extract as separate function
-        List<String> updateOptions = handler.getCinemas().stream()
-            .map(Cinema::toString)
-            .collect(Collectors.toList());
+//        List<String> updateOptions = handler.getCinemas().stream()
+//            .map(Cinema::toString)
+//            .collect(Collectors.toList());
+//
+//        System.out.println("Set to:");
+//        this.displayMenuList(updateOptions);
+//        int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
+        int cinemaId = this.setCinemaId();
 
-        if (handler.checkClashingShowtime(selectionIdx, showtime.getDatetime())) {
+        if (handler.checkClashingShowtime(cinemaId, showtime.getDatetime())) {
           System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
           continue;
         }
-        showtime.setCinemaId(selectionIdx);
+        showtime.setCinemaId(cinemaId);
         int curStatus = showtime.getCinemaId();
 
         if (prevStatus == curStatus) {
@@ -453,14 +544,16 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Movie ID: " + prevStatus);
 
         //TODO: Extract as separate function
-        List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
-        List<String> updateOptions = movies.stream()
-            .map(Movie::getTitle)
-            .collect(Collectors.toList());
+//        List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
+//        List<String> updateOptions = movies.stream()
+//            .map(Movie::getTitle)
+//            .collect(Collectors.toList());
+//
+//        System.out.println("Set to:");
+//        this.displayMenuList(updateOptions);
+//        int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
+        int movieId = this.setMovieId();
 
         // VALIDATION: Check if showtime has associated bookings
         if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
@@ -468,7 +561,7 @@ public class BookingMenu extends Menu {
           continue;
         }
 
-        showtime.setMovieId(movies.get(selectionIdx).getId());
+        showtime.setMovieId(movieId);
         int curStatus = showtime.getMovieId();
 
         if (prevStatus == curStatus) {
@@ -484,24 +577,16 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Datetime: " + prevStatus.format(dateTimeFormatter));
 
         //TODO: Extract as separate function
-        scanner = new Scanner(System.in).useDelimiter("\n");
-        System.out.print("Set to (dd-MM-yyyy hh:mm[AM/PM]):");
-        String datetime = scanner.next().trim();
-        if (datetime.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}[AP]M$")) {
-          LocalDateTime showDatetime = LocalDateTime.parse(datetime, dateTimeFormatter);
-
-          if (handler.checkClashingShowtime(showtimeIdx, showDatetime)) {
-            System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
-          } else {
-            showtime.setDatetime(showDatetime);
-            if (prevStatus.isEqual(showDatetime)) {
-              System.out.println("[NO CHANGE] Datetime: " + prevStatus.format(dateTimeFormatter));
-            } else {
-              System.out.println("[UPDATED] Datetime: " + prevStatus.format(dateTimeFormatter) + " -> " + showDatetime.format(dateTimeFormatter));
-            }
-          }
+        LocalDateTime showDatetime = this.setDateTime("Set to (dd-MM-yyyy hh:mm[AM/PM]):");
+        if (handler.checkClashingShowtime(showtimeIdx, showDatetime)) {
+          System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
         } else {
-          System.out.println("Invalid input, expected format (dd-MM-yyyy hh:mma)");
+          showtime.setDatetime(showDatetime);
+          if (prevStatus.isEqual(showDatetime)) {
+            System.out.println("[NO CHANGE] Datetime: " + prevStatus.format(dateTimeFormatter));
+          } else {
+            System.out.println("[UPDATED] Datetime: " + prevStatus.format(dateTimeFormatter) + " -> " + showDatetime.format(dateTimeFormatter));
+          }
         }
       }
 
@@ -511,13 +596,15 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Show Type: " + prevStatus.toString());
 
         //TODO: Extract as separate function
-        List<String> updateOptions = Stream.of(Showtime.ShowType.values())
-            .map(Showtime.ShowType::toString)
-            .collect(Collectors.toList());
+//        List<String> updateOptions = Stream.of(Showtime.ShowType.values())
+//            .map(Showtime.ShowType::toString)
+//            .collect(Collectors.toList());
+//
+//        System.out.println("Set to:");
+//        this.displayMenuList(updateOptions);
+//        int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
+        Showtime.ShowType showType = this.setShowType();
 
         // VALIDATION: Check if showtime has associated bookings
         if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
@@ -525,7 +612,7 @@ public class BookingMenu extends Menu {
           continue;
         }
 
-        showtime.setType(Showtime.ShowType.values()[selectionIdx]);
+        showtime.setType(showType);
         Showtime.ShowType curStatus = showtime.getType();
 
         if (prevStatus == curStatus) {

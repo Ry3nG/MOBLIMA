@@ -90,6 +90,7 @@ public abstract class MovieBookingController {
 
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
+    int movieId = selectedMovie.getId();
     List<Showtime> movieShowtimes = bookingHandler().getShowtimes(selectedMovie.getId());
     showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "showtimeIdx: " + showtimeIdx);
@@ -115,8 +116,9 @@ public abstract class MovieBookingController {
 
     // Select showtimes
     System.out.println("Select showtime slot: ");
+    int movieId = selectedMovie.getId();
     List<Showtime> movieShowtimes = bookingHandler().getShowtimes(selectedMovie.getId());
-    int showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
+    int showtimeIdx = bookingMenu.selectMovieShowtimeIdx(movieId, movieShowtimes, true);
     if (showtimeIdx < 0) return;
 
     Showtime showtime = bookingHandler().getShowtime(showtimeIdx);
@@ -248,7 +250,7 @@ public abstract class MovieBookingController {
         .mapToObj(idx -> {
           Movie m = rankedMovies.get(idx);
           String labelStart = "> " + (idx + 1) + ". " + (m.getTitle());
-          String labelEnd = showRatingCount ? " | Rating: " + Double.toString(m.getOverallRating()) : "";
+          String labelEnd = showRatingCount ? " | Rating: " + m.getOverallRating() : "";
 
           return Arrays.asList(labelStart, labelEnd);
         })
