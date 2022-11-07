@@ -19,70 +19,114 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update system settings
+SELECTED: 	>>> View and update cinemas
 ---------------------------------------------------------------------------
-(1) View Current Settings
-(2) Edit Adult (Standard) Ticket Price
-(3) Edit Blockbuster Movie Surcharge
-(4) Edit Show Surcharges
-(5) Edit Ticket Surcharges
-(6) Edit Cinema Surcharges
-(7) Edit Holidays
-(8) Discard changes
-(9) Save changes
-(10) Return to previous menu
+(1) 
+ID:               0        
+Cineplex Code:    QUK      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(2) 
+ID:               1       
+Cineplex Code:    QUK     
+Class Type:       Normal  
+Total Showtimes:  24      
+
+(3) 
+ID:               2       
+Cineplex Code:    QUK     
+Class Type:       Normal  
+Total Showtimes:  23      
+
+(4) 
+ID:               3       
+Cineplex Code:    FER     
+Class Type:       Normal  
+Total Showtimes:  22      
+
+(5) 
+ID:               4       
+Cineplex Code:    FER     
+Class Type:       Normal  
+Total Showtimes:  21      
+
+(6) 
+ID:               5       
+Cineplex Code:    FER     
+Class Type:       Normal  
+Total Showtimes:  34      
+
+(7) 
+ID:               6        
+Cineplex Code:    AYW      
+Class Type:       Premium  
+Total Showtimes:  16       
+
+(8) 
+ID:               7        
+Cineplex Code:    QUK      
+Class Type:       Premium  
+Total Showtimes:  18       
+
+(9) 
+ID:               8        
+Cineplex Code:    QUK      
+Class Type:       Premium  
+Total Showtimes:  0        
+
+(10) Add new cinema
+(11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Edit Holidays
+SELECTED: ID:               8        
+Cineplex Code:    QUK      
+Class Type:       Premium  
+Total Showtimes:  0        
+
 Next steps:
 ---------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) Add new public holiday
-(13) Return to previous menu
+(1) Set Class
+(2) Set Showtimes
+(3) Set Cineplex Code
+(4) Discard changes
+(5) Remove cinema
+(6) Save changes & return
+(7) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: ---------------------------------------------------------------------------
-Enter the date of the public holiday:
--------------------------------------
-Date (dd-MM-yyyy) or enter - to cancel: 
-[ADDED] Public holiday 11-11-2022 has been added successfully.
-Date (dd-MM-yyyy) or enter - to cancel: Next steps:
+SELECTED: [CURRENT] Cineplex Code: QUK
+Set to:
 ---------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) 11-11-2022, FRIDAY
-(13) Add new public holiday
-(14) Return to previous menu
+(1) FER
+(2) AYW
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
+SELECTED: [UPDATED] Cineplex Code: QUK -> FER
+ID:               8        
+Cineplex Code:    FER      
+Class Type:       Premium  
+Total Showtimes:  0        
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Class
+(2) Set Showtimes
+(3) Set Cineplex Code
+(4) Discard changes
+(5) Remove cinema
+(6) Save changes & return
+(7) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Cinema updated
+	>>> Returning to previous menu...
 Press any key to continue . . .
 ---------------------------------------------------------------------------
-(1) View Current Settings
-(2) Edit Adult (Standard) Ticket Price
-(3) Edit Blockbuster Movie Surcharge
-(4) Edit Show Surcharges
-(5) Edit Ticket Surcharges
-(6) Edit Cinema Surcharges
-(7) Edit Holidays
-(8) Discard changes
-(9) Save changes
-(10) Return to previous menu
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
 ---------------------------------------------------------------------------
 SELECTED: 

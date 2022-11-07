@@ -669,7 +669,7 @@ public class BookingMenu extends Menu {
               cinema.getShowtimes(),
               cinema.getCineplexCode()
           );
-          status = true;
+          System.out.println("[UPDATED] Cinema updated");
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
