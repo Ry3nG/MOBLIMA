@@ -338,6 +338,15 @@ public class BookingMenu extends Menu {
     return seatCode;
   }
 
+  public int addShowtime(int movieId){
+    int showtimeIdx = -1;
+
+    //TODO:
+//    while(showtimeIdx)
+
+    return showtimeIdx;
+  }
+
   /**
    * Edit showtime boolean.
    *
