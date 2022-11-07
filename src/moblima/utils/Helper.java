@@ -3,6 +3,7 @@ package moblima.utils;
 import com.diogonunes.jcolor.Attribute;
 import com.github.lalyos.jfiglet.FigletFont;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
@@ -99,6 +100,21 @@ public class Helper {
       System.out.println(asciiArt);
     } catch (Exception e) {
     }
+  }
+
+  /**
+   * Generate digits int.
+   *
+   * @param digitCount the digit count
+   * @return the int
+   */
+  public static int generateDigits(int digitCount) {
+    if (digitCount < 1) return 0;
+
+    SecureRandom rnd = new SecureRandom();
+    int number = rnd.nextInt(999999);
+
+    return Integer.valueOf(String.format("%0" + digitCount + "d", number));
   }
 
 

@@ -11,12 +11,13 @@ STAFF: staff
 ---------------------------------------------------------------------------
 (1) Top 5 movies by ticket sales
 (2) Top 5 movies by overall rating
-(3) View and update movie details
-(4) View and update showtimes
-(5) View and update cinemas
-(6) View and update system settings
-(7) Register new staff account
-(8) Exit
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
 ---------------------------------------------------------------------------
 SELECTED: 	>>> View and update movie details
 Select movie: 
@@ -41,84 +42,19 @@ Select movie:
 (18) 18. Barbarian
 (19) 19. Black Panther: Wakanda Forever
 (20) 20. Deinfluencer
-(21) 21. Return to previous menu
+(21) 21. Test
+(22) 22. Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: /// MOVIE DETAILS ///
-Title:               Black Panther: Wakanda Forever                                                                                                                                                                                                                                                                                                                                                                                                                                  
-Runtime:             161 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-Synopsis:            Queen Ramonda, Shuri, M’Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T’Challa’s death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda.                                                                                                                 
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-Showing Status:      End of Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-Directed By:         Ryan Coogler                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-Cast:                [Letitia Wright, Lupita Nyong'o, Danai Gurira, Winston Duke, Dominique Thorne, Florence Kasumba, Michaela Coel, Tenoch Huerta, Martin Freeman, Angela Bassett, Mabel Cadena, Alex Livinalli, Danny Sapani, Josué Maychi, Isaach De Bankolé, Gigi Bermingham, Dorothy Steel, Shiquita James, Curtis Bannister, Tejon Wright, Jarrell Pyro Johnson, Babatunde Oyewo, Marlon Hayes, María Mercedes Coroy, Richard Schiff, Manuel Chavez, Kamaru Usman, Lake Bell]  
-Link:                https://www.themoviedb.org/movie/505642                                                                                                                                                                                                                                                                                                                                                                                                                         
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+Cast:                [Lauren LaVera, David Howard Thornton, Elliott Fullam, Sarah Voigt, Kailey Hyman, Casey Hartnett, Amelie McLain, Charlie McElveen, Felissa Rose, Samantha Scaffidi, Sarah Grace Sanders, Griffin Santopietro, Tamara Glynn, Devon Roth, Chris Irvine, Catherine Corcoran, Katie Maguire, Jackie Adragna, Georgia MacPhail, Rachel Keefe, Rick Styczynski, Amy Russ, Marcus Slabine, Leah Voysey, Cory DuVal, Jason Leavy, Owen Myre, Ryan James, Gilbrando Acevedo, Wesley Holloway, Johnath Davis, Mark A. Langston, Elizabeth Piper S., Thomas Rickman, Nedim Jahić, Briana Calcagno, Michelle Santiago, Jonathan A. Streetzel, Reid Richards, Craig Sapenoff, Ross Caudill Jr., Sheri Fairchild, Geordie McGillivray, Mick Gaughan, Matthew Hammond, Craig Loydgren, Robert Privitera, Marisa Bertani, Ryan Denning, Steven Kiseleski, Miche Brill, Curtis J. Watson, Sarah Brill, Ava O'Donnell, Bengt Emil Johnson, Scout Taylor-Compton, Emily Sue Bengtson]  
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 Press any key to continue . . .
-Next steps:
----------------------------------------------------------------------------
-(1) Set blockbuster status
-(2) Set showing status
-(3) Set content rating
-(4) Discard changes
-(5) Remove movie
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [CURRENT] Current Rating: PG13
-Set to:
----------------------------------------------------------------------------
-(1) G
-(2) PG
-(3) PG13
-(4) NC16
-(5) M18
-(6) R21
----------------------------------------------------------------------------
-SELECTED: [NO CHANGE] Current Rating: PG13
-Next steps:
----------------------------------------------------------------------------
-(1) Set blockbuster status
-(2) Set showing status
-(3) Set content rating
-(4) Discard changes
-(5) Remove movie
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [CURRENT] Showing Status: End of Showing
-Set to:
----------------------------------------------------------------------------
-(1) Coming Soon
-(2) Preview
-(3) Now Showing
-(4) End of Showing
----------------------------------------------------------------------------
-SELECTED: [UPDATED] Showing Status: End of Showing -> Coming Soon
-Next steps:
----------------------------------------------------------------------------
-(1) Set blockbuster status
-(2) Set showing status
-(3) Set content rating
-(4) Discard changes
-(5) Remove movie
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
-Press any key to continue . . .
----------------------------------------------------------------------------
-(1) Top 5 movies by ticket sales
-(2) Top 5 movies by overall rating
-(3) View and update movie details
-(4) View and update showtimes
-(5) View and update cinemas
-(6) View and update system settings
-(7) Register new staff account
-(8) Exit
----------------------------------------------------------------------------
-SELECTED: 	>>> Exit
-	>>> Quitting application...
----------------------------------------------------------------------------
-Thank you for using MOBLIMA. We hope to see you again soon!

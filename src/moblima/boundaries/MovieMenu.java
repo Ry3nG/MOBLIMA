@@ -8,11 +8,15 @@ import moblima.entities.Review;
 import moblima.utils.Helper;
 import moblima.utils.Helper.Preset;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static moblima.utils.Helper.colorizer;
+import static moblima.utils.deserializers.LocalDateDeserializer.dateFormatter;
+import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
  * The type Movie menu.
@@ -78,7 +82,7 @@ public class MovieMenu extends Menu {
     List<Movie> movies = handler.getMovies();
 
     List<ShowStatus> unbookableStatus = Arrays.asList(ShowStatus.END_SHOWING, ShowStatus.COMING_SOON);
-    if(showLimitedMovies && movies.size() > 0){
+    if (showLimitedMovies && movies.size() > 0) {
       movies = movies.stream()
           .filter(m -> !unbookableStatus.contains(m.getShowStatus()))
           .collect(Collectors.toList());
@@ -451,6 +455,135 @@ public class MovieMenu extends Menu {
     return status;
   }
 
+  public boolean setBlockbusterStatus() {
+    List<String> updateOptions = new ArrayList<String>() {
+      {
+        add("Blockbuster");
+        add("Non-Blockbuster");
+      }
+    };
+
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    return (selectionIdx == 0);
+  }
+
+  public ShowStatus setShowStatus() {
+    List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
+    List<String> updateOptions = Stream.of(ShowStatus.values()).map(Enum::toString).collect(Collectors.toList());
+
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    return showStatuses.get(selectionIdx);
+  }
+
+  public ContentRating setContentRating() {
+    List<String> updateOptions = Stream.of(ContentRating.values()).map(Enum::name).collect(Collectors.toList());
+    System.out.println("Set to:");
+    this.displayMenuList(updateOptions);
+    int selectionIdx = getListSelectionIdx(updateOptions, false);
+
+    List<ContentRating> contentRatings = new ArrayList<ContentRating>(EnumSet.allOf(ContentRating.class));
+
+    return contentRatings.get(selectionIdx);
+  }
+
+  public List<String> setCastList() {
+    List<String> castList = new ArrayList<String>();
+
+    int selectionIdx = 0;
+    List<String> updateOptions = Arrays.asList(
+        "Add another cast member",
+        "Confirm cast list"
+    );
+    while (selectionIdx == 0) {
+      scanner = new Scanner(System.in).useDelimiter("\n");
+      System.out.print("Cast #" + (castList.size() + 1) + ": ");
+      String cast = scanner.next().trim();
+      castList.add(cast);
+
+      // Request proceed option
+      this.displayMenuList(updateOptions);
+      selectionIdx = getListSelectionIdx(updateOptions, false);
+    }
+
+    return castList;
+  }
+
+  public LocalDate setDate(String promptMsg) {
+    LocalDate date = null;
+
+    while (date == null) {
+      System.out.print(promptMsg);
+      scanner = new Scanner(System.in).useDelimiter("\n");
+      try {
+        String strDate = scanner.next().trim();
+        if (strDate.matches("^\\d{2}-\\d{2}-\\d{4}")) {
+          date = LocalDate.parse(strDate, dateFormatter);
+        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
+      } catch (Exception e) {
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        date = null;
+      }
+    }
+
+    return date;
+  }
+
+  public LocalDateTime setDateTime(String promptMsg) {
+    LocalDateTime datetime = null;
+
+    while (datetime == null) {
+      System.out.print(promptMsg);
+      scanner = new Scanner(System.in).useDelimiter("\n");
+      try {
+        String strDateTime = scanner.next().trim();
+        if (strDateTime.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}[AP]M$")) {
+          datetime = LocalDateTime.parse(strDateTime, dateTimeFormatter);
+        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
+      } catch (Exception e) {
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        datetime = null;
+      }
+    }
+
+    return datetime;
+  }
+
+  public int setInt(String promptMsg) {
+    int val = -1;
+    while (val < 0) {
+      System.out.print(promptMsg);
+      scanner = new Scanner(System.in);
+      try {
+        if (scanner.hasNextInt()) { // if the next in buffer is int
+          val = scanner.nextInt();
+          if (val <= 0)
+            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
+        } else { // next in buffer is not int
+          scanner.next(); // clear buffer
+          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
+        }
+      } catch (Exception e) {
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        val = -1;
+      }
+    }
+    return val;
+  }
+
+  public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
+    if (isSame) {
+      System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));
+    } else {
+      System.out.println(colorizer("[UPDATED] " + label + ": " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
+    }
+  }
+
   /**
    * Select editable action boolean.
    *
@@ -466,6 +599,8 @@ public class MovieMenu extends Menu {
 
     List<String> proceedOptions = new ArrayList<String>() {
       {
+        add("Set title");
+        add("Set synopsis");
         add("Set blockbuster status");
         add("Set showing status");
         add("Set content rating");
@@ -505,79 +640,130 @@ public class MovieMenu extends Menu {
         System.out.println(movie);
       }
 
-      // Set blockbuster status
+      // Set title
       else if (proceedSelection == 0) {
+        String prevStatus = movie.getTitle();
+        System.out.println("[CURRENT] Title: " + prevStatus);
+
+        System.out.print("Set to: ");
+        String title = scanner.next().trim();
+
+        movie.setTitle(title);
+        String curStatus = movie.getTitle();
+
+        // Display changes
+        this.printChanges("Title", prevStatus.equals(curStatus), prevStatus, curStatus);
+      }
+
+      // Set synopsis
+      else if (proceedSelection == 1) {
+        String prevStatus = movie.getSynopsis();
+        System.out.println("[CURRENT] Synopsis: " + prevStatus);
+
+        System.out.print("Set to: ");
+        String Synopsis = scanner.next().trim();
+
+        movie.setSynopsis(Synopsis);
+        String curStatus = movie.getSynopsis();
+
+        // Display changes
+        this.printChanges("Synopsis", prevStatus.equals(curStatus), prevStatus, curStatus);
+      }
+
+      // Set blockbuster status
+      else if (proceedSelection == 2) {
         String prevStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
         System.out.println("[CURRENT] Blockbuster Status: " + prevStatus);
 
-        //TODO: Extract as separate function
-        List<String> updateOptions = new ArrayList<String>() {
-          {
-            add("Blockbuster");
-            add("Non-Blockbuster");
-          }
-        };
+        boolean isBlockbuster = this.setBlockbusterStatus();
 
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
-
-        movie.setBlockbuster((selectionIdx == 0));
+        movie.setBlockbuster(isBlockbuster);
         String curStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
 
-        if (prevStatus.equals(curStatus)) {
-          System.out.println(colorizer("[NO CHANGE] Blockbuster Status: " + prevStatus, Preset.SUCCESS));
-        } else {
-          System.out.println(colorizer("[UPDATED] Blockbuster Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-        }
+        // Display changes
+        this.printChanges("Blockbuster Status", prevStatus.equals(curStatus), prevStatus, curStatus);
       }
 
       // Set showing status
-      else if (proceedSelection == 1) {
+      else if (proceedSelection == 3) {
         ShowStatus prevStatus = movie.getShowStatus();
         System.out.println("[CURRENT] Showing Status: " + prevStatus);
 
-        //TODO: Extract as separate function
-        List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
-        List<String> updateOptions = Stream.of(ShowStatus.values()).map(Enum::toString).collect(Collectors.toList());
+        ShowStatus showStatus = this.setShowStatus();
 
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
-
-        movie.setShowStatus(showStatuses.get(selectionIdx));
+        movie.setShowStatus(showStatus);
         ShowStatus curStatus = movie.getShowStatus();
 
-        if (prevStatus.equals(curStatus)) {
-          System.out.println(colorizer("[NO CHANGE] Showing Status: " + prevStatus, Preset.SUCCESS));
-        } else {
-          System.out.println(colorizer("[UPDATED] Showing Status: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-        }
+        // Display changes
+        this.printChanges("Showing Status", prevStatus.equals(curStatus), prevStatus.toString(), curStatus.toString());
       }
 
       // Set content rating
-      else if (proceedSelection == 2) {
+      else if (proceedSelection == 4) {
         ContentRating prevStatus = movie.getContentRating();
         System.out.println("[CURRENT] Current Rating: " + prevStatus);
 
-        //TODO: Extract as separate function
-        List<String> updateOptions = Stream.of(ContentRating.values()).map(Enum::name).collect(Collectors.toList());
-        System.out.println("Set to:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
+        ContentRating contentRating = this.setContentRating();
 
-        List<ContentRating> contentRatings = new ArrayList<ContentRating>(EnumSet.allOf(ContentRating.class));
-        movie.setContentRating(contentRatings.get(selectionIdx));
+        movie.setContentRating(contentRating);
         ContentRating curStatus = movie.getContentRating();
 
-        if (prevStatus.equals(curStatus)) {
-          System.out.println(colorizer("[NO CHANGE] Current Rating: " + prevStatus, Preset.SUCCESS));
-        } else {
-          System.out.println(colorizer("[UPDATED] Current Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-        }
+        // Display changes
+        this.printChanges("Current Rating", prevStatus.equals(curStatus), prevStatus.toString(), curStatus.toString());
       }
     }
 
     return status;
+  }
+
+  public int createMovie() {
+    int movieIdx = -1;
+
+    while (movieIdx < 0) {
+      scanner = new Scanner(System.in).useDelimiter("\n");
+      System.out.print("Title: ");
+      String title = scanner.next().trim();
+
+      System.out.print("Synopsis: ");
+      String synopsis = scanner.next().trim();
+
+      System.out.print("[Blockbuster Status] ");
+      boolean isBlockbuster = this.setBlockbusterStatus();
+      System.out.println("Blockbuster Status: " + (isBlockbuster ? "Blockbuster" : "Non-Blockbuster"));
+
+      System.out.print("[Show Status] ");
+      ShowStatus showStatus = this.setShowStatus();
+      System.out.println("Show Status: " + showStatus);
+
+      System.out.print("[Content Rating] ");
+      ContentRating contentRating = this.setContentRating();
+      System.out.println("Content Rating: " + contentRating);
+
+      List<String> castList = this.setCastList();
+      System.out.println("Cast List: " + Arrays.deepToString(castList.toArray()));
+
+      int runtime = this.setInt("Runtime: ");
+
+      System.out.print("Director: ");
+      String director = scanner.next().trim();
+
+      LocalDate releaseDate = this.setDate("Release Date (dd-MM-yyyy): ");
+
+      // Generate random 6 digit
+      int id = Helper.generateDigits(6);
+
+      // Overall rating defaulted to 0
+      int overallRating = 0;
+
+      // Add to movies
+      movieIdx = handler.addMovie(id, title, synopsis, director, castList, runtime, releaseDate, isBlockbuster, showStatus, contentRating, overallRating);
+      if (movieIdx < 0) System.out.println(colorizer("[FAILED] Unable to add movie", Preset.ERROR));
+      else System.out.println(colorizer("[SUCCESS] Added new movie", Preset.SUCCESS));
+
+      // Display movie
+      handler.printMovieDetails(movieIdx);
+    }
+
+    return movieIdx;
   }
 }

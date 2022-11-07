@@ -16,13 +16,12 @@ public class Staff extends Account {
   /**
    * Instantiates a new Staff.
    *
-   * @param id       the id
    * @param name     the name
    * @param username the username
    * @param password the password
    */
-  public Staff(String id, String name, String username, String password) {
-    super(id, name);
+  public Staff(String name, String username, String password) {
+    super(name);
     this.username = username;
     this.password = password;
   }

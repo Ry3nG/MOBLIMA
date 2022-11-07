@@ -9,7 +9,6 @@ import moblima.utils.datasource.Datasource;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * The type Customer handler.
@@ -132,11 +131,11 @@ public class CustomerHandler {
    */
 // +addCustomer(name:String, contactNumber:String) : int
   public int addCustomer(String name, String contactNumber, String emailAddress) {
-    if (checkIfAccountExists(contactNumber) >= 0) return -1;
-    if(!validatePhoneNumber(contactNumber)) return -1;
+    if (checkIfAccountExists(contactNumber, emailAddress) >= 0) return -1;
+    if (!validatePhoneNumber(contactNumber)) return -1;
 
     // Initialize new Customer
-    Customer customer = new Customer(UUID.randomUUID().toString(), name, contactNumber, emailAddress);
+    Customer customer = new Customer(name, contactNumber, emailAddress);
     this.customers.add(customer);
     this.currentCustomer = customer;
 
@@ -169,13 +168,13 @@ public class CustomerHandler {
    * @return the int
    */
 // + checkIfAccountExists(contactNumber:String) : int
-  public int checkIfAccountExists(String contactNumber) {
+  public int checkIfAccountExists(String contactNumber, String emailAddress) {
     int customerIdx = -1;
     if (this.customers.size() < 1) return customerIdx;
 
     for (int i = 0; i < this.customers.size(); i++) {
       Customer customer = this.customers.get(i);
-      if (customer.getContactNumber().equals(contactNumber)) {
+      if (customer.getContactNumber().equals(contactNumber) || customer.getEmailAddress().equals(emailAddress)) {
         customerIdx = i;
         break;
       }

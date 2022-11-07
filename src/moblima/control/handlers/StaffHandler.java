@@ -9,7 +9,6 @@ import moblima.utils.datasource.Datasource;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * The type Staff handler.
@@ -84,11 +83,6 @@ public class StaffHandler {
 
     //Source from serialized datasource
     String fileName = "staffs.csv";
-    if (fileName == null || fileName.isEmpty()) {
-      Helper.logger("StaffHandler.getStaffs", "Null and void filename provided, no data retrieved.");
-      return staffs;
-    }
-
     JsonArray staffList = Datasource.readArrayFromCsv(fileName);
     if (staffList == null) {
       Helper.logger("StaffHandler.getStaffs", "No serialized data available");
@@ -172,9 +166,10 @@ public class StaffHandler {
    */
 // +addStaff(username:String, password:String) : int
   public int addStaff(String name, String username, String password) {
+    if (!validateUsernameAvailability(username)) return -1;
 
     // Initialize new Staff
-    Staff staff = new Staff(UUID.randomUUID().toString(), name, username, password);
+    Staff staff = new Staff(name, username, password);
     this.staffs.add(staff);
     this.currentStaff = staff;
 

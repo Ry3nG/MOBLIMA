@@ -3,6 +3,7 @@ package moblima.entities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static moblima.utils.Helper.formatAsTable;
 
@@ -16,13 +17,12 @@ public class Customer extends Account {
   /**
    * Instantiates a new Customer.
    *
-   * @param id            the id
    * @param name          the name
    * @param contactNumber the contact number
    * @param emailAddress  the email address
    */
-  public Customer(String id, String name, String contactNumber, String emailAddress) {
-    super(id, name);
+  public Customer(String name, String contactNumber, String emailAddress) {
+    super(name);
     this.contactNumber = contactNumber;
     this.emailAddress = emailAddress;
   }

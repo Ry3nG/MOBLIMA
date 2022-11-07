@@ -37,6 +37,7 @@ public class StaffController extends MovieBookingController {
     return new LinkedHashMap<String, Runnable>() {{
       put("Top 5 movies by ticket sales", () -> printRankedMoviesByBooking(true));
       put("Top 5 movies by overall rating", () -> printRankedMoviesByRatings(true));
+      put("Add movie", () -> movieMenu.createMovie());
       put("View and update movie details", () -> updateMovies());
       put("View and update showtimes", () -> updateShowtimes());
       put("View and update cinemas", () -> updateCinemas());
