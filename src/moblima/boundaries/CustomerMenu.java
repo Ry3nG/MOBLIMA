@@ -66,13 +66,9 @@ public class CustomerMenu extends Menu {
     }};
 
     if (controller.settingsHandler().checkIfIsAuthenticated()) {
-      addMenuMap.put("View account details", () -> {
-        System.out.println(handler.getCurrentCustomer().toString());
-      });
+      addMenuMap.put("View account details", () -> System.out.println(handler.getCurrentCustomer().toString()));
     } else {
-      addMenuMap.put("Login / Register Account", () -> {
-        this.getCurrentCustomer();
-      });
+      addMenuMap.put("Login / Register Account", this::getCurrentCustomer);
     }
 
     addMenuMap.put("Exit", () -> {

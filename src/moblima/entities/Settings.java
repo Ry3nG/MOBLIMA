@@ -19,30 +19,6 @@ import static moblima.utils.Helper.formatAsTable;
  */
 public class Settings {
 
-  /**
-   * The enum Ranked type.
-   */
-  public enum RankedType {
-    /**
-     * Movies by tickets ranked type.
-     */
-    MOVIES_BY_TICKETS("Top 5 movies by ticket sales"),
-    /**
-     * Movies by ratings ranked type.
-     */
-    MOVIES_BY_RATINGS("Top 5 movies by overall rating");
-
-    private final String displayName;
-
-    RankedType(String displayName) {
-      this.displayName = displayName;
-    }
-
-    @Override
-    public String toString() {
-      return displayName;
-    }
-  }
   private double adultTicket;
   private double blockbusterSurcharge;
   private EnumMap<ShowType, Double> showSurcharges;
@@ -50,7 +26,6 @@ public class Settings {
   private EnumMap<ClassType, Double> cinemaSurcharges;
   private EnumMap<RankedType, Boolean> rankedTypes;
   private List<LocalDate> publicHolidays;
-
   /**
    * Instantiates a new Settings.
    *
@@ -62,7 +37,7 @@ public class Settings {
    * @param rankedTypes          the ranked types
    * @param publicHolidays       the public holidays
    */
-  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<ShowType, Double> showSurcharges, EnumMap<TicketType, Double> ticketSurcharges, EnumMap<ClassType, Double> cinemaSurcharges, EnumMap<RankedType, Boolean> rankedTypes,List<LocalDate> publicHolidays) {
+  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<ShowType, Double> showSurcharges, EnumMap<TicketType, Double> ticketSurcharges, EnumMap<ClassType, Double> cinemaSurcharges, EnumMap<RankedType, Boolean> rankedTypes, List<LocalDate> publicHolidays) {
     this.adultTicket = adultTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
     this.showSurcharges = showSurcharges;
@@ -315,5 +290,30 @@ public class Settings {
     rows.addAll(this.printHolidayTable());
 
     return formatAsTable(rows);
+  }
+
+  /**
+   * The enum Ranked type.
+   */
+  public enum RankedType {
+    /**
+     * Movies by tickets ranked type.
+     */
+    MOVIES_BY_TICKETS("Top 5 movies by ticket sales"),
+    /**
+     * Movies by ratings ranked type.
+     */
+    MOVIES_BY_RATINGS("Top 5 movies by overall rating");
+
+    private final String displayName;
+
+    RankedType(String displayName) {
+      this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+      return displayName;
+    }
   }
 }

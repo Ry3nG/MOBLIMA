@@ -4,7 +4,10 @@ import moblima.utils.Helper;
 import moblima.utils.datasource.Datasource;
 import org.junit.jupiter.api.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +37,19 @@ public class TestCustomerHandler {
     assertEquals(storedCustomerCount, customerCount, "Customers: " + customers.size());
   }
 
+  /**
+   * Teardown.
+   */
+  @AfterAll
+  public static void teardown() {
+    handler = null;
+    testCustomer = null;
+    customers = null;
+    assertNull(handler, "Handler instance is null");
+    assertNull(testCustomer, "Test object is null");
+    assertNull(customers, "Test object is null");
+    exit(0);
+  }
 
   /**
    * Reset.
@@ -49,7 +65,6 @@ public class TestCustomerHandler {
     // Initialize test object
     testCustomer = new Customer("tttesttt", "12345678", "tttesttt@mail.com");
   }
-
 
   /**
    * Restore.
@@ -69,20 +84,6 @@ public class TestCustomerHandler {
       storedCustomerCount = customers.size();
       assertEquals(storedCustomerCount, customerCount, "Restored customer list");
     }
-  }
-
-  /**
-   * Teardown.
-   */
-  @AfterAll
-  public static void teardown() {
-    handler = null;
-    testCustomer = null;
-    customers = null;
-    assertNull(handler, "Handler instance is null");
-    assertNull(testCustomer, "Test object is null");
-    assertNull(customers, "Test object is null");
-    exit(0);
   }
 
   /**

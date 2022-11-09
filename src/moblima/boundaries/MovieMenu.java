@@ -434,7 +434,7 @@ public class MovieMenu extends Menu {
         String curStatus = scanner.next().trim();
         review.setReview(curStatus);
 
-        this.printChanges("Review: " , prevStatus.equals(curStatus), prevStatus, curStatus);
+        this.printChanges("Review: ", prevStatus.equals(curStatus), prevStatus, curStatus);
       }
 
     }

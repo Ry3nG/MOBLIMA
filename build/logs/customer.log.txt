@@ -6,10 +6,32 @@
                                                           
 
 ---------------------------------------------------------------------------
-(1) Search / View all movies
-(2) Book and purchase ticket
-(3) View booking history
-(4) Login / Register Account
-(5) Exit
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: 	>>> Login / Register Account
+Next steps:
+---------------------------------------------------------------------------
+(1) Already have an account? Login
+(2) Create account
+---------------------------------------------------------------------------
+SELECTED: Account Login
+Account Contact No.: Successful account login
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) View and update reviews
+(4) Book and purchase ticket
+(5) View booking history
+(6) View account details
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Exit
+	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!

@@ -6,7 +6,6 @@ import moblima.entities.Cinema;
 import moblima.entities.Settings;
 import moblima.entities.Showtime;
 import moblima.utils.Helper;
-import moblima.utils.Helper.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -209,18 +208,18 @@ public class SettingsMenu extends Menu {
       boolean prevValue = surcharge.getValue();
 
 
-      System.out.println("- " + surcharge.getKey().toString() );
+      System.out.println("- " + surcharge.getKey().toString());
       System.out.println("Current Visibility: " + prevValue);
 
       List<String> updateOptions = Arrays.asList("True", "False");
       int selectionIdx = -1;
-      while(selectionIdx < 0){
+      while (selectionIdx < 0) {
         System.out.println("Set to: ");
         this.displayMenuList(updateOptions);
         selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        if(selectionIdx >= 0){
-          boolean curValue = selectionIdx == 0 ? true : false;
+        if (selectionIdx >= 0) {
+          boolean curValue = selectionIdx == 0;
           surcharge.setValue(curValue);
           this.printChanges(surcharge.getKey().toString() + ": ", (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
         }

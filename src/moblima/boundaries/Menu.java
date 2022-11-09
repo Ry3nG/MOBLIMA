@@ -61,14 +61,14 @@ public abstract class Menu {
     Helper.logger("Menu.displayMenu", "Displaying menu . . .");
 
     int menuChoice = -1;
-    int lastChoice = menuMap.size() - 1;
+    int lastChoice = menuMap.size();
     scanner = new Scanner(System.in);
     while (menuChoice != lastChoice) {
       List<String> menuList = this.menuMap.keySet().stream().toList();
       menuChoice = this.getListSelectionIdx(menuList, true);
 
       // Display selection choice
-      if (menuChoice != menuMap.size()) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      if (menuChoice != lastChoice) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
       menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
@@ -219,7 +219,7 @@ public abstract class Menu {
           menuChoice -= 1;
           if (menuChoice < 0)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-          else if (menuChoice > list.size())
+          else if (menuChoice >= list.size())
             throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
         } else { // next in buffer is not int
           scanner.next(); // clear buffer
