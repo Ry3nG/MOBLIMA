@@ -541,15 +541,6 @@ public class BookingMenu extends Menu {
         int prevStatus = showtime.getCinemaId();
         System.out.println("[CURRENT] Cinema ID: " + prevStatus);
 
-        //TODO: Extract as separate function
-//        List<String> updateOptions = handler.getCinemas().stream()
-//            .map(Cinema::toString)
-//            .collect(Collectors.toList());
-//
-//        System.out.println("Set to:");
-//        this.displayMenuList(updateOptions);
-//        int selectionIdx = getListSelectionIdx(updateOptions, false);
-
         int cinemaId = this.setCinemaId();
 
         if (handler.checkClashingShowtime(cinemaId, showtime.getDatetime())) {
@@ -559,27 +550,13 @@ public class BookingMenu extends Menu {
         showtime.setCinemaId(cinemaId);
         int curStatus = showtime.getCinemaId();
 
-        if (prevStatus == curStatus) {
-          System.out.println("[NO CHANGE] Cinema ID: " + prevStatus);
-        } else {
-          System.out.println("[UPDATED] Cinema ID: " + prevStatus + " -> " + curStatus);
-        }
+        this.printChanges("Cinema ID: ", (prevStatus == curStatus), Integer.toString(prevStatus), Integer.toString(curStatus));
       }
 
       // Set Movie ID
       else if (proceedSelection == 1) {
         int prevStatus = showtime.getMovieId();
         System.out.println("[CURRENT] Movie ID: " + prevStatus);
-
-        //TODO: Extract as separate function
-//        List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
-//        List<String> updateOptions = movies.stream()
-//            .map(Movie::getTitle)
-//            .collect(Collectors.toList());
-//
-//        System.out.println("Set to:");
-//        this.displayMenuList(updateOptions);
-//        int selectionIdx = getListSelectionIdx(updateOptions, false);
 
         int movieId = this.setMovieId();
 
@@ -591,12 +568,7 @@ public class BookingMenu extends Menu {
 
         showtime.setMovieId(movieId);
         int curStatus = showtime.getMovieId();
-
-        if (prevStatus == curStatus) {
-          System.out.println("[NO CHANGE] Movie ID: " + prevStatus);
-        } else {
-          System.out.println("[UPDATED] Movie ID: " + prevStatus + " -> " + curStatus);
-        }
+        this.printChanges("Movie ID: ", (prevStatus == curStatus), Integer.toString(prevStatus), Integer.toString(curStatus));
       }
 
       // Set Datetime
@@ -610,11 +582,7 @@ public class BookingMenu extends Menu {
           System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
         } else {
           showtime.setDatetime(showDatetime);
-          if (prevStatus.isEqual(showDatetime)) {
-            System.out.println("[NO CHANGE] Datetime: " + prevStatus.format(dateTimeFormatter));
-          } else {
-            System.out.println("[UPDATED] Datetime: " + prevStatus.format(dateTimeFormatter) + " -> " + showDatetime.format(dateTimeFormatter));
-          }
+          this.printChanges("Datetime: ", (prevStatus.isEqual(showDatetime)), prevStatus.format(dateTimeFormatter), showDatetime.format(dateTimeFormatter));
         }
       }
 
@@ -622,15 +590,6 @@ public class BookingMenu extends Menu {
       else if (proceedSelection == 3) {
         Showtime.ShowType prevStatus = showtime.getType();
         System.out.println("[CURRENT] Show Type: " + prevStatus.toString());
-
-        //TODO: Extract as separate function
-//        List<String> updateOptions = Stream.of(Showtime.ShowType.values())
-//            .map(Showtime.ShowType::toString)
-//            .collect(Collectors.toList());
-//
-//        System.out.println("Set to:");
-//        this.displayMenuList(updateOptions);
-//        int selectionIdx = getListSelectionIdx(updateOptions, false);
 
         Showtime.ShowType showType = this.setShowType();
 
@@ -642,13 +601,7 @@ public class BookingMenu extends Menu {
 
         showtime.setType(showType);
         Showtime.ShowType curStatus = showtime.getType();
-
-        if (prevStatus == curStatus) {
-          System.out.println("[NO CHANGE] Show Type: " + prevStatus);
-        } else {
-          System.out.println("[UPDATED] Show Type: " + prevStatus + " -> " + curStatus);
-        }
-
+        this.printChanges("Show Type: ", (prevStatus == curStatus), prevStatus.toString(), curStatus.toString());
       }
     }
     return status;
@@ -739,12 +692,12 @@ public class BookingMenu extends Menu {
 
         cinema.setClassType(classTypes.get(selectionIdx));
         Cinema.ClassType curStatus = cinema.getClassType();
-
-        if (prevStatus == curStatus) {
-          System.out.println("[NO CHANGE] Class: " + prevStatus);
-        } else {
-          System.out.println("[UPDATED] Class: " + prevStatus + " -> " + curStatus);
-        }
+        this.printChanges("Class: ", (prevStatus == curStatus), prevStatus.toString(), curStatus.toString());
+//        if (prevStatus == curStatus) {
+//          System.out.println("[NO CHANGE] Class: " + prevStatus);
+//        } else {
+//          System.out.println("[UPDATED] Class: " + prevStatus + " -> " + curStatus);
+//        }
       }
 
       // Set Showtimes
@@ -779,12 +732,12 @@ public class BookingMenu extends Menu {
 
         cinema.setCineplexCode(cineplexCodes.get(selectionIdx));
         String curStatus = cinema.getCineplexCode();
-
-        if (prevStatus.equals(curStatus)) {
-          System.out.println("[NO CHANGE] Cineplex Code: " + prevStatus);
-        } else {
-          System.out.println("[UPDATED] Cineplex Code: " + prevStatus + " -> " + curStatus);
-        }
+        this.printChanges("Cineplex Code: ", (prevStatus.equals(curStatus)), prevStatus, curStatus);
+//        if (prevStatus.equals(curStatus)) {
+//          System.out.println("[NO CHANGE] Cineplex Code: " + prevStatus);
+//        } else {
+//          System.out.println("[UPDATED] Cineplex Code: " + prevStatus + " -> " + curStatus);
+//        }
       }
 
       // Print updated cinema

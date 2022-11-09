@@ -1,0 +1,121 @@
+Account Login
+Username: Password: Successful account login
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update system settings
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Edit Ranked Types
+---------------------------------------------------------------------------
+Enter the new ranked types, or press - to return to the menu
+
+- Top 5 movies by ticket sales
+Current Visibility: false
+Set to: 
+---------------------------------------------------------------------------
+(1) True
+(2) False
+---------------------------------------------------------------------------
+SELECTED: [NO CHANGE] Top 5 movies by ticket sales: : false
+
+- Top 5 movies by overall rating
+Current Visibility: true
+Set to: 
+---------------------------------------------------------------------------
+(1) True
+(2) False
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Top 5 movies by overall rating: : true -> false
+
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Save changes
+[UPDATED] Settings updated
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Discard changes
+[REVERTED] Changes discarded
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Return to previous menu
+	>>> Returning to previous menu . . .
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Exit
+	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!

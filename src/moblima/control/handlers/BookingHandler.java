@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static moblima.utils.Helper.colorizer;
-import static moblima.utils.Helper.divider;
 
 /**
  * The type Booking handler.
@@ -264,7 +263,7 @@ public class BookingHandler extends CinemaHandler {
     if (booking == null) return "";
 
     String header = "/// BOOKING DETAILS ///";
-    System.out.println(divider);
+    System.out.println("---------------------------------------------------------------------------");
     System.out.println(colorizer(header, Preset.HIGHLIGHT));
     System.out.println(colorizer(booking.toString(), Preset.HIGHLIGHT));
 
@@ -274,8 +273,8 @@ public class BookingHandler extends CinemaHandler {
 
     // Movie
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
-    String movieDetails = movieHandler.printMovieDetails(movieIdx);
-    System.out.println(divider);
+    String movieDetails = movieHandler.printMovieDetails(movieIdx, true);
+    System.out.println("---------------------------------------------------------------------------");
 
     return header + "\n" + booking + "\n" + showtimeDetails + "\n" + movieDetails;
   }

@@ -10,6 +10,9 @@ import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.platform.commons.function.Try.success;
 
+/**
+ * The type Test customer handler.
+ */
 @Tag("TestCustomerHandler")
 public class TestCustomerHandler {
   private static CustomerHandler handler;
@@ -32,6 +35,9 @@ public class TestCustomerHandler {
   }
 
 
+  /**
+   * Reset.
+   */
   @BeforeEach
   public void reset() {
     // Wipe all existing customers
@@ -45,6 +51,9 @@ public class TestCustomerHandler {
   }
 
 
+  /**
+   * Restore.
+   */
   @AfterEach
   public void restore() {
     // Wipe all
@@ -76,6 +85,9 @@ public class TestCustomerHandler {
     exit(0);
   }
 
+  /**
+   * Test add customer.
+   */
   @Test
   @Order(0)
   public void testAddCustomer() {

@@ -166,11 +166,16 @@ public class SettingsHandler {
       put(Cinema.ClassType.Premium, 8.0);
     }};
 
+    EnumMap<Settings.RankedType, Boolean> rankedTypes = new EnumMap<Settings.RankedType, Boolean>(Settings.RankedType.class) {{
+      put(Settings.RankedType.MOVIES_BY_TICKETS, false);
+      put(Settings.RankedType.MOVIES_BY_RATINGS, true);
+    }};
+
     // Public Holidays
     HolidayDatasource dsHoliday = new HolidayDatasource();
     List<LocalDate> publicHolidays = dsHoliday.getHolidays();
 
-    return new Settings(adultTicketPrice, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
+    return new Settings(adultTicketPrice, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, rankedTypes, publicHolidays);
   }
 
   /**
@@ -307,13 +312,20 @@ public class SettingsHandler {
       }.getType();
       EnumMap<Cinema.ClassType, Double> cinemaSurcharges = Datasource.getGson().fromJson(strCinemaSurcharges, typeCinemaSurcharges);
 
+      // Ranked Types
+      String strRankedTypes = p.get("rankedTypes").getAsString();
+      Type typeRankedTypes = new TypeToken<EnumMap<Settings.RankedType, Boolean>>() {
+      }.getType();
+      EnumMap<Settings.RankedType, Boolean> rankedTypes = Datasource.getGson().fromJson(strRankedTypes, typeRankedTypes);
+
+
       // Public Holidays
       String strPublicHolidays = p.get("publicHolidays").getAsString();
       Type typePublicHolidays = new TypeToken<ArrayList<LocalDate>>() {
       }.getType();
       ArrayList<LocalDate> publicHolidays = Datasource.getGson().fromJson(strPublicHolidays, typePublicHolidays);
 
-      this.currentSettings = new Settings(adultTicket, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, publicHolidays);
+      this.currentSettings = new Settings(adultTicket, blockbusterSurcharge, showSurcharges, ticketSurcharges, cinemaSurcharges, rankedTypes, publicHolidays);
     }
 
     if (settings.size() < 1) return this.currentSettings;

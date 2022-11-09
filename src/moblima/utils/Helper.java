@@ -4,6 +4,7 @@ import com.diogonunes.jcolor.Attribute;
 import com.github.lalyos.jfiglet.FigletFont;
 
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
@@ -13,10 +14,17 @@ import static com.diogonunes.jcolor.Ansi.colorize;
  */
 public class Helper {
 
+
   /**
-   * The constant divider.
+   * Format price string.
+   *
+   * @param price the price
+   * @return the string
    */
-  public static String divider = "---------------------------------------------------------------------------";
+  public static String formatPrice(double price) {
+    DecimalFormat df = new DecimalFormat("0.00");
+    return "SGD " + df.format(price);
+  }
 
   /**
    * Logger.

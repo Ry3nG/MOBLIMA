@@ -1,5 +1,7 @@
 package moblima.entities;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -281,22 +283,42 @@ public class Movie {
     return "https://www.themoviedb.org/movie/" + this.id;
   }
 
-  @Override
-  public String toString() {
+  /**
+   * To string string.
+   *
+   * @param truncate the truncate
+   * @return the string
+   */
+  public String toString(boolean truncate) {
+    int maxCast = 3;
+    boolean isNotTruncated = (this.castList.size() <= maxCast);
+    List<String> subCastList = isNotTruncated ? this.castList : this.castList.subList(0, maxCast);
+    String displayCastList = subCastList.toString().replace("[", "").replace("]", "");
+    if (!isNotTruncated) {
+      int excessCastCount = this.castList.size() - subCastList.size();
+      if (excessCastCount > 0) displayCastList += " & " + excessCastCount + " others";
+    }
+
+    String displaySynopsis = truncate ? StringUtils.abbreviate(this.synopsis, 150) : this.synopsis;
 
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Title:", this.title));
     rows.add(Arrays.asList("Runtime:", this.runtime + " minutes"));
-    rows.add(Arrays.asList("Synopsis:", this.synopsis));
+    rows.add(Arrays.asList("Synopsis:", displaySynopsis));
     rows.add(Arrays.asList("Review Rating:", this.overallRating + " /" + Double.toString(5)));
     rows.add(Arrays.asList("Content Rating:", this.contentRating.toString()));
     rows.add(Arrays.asList("Showing Status:", this.showStatus.toString()));
     rows.add(Arrays.asList("Blockbuster Status:", (this.isBlockbuster ? "BLOCKBUSTER" : "NON-BLOCKBUSTER")));
     rows.add(Arrays.asList("Directed By:", this.director));
-    rows.add(Arrays.asList("Cast:", this.castList.toString()));
+    rows.add(Arrays.asList("Cast:", displayCastList));
     rows.add(Arrays.asList("Link:", this.getUrl()));
 
     return formatAsTable(rows);
+  }
+
+  @Override
+  public String toString() {
+    return this.toString(false);
   }
 
   @Override

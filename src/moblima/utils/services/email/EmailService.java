@@ -58,6 +58,7 @@ public class EmailService {
       message.setFrom(new InternetAddress("from@gmail.com"));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recepientAddress));
       message.setSubject(subject);
+
       message.setText(rawMessage);
 
       Transport.send(message);
@@ -99,7 +100,7 @@ public class EmailService {
   public boolean sentBookingEmail(String recepientName, String recepientAddress, String bookingDetails) {
     String subject = "Booking Summary";
 
-    String body = "Hi, " + recepientName + ", thank you for booking with MOBLIMA.\n";
+    String body = "Hi, " + recepientName + ", \nThank you for booking with MOBLIMA.\n";
     body += "This email is a confirmation of your booking.\n\n";
     body += bookingDetails;
 

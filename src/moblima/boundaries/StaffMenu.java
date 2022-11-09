@@ -6,6 +6,7 @@ import moblima.entities.Staff;
 import moblima.utils.Helper;
 import moblima.utils.Helper.Preset;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -107,8 +108,16 @@ public class StaffMenu extends Menu {
           }
         }
 
-        System.out.print("Password: ");
-        String password = scanner.next().trim();
+        String password = null;
+        Console console = System.console();
+        if (console != null) {
+          char[] passwordArray = console.readPassword("Password: ");
+          password = new String(passwordArray);
+          Helper.logger("StaffMenu.login", "Password entered: " + password);
+        } else {
+          System.out.print("Password: ");
+          password = scanner.next().trim();
+        }
 
         Staff staff = handler.getStaff(username);
         if (!staff.getPassword().equals(password))

@@ -126,7 +126,7 @@ public class MovieMenu extends Menu {
       int movieIdx = handler.getMovieIdx(movie.getId());
       menuMap.put((i + 1) + ". " + movie.getTitle(), () -> {
         handler.setSelectedMovieIdx(movieIdx);
-        handler.printMovieDetails(movieIdx);
+        handler.printMovieDetails(movieIdx, false);
 
         if (showReviews) {
           if (addMovieRunnable != null) addMovieRunnable.run();
@@ -419,12 +419,7 @@ public class MovieMenu extends Menu {
           }
         }
 
-
-        if (prevStatus == curStatus) {
-          System.out.println(colorizer("[NO CHANGE] Rating: " + prevStatus, Preset.SUCCESS));
-        } else {
-          System.out.println(colorizer("[UPDATED] Rating: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-        }
+        this.printChanges("Rating: ", (prevStatus == curStatus), Integer.toString(prevStatus), Integer.toString(curStatus));
       }
 
       // Set review
@@ -437,14 +432,9 @@ public class MovieMenu extends Menu {
 
         System.out.print("Set to:");
         String curStatus = scanner.next().trim();
-
         review.setReview(curStatus);
 
-        if (prevStatus.equals(curStatus)) {
-          System.out.println(colorizer("[NO CHANGE] Review: " + prevStatus, Preset.SUCCESS));
-        } else {
-          System.out.println(colorizer("[UPDATED] Review: " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
-        }
+        this.printChanges("Review: " , prevStatus.equals(curStatus), prevStatus, curStatus);
       }
 
     }
@@ -714,7 +704,7 @@ public class MovieMenu extends Menu {
       else System.out.println(colorizer("[SUCCESS] Added new movie", Preset.SUCCESS));
 
       // Display movie
-      handler.printMovieDetails(movieIdx);
+      handler.printMovieDetails(movieIdx, false);
     }
 
     return movieIdx;

@@ -45,15 +45,11 @@ public class CustomerController extends MovieBookingController {
     Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
-//      put("Top 5 movies by ticket sales", () -> {
-//        printRankedMoviesByBooking(false);
-////        List<Movie> rankedMovies = rankMoviesByBooking(5);
-////        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
-//      });
-      put("Top 5 movies by overall rating", () -> {
+      put(Settings.RankedType.MOVIES_BY_TICKETS.toString(), () -> {
+        printRankedMoviesByBooking(false);
+      });
+      put(Settings.RankedType.MOVIES_BY_RATINGS.toString(), () -> {
         printRankedMoviesByRatings(false);
-//        List<Movie> rankedMovies = rankMoviesByRatings(5);
-//        if (rankedMovies.size() > 0) reviewHandler().printMovies(rankedMovies);
       });
       put("Search / View all movies", () -> {
         // Runnable injection if currently authenticated
@@ -69,6 +65,12 @@ public class CustomerController extends MovieBookingController {
         movieMenu.showMenu();
       });
     }};
+
+    // Fetch ranked types
+    Settings settings = settingsHandler().getCurrentSystemSettings();
+    settings.getRankedTypes().entrySet().stream()
+        .filter(t -> !t.getValue())
+        .forEach(t -> menuMap.remove(t.getKey().toString()));
 
     // Auth-enable menu options
     if (!authStatus) return menuMap;
