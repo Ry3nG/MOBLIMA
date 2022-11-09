@@ -13,4 +13,63 @@
 (5) Login / Register Account
 (6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: 	>>> Top 5 movies by overall rating
+> 1. Top Gun: Maverick                 
+> 2. Dragon Ball Super: Super Hero     
+> 3. Spider-Man: No Way Home           
+> 4. Terrifier 2                       
+> 5. All Quiet on the Western Front    
+
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Search / View all movies
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Fall
+(5) 5. Jeepers Creepers: Reborn
+(6) 6. Orphan: First Kill
+(7) 7. Top Gun: Maverick
+(8) 8. Beast
+(9) 9. Piggy
+(10) 10. The Stranger
+(11) 11. One Piece Film Red
+(12) 12. Halloween Ends
+(13) 13. The Infernal Machine
+(14) 14. Avatar
+(15) 15. Dragon Ball Super: Super Hero
+(16) 16. Smile
+(17) 17. Spider-Man: No Way Home
+(18) 18. Blackout
+(19) 19. The Invitation
+(20) 20. Mia and Me: The Hero of Centopia
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> 1. Terrifier 2
+/// MOVIE DETAILS ///
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+Cast:                [Lauren LaVera, David Howard Thornton, Elliott Fullam, Sarah Voigt, Kailey Hyman, Casey Hartnett, Amelie McLain, Charlie McElveen, Felissa Rose, Samantha Scaffidi, Sarah Grace Sanders, Griffin Santopietro, Tamara Glynn, Devon Roth, Chris Irvine, Catherine Corcoran, Katie Maguire, Jackie Adragna, Georgia MacPhail, Rachel Keefe, Rick Styczynski, Amy Russ, Marcus Slabine, Leah Voysey, Cory DuVal, Jason Leavy, Owen Myre, Ryan James, Gilbrando Acevedo, Wesley Holloway, Johnath Davis, Mark A. Langston, Elizabeth Piper S., Thomas Rickman, Nedim Jahić, Briana Calcagno, Michelle Santiago, Jonathan A. Streetzel, Reid Richards, Craig Sapenoff, Ross Caudill Jr., Sheri Fairchild, Geordie McGillivray, Mick Gaughan, Matthew Hammond, Craig Loydgren, Robert Privitera, Marisa Bertani, Ryan Denning, Steven Kiseleski, Miche Brill, Curtis J. Watson, Sarah Brill, Ava O'Donnell, Bengt Emil Johnson, Scout Taylor-Compton, Emily Sue Bengtson]  
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+Next steps:
+---------------------------------------------------------------------------
+(1) View all reviews
+(2) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
