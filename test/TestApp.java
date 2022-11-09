@@ -37,7 +37,6 @@ public class TestApp {
   public static void teardown() {
     app = null;
     assertNull(app, "App instance is null");
-    exit(0);
   }
 
   /**

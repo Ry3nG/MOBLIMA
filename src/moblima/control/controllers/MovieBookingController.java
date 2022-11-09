@@ -88,6 +88,12 @@ public abstract class MovieBookingController {
     Movie selectedMovie = this.reviewHandler().getSelectedMovie();
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "Movie: " + selectedMovie);
 
+    /// Check if movie's show status is COMING_SOON = no showtimes allowed
+    if (selectedMovie.getShowStatus().equals(Movie.ShowStatus.COMING_SOON)) {
+      System.out.println("Movie is not available for booking at present time.");
+      return showtimeIdx;
+    }
+
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
     int movieId = selectedMovie.getId();

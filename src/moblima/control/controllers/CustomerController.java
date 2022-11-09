@@ -2,6 +2,7 @@ package moblima.control.controllers;
 
 import moblima.entities.*;
 import moblima.utils.Helper;
+import moblima.utils.services.email.EmailService;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -107,12 +108,12 @@ public class CustomerController extends MovieBookingController {
   /**
    * Make booking int.
    *
-   * @param customerId the customer id
-   * @param showtime   the showtime
+   * @param customer the customer
+   * @param showtime the showtime
    * @return the int
    */
 //+ makeBooking(customerId:String, showtime:Showtime):int
-  public int makeBooking(String customerId, Showtime showtime) {
+  public int makeBooking(Customer customer, Showtime showtime) {
     int bookingIdx = -1;
     int showtimeIdx = this.bookingHandler().getShowtimeIdx(showtime.getId());
     if (showtimeIdx < 0) return bookingIdx;
@@ -121,6 +122,13 @@ public class CustomerController extends MovieBookingController {
     int movieIdx = this.reviewHandler().getMovieIdx(showtime.getMovieId());
     Movie movie = this.reviewHandler().getMovie(movieIdx);
     if (movie == null) return bookingIdx;
+
+    Helper.logger("CustomerMenu.makeBooking", "Movie ShowStatus: " + movie.getShowStatus());
+    /// Check if movie's show status is COMING_SOON
+    if (movie.getShowStatus().equals(Movie.ShowStatus.COMING_SOON)) {
+      System.out.println("Movie is not available for booking at present time.");
+      return bookingIdx;
+    }
 
     // Get cinema details
     Cinema cinema = this.bookingHandler().getCinema(showtime.getCinemaId());
@@ -154,9 +162,11 @@ public class CustomerController extends MovieBookingController {
 
 
     // Make booking
-    bookingIdx = bookingHandler().addBooking(customerId, showtime.getCinemaId(), showtime.getMovieId(), showtime.getId(), seats, totalCost, ticketType);
+    bookingIdx = bookingHandler().addBooking(customer.getId(), showtime.getCinemaId(), showtime.getMovieId(), showtime.getId(), seats, totalCost, ticketType);
     Booking booking = bookingHandler().getBooking(bookingIdx);
-    bookingHandler().printBooking(booking.getTransactionId());
+    String bookingDetails = bookingHandler().printBooking(booking.getTransactionId());
+
+    new EmailService().sentBookingEmail(customer.getName(), customer.getEmailAddress(), bookingDetails);
 
     return bookingIdx;
   }

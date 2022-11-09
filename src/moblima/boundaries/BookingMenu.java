@@ -186,6 +186,12 @@ public class BookingMenu extends Menu {
     return selectedIdx;
   }
 
+  /**
+   * Select showtime idx int.
+   *
+   * @param showtimes the showtimes
+   * @return the int
+   */
   public int selectShowtimeIdx(List<Showtime> showtimes) {
     this.refreshMenu(this.getShowtimeMenu(showtimes));
 
@@ -217,7 +223,9 @@ public class BookingMenu extends Menu {
   /**
    * Select showtime idx int.
    *
+   * @param movieId   the movie id
    * @param showtimes the showtimes
+   * @param showAdd   the show add
    * @return the int
    */
 //+ selectShowtimeIdx(showtimes:List<Showtime>):int
@@ -373,10 +381,15 @@ public class BookingMenu extends Menu {
     return seatCode;
   }
 
+  /**
+   * Create movie showtime int.
+   *
+   * @param movieId the movie id
+   * @return the int
+   */
   public int createMovieShowtime(int movieId) {
     int showtimeIdx = -1;
 
-    //TODO:
     while (showtimeIdx < 0) {
       scanner = new Scanner(System.in).useDelimiter("\n");
 
@@ -399,6 +412,11 @@ public class BookingMenu extends Menu {
     return showtimeIdx;
   }
 
+  /**
+   * Sets cinema id.
+   *
+   * @return the cinema id
+   */
   public int setCinemaId() {
     List<String> updateOptions = handler.getCinemas().stream()
         .map(Cinema::toString)
@@ -411,6 +429,11 @@ public class BookingMenu extends Menu {
     return selectionIdx;
   }
 
+  /**
+   * Sets movie id.
+   *
+   * @return the movie id
+   */
   public int setMovieId() {
     List<Movie> movies = MovieMenu.getHandler().getMovies(ShowStatus.NOW_SHOWING);
     List<String> updateOptions = movies.stream()
@@ -424,6 +447,11 @@ public class BookingMenu extends Menu {
     return (selectionIdx < 0) ? selectionIdx : movies.get(selectionIdx).getId();
   }
 
+  /**
+   * Sets show type.
+   *
+   * @return the show type
+   */
   public Showtime.ShowType setShowType() {
     List<String> updateOptions = Stream.of(Showtime.ShowType.values())
         .map(Showtime.ShowType::toString)

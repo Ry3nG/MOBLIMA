@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.divider;
 
 /**
  * The type Booking handler.
@@ -255,24 +256,28 @@ public class BookingHandler extends CinemaHandler {
    * Print booking.
    *
    * @param transactionId the transaction id
+   * @return the string
    */
 //+ printBooking(transactionld : String) : void
-  public void printBooking(String transactionId) {
+  public String printBooking(String transactionId) {
     Booking booking = this.getBooking(transactionId);
-    if (booking == null) return;
+    if (booking == null) return "";
 
-    System.out.println("---------------------------------------------------------------------------");
-    System.out.println(colorizer("/// BOOKING DETAILS ///", Preset.HIGHLIGHT));
+    String header = "/// BOOKING DETAILS ///";
+    System.out.println(divider);
+    System.out.println(colorizer(header, Preset.HIGHLIGHT));
     System.out.println(colorizer(booking.toString(), Preset.HIGHLIGHT));
 
     // Showtime
     int showtimeIdx = this.getShowtimeIdx(booking.getShowtimeId());
-    this.printShowtimeDetails(showtimeIdx);
+    String showtimeDetails = this.printShowtimeDetails(showtimeIdx);
 
     // Movie
     int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
-    movieHandler.printMovieDetails(movieIdx);
-    System.out.println("---------------------------------------------------------------------------");
+    String movieDetails = movieHandler.printMovieDetails(movieIdx);
+    System.out.println(divider);
+
+    return header + "\n" + booking + "\n" + showtimeDetails + "\n" + movieDetails;
   }
 
   /**

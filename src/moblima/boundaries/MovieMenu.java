@@ -78,10 +78,10 @@ public class MovieMenu extends Menu {
   public List<Movie> getViewableMovies() {
     List<Movie> movies = handler.getMovies();
 
-    List<ShowStatus> unbookableStatus = Arrays.asList(ShowStatus.END_SHOWING, ShowStatus.COMING_SOON);
+    List<ShowStatus> unlistedStatus = List.of(ShowStatus.END_SHOWING);
     if (showLimitedMovies && movies.size() > 0) {
       movies = movies.stream()
-          .filter(m -> !unbookableStatus.contains(m.getShowStatus()))
+          .filter(m -> !unlistedStatus.contains(m.getShowStatus()))
           .collect(Collectors.toList());
     }
     return movies;
@@ -452,6 +452,11 @@ public class MovieMenu extends Menu {
     return status;
   }
 
+  /**
+   * Sets blockbuster status.
+   *
+   * @return the blockbuster status
+   */
   public boolean setBlockbusterStatus() {
     List<String> updateOptions = new ArrayList<String>() {
       {
@@ -467,6 +472,11 @@ public class MovieMenu extends Menu {
     return (selectionIdx == 0);
   }
 
+  /**
+   * Sets show status.
+   *
+   * @return the show status
+   */
   public ShowStatus setShowStatus() {
     List<ShowStatus> showStatuses = new ArrayList<ShowStatus>(EnumSet.allOf(ShowStatus.class));
     List<String> updateOptions = Stream.of(ShowStatus.values()).map(Enum::toString).collect(Collectors.toList());
@@ -478,6 +488,11 @@ public class MovieMenu extends Menu {
     return showStatuses.get(selectionIdx);
   }
 
+  /**
+   * Sets content rating.
+   *
+   * @return the content rating
+   */
   public ContentRating setContentRating() {
     List<String> updateOptions = Stream.of(ContentRating.values()).map(Enum::name).collect(Collectors.toList());
     System.out.println("Set to:");
@@ -489,6 +504,11 @@ public class MovieMenu extends Menu {
     return contentRatings.get(selectionIdx);
   }
 
+  /**
+   * Sets cast list.
+   *
+   * @return the cast list
+   */
   public List<String> setCastList() {
     List<String> castList = new ArrayList<String>();
 
@@ -644,6 +664,11 @@ public class MovieMenu extends Menu {
     return status;
   }
 
+  /**
+   * Create movie int.
+   *
+   * @return the int
+   */
   public int createMovie() {
     int movieIdx = -1;
 

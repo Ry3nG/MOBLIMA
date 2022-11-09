@@ -101,6 +101,30 @@ public class CustomerHandler {
   }
 
   /**
+   * Remove customer boolean.
+   *
+   * @param customerIdx the customer idx
+   * @return the boolean
+   */
+  public boolean removeCustomer(int customerIdx) {
+    if (customerIdx < 0 || this.customers.size() < customerIdx) return false;
+    this.customers.remove(customerIdx);
+    return true;
+  }
+
+  /**
+   * Remove customer boolean.
+   *
+   * @param customerId the customer id
+   * @return the boolean
+   */
+  public boolean removeCustomer(String customerId) {
+    int customerIdx = this.getCustomerIdx(customerId);
+    if (customerIdx < 0) return false;
+    return this.removeCustomer(customerIdx);
+  }
+
+  /**
    * Gets customer idx.
    *
    * @param customerId the customer id
@@ -165,6 +189,7 @@ public class CustomerHandler {
    * Check if account exists int.
    *
    * @param contactNumber the contact number
+   * @param emailAddress  the email address
    * @return the int
    */
 // + checkIfAccountExists(contactNumber:String) : int

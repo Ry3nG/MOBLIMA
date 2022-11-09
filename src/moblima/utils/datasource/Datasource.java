@@ -132,6 +132,12 @@ public class Datasource {
     return isSuccessful;
   }
 
+  /**
+   * Delete file boolean.
+   *
+   * @param fileName the file name
+   * @return the boolean
+   */
   public static boolean deleteFile(String fileName) {
     // Configure output path
     String path = DATA_DIR + fileName;

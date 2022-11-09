@@ -11,8 +11,9 @@ import moblima.utils.datasource.Datasource;
 import moblima.utils.datasource.HolidayDatasource;
 
 import java.lang.reflect.Type;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -189,7 +190,7 @@ public class SettingsHandler {
     boolean isPeakDay = peakDays.contains(day);
     boolean isBeforePeakEnd = hour >= endPeakHour;
 
-    if(isPeakDay && isBeforePeakEnd) return ticketType = TicketType.PEAK;
+    if (isPeakDay && isBeforePeakEnd) return ticketType = TicketType.PEAK;
 
     List<DayOfWeek> weekendDays = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
     boolean isWeekend = weekendDays.contains(day);

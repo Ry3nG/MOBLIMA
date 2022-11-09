@@ -7,6 +7,7 @@ import moblima.entities.Customer;
 import moblima.entities.Showtime;
 import moblima.utils.Helper;
 import moblima.utils.Helper.Preset;
+import moblima.utils.services.email.EmailService;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.ArrayList;
@@ -42,8 +43,7 @@ public class CustomerMenu extends Menu {
    */
   public static CustomerMenu getInstance() {
     Helper.logger("CustomerMenu", "getInstance");
-    if (instance == null)
-      instance = new CustomerMenu();
+    if (instance == null) instance = new CustomerMenu();
     return instance;
   }
 
@@ -181,10 +181,16 @@ public class CustomerMenu extends Menu {
 
         // Initialize and append to existing customer list
         customerIdx = handler.addCustomer(name, contactNumber, emailAddress);
-        if (customerIdx < 0)
-          throw new Exception("Unable to register, account with phone number already exists");
+
+        // Send registration email
+        Customer customer = handler.getCustomer(customerIdx);
+        new EmailService().sentRegistrationEmail(customer.getName(), customer.getEmailAddress());
+
+        if (customerIdx < 0) throw new Exception("Unable to register, account with phone number already exists");
+
 
         System.out.println(colorizer("Successful account registration", Preset.SUCCESS));
+
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
@@ -205,8 +211,7 @@ public class CustomerMenu extends Menu {
         int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
         // Return to previous menu
-        if (proceedSelection == proceedOptions.size() - 1)
-          return -1;
+        if (proceedSelection == proceedOptions.size() - 1) return -1;
         else if (proceedSelection == 1) {
           this.login();
           return this.getCurrentCustomer();
@@ -242,8 +247,7 @@ public class CustomerMenu extends Menu {
 
         // Retrieve customer idx of contact number
         customerIdx = handler.checkIfAccountExists(contactNumber, "");
-        if (customerIdx == -1)
-          throw new Exception("Invalid login credentials, unable to authenticate");
+        if (customerIdx == -1) throw new Exception("Invalid login credentials, unable to authenticate");
 
         System.out.println(colorizer("Successful account login", Preset.SUCCESS));
         // Flush excess scanner buffer
@@ -262,8 +266,7 @@ public class CustomerMenu extends Menu {
         int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
         // Return to previous menu
-        if (proceedSelection == proceedOptions.size() - 1)
-          return -1;
+        if (proceedSelection == proceedOptions.size() - 1) return -1;
         else if (proceedSelection == 1) {
           this.register();
           return this.getCurrentCustomer();
@@ -314,9 +317,10 @@ public class CustomerMenu extends Menu {
         System.out.println(colorizer(strCustomer, Preset.SUCCESS));
 
         // Redirect to controller for interactivity
-        bookingIdx = controller.makeBooking(customer.getId(), showtime);
+        bookingIdx = controller.makeBooking(customer, showtime);
         Helper.logger("CustomerMenu.makeBooking", "BookingIdx: " + bookingIdx);
         if (bookingIdx < 0) return bookingIdx;
+
 
         // Print out Booking transaction id
         Booking booking = controller.bookingHandler().getBooking(bookingIdx);

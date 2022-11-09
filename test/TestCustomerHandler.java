@@ -1,12 +1,10 @@
 import moblima.control.handlers.CustomerHandler;
 import moblima.entities.Customer;
+import moblima.utils.Helper;
 import moblima.utils.datasource.Datasource;
 import org.junit.jupiter.api.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,14 +80,18 @@ public class TestCustomerHandler {
   @Order(0)
   public void testAddCustomer() {
     int customerCount = handler.getCustomers().size();
+    Helper.logger("TestCustomerHandler.testAddCustomer", "Customers: \n" + handler.getCustomers());
     String name = testCustomer.getName();
     String contactNumber = testCustomer.getContactNumber();
     String emailAddress = testCustomer.getEmailAddress();
 
     // CASE: Added
     boolean isAdded = true;
-    int expectedIdx = customerCount + 1;
+    int expectedIdx = customerCount;
     int actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
+    testCustomer = handler.getCustomer(actualIdx);
+
+    Helper.logger("TestCustomerHandler.testAddCustomer", "Customers: \n" + handler.getCustomers());
     boolean output = (actualIdx == expectedIdx);
     customerCount = handler.getCustomers().size();
     assertEquals(isAdded, output);
@@ -122,4 +124,5 @@ public class TestCustomerHandler {
       success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: " + invalid.getKey() + "  = PASSED");
     }
   }
+
 }

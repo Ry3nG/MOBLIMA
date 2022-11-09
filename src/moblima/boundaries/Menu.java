@@ -91,6 +91,12 @@ public abstract class Menu {
     }
   }
 
+  /**
+   * Sets date.
+   *
+   * @param promptMsg the prompt msg
+   * @return the date
+   */
   public LocalDate setDate(String promptMsg) {
     LocalDate date = null;
 
@@ -111,6 +117,12 @@ public abstract class Menu {
     return date;
   }
 
+  /**
+   * Sets date time.
+   *
+   * @param promptMsg the prompt msg
+   * @return the date time
+   */
   public LocalDateTime setDateTime(String promptMsg) {
     LocalDateTime datetime = null;
 
@@ -131,6 +143,12 @@ public abstract class Menu {
     return datetime;
   }
 
+  /**
+   * Sets int.
+   *
+   * @param promptMsg the prompt msg
+   * @return the int
+   */
   public int setInt(String promptMsg) {
     int val = -1;
     while (val < 0) {
@@ -153,6 +171,14 @@ public abstract class Menu {
     return val;
   }
 
+  /**
+   * Print changes.
+   *
+   * @param label      the label
+   * @param isSame     the is same
+   * @param prevStatus the prev status
+   * @param curStatus  the cur status
+   */
   public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
     if (isSame) {
       System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));

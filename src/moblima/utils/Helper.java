@@ -14,6 +14,11 @@ import static com.diogonunes.jcolor.Ansi.colorize;
 public class Helper {
 
   /**
+   * The constant divider.
+   */
+  public static String divider = "---------------------------------------------------------------------------";
+
+  /**
    * Logger.
    *
    * @param methodName the method name
