@@ -61,14 +61,14 @@ public abstract class Menu {
     Helper.logger("Menu.displayMenu", "Displaying menu . . .");
 
     int menuChoice = -1;
-    int lastChoice = menuMap.size() - 1;
+    int lastChoice = menuMap.size();
     scanner = new Scanner(System.in);
     while (menuChoice != lastChoice) {
       List<String> menuList = this.menuMap.keySet().stream().toList();
       menuChoice = this.getListSelectionIdx(menuList, true);
 
       // Display selection choice
-      if (menuChoice != menuMap.size()) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      if (menuChoice != lastChoice) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
       menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
@@ -91,6 +91,12 @@ public abstract class Menu {
     }
   }
 
+  /**
+   * Sets date.
+   *
+   * @param promptMsg the prompt msg
+   * @return the date
+   */
   public LocalDate setDate(String promptMsg) {
     LocalDate date = null;
 
@@ -111,6 +117,12 @@ public abstract class Menu {
     return date;
   }
 
+  /**
+   * Sets date time.
+   *
+   * @param promptMsg the prompt msg
+   * @return the date time
+   */
   public LocalDateTime setDateTime(String promptMsg) {
     LocalDateTime datetime = null;
 
@@ -131,6 +143,12 @@ public abstract class Menu {
     return datetime;
   }
 
+  /**
+   * Sets int.
+   *
+   * @param promptMsg the prompt msg
+   * @return the int
+   */
   public int setInt(String promptMsg) {
     int val = -1;
     while (val < 0) {
@@ -153,6 +171,14 @@ public abstract class Menu {
     return val;
   }
 
+  /**
+   * Print changes.
+   *
+   * @param label      the label
+   * @param isSame     the is same
+   * @param prevStatus the prev status
+   * @param curStatus  the cur status
+   */
   public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
     if (isSame) {
       System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));
@@ -193,7 +219,7 @@ public abstract class Menu {
           menuChoice -= 1;
           if (menuChoice < 0)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-          else if (menuChoice > list.size())
+          else if (menuChoice >= list.size())
             throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
         } else { // next in buffer is not int
           scanner.next(); // clear buffer

@@ -216,16 +216,21 @@ public class MovieHandler {
   /**
    * Print movie details.
    *
-   * @param movieIdx the movie idx
+   * @param movieIdx      the movie idx
+   * @param showTruncated the show truncated
+   * @return the string
    */
 //+ printMovieDetails(movieldx : int) : void
-  public void printMovieDetails(int movieIdx) {
+  public String printMovieDetails(int movieIdx, boolean showTruncated) {
     Movie movie = getMovie(movieIdx);
-    if (movie == null) return;
+    if (movie == null) return "";
 
     this.selectedMovieIdx = movieIdx;
-    System.out.println(colorizer("/// MOVIE DETAILS ///", Preset.HIGHLIGHT));
-    System.out.println(colorizer(movie.toString(), Preset.HIGHLIGHT));
+    String header = "/// MOVIE DETAILS ///";
+    System.out.println(colorizer(header, Preset.HIGHLIGHT));
+    System.out.println(colorizer(movie.toString(showTruncated), Preset.HIGHLIGHT));
+
+    return header + "\n" + movie;
   }
 
   /**

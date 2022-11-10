@@ -6,14 +6,12 @@ import moblima.entities.Cinema;
 import moblima.entities.Settings;
 import moblima.entities.Showtime;
 import moblima.utils.Helper;
-import moblima.utils.Helper.Preset;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static moblima.utils.Helper.colorizer;
-import static moblima.utils.Helper.logger;
+import static moblima.utils.Helper.*;
 import static moblima.utils.deserializers.LocalDateDeserializer.dateFormatter;
 
 /**
@@ -39,6 +37,7 @@ public class SettingsMenu extends Menu {
       put("Edit Show Surcharges", () -> editShowSurcharges());
       put("Edit Ticket Surcharges", () -> editTicketSurcharges());
       put("Edit Cinema Surcharges", () -> editCinemaSurcharges());
+      put("Edit Ranked Types", () -> editRankedTypes());
       put("Edit Holidays", () -> editPublicHolidays());
       put("Discard changes", () -> {
         settings = handler.getCurrentSystemSettings();
@@ -88,12 +87,12 @@ public class SettingsMenu extends Menu {
 
   // CD: -editAdultTicketPrice()
   private void editAdultTicketPrice() {
-
+    double prevStatus = settings.getAdultTicket();
     // Setup
     scanner.nextLine();
     System.out.println("---------------------------------------------------------------------------");
     System.out.println("Enter the new price, or press - to return to the menu\n");
-    System.out.println("Current Price: " + settings.formatPrice(settings.getAdultTicket()));
+    System.out.println("Current Price: " + formatPrice(prevStatus));
 
     // Get new price and update clone
     double checkInput;
@@ -104,10 +103,9 @@ public class SettingsMenu extends Menu {
       if (checkInput > 0) {
         boolean changed = (settings.getAdultTicket() != checkInput);
         settings.setAdultTicket(checkInput);
-        if (changed) {
-          System.out.println(colorizer("\n[CHANGED] Adult / Standard Ticket Price changed to " + settings.formatPrice(settings.getAdultTicket()), Preset.SUCCESS));
-        } else
-          System.out.println("\n[NO CHANGE] Adult / Standard Ticket Price remains at " + settings.formatPrice(settings.getAdultTicket()));
+
+        double curStatus = settings.getAdultTicket();
+        this.printChanges("Adult / Standard Ticket Price: ", (changed), formatPrice(prevStatus), formatPrice(curStatus));
       }
     } while (checkInput == 0);
   }
@@ -115,11 +113,13 @@ public class SettingsMenu extends Menu {
   // CD: -editBlockbusterSurcharge()
   private void editBlockbusterSurcharge() {
 
+    double prevStatus = settings.getBlockbusterSurcharge();
+
     // Setup
     scanner.nextLine();
     System.out.println("---------------------------------------------------------------------------");
     System.out.println("Enter the new surcharge, or press - to return to the menu\n");
-    System.out.println("Current Surcharge: " + settings.formatPrice(settings.getBlockbusterSurcharge()));
+    System.out.println("Current Surcharge: " + formatPrice(prevStatus));
 
     // Get new surcharge and update clone
     double checkInput;
@@ -130,10 +130,8 @@ public class SettingsMenu extends Menu {
       if (checkInput >= 0) {
         boolean changed = (settings.getBlockbusterSurcharge() != checkInput);
         settings.setBlockbusterSurcharge(checkInput);
-        if (changed) {
-          System.out.println(colorizer("\n[CHANGED] Blockbuster Surcharge changed to " + settings.formatPrice(settings.getBlockbusterSurcharge()), Preset.SUCCESS));
-        } else
-          System.out.println("\n[NO CHANGE] Blockbuster Surcharge remains at SGD " + settings.formatPrice(settings.getBlockbusterSurcharge()));
+        double curStatus = settings.getBlockbusterSurcharge();
+        this.printChanges("Blockbuster Surcharge: ", (changed), formatPrice(prevStatus), formatPrice(curStatus));
       }
     } while (checkInput < -1);
   }
@@ -160,11 +158,7 @@ public class SettingsMenu extends Menu {
         checkInput = Helper.checkNoCharacters(input); // check for character input
         if (checkInput == 0) {
           double newSurcharge = Double.parseDouble(input);
-          if (newSurcharge != surcharge.getValue()) {
-            System.out.println(colorizer("\n[CHANGED] " + surcharge.getKey().toString() + " Surcharge changed to " + newSurcharge, Preset.SUCCESS));
-            surcharge.setValue(newSurcharge);
-          } else
-            System.out.println("\n[NO CHANGE] " + surcharge.getKey().toString() + " Surcharge remains at " + surcharge.getValue());
+          this.printChanges(surcharge.getKey().toString() + ": ", (newSurcharge != surcharge.getValue()), Double.toString(surcharge.getValue()), Double.toString(newSurcharge));
         }
       } while (checkInput < -1);
       System.out.println();
@@ -194,6 +188,45 @@ public class SettingsMenu extends Menu {
   public void editCinemaSurcharges() {
     EnumMap<Cinema.ClassType, Double> cinemaSurcharges = settings.getCinemaSurcharges();
     cinemaSurcharges = this.editSurcharges(cinemaSurcharges);
+  }
+
+  /**
+   * Edit ranked types.
+   */
+  public void editRankedTypes() {
+    EnumMap<Settings.RankedType, Boolean> rankedTypes = settings.getRankedTypes();
+
+    // Setup
+    scanner.nextLine();
+    System.out.println("---------------------------------------------------------------------------");
+    System.out.println("Enter the new ranked types, or press - to return to the menu\n");
+
+    // Loop through surcharges
+    for (var surchargeSet : rankedTypes.entrySet()) {
+      Map.Entry<Enum, Boolean> surcharge = (Map.Entry) surchargeSet;
+
+      boolean prevValue = surcharge.getValue();
+
+
+      System.out.println("- " + surcharge.getKey().toString());
+      System.out.println("Current Visibility: " + prevValue);
+
+      List<String> updateOptions = Arrays.asList("True", "False");
+      int selectionIdx = -1;
+      while (selectionIdx < 0) {
+        System.out.println("Set to: ");
+        this.displayMenuList(updateOptions);
+        selectionIdx = getListSelectionIdx(updateOptions, false);
+
+        if (selectionIdx >= 0) {
+          boolean curValue = selectionIdx == 0;
+          surcharge.setValue(curValue);
+          this.printChanges(surcharge.getKey().toString() + ": ", (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
+        }
+      }
+      System.out.println();
+    }
+
   }
 
 
@@ -280,11 +313,7 @@ public class SettingsMenu extends Menu {
               holidays.set(proceedSelection, curStatus);
               logger("SettingsMenu.editPublicHolidays", "Holidays: \n" + holidays);
 
-              if (prevStatus.isEqual(curStatus)) {
-                System.out.println("[NO CHANGE] Datetime: " + prevStatus.format(dateFormatter));
-              } else {
-                System.out.println("[UPDATED] Datetime: " + prevStatus.format(dateFormatter) + " -> " + curStatus.format(dateFormatter));
-              }
+              this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
             }
           } else {
             System.out.println("Invalid input, expected format (dd-MM-yyyy)");

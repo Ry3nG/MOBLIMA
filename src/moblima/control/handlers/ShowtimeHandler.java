@@ -168,15 +168,19 @@ public class ShowtimeHandler {
    * Print showtime details.
    *
    * @param showtimeIdx the showtime idx
+   * @return the string
    */
 //+ printShowtimeDetails(showtimeIdx : int) : void
-  public void printShowtimeDetails(int showtimeIdx) {
+  public String printShowtimeDetails(int showtimeIdx) {
     Showtime showtime = this.getShowtime(showtimeIdx);
-    if (showtime == null) return;
+    if (showtime == null) return "";
     this.selectedShowtimeIdx = showtimeIdx;
 
-    System.out.println(colorizer("/// SHOWTIME DETAILS ///", Preset.HIGHLIGHT));
+    String header = "/// SHOWTIME DETAILS ///";
+    System.out.println(colorizer(header, Preset.HIGHLIGHT));
     System.out.println(colorizer(showtime.toString(), Preset.HIGHLIGHT));
+
+    return header + "\n" + showtime;
   }
 
   /**

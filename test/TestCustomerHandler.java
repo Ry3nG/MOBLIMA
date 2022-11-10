@@ -1,5 +1,6 @@
 import moblima.control.handlers.CustomerHandler;
 import moblima.entities.Customer;
+import moblima.utils.Helper;
 import moblima.utils.datasource.Datasource;
 import org.junit.jupiter.api.*;
 
@@ -12,6 +13,9 @@ import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.platform.commons.function.Try.success;
 
+/**
+ * The type Test customer handler.
+ */
 @Tag("TestCustomerHandler")
 public class TestCustomerHandler {
   private static CustomerHandler handler;
@@ -33,7 +37,23 @@ public class TestCustomerHandler {
     assertEquals(storedCustomerCount, customerCount, "Customers: " + customers.size());
   }
 
+  /**
+   * Teardown.
+   */
+  @AfterAll
+  public static void teardown() {
+    handler = null;
+    testCustomer = null;
+    customers = null;
+    assertNull(handler, "Handler instance is null");
+    assertNull(testCustomer, "Test object is null");
+    assertNull(customers, "Test object is null");
+    exit(0);
+  }
 
+  /**
+   * Reset.
+   */
   @BeforeEach
   public void reset() {
     // Wipe all existing customers
@@ -46,7 +66,9 @@ public class TestCustomerHandler {
     testCustomer = new Customer("tttesttt", "12345678", "tttesttt@mail.com");
   }
 
-
+  /**
+   * Restore.
+   */
   @AfterEach
   public void restore() {
     // Wipe all
@@ -65,31 +87,24 @@ public class TestCustomerHandler {
   }
 
   /**
-   * Teardown.
+   * Test add customer.
    */
-  @AfterAll
-  public static void teardown() {
-    handler = null;
-    testCustomer = null;
-    customers = null;
-    assertNull(handler, "Handler instance is null");
-    assertNull(testCustomer, "Test object is null");
-    assertNull(customers, "Test object is null");
-    exit(0);
-  }
-
   @Test
   @Order(0)
   public void testAddCustomer() {
     int customerCount = handler.getCustomers().size();
+    Helper.logger("TestCustomerHandler.testAddCustomer", "Customers: \n" + handler.getCustomers());
     String name = testCustomer.getName();
     String contactNumber = testCustomer.getContactNumber();
     String emailAddress = testCustomer.getEmailAddress();
 
     // CASE: Added
     boolean isAdded = true;
-    int expectedIdx = customerCount + 1;
+    int expectedIdx = customerCount;
     int actualIdx = handler.addCustomer(name, contactNumber, emailAddress);
+    testCustomer = handler.getCustomer(actualIdx);
+
+    Helper.logger("TestCustomerHandler.testAddCustomer", "Customers: \n" + handler.getCustomers());
     boolean output = (actualIdx == expectedIdx);
     customerCount = handler.getCustomers().size();
     assertEquals(isAdded, output);
@@ -122,4 +137,5 @@ public class TestCustomerHandler {
       success("[SUCCESS/TestCustomerHandler.testAddCustomer] Case: " + invalid.getKey() + "  = PASSED");
     }
   }
+
 }

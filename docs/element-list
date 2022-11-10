@@ -7,3 +7,4 @@ moblima.entities
 moblima.utils
 moblima.utils.datasource
 moblima.utils.deserializers
+moblima.utils.services.email

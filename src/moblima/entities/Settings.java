@@ -18,13 +18,14 @@ import static moblima.utils.Helper.formatAsTable;
  * The type Settings.
  */
 public class Settings {
+
   private double adultTicket;
   private double blockbusterSurcharge;
   private EnumMap<ShowType, Double> showSurcharges;
   private EnumMap<TicketType, Double> ticketSurcharges;
   private EnumMap<ClassType, Double> cinemaSurcharges;
+  private EnumMap<RankedType, Boolean> rankedTypes;
   private List<LocalDate> publicHolidays;
-
   /**
    * Instantiates a new Settings.
    *
@@ -33,14 +34,16 @@ public class Settings {
    * @param showSurcharges       the show surcharges
    * @param ticketSurcharges     the ticket surcharges
    * @param cinemaSurcharges     the cinema surcharges
+   * @param rankedTypes          the ranked types
    * @param publicHolidays       the public holidays
    */
-  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<ShowType, Double> showSurcharges, EnumMap<TicketType, Double> ticketSurcharges, EnumMap<ClassType, Double> cinemaSurcharges, List<LocalDate> publicHolidays) {
+  public Settings(double adultTicket, double blockbusterSurcharge, EnumMap<ShowType, Double> showSurcharges, EnumMap<TicketType, Double> ticketSurcharges, EnumMap<ClassType, Double> cinemaSurcharges, EnumMap<RankedType, Boolean> rankedTypes, List<LocalDate> publicHolidays) {
     this.adultTicket = adultTicket;
     this.blockbusterSurcharge = blockbusterSurcharge;
     this.showSurcharges = showSurcharges;
     this.ticketSurcharges = ticketSurcharges;
     this.cinemaSurcharges = cinemaSurcharges;
+    this.rankedTypes = rankedTypes;
     this.publicHolidays = publicHolidays;
   }
 
@@ -56,6 +59,7 @@ public class Settings {
         settings.showSurcharges,
         settings.ticketSurcharges,
         settings.cinemaSurcharges,
+        settings.rankedTypes,
         settings.publicHolidays
     );
   }
@@ -169,6 +173,24 @@ public class Settings {
   }
 
   /**
+   * Gets ranked lists.
+   *
+   * @return the ranked lists
+   */
+  public EnumMap<RankedType, Boolean> getRankedTypes() {
+    return rankedTypes;
+  }
+
+  /**
+   * Sets ranked lists.
+   *
+   * @param rankedTypes the ranked lists
+   */
+  public void setRankedTypes(EnumMap<RankedType, Boolean> rankedTypes) {
+    this.rankedTypes = rankedTypes;
+  }
+
+  /**
    * Gets holidays.
    *
    * @return the holidays
@@ -259,8 +281,39 @@ public class Settings {
         .stream()
         .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
+    // Ranked lists
+    rows.add(Arrays.asList("\nRanked Types:", ""));
+    this.rankedTypes.entrySet()
+        .stream()
+        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), entry.getValue().toString())));
+
     rows.addAll(this.printHolidayTable());
 
     return formatAsTable(rows);
+  }
+
+  /**
+   * The enum Ranked type.
+   */
+  public enum RankedType {
+    /**
+     * Movies by tickets ranked type.
+     */
+    MOVIES_BY_TICKETS("Top 5 movies by ticket sales"),
+    /**
+     * Movies by ratings ranked type.
+     */
+    MOVIES_BY_RATINGS("Top 5 movies by overall rating");
+
+    private final String displayName;
+
+    RankedType(String displayName) {
+      this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+      return displayName;
+    }
   }
 }

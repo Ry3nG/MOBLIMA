@@ -1,5 +1,6 @@
 package moblima.entities;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -71,4 +72,16 @@ public abstract class Account {
   public void setName(String name) {
     this.name = name;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return obj instanceof Account && ((Account) obj).id == (this.id);
+  }
+
+  @Override
+  public int hashCode() {
+    int prime = 31;
+    return prime + Objects.hashCode(this.id);
+  }
+
 }

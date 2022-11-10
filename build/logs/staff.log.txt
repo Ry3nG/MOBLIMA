@@ -27,51 +27,34 @@ SELECTED: 	>>> View and update system settings
 (4) Edit Show Surcharges
 (5) Edit Ticket Surcharges
 (6) Edit Cinema Surcharges
-(7) Edit Holidays
-(8) Discard changes
-(9) Save changes
-(10) Return to previous menu
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Edit Holidays
-Next steps:
+SELECTED: 	>>> Edit Ranked Types
 ---------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) Add new public holiday
-(13) Return to previous menu
+Enter the new ranked types, or press - to return to the menu
+
+- Top 5 movies by ticket sales
+Current Visibility: false
+Set to: 
 ---------------------------------------------------------------------------
-SELECTED: ---------------------------------------------------------------------------
-Enter the date of the public holiday:
--------------------------------------
-Date (dd-MM-yyyy) or enter - to cancel: 
-[ADDED] Public holiday 11-11-2022 has been added successfully.
-Date (dd-MM-yyyy) or enter - to cancel: Next steps:
+(1) True
+(2) False
 ---------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) 11-11-2022, FRIDAY
-(13) Add new public holiday
-(14) Return to previous menu
+SELECTED: [NO CHANGE] Top 5 movies by ticket sales: : false
+
+- Top 5 movies by overall rating
+Current Visibility: true
+Set to: 
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
+(1) True
+(2) False
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Top 5 movies by overall rating: : true -> false
+
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) View Current Settings
@@ -80,9 +63,59 @@ Press any key to continue . . .
 (4) Edit Show Surcharges
 (5) Edit Ticket Surcharges
 (6) Edit Cinema Surcharges
-(7) Edit Holidays
-(8) Discard changes
-(9) Save changes
-(10) Return to previous menu
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: 	>>> Save changes
+[UPDATED] Settings updated
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Discard changes
+[REVERTED] Changes discarded
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Return to previous menu
+	>>> Returning to previous menu . . .
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Exit
+	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!
