@@ -13,6 +13,40 @@
 (5) Login / Register Account
 (6) Exit
 ---------------------------------------------------------------------------
+SELECTED: 	>>> Search / View all movies
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Fall
+(5) 5. Jeepers Creepers: Reborn
+(6) 6. Top Gun: Maverick
+(7) 7. Orphan: First Kill
+(8) 8. The Invitation
+(9) 9. The Stranger
+(10) 10. One Piece Film Red
+(11) 11. Beast
+(12) 12. Piggy
+(13) 13. The Infernal Machine
+(14) 14. Enola Holmes 2
+(15) 15. Halloween Ends
+(16) 16. Spider-Man: No Way Home
+(17) 17. Dragon Ball Super: Super Hero
+(18) 18. Avatar
+(19) 19. Smile
+(20) 20. Blackout
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
+---------------------------------------------------------------------------
 SELECTED: 	>>> Login / Register Account
 Next steps:
 ---------------------------------------------------------------------------
@@ -31,7 +65,57 @@ Press any key to continue . . .
 (6) View account details
 (7) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Exit
-	>>> Quitting application...
+SELECTED: 	>>> View account details
+Account:      6aacc839-fe91-4b09-bb02-5f13a57e9fdc  
+Name:         test                                  
+Contact No.:  00000000                              
+Email Addr.:  test@mail.com                         
+
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) View and update reviews
+(4) Book and purchase ticket
+(5) View booking history
+(6) View account details
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Search / View all movies
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Fall
+(5) 5. Jeepers Creepers: Reborn
+(6) 6. Top Gun: Maverick
+(7) 7. Orphan: First Kill
+(8) 8. The Invitation
+(9) 9. The Stranger
+(10) 10. One Piece Film Red
+(11) 11. Beast
+(12) 12. Piggy
+(13) 13. The Infernal Machine
+(14) 14. Enola Holmes 2
+(15) 15. Halloween Ends
+(16) 16. Spider-Man: No Way Home
+(17) 17. Dragon Ball Super: Super Hero
+(18) 18. Avatar
+(19) 19. Smile
+(20) 20. Blackout
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) View and update reviews
+(4) Book and purchase ticket
+(5) View booking history
+(6) View account details
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Quitting application...
 ---------------------------------------------------------------------------
 Thank you for using MOBLIMA. We hope to see you again soon!

@@ -97,7 +97,7 @@ public abstract class MovieBookingController {
     // Select showtimes for selected movie
     System.out.println("Select showtime slot: ");
     int movieId = selectedMovie.getId();
-    List<Showtime> movieShowtimes = bookingHandler().getShowtimes(selectedMovie.getId());
+    List<Showtime> movieShowtimes = bookingHandler().getShowtimes(movieId);
     showtimeIdx = bookingMenu.selectShowtimeIdx(movieShowtimes);
     Helper.logger("MovieBookingController.viewShowtimeAvailability", "showtimeIdx: " + showtimeIdx);
     if (showtimeIdx < 0) return showtimeIdx;

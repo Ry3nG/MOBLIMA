@@ -65,7 +65,7 @@ public class MovieMenu extends Menu {
 
   @Override
   public void showMenu() {
-    Helper.logger("MovieMenu.showMenu", "Displaying menu . . .");
+    Helper.logger("MovieMenu.showMenu", "Displaying menu . . .\n" +this.menuMap);
     this.displayMenu();
   }
 

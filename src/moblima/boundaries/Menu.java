@@ -28,7 +28,7 @@ public abstract class Menu {
   /**
    * Display menu list.
    */
-//# displayMenuList(): void
+  // # displayMenuList(): void
   protected void displayMenuList() {
     Helper.logger("Menu.displayMenuList", "Menu: \n" + this.menuMap.keySet());
     this.displayMenuList(this.menuMap.keySet().stream().toList());
@@ -39,9 +39,10 @@ public abstract class Menu {
    *
    * @param menuList the menu list
    */
-//# displayMenuList(menuList:List<String>):void
+  // # displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
-    if (menuList.size() < 1) exit(0);
+    if (menuList.size() < 1)
+      exit(0);
     Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
 
     int menuIdx = 1;
@@ -56,26 +57,48 @@ public abstract class Menu {
   /**
    * Display menu.
    */
-//# displayMenu(): void
+  // # displayMenu(): void
   protected void displayMenu() {
-    Helper.logger("Menu.displayMenu", "Displaying menu . . .");
+    Helper.logger("Menu.displayMenu", "Displaying menu . . ." + this.menuMap);
 
     int menuChoice = -1;
-    int lastChoice = menuMap.size();
-    scanner = new Scanner(System.in);
-    while (menuChoice != lastChoice) {
+    int lastChoice = this.menuMap.size() - 1;
+    while (menuChoice < lastChoice) {
+      scanner = new Scanner(System.in);
       List<String> menuList = this.menuMap.keySet().stream().toList();
+      lastChoice = menuList.size() - 1;
+      Helper.logger("Menu.displayMenu.PRECHECK", "MAX: " + lastChoice);
+
       menuChoice = this.getListSelectionIdx(menuList, true);
 
+      Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
       // Display selection choice
-      if (menuChoice != lastChoice) System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
-      menuMap.get(menuList.get(menuChoice)).run();
+      if (menuChoice != lastChoice)
+        System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      this.menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
-      if (menuChoice != lastChoice) {
+      if (menuChoice != lastChoice)
         this.awaitContinue();
-      }
     }
+
+    // while (menuChoice != lastChoice) {
+    // List<String> menuList = this.menuMap.keySet().stream().toList();
+    // menuChoice = this.getListSelectionIdx(menuList, true);
+
+    // Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + "
+    // / " + lastChoice);
+
+    // // Display selection choice
+    // if (menuChoice != lastChoice)
+    // System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+    // menuMap.get(menuList.get(menuChoice)).run();
+
+    // // Await continue
+    // if (menuChoice != lastChoice) {
+    // this.awaitContinue();
+    // }
+    // }
   }
 
   /**
@@ -107,7 +130,8 @@ public abstract class Menu {
         String strDate = scanner.next().trim();
         if (strDate.matches("^\\d{2}-\\d{2}-\\d{4}")) {
           date = LocalDate.parse(strDate, dateFormatter);
-        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
+        } else
+          throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
       } catch (Exception e) {
         System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         date = null;
@@ -133,7 +157,8 @@ public abstract class Menu {
         String strDateTime = scanner.next().trim();
         if (strDateTime.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}[AP]M$")) {
           datetime = LocalDateTime.parse(strDateTime, dateTimeFormatter);
-        } else throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
+        } else
+          throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
       } catch (Exception e) {
         System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         datetime = null;
@@ -193,7 +218,7 @@ public abstract class Menu {
    * @param list the list
    * @return the list selection idx
    */
-//# getListSelectionIdx(list:List) : int
+  // # getListSelectionIdx(list:List) : int
   protected int getListSelectionIdx(List list) {
     return getListSelectionIdx(list, true);
   }
@@ -205,13 +230,15 @@ public abstract class Menu {
    * @param showMenuList the show menu list
    * @return the list selection idx
    */
-//# getListSelectionIdx(list:List, showMenuList:boolean) : int
+  // # getListSelectionIdx(list:List, showMenuList:boolean) : int
   protected int getListSelectionIdx(List list, boolean showMenuList) {
     int menuChoice = 0;
+    int lastChoice = list.size() - 1;
     scanner = new Scanner(System.in);
-    while (menuChoice != (list.size() - 1)) {
+    while (menuChoice != lastChoice) {
       try {
-        if (showMenuList) displayMenuList();
+        if (showMenuList)
+          displayMenuList();
         System.out.print("SELECTED: ");
 
         if (scanner.hasNextInt()) { // if the next in buffer is int
@@ -220,16 +247,19 @@ public abstract class Menu {
           if (menuChoice < 0)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
           else if (menuChoice >= list.size())
-            throw new IllegalArgumentException("[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
-        } else { // next in buffer is not int
-          scanner.next(); // clear buffer
+            throw new IllegalArgumentException(
+                "[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
+        } else {
+          // clear buffer
+          scanner.next();
           throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
         }
 
-        Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice);
+        Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
         return menuChoice;
       } catch (Exception e) {
-        String errMsg = !e.getMessage().isEmpty() ? e.getMessage() : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
+        String errMsg = !e.getMessage().isEmpty() ? e.getMessage()
+            : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
         System.out.println(colorizer(errMsg, Preset.ERROR));
 
         // Flush excess scanner buffer
@@ -244,7 +274,7 @@ public abstract class Menu {
    *
    * @param menuMap the menu map
    */
-//# refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
+  // # refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
   protected void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
     Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;
@@ -253,6 +283,6 @@ public abstract class Menu {
   /**
    * Show menu.
    */
-//+ showMenu():void
+  // + showMenu():void
   public abstract void showMenu();
 }

@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "App.Customer.Debug",
+      "request": "launch",
+      "mainClass": "moblima.App",
+      "args":"--debug"
+    },
+    {
+      "type": "java",
       "name": "Customer",
       "request": "launch",
       "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar"
@@ -33,6 +40,6 @@
       "name": "[DEBUG] Generate",
       "request": "launch",
       "args": "java -jar ${workspaceFolderBasename}/build/MOBLIMA.jar --generate --debug"
-    },
+    }
   ]
 }
