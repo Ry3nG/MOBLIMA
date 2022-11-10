@@ -149,7 +149,7 @@ public class SettingsMenu extends Menu {
       Map.Entry<Enum, Double> surcharge = (Map.Entry) surchargeSet;
 
       System.out.println("- " + surcharge.getKey().toString() + " Surcharge");
-      System.out.println("Current Surcharge: " + settings.formatPrice(surcharge.getValue()));
+      System.out.println("Current Surcharge: " + formatPrice(surcharge.getValue()));
 
       int checkInput;
       do {
