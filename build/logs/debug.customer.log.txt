@@ -7,43 +7,8 @@
  |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
                                                           
 
-[LOG/Menu.displayMenu] Displaying menu . . .
-[LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
----------------------------------------------------------------------------
-(1) Top 5 movies by overall rating
-(2) Search / View all movies
-(3) Book and purchase ticket
-(4) View booking history
-(5) Login / Register Account
-(6) Exit
----------------------------------------------------------------------------
-SELECTED: [ERROR] Invalid menu selection - input must be between 1 and 6
-[LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
----------------------------------------------------------------------------
-(1) Top 5 movies by overall rating
-(2) Search / View all movies
-(3) Book and purchase ticket
-(4) View booking history
-(5) Login / Register Account
-(6) Exit
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 4
-	>>> Login / Register Account
-Next steps:
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
----------------------------------------------------------------------------
-(1) Already have an account? Login
-(2) Create account
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 0
-Account Login
-Account Contact No.: Successful account login
 [LOG/CustomerContoller.getCustomerMenu] Retrieving customer menu . . .
-[LOG/CustomerContoller.getCustomerMenu] authStatus: true
+[LOG/CustomerContoller.getCustomerMenu] authStatus: false
 [LOG/SettingsHandler.getCurrentSystemSettings] Settings: 
 Adult Ticket:                   SGD 10.00  
 Blockbuster Surcharge:          SGD 8.00   
@@ -80,135 +45,19 @@ Public Holidays:
 24-10-2022                      MONDAY     
 25-12-2022                      SUNDAY     
 
-[LOG/Menu.refreshMenu] [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
-Press any key to continue . . .
+[LOG/Menu.refreshMenu] [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
+[LOG/Menu.displayMenu] MAX: 5
+[LOG/Menu.displayMenu] Displaying menu . . .{Top 5 movies by overall rating=moblima.control.controllers.CustomerController$1$$Lambda$97/0x000000080103f308@56235b8e, Search / View all movies=moblima.control.controllers.CustomerController$1$$Lambda$98/0x000000080103f538@3632be31, Book and purchase ticket=moblima.boundaries.CustomerMenu$1$$Lambda$101/0x000000080103fc00@5abca1e0, View booking history=moblima.boundaries.CustomerMenu$1$$Lambda$102/0x000000080103b000@2286778, Login / Register Account=moblima.boundaries.CustomerMenu$$Lambda$103/0x000000080103b230@4e9ba398, Exit=moblima.boundaries.CustomerMenu$$Lambda$104/0x000000080103b460@6d7b4f4c}
+[LOG/Menu.displayMenu.PRECHECK] MAX: 5
 [LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
+[Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
+[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
 ---------------------------------------------------------------------------
 (1) Top 5 movies by overall rating
 (2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
 ---------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 5
-	>>> View account details
-Account:      6aacc839-fe91-4b09-bb02-5f13a57e9fdc  
-Name:         test                                  
-Contact No.:  00000000                              
-Email Addr.:  test@mail.com                         
-
-Press any key to continue . . .
-Press any key to continue . . .
-[LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
----------------------------------------------------------------------------
-(1) Top 5 movies by overall rating
-(2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 0
-	>>> Top 5 movies by overall rating
-[LOG/BookingHandler.rankMoviesByRatings] rankedMovies: 
-[Title:               Top Gun: Maverick                                                                                                                                                                                                                                                                                    
-Runtime:             131 minutes                                                                                                                                                                                                                                                                                          
-Synopsis:            After more than thirty years of service as one of the Navy’s top aviators, and dodging the advancement in rank that would ground him, Pete “Maverick” Mitchell finds himself training a detachment of TOP GUN graduates for a specialized mission the likes of which no living pilot has ever seen.  
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                                                                             
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                 
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                          
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                                                                          
-Directed By:         Joseph Kosinski                                                                                                                                                                                                                                                                                      
-Cast:                Tom Cruise, Miles Teller, Jennifer Connelly & 44 others                                                                                                                                                                                                                                              
-Link:                https://www.themoviedb.org/movie/361743                                                                                                                                                                                                                                                              
-, Title:               Spider-Man: No Way Home                                                                                                                                                                                                                                             
-Runtime:             148 minutes                                                                                                                                                                                                                                                         
-Synopsis:            Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.  
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                                            
-Content Rating:      PG                                                                                                                                                                                                                                                                  
-Showing Status:      Now Showing                                                                                                                                                                                                                                                         
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                                         
-Directed By:         Jon Watts                                                                                                                                                                                                                                                           
-Cast:                Tom Holland, Zendaya, Benedict Cumberbatch & 55 others                                                                                                                                                                                                              
-Link:                https://www.themoviedb.org/movie/634649                                                                                                                                                                                                                             
-, Title:               Dragon Ball Super: Super Hero                                                                                                                                                                                                                   
-Runtime:             99 minutes                                                                                                                                                                                                                                      
-Synopsis:            The Red Ribbon Army, an evil organization that was once destroyed by Goku in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2, and seek vengeance against Goku and his family.  
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                        
-Content Rating:      PG13                                                                                                                                                                                                                                            
-Showing Status:      Now Showing                                                                                                                                                                                                                                     
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                     
-Directed By:         Tetsuro Kodama                                                                                                                                                                                                                                  
-Cast:                Masako Nozawa, Toshio Furukawa, Yuko Minaguchi & 17 others                                                                                                                                                                                      
-Link:                https://www.themoviedb.org/movie/610150                                                                                                                                                                                                         
-, Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
-Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
-Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
-Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                              
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
-Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
-Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
-Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 54 others                                                                                                                                                                                                                                      
-Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
-, Title:               All Quiet on the Western Front                                                                                                                                                                                                                                                                                               
-Runtime:             147 minutes                                                                                                                                                                                                                                                                                                                  
-Synopsis:            Paul Baumer and his friends Albert and Muller, egged on by romantic dreams of heroism, voluntarily enlist in the German army. Full of excitement and patriotic fervour, the boys enthusiastically march into a war they believe in. But once on the Western Front, they discover the soul-destroying horror of World War I.  
-Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                                                     
-Content Rating:      M18                                                                                                                                                                                                                                                                                                                          
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                  
-Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                              
-Directed By:         Edward Berger                                                                                                                                                                                                                                                                                                                
-Cast:                Felix Kammerer, Albrecht Schuch, Aaron Hilmer & 26 others                                                                                                                                                                                                                                                                    
-Link:                https://www.themoviedb.org/movie/49046                                                                                                                                                                                                                                                                                       
-]
-[LOG/BookingHandler.printRankedMoviesByRatings] strRankedMovies: 
-> 1. Top Gun: Maverick                 
-> 2. Spider-Man: No Way Home           
-> 3. Dragon Ball Super: Super Hero     
-> 4. Terrifier 2                       
-> 5. All Quiet on the Western Front    
-
-> 1. Top Gun: Maverick                 
-> 2. Spider-Man: No Way Home           
-> 3. Dragon Ball Super: Super Hero     
-> 4. Terrifier 2                       
-> 5. All Quiet on the Western Front    
-
-Press any key to continue . . .
-[LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
----------------------------------------------------------------------------
-(1) Top 5 movies by overall rating
-(2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
----------------------------------------------------------------------------
-SELECTED: [ERROR] Invalid menu selection - input must be between 1 and 7
-[LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
-[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
----------------------------------------------------------------------------
-(1) Top 5 movies by overall rating
-(2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 6
-	>>> Quitting application...
----------------------------------------------------------------------------
-Thank you for using MOBLIMA. We hope to see you again soon!
+SELECTED: 
