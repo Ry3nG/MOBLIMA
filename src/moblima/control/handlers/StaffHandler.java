@@ -185,7 +185,7 @@ public class StaffHandler {
    * @return the boolean
    */
 //# saveStaffs():boolean
-  public boolean saveStaffs() {
+  protected boolean saveStaffs() {
     return Datasource.serializeData(this.staffs, "staffs.csv");
   }
 }

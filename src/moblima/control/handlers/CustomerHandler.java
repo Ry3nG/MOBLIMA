@@ -214,7 +214,7 @@ public class CustomerHandler {
    * @return the boolean
    */
 //# saveCustomers():boolean
-  public boolean saveCustomers() {
+  protected boolean saveCustomers() {
     return Datasource.serializeData(this.customers, "customers.csv");
   }
 }

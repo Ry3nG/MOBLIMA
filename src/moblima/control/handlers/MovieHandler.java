@@ -273,7 +273,7 @@ public class MovieHandler {
    * @return the boolean
    */
 //# saveCustomers():boolean
-  public boolean saveMovies() {
+  protected boolean saveMovies() {
     return Datasource.serializeData(this.movies, "movies.csv");
   }
 
