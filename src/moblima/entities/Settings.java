@@ -5,7 +5,6 @@ import moblima.entities.Cinema.ClassType;
 import moblima.entities.Showtime.ShowType;
 import moblima.utils.deserializers.LocalDateDeserializer;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +12,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 import static moblima.utils.Helper.formatAsTable;
+import static moblima.utils.Helper.formatPrice;
 
 /**
  * The type Settings.
@@ -26,6 +26,7 @@ public class Settings {
   private EnumMap<ClassType, Double> cinemaSurcharges;
   private EnumMap<RankedType, Boolean> rankedTypes;
   private List<LocalDate> publicHolidays;
+
   /**
    * Instantiates a new Settings.
    *
@@ -53,15 +54,7 @@ public class Settings {
    * @param settings the settings
    */
   public Settings(Settings settings) {
-    this(
-        settings.adultTicket,
-        settings.blockbusterSurcharge,
-        settings.showSurcharges,
-        settings.ticketSurcharges,
-        settings.cinemaSurcharges,
-        settings.rankedTypes,
-        settings.publicHolidays
-    );
+    this(settings.adultTicket, settings.blockbusterSurcharge, settings.showSurcharges, settings.ticketSurcharges, settings.cinemaSurcharges, settings.rankedTypes, settings.publicHolidays);
   }
 
   /**
@@ -228,17 +221,6 @@ public class Settings {
   }
 
   /**
-   * Format price string.
-   *
-   * @param price the price
-   * @return the string
-   */
-  public String formatPrice(double price) {
-    DecimalFormat df = new DecimalFormat("0.00");
-    return "SGD " + df.format(price);
-  }
-
-  /**
    * Print holiday table list.
    *
    * @return the list
@@ -265,27 +247,19 @@ public class Settings {
 
     // Show surcharges
     rows.add(Arrays.asList("\nShow Surcharges:", ""));
-    this.showSurcharges.entrySet()
-        .stream()
-        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
+    this.showSurcharges.entrySet().stream().forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
     // Ticket surcharges
     rows.add(Arrays.asList("\nTicket Surcharges:", ""));
-    this.ticketSurcharges.entrySet()
-        .stream()
-        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
+    this.ticketSurcharges.entrySet().stream().forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
     // Cinema surcharges
     rows.add(Arrays.asList("\nCinema Surcharges:", ""));
-    this.cinemaSurcharges.entrySet()
-        .stream()
-        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
+    this.cinemaSurcharges.entrySet().stream().forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), formatPrice(entry.getValue()))));
 
     // Ranked lists
     rows.add(Arrays.asList("\nRanked Types:", ""));
-    this.rankedTypes.entrySet()
-        .stream()
-        .forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), entry.getValue().toString())));
+    this.rankedTypes.entrySet().stream().forEachOrdered(entry -> rows.add(Arrays.asList(entry.getKey().toString(), entry.getValue().toString())));
 
     rows.addAll(this.printHolidayTable());
 

@@ -28,7 +28,7 @@ public abstract class Menu {
   /**
    * Display menu list.
    */
-  // # displayMenuList(): void
+// # displayMenuList(): void
   protected void displayMenuList() {
     Helper.logger("Menu.displayMenuList", "Menu: \n" + this.menuMap.keySet());
     this.displayMenuList(this.menuMap.keySet().stream().toList());
@@ -39,7 +39,7 @@ public abstract class Menu {
    *
    * @param menuList the menu list
    */
-  // # displayMenuList(menuList:List<String>):void
+// # displayMenuList(menuList:List<String>):void
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1)
       exit(0);
@@ -57,7 +57,7 @@ public abstract class Menu {
   /**
    * Display menu.
    */
-  // # displayMenu(): void
+// # displayMenu(): void
   protected void displayMenu() {
     Helper.logger("Menu.displayMenu", "Displaying menu . . ." + this.menuMap);
 
@@ -218,7 +218,7 @@ public abstract class Menu {
    * @param list the list
    * @return the list selection idx
    */
-  // # getListSelectionIdx(list:List) : int
+// # getListSelectionIdx(list:List) : int
   protected int getListSelectionIdx(List list) {
     return getListSelectionIdx(list, true);
   }
@@ -230,7 +230,7 @@ public abstract class Menu {
    * @param showMenuList the show menu list
    * @return the list selection idx
    */
-  // # getListSelectionIdx(list:List, showMenuList:boolean) : int
+// # getListSelectionIdx(list:List, showMenuList:boolean) : int
   protected int getListSelectionIdx(List list, boolean showMenuList) {
     int menuChoice = 0;
     int lastChoice = list.size() - 1;
@@ -274,7 +274,7 @@ public abstract class Menu {
    *
    * @param menuMap the menu map
    */
-  // # refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
+// # refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
   protected void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
     Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;
@@ -283,6 +283,6 @@ public abstract class Menu {
   /**
    * Show menu.
    */
-  // + showMenu():void
+// + showMenu():void
   public abstract void showMenu();
 }

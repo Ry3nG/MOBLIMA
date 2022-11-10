@@ -272,7 +272,7 @@ public class ReviewHandler extends MovieHandler {
    * @return the boolean
    */
 //# saveCustomers():boolean
-  public boolean saveReviews() {
+  protected boolean saveReviews() {
     return Datasource.serializeData(this.reviews, "reviews.csv");
   }
 }
