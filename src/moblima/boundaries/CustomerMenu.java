@@ -49,6 +49,10 @@ public class CustomerMenu extends Menu {
 
   @Override
   public void showMenu() {
+    // Refresh menu
+    this.refreshMenu(this.getCustomerMenu());
+    Helper.logger("Menu.displayMenu", "MAX: " + (this.menuMap.size() - 1));
+
     this.displayMenu();
   }
 
@@ -126,6 +130,9 @@ public class CustomerMenu extends Menu {
 
     // Refresh menu
     this.refreshMenu(this.getCustomerMenu());
+    Helper.logger("Menu.getCurrentCustomer.REFRESHED", "CustomerMenu: " + (this.menuMap.size()));
+    Helper.logger("Menu.getCurrentCustomer.REFRESHED", "CustomerMenu MAX: " + (this.menuMap.size() - 1));
+
 
     return customerIdx;
   }

@@ -5,6 +5,7 @@ import moblima.boundaries.Menu;
 import moblima.boundaries.StaffMenu;
 import moblima.utils.Constants;
 import moblima.utils.Helper;
+import moblima.utils.datasource.HolidayDatasource;
 import moblima.utils.datasource.MovieDatasource;
 
 import java.util.Arrays;
@@ -61,17 +62,25 @@ public class App {
       if (args[0].equals("--staff")) instance.currentMenu = StaffMenu.getInstance();
 
       // Generate [--generate]
-      if (args[0].equals("--generate")) {
-        MovieDatasource dsMovie = new MovieDatasource();
-        dsMovie.getMovies();
-
-        exit(0);
-      }
+      if (args[0].equals("--generate")) generate();
     }
 
     // Show menu
     Helper.figPrint("MOBLIMA");
     instance.currentMenu.showMenu();
 
+  }
+
+  protected static void generate(){
+    // Movies, Reviews
+    MovieDatasource dsMovie = new MovieDatasource();
+    dsMovie.getMovies();
+    dsMovie.getReviews();
+
+    // Holidays
+    HolidayDatasource dsHoliday = new HolidayDatasource();
+    dsHoliday.getHolidays();
+
+    exit(0);
   }
 }
