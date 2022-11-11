@@ -368,9 +368,11 @@ public class BookingMenu extends Menu {
 
     //BUG:
     System.out.println("Enter the seat row: ");
+    Helper.logger("BookingMenu.seatSelection", "Row range: " + rowRange);
     seatCode[0] = this.getListSelectionIdx(rowRange, false);
 
     System.out.println("Enter the seat column: ");
+    Helper.logger("BookingMenu.seatSelection", "Col range: " + colRange);
     seatCode[1] = this.getListSelectionIdx(colRange, false);
 
     return seatCode;

@@ -19,54 +19,66 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Add movie
-Title: Synopsis: [Blockbuster Status] Set to:
+SELECTED: 	>>> View and update cinemas
 ---------------------------------------------------------------------------
-(1) Blockbuster
-(2) Non-Blockbuster
----------------------------------------------------------------------------
-SELECTED: Blockbuster Status: Non-Blockbuster
-[Show Status] Set to:
----------------------------------------------------------------------------
-(1) Coming Soon
-(2) Preview
-(3) Now Showing
-(4) End of Showing
----------------------------------------------------------------------------
-SELECTED: Show Status: Coming Soon
-[Content Rating] Set to:
----------------------------------------------------------------------------
-(1) G
-(2) PG
-(3) PG13
-(4) NC16
-(5) M18
-(6) R21
----------------------------------------------------------------------------
-SELECTED: Content Rating: PG
-Cast #1: Cast name cannot be empty
-Cast #1: Cast name cannot be empty
-Cast #1: Cast name cannot be empty
-Cast #1: Cast name cannot be empty
-Cast #1: Cast name cannot be empty
-Cast #1: ---------------------------------------------------------------------------
-(1) Add another cast member
-(2) Confirm cast list
----------------------------------------------------------------------------
-SELECTED: Cast List: [2dsfsfsd]
-Runtime: Director: Release Date (dd-MM-yyyy): [SUCCESS] Added new movie
-/// MOVIE DETAILS ///
-Title:               Test                                     
-Runtime:             100 minutes                              
-Synopsis:            Test                                     
-Review Rating:       NA                                       
-Content Rating:      PG                                       
-Showing Status:      Coming Soon                              
-Blockbuster Status:  NON-BLOCKBUSTER                          
-Directed By:         sdfsdfs                                  
-Cast:                2dsfsfsd                                 
-Link:                https://www.themoviedb.org/movie/711944  
+(1) 
+ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
 
+(2) 
+ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) 
+ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) 
+ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) 
+ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) 
+ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) 
+ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) 
+ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  31       
+
+(9) 
+ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+(10) Add new cinema
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) Top 5 movies by ticket sales
@@ -79,6 +91,495 @@ Press any key to continue . . .
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Quitting application...
+SELECTED: 	>>> View and update showtimes
+Select movie: 
 ---------------------------------------------------------------------------
-Thank you for using MOBLIMA. We hope to see you again soon!
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Test
+(22) 22. Test
+(23) 23. Test
+(24) 24. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Test                                     
+Runtime:             100 minutes                              
+Synopsis:            Test                                     
+Review Rating:       NA                                       
+Content Rating:      PG                                       
+Showing Status:      Coming Soon                              
+Blockbuster Status:  NON-BLOCKBUSTER                          
+Directed By:         sdfsdfs                                  
+Cast:                "2dsfsfsd"                               
+Link:                https://www.themoviedb.org/movie/711944  
+
+Press any key to continue . . .
+Select showtime slot: 
+No showtimes available.
+---------------------------------------------------------------------------
+(1) Add showtime
+(2) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update showtimes
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Test
+(22) 22. Test
+(23) 23. Test
+(24) 24. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Don't Worry Darling                                                                                                                                                                                                                                                                                                                                                                                                     
+Runtime:             123 minutes                                                                                                                                                                                                                                                                                                                                                                                                             
+Synopsis:            Alice and Jack are lucky to be living in the idealized community of Victory, the experimental company town housing the men who work for the top-secret Victory Project and their families. But when cracks in their idyllic life begin to appear, exposing flashes of something much more sinister lurking beneath the attractive façade, Alice can’t help questioning exactly what they’re doing in Victory, and why.  
+Review Rating:       3.0 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                
+Content Rating:      M18                                                                                                                                                                                                                                                                                                                                                                                                                     
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                             
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                         
+Directed By:         Olivia Wilde                                                                                                                                                                                                                                                                                                                                                                                                            
+Cast:                Florence Pugh, Harry Styles, Chris Pine & 35 others                                                                                                                                                                                                                                                                                                                                                                     
+Link:                https://www.themoviedb.org/movie/619730                                                                                                                                                                                                                                                                                                                                                                                 
+
+Press any key to continue . . .
+Select showtime slot: 
+---------------------------------------------------------------------------
+(1) Datetime:       SATURDAY, 12-11-2022 at 10:35pm  
+Cineplex Code:  MAM                              
+Cinema ID:      0                                
+Show Type:      3D                               
+Booked Seats:   0/40                             
+
+(2) Datetime:       TUESDAY, 15-11-2022 at 12:35am  
+Cineplex Code:  MAM                             
+Cinema ID:      0                               
+Show Type:      3D                              
+Booked Seats:   0/40                            
+
+(3) Datetime:       FRIDAY, 18-11-2022 at 04:35am  
+Cineplex Code:  MAM                            
+Cinema ID:      1                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(4) Datetime:       FRIDAY, 11-11-2022 at 09:35pm  
+Cineplex Code:  MAM                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Datetime:       WEDNESDAY, 16-11-2022 at 01:35am  
+Cineplex Code:  UUQ                               
+Cinema ID:      3                                 
+Show Type:      Digital                           
+Booked Seats:   0/40                              
+
+(6) Datetime:       THURSDAY, 17-11-2022 at 02:35am  
+Cineplex Code:  UUQ                              
+Cinema ID:      4                                
+Show Type:      3D                               
+Booked Seats:   0/40                             
+
+(7) Datetime:       SATURDAY, 19-11-2022 at 05:35am  
+Cineplex Code:  UUQ                              
+Cinema ID:      5                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(8) Datetime:       SUNDAY, 20-11-2022 at 06:35am  
+Cineplex Code:  UUQ                            
+Cinema ID:      5                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(9) Datetime:       SUNDAY, 13-11-2022 at 11:35pm  
+Cineplex Code:  RXG                            
+Cinema ID:      7                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(10) Add showtime
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// SHOWTIME DETAILS ///
+Datetime:      SUNDAY, 13-11-2022 at 11:35pm  
+Cinema ID:     7                              
+Show Type:     Digital                        
+Booked Seats:  0/40                           
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [CURRENT] Cinema ID: 7
+Set to:
+---------------------------------------------------------------------------
+(1) ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
+
+(2) ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  31       
+
+(9) ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Cinema ID: : 7 -> 8
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Showtime updated
+	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update showtimes
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Test
+(22) 22. Test
+(23) 23. Test
+(24) 24. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Don't Worry Darling                                                                                                                                                                                                                                                                                                                                                                                                     
+Runtime:             123 minutes                                                                                                                                                                                                                                                                                                                                                                                                             
+Synopsis:            Alice and Jack are lucky to be living in the idealized community of Victory, the experimental company town housing the men who work for the top-secret Victory Project and their families. But when cracks in their idyllic life begin to appear, exposing flashes of something much more sinister lurking beneath the attractive façade, Alice can’t help questioning exactly what they’re doing in Victory, and why.  
+Review Rating:       3.0 /5.0                                                                                                                                                                                                                                                                                                                                                                                                                
+Content Rating:      M18                                                                                                                                                                                                                                                                                                                                                                                                                     
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                                                                                                                                             
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                                                                                                                                         
+Directed By:         Olivia Wilde                                                                                                                                                                                                                                                                                                                                                                                                            
+Cast:                Florence Pugh, Harry Styles, Chris Pine & 35 others                                                                                                                                                                                                                                                                                                                                                                     
+Link:                https://www.themoviedb.org/movie/619730                                                                                                                                                                                                                                                                                                                                                                                 
+
+Press any key to continue . . .
+Select showtime slot: 
+---------------------------------------------------------------------------
+(1) Datetime:       SATURDAY, 12-11-2022 at 10:35pm  
+Cineplex Code:  MAM                              
+Cinema ID:      0                                
+Show Type:      3D                               
+Booked Seats:   0/40                             
+
+(2) Datetime:       TUESDAY, 15-11-2022 at 12:35am  
+Cineplex Code:  MAM                             
+Cinema ID:      0                               
+Show Type:      3D                              
+Booked Seats:   0/40                            
+
+(3) Datetime:       FRIDAY, 18-11-2022 at 04:35am  
+Cineplex Code:  MAM                            
+Cinema ID:      1                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(4) Datetime:       FRIDAY, 11-11-2022 at 09:35pm  
+Cineplex Code:  MAM                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Datetime:       WEDNESDAY, 16-11-2022 at 01:35am  
+Cineplex Code:  UUQ                               
+Cinema ID:      3                                 
+Show Type:      Digital                           
+Booked Seats:   0/40                              
+
+(6) Datetime:       THURSDAY, 17-11-2022 at 02:35am  
+Cineplex Code:  UUQ                              
+Cinema ID:      4                                
+Show Type:      3D                               
+Booked Seats:   0/40                             
+
+(7) Datetime:       SATURDAY, 19-11-2022 at 05:35am  
+Cineplex Code:  UUQ                              
+Cinema ID:      5                                
+Show Type:      Digital                          
+Booked Seats:   0/40                             
+
+(8) Datetime:       SUNDAY, 20-11-2022 at 06:35am  
+Cineplex Code:  UUQ                            
+Cinema ID:      5                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(9) Datetime:       SUNDAY, 13-11-2022 at 11:35pm  
+Cineplex Code:  RXG                            
+Cinema ID:      8                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(10) Add showtime
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// SHOWTIME DETAILS ///
+Datetime:      SUNDAY, 13-11-2022 at 11:35pm  
+Cinema ID:     8                              
+Show Type:     Digital                        
+Booked Seats:  0/40                           
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [CURRENT] Cinema ID: 8
+Set to:
+---------------------------------------------------------------------------
+(1) ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
+
+(2) ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  30       
+
+(9) ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  1       
+
+---------------------------------------------------------------------------
+SELECTED: [NO CHANGE] Cinema already has a showing at the given datetime
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [CURRENT] Cinema ID: 8
+Set to:
+---------------------------------------------------------------------------
+(1) ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
+
+(2) ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  30       
+
+(9) ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  1       
+
+---------------------------------------------------------------------------
+SELECTED: [NO CHANGE] Cinema already has a showing at the given datetime
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Cinema ID
+(2) Set Movie ID
+(3) Set Datetime
+(4) Set Show Type
+(5) Discard changes
+(6) Remove showtime
+(7) Save changes & return
+(8) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 

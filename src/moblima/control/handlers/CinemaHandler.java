@@ -264,6 +264,10 @@ public class CinemaHandler extends ShowtimeHandler {
 
     // Remove cinema
     this.cinemas.remove(cinemaIdx);
+
+    //Serialize data
+    this.saveCinemas();
+
     status = true;
     return status;
   }
