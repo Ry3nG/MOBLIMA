@@ -394,7 +394,7 @@ public class BookingMenu extends Menu {
       int cinemaId = this.setCinemaId();
       System.out.println("Cinema ID: " + cinemaId + "\n");
 
-      LocalDateTime showDateTime = this.setDateTime("Show Datetime (dd-MM-yyyy hh:mm[AM/PM]):");
+      LocalDateTime showDateTime = this.setDateTime("Show Datetime (dd-MM-yyyy hh:mm[AM/PM]):", true);
 
       Showtime.ShowType showType = this.setShowType();
       System.out.println("Show Type: " + showType);
@@ -562,7 +562,7 @@ public class BookingMenu extends Menu {
         System.out.println("[CURRENT] Datetime: " + prevStatus.format(dateTimeFormatter));
 
         //TODO: Extract as separate function
-        LocalDateTime showDatetime = this.setDateTime("Set to (dd-MM-yyyy hh:mm[AM/PM]):");
+        LocalDateTime showDatetime = this.setDateTime("Set to (dd-MM-yyyy hh:mm[AM/PM]):", false);
         if (handler.checkClashingShowtime(showtime.getCinemaId(), showDatetime)) {
           System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
         } else {

@@ -147,7 +147,7 @@ public abstract class Menu {
    * @param promptMsg the prompt msg
    * @return the date time
    */
-  public LocalDateTime setDateTime(String promptMsg) {
+  public LocalDateTime setDateTime(String promptMsg, boolean onlyFuture) {
     LocalDateTime datetime = null;
 
     while (datetime == null) {
@@ -157,6 +157,11 @@ public abstract class Menu {
         String strDateTime = scanner.next().trim();
         if (strDateTime.matches("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}[AP]M$")) {
           datetime = LocalDateTime.parse(strDateTime, dateTimeFormatter);
+
+          // VALIDATION: Present or future dates
+          if(onlyFuture && datetime.isBefore(LocalDateTime.now())){
+            throw new Exception("Given datetime must not be in the past");
+          }
         } else
           throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
       } catch (Exception e) {
