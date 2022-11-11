@@ -186,12 +186,12 @@ public class CustomerMenu extends Menu {
         Helper.logger("CustomerMenu.register", name + " | " + contactNumber + " | " + emailAddress);
         customerIdx = handler.addCustomer(name, contactNumber, emailAddress);
 
+        if (customerIdx < 0) throw new Exception("Unable to register, account with phone number already exists");
+
+
         // Send registration email
         Customer customer = handler.getCustomer(customerIdx);
         new EmailService().sentRegistrationEmail(customer.getName(), customer.getEmailAddress());
-
-        if (customerIdx < 0) throw new Exception("Unable to register, account with phone number already exists");
-
 
         System.out.println(colorizer("Successful account registration", Preset.SUCCESS));
 
@@ -199,7 +199,7 @@ public class CustomerMenu extends Menu {
         scanner = new Scanner(System.in);
       } catch (Exception e) {
         System.out.println(colorizer(e.getMessage(), Preset.ERROR));
-        name = contactNumber = null;
+        name = contactNumber = emailAddress = null;
 
         // Prompt for proceed options
         List<String> proceedOptions = new ArrayList<String>() {

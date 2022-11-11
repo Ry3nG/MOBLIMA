@@ -28,7 +28,7 @@ public class BookingHandler extends CinemaHandler {
   /**
    * The constant movieHandler.
    */
-  protected static final MovieHandler movieHandler = MovieMenu.getHandler();
+  protected static final ReviewHandler reviewHandler = MovieMenu.getHandler();
   /**
    * The Bookings.
    */
@@ -272,8 +272,8 @@ public class BookingHandler extends CinemaHandler {
     String showtimeDetails = this.printShowtimeDetails(showtimeIdx);
 
     // Movie
-    int movieIdx = movieHandler.getMovieIdx(booking.getMovieId());
-    String movieDetails = movieHandler.printMovieDetails(movieIdx, true);
+    int movieIdx = reviewHandler.getMovieIdx(booking.getMovieId());
+    String movieDetails = reviewHandler.printMovieDetails(movieIdx, true);
     System.out.println("---------------------------------------------------------------------------");
 
     return header + "\n" + booking + "\n" + showtimeDetails + "\n" + movieDetails;

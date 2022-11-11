@@ -283,13 +283,7 @@ public class Movie {
     return "https://www.themoviedb.org/movie/" + this.id;
   }
 
-  /**
-   * To string string.
-   *
-   * @param truncate the truncate
-   * @return the string
-   */
-  public String toString(boolean truncate) {
+  public List<List<String>> toStringRows(boolean truncate, boolean showOverallRating) {
     int maxCast = 3;
     boolean isNotTruncated = (this.castList.size() <= maxCast);
     List<String> subCastList = isNotTruncated ? this.castList : this.castList.subList(0, maxCast);
@@ -300,12 +294,13 @@ public class Movie {
     }
 
     String displaySynopsis = truncate ? StringUtils.abbreviate(this.synopsis, 150) : this.synopsis;
+    String displayRating = (this.overallRating == 0 || !showOverallRating) ? "NA" : this.overallRating + " /" + Double.toString(5);
 
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Title:", this.title));
     rows.add(Arrays.asList("Runtime:", this.runtime + " minutes"));
     rows.add(Arrays.asList("Synopsis:", displaySynopsis));
-    rows.add(Arrays.asList("Review Rating:", this.overallRating + " /" + Double.toString(5)));
+    rows.add(Arrays.asList("Review Rating:", displayRating));
     rows.add(Arrays.asList("Content Rating:", this.contentRating.toString()));
     rows.add(Arrays.asList("Showing Status:", this.showStatus.toString()));
     rows.add(Arrays.asList("Blockbuster Status:", (this.isBlockbuster ? "BLOCKBUSTER" : "NON-BLOCKBUSTER")));
@@ -313,7 +308,17 @@ public class Movie {
     rows.add(Arrays.asList("Cast:", displayCastList));
     rows.add(Arrays.asList("Link:", this.getUrl()));
 
-    return formatAsTable(rows);
+    return rows;
+  }
+
+  /**
+   * To string string.
+   *
+   * @param truncate the truncate
+   * @return the string
+   */
+  public String toString(boolean truncate) {
+    return formatAsTable(toStringRows(truncate, true));
   }
 
   @Override
