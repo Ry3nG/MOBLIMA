@@ -262,7 +262,7 @@ public abstract class Menu {
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
           else if (menuChoice > list.size())
             throw new IllegalArgumentException(
-                "[ERROR] Invalid menu selection - input must be between 1 and " + list.size() + 1);
+                "[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
         } else {
           // clear buffer
           scanner.next();
