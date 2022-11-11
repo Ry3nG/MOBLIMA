@@ -33,12 +33,43 @@ SELECTED: 	>>> View and update system settings
 (10) Save changes
 (11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Edit Adult (Standard) Ticket Price
+SELECTED: 	>>> View Current Settings
 ---------------------------------------------------------------------------
-Enter the new price, or press - to return to the menu
+Adult Ticket:                   SGD 10.00  
+Blockbuster Surcharge:          SGD 5.00   
 
-Current Price: SGD 10.00
-New Price: SGD [NO CHANGE] Adult / Standard Ticket Price: : SGD 10.00
+Show Surcharges:                          
+Digital                         SGD 0.00   
+3D                              SGD 5.00   
+
+Ticket Surcharges:                        
+Senior Citizen                  SGD -5.00  
+Student                         SGD -5.00  
+Non Peak                        SGD 0.00   
+Peak                            SGD 5.00   
+Super Peak                      SGD 8.00   
+
+Cinema Surcharges:                        
+Normal                          SGD 0.00   
+Premium                         SGD 8.00   
+
+Ranked Types:                             
+Top 5 movies by ticket sales    false      
+Top 5 movies by overall rating  true       
+
+Public Holidays:                          
+01-01-2022                      SATURDAY   
+01-02-2022                      TUESDAY    
+02-02-2022                      WEDNESDAY  
+15-04-2022                      FRIDAY     
+01-05-2022                      SUNDAY     
+03-05-2022                      TUESDAY    
+15-05-2022                      SUNDAY     
+10-07-2022                      SUNDAY     
+09-08-2022                      TUESDAY    
+24-10-2022                      MONDAY     
+25-12-2022                      SUNDAY     
+
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) View Current Settings
@@ -53,12 +84,12 @@ Press any key to continue . . .
 (10) Save changes
 (11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Edit Adult (Standard) Ticket Price
+SELECTED: 	>>> Edit Blockbuster Movie Surcharge
 ---------------------------------------------------------------------------
-Enter the new price, or press - to return to the menu
+Enter the new surcharge, or press - to return to the menu
 
-Current Price: SGD 10.00
-New Price: SGD [UPDATED] Adult / Standard Ticket Price: : SGD 10.00 -> SGD 8.00
+Current Surcharge: SGD 5.00
+New Surcharge: SGD [UPDATED] Blockbuster Surcharge: : SGD 5.00 -> SGD 8.00
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) View Current Settings
@@ -73,4 +104,35 @@ Press any key to continue . . .
 (10) Save changes
 (11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: 	>>> Save changes
+[UPDATED] Settings updated
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu . . .
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!
