@@ -47,7 +47,7 @@ Public Holidays:
 
 [LOG/Menu.refreshMenu] [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
 [LOG/Menu.displayMenu] MAX: 5
-[LOG/Menu.displayMenu] Displaying menu . . .{Top 5 movies by overall rating=moblima.control.controllers.CustomerController$1$$Lambda$97/0x000000080103f308@56235b8e, Search / View all movies=moblima.control.controllers.CustomerController$1$$Lambda$98/0x000000080103f538@3632be31, Book and purchase ticket=moblima.boundaries.CustomerMenu$1$$Lambda$101/0x000000080103fc00@5abca1e0, View booking history=moblima.boundaries.CustomerMenu$1$$Lambda$102/0x000000080103b000@2286778, Login / Register Account=moblima.boundaries.CustomerMenu$$Lambda$103/0x000000080103b230@4e9ba398, Exit=moblima.boundaries.CustomerMenu$$Lambda$104/0x000000080103b460@6d7b4f4c}
+[LOG/Menu.displayMenu] Displaying menu . . .{Top 5 movies by overall rating=moblima.control.controllers.CustomerController$1$$Lambda$97/0x000000080103f6c0@71423665, Search / View all movies=moblima.control.controllers.CustomerController$1$$Lambda$98/0x000000080103f8f0@20398b7c, Book and purchase ticket=moblima.boundaries.CustomerMenu$1$$Lambda$101/0x000000080103a000@6fc6f14e, View booking history=moblima.boundaries.CustomerMenu$1$$Lambda$102/0x000000080103a230@56235b8e, Login / Register Account=moblima.boundaries.CustomerMenu$$Lambda$103/0x000000080103a460@3632be31, Exit=moblima.boundaries.CustomerMenu$$Lambda$104/0x000000080103a690@5abca1e0}
 [LOG/Menu.displayMenu.PRECHECK] MAX: 5
 [LOG/Menu.displayMenuList] Menu: 
 [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
@@ -60,4 +60,68 @@ Public Holidays:
 (5) Login / Register Account
 (6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 4 / 5
+[LOG/Menu.displayMenu.POSTCHECK] MENU CHOICE: 4 / 5
+	>>> Login / Register Account
+Next steps:
+[LOG/Menu.displayMenuList] MENU LIST: [Top 5 movies by overall rating, Search / View all movies, Book and purchase ticket, View booking history, Login / Register Account, Exit]
+---------------------------------------------------------------------------
+(1) Already have an account? Login
+(2) Create account
+---------------------------------------------------------------------------
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 1 / 1
+Account Registration
+Name: Contact No.: Email: [LOG/CustomerMenu.register] Test | 00000000 | test@mail.com
+[LOG/Datasource.serializeData] Exporting to customers.csv...
+[LOG/Datasource.serializeDataToCSV] jsonArray: [{"emailAddress":"test@mail.com","contactNumber":"00000000","name":"Test","id":"84ccf0ea-28d7-41d7-bf9c-a2913754c5fa"}]
+[LOG/Datasource.serializeDataToCSV] csvString: emailAddress,contactNumber,name,id
+test@mail.com,00000000,Test,84ccf0ea-28d7-41d7-bf9c-a2913754c5fa
+
+[LOG/Datasource.saveCsv] Output CSV to /Users/ccyq/Projects/Sandbox/MOBLIMA/./data/customers.csv
+[LOG/Datasource.saveCsv] Output: emailAddress,contactNumber,name,id
+test@mail.com,00000000,Test,84ccf0ea-28d7-41d7-bf9c-a2913754c5fa
+
+Processing registration . . .
+Successful account registration
+[LOG/CustomerContoller.getCustomerMenu] Retrieving customer menu . . .
+[LOG/CustomerContoller.getCustomerMenu] authStatus: true
+[LOG/SettingsHandler.getCurrentSystemSettings] Settings: 
+Adult Ticket:                   SGD 10.00  
+Blockbuster Surcharge:          SGD 8.00   
+
+Show Surcharges:                          
+Digital                         SGD 0.00   
+3D                              SGD 5.00   
+
+Ticket Surcharges:                        
+Senior Citizen                  SGD -5.00  
+Student                         SGD -5.00  
+Non Peak                        SGD 0.00   
+Peak                            SGD 5.00   
+Super Peak                      SGD 8.00   
+
+Cinema Surcharges:                        
+Normal                          SGD 0.00   
+Premium                         SGD 8.00   
+
+Ranked Types:                             
+Top 5 movies by ticket sales    false      
+Top 5 movies by overall rating  true       
+
+Public Holidays:                          
+01-01-2022                      SATURDAY   
+01-02-2022                      TUESDAY    
+02-02-2022                      WEDNESDAY  
+15-04-2022                      FRIDAY     
+01-05-2022                      SUNDAY     
+03-05-2022                      TUESDAY    
+15-05-2022                      SUNDAY     
+10-07-2022                      SUNDAY     
+09-08-2022                      TUESDAY    
+24-10-2022                      MONDAY     
+25-12-2022                      SUNDAY     
+
+[LOG/Menu.refreshMenu] [Top 5 movies by overall rating, Search / View all movies, View and update reviews, Book and purchase ticket, View booking history, View account details, Exit]
+[LOG/Menu.getCurrentCustomer.REFRESHED] CustomerMenu: 7
+[LOG/Menu.getCurrentCustomer.REFRESHED] CustomerMenu MAX: 6
+Press any key to continue . . .
