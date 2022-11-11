@@ -671,7 +671,7 @@ public class BookingMenu extends Menu {
 
         cinema.setClassType(classTypes.get(selectionIdx));
         Cinema.ClassType curStatus = cinema.getClassType();
-        this.printChanges("Class: ", (prevStatus == curStatus), prevStatus.toString(), curStatus.toString());
+        this.printChanges("Class", (prevStatus.toString().equals(curStatus.toString())), prevStatus.toString(), curStatus.toString());
 //        if (prevStatus == curStatus) {
 //          System.out.println("[NO CHANGE] Class: " + prevStatus);
 //        } else {

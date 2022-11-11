@@ -224,7 +224,7 @@ public abstract class Menu {
    * @param curStatus  the cur status
    */
   public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
-    if (!isSame) {
+    if (isSame) {
       System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));
     } else {
       System.out.println(colorizer("[UPDATED] " + label + ": " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
