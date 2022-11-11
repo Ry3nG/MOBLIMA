@@ -366,6 +366,7 @@ public class BookingMenu extends Menu {
     List<Integer> rowRange = IntStream.rangeClosed(0, seats.length).boxed().toList();
     List<Integer> colRange = IntStream.rangeClosed(0, seats[0].length).boxed().toList();
 
+    //BUG:
     System.out.println("Enter the seat row: ");
     seatCode[0] = this.getListSelectionIdx(rowRange, false);
 

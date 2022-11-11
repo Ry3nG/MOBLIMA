@@ -509,8 +509,7 @@ public class MovieMenu extends Menu {
     );
     while (selectionIdx == 0 || castList.size() < 1) {
       scanner = new Scanner(System.in).useDelimiter("\n");
-      System.out.print("Cast #" + (castList.size() + 1) + ": ");
-      String cast = scanner.next().trim();
+      String cast = this.setString("Cast #" + (castList.size() + 1) + ": ", "Cast name cannot be empty");
       castList.add(cast);
 
       // Request proceed option
