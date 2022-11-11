@@ -65,7 +65,7 @@ public class MovieMenu extends Menu {
 
   @Override
   public void showMenu() {
-    Helper.logger("MovieMenu.showMenu", "Displaying menu . . .\n" +this.menuMap);
+    Helper.logger("MovieMenu.showMenu", "Displaying menu . . .\n" + this.menuMap);
     this.displayMenu();
   }
 
@@ -507,7 +507,7 @@ public class MovieMenu extends Menu {
         "Add another cast member",
         "Confirm cast list"
     );
-    while (selectionIdx == 0) {
+    while (selectionIdx == 0 || castList.size() < 1) {
       scanner = new Scanner(System.in).useDelimiter("\n");
       System.out.print("Cast #" + (castList.size() + 1) + ": ");
       String cast = scanner.next().trim();
@@ -664,11 +664,9 @@ public class MovieMenu extends Menu {
 
     while (movieIdx < 0) {
       scanner = new Scanner(System.in).useDelimiter("\n");
-      System.out.print("Title: ");
-      String title = scanner.next().trim();
+      String title = this.setString("Title: ", "Title cannot be empty");
 
-      System.out.print("Synopsis: ");
-      String synopsis = scanner.next().trim();
+      String synopsis = this.setString("Synopsis: ", "Synopsis cannot be empty");
 
       System.out.print("[Blockbuster Status] ");
       boolean isBlockbuster = this.setBlockbusterStatus();
