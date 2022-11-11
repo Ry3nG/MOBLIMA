@@ -1,0 +1,181 @@
+Account Login
+Username: Password: Successful account login
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update cinemas
+---------------------------------------------------------------------------
+(1) 
+ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
+
+(2) 
+ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) 
+ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) 
+ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) 
+ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) 
+ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) 
+ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) 
+ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  31       
+
+(9) 
+ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+(10) Add new cinema
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Cinema Registration
+Class type:
+---------------------------------------------------------------------------
+(1) Normal
+(2) Premium
+---------------------------------------------------------------------------
+SELECTED: Cineplex Code (i.e, XYZ):Cineplex Code (i.e, XYZ):Successful cinema registration
+ID:               9       
+Cineplex Code:    ARV     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Set Class
+(2) Set Showtimes
+(3) Set Cineplex Code
+(4) Discard changes
+(5) Remove cinema
+(6) Save changes & return
+(7) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update cinemas
+---------------------------------------------------------------------------
+(1) 
+ID:               0        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  23       
+
+(2) 
+ID:               1        
+Cineplex Code:    MAM      
+Class Type:       Premium  
+Total Showtimes:  21       
+
+(3) 
+ID:               2       
+Cineplex Code:    MAM     
+Class Type:       Normal  
+Total Showtimes:  15      
+
+(4) 
+ID:               3       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  28      
+
+(5) 
+ID:               4        
+Cineplex Code:    UUQ      
+Class Type:       Premium  
+Total Showtimes:  22       
+
+(6) 
+ID:               5       
+Cineplex Code:    UUQ     
+Class Type:       Normal  
+Total Showtimes:  20      
+
+(7) 
+ID:               6        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  20       
+
+(8) 
+ID:               7        
+Cineplex Code:    RXG      
+Class Type:       Premium  
+Total Showtimes:  31       
+
+(9) 
+ID:               8       
+Cineplex Code:    RXG     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+(10) 
+ID:               9       
+Cineplex Code:    ARV     
+Class Type:       Normal  
+Total Showtimes:  0       
+
+(11) Add new cinema
+(12) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 

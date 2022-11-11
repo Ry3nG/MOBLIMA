@@ -754,7 +754,6 @@ public class BookingMenu extends Menu {
 
         List<Cinema.ClassType> classTypes = new ArrayList<Cinema.ClassType>(EnumSet.allOf(Cinema.ClassType.class));
         List<String> typeOptions = Stream.of(Cinema.ClassType.values()).map(Enum::toString).collect(Collectors.toList());
-        typeOptions.add("Return to previous menu");
 
         System.out.println("Class type:");
         this.displayMenuList(typeOptions);
