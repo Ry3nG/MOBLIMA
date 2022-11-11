@@ -138,7 +138,7 @@ public class Helper {
    * @param checkZero the check zero
    * @return the double
    */
-  public static double checkPriceInput(String input, boolean checkZero) {
+  public static double checkPriceInput(String input) {
     if (input.equals("-")) return -1; // Staff does not want to change
     Double price = null;
     while (price == null) {
@@ -162,22 +162,6 @@ public class Helper {
     return price;
   }
 
-  /**
-   * Check no characters int.
-   *
-   * @param input the input
-   * @return the int
-   */
-  public static int checkNoCharacters(String input) {
-    if (input.equals("-")) return -1; // Staff does not want to change
-    try {
-      Double.parseDouble(input);
-      return 0;
-    } catch (NumberFormatException e) { // characters other than -
-      System.out.println("Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-      return -2;
-    }
-  }
 
   /**
    * The enum Preset.
