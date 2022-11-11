@@ -19,88 +19,54 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update cinemas
+SELECTED: 	>>> Add movie
+Title: Synopsis: [Blockbuster Status] Set to:
 ---------------------------------------------------------------------------
-(1) 
-ID:               0        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  23       
-
-(2) 
-ID:               1        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  21       
-
-(3) 
-ID:               2       
-Cineplex Code:    MAM     
-Class Type:       Normal  
-Total Showtimes:  15      
-
-(4) 
-ID:               3       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  28      
-
-(5) 
-ID:               4        
-Cineplex Code:    UUQ      
-Class Type:       Premium  
-Total Showtimes:  22       
-
-(6) 
-ID:               5       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  20      
-
-(7) 
-ID:               6        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  20       
-
-(8) 
-ID:               7        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  31       
-
-(9) 
-ID:               8       
-Cineplex Code:    RXG     
-Class Type:       Normal  
-Total Showtimes:  0       
-
-(10) Add new cinema
-(11) Return to previous menu
+(1) Blockbuster
+(2) Non-Blockbuster
 ---------------------------------------------------------------------------
-SELECTED: Cinema Registration
-Class type:
+SELECTED: Blockbuster Status: Non-Blockbuster
+[Show Status] Set to:
 ---------------------------------------------------------------------------
-(1) Normal
-(2) Premium
+(1) Coming Soon
+(2) Preview
+(3) Now Showing
+(4) End of Showing
 ---------------------------------------------------------------------------
-SELECTED: Cineplex Code (i.e, XYZ):Cineplex Code (i.e, XYZ):Successful cinema registration
-ID:               9       
-Cineplex Code:    ARV     
-Class Type:       Normal  
-Total Showtimes:  0       
+SELECTED: Show Status: Coming Soon
+[Content Rating] Set to:
+---------------------------------------------------------------------------
+(1) G
+(2) PG
+(3) PG13
+(4) NC16
+(5) M18
+(6) R21
+---------------------------------------------------------------------------
+SELECTED: Content Rating: PG
+Cast #1: Cast name cannot be empty
+Cast #1: Cast name cannot be empty
+Cast #1: Cast name cannot be empty
+Cast #1: Cast name cannot be empty
+Cast #1: Cast name cannot be empty
+Cast #1: ---------------------------------------------------------------------------
+(1) Add another cast member
+(2) Confirm cast list
+---------------------------------------------------------------------------
+SELECTED: Cast List: [2dsfsfsd]
+Runtime: Director: Release Date (dd-MM-yyyy): [SUCCESS] Added new movie
+/// MOVIE DETAILS ///
+Title:               Test                                     
+Runtime:             100 minutes                              
+Synopsis:            Test                                     
+Review Rating:       NA                                       
+Content Rating:      PG                                       
+Showing Status:      Coming Soon                              
+Blockbuster Status:  NON-BLOCKBUSTER                          
+Directed By:         sdfsdfs                                  
+Cast:                2dsfsfsd                                 
+Link:                https://www.themoviedb.org/movie/711944  
 
-Next steps:
----------------------------------------------------------------------------
-(1) Set Class
-(2) Set Showtimes
-(3) Set Cineplex Code
-(4) Discard changes
-(5) Remove cinema
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) Top 5 movies by ticket sales
@@ -113,69 +79,6 @@ Press any key to continue . . .
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update cinemas
+SELECTED: 	>>> Quitting application...
 ---------------------------------------------------------------------------
-(1) 
-ID:               0        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  23       
-
-(2) 
-ID:               1        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  21       
-
-(3) 
-ID:               2       
-Cineplex Code:    MAM     
-Class Type:       Normal  
-Total Showtimes:  15      
-
-(4) 
-ID:               3       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  28      
-
-(5) 
-ID:               4        
-Cineplex Code:    UUQ      
-Class Type:       Premium  
-Total Showtimes:  22       
-
-(6) 
-ID:               5       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  20      
-
-(7) 
-ID:               6        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  20       
-
-(8) 
-ID:               7        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  31       
-
-(9) 
-ID:               8       
-Cineplex Code:    RXG     
-Class Type:       Normal  
-Total Showtimes:  0       
-
-(10) 
-ID:               9       
-Cineplex Code:    ARV     
-Class Type:       Normal  
-Total Showtimes:  0       
-
-(11) Add new cinema
-(12) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 
+Thank you for using MOBLIMA. We hope to see you again soon!
