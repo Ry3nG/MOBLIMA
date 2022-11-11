@@ -260,7 +260,7 @@ public abstract class Menu {
           menuChoice -= 1;
           if (menuChoice < 0)
             throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
-          else if (menuChoice > list.size())
+          else if (menuChoice > lastChoice)
             throw new IllegalArgumentException(
                 "[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
         } else {
