@@ -196,6 +196,20 @@ public abstract class Menu {
     return val;
   }
 
+  public String setString(String varname, String promptMsg){
+    String text = null;
+    while (text == null) {
+      System.out.print(varname);
+      text = scanner.next().trim();
+
+      if (text.isEmpty() || text.isBlank()) {
+        text = null;
+        System.out.println(colorizer(promptMsg, Preset.ERROR));
+      }
+    }
+    return text;
+  }
+
   /**
    * Print changes.
    *
