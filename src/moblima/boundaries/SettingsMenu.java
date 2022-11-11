@@ -99,7 +99,7 @@ public class SettingsMenu extends Menu {
     do {
       System.out.print("New Price: SGD ");
       String input = scanner.nextLine();
-      checkInput = Helper.checkPriceInput(input, true); // check for character input, - input, 0 input, <0 input
+      checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
       if (checkInput > 0) {
         boolean changed = (settings.getAdultTicket() != checkInput);
         settings.setAdultTicket(checkInput);
@@ -126,7 +126,7 @@ public class SettingsMenu extends Menu {
     do {
       System.out.print("New Surcharge: SGD ");
       String input = scanner.nextLine();
-      checkInput = Helper.checkPriceInput(input, false); // check for character input, - input, 0 input, <0 input
+      checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
       if (checkInput >= 0) {
         boolean changed = (settings.getBlockbusterSurcharge() != checkInput);
         settings.setBlockbusterSurcharge(checkInput);
@@ -151,12 +151,12 @@ public class SettingsMenu extends Menu {
       System.out.println("- " + surcharge.getKey().toString() + " Surcharge");
       System.out.println("Current Surcharge: " + formatPrice(surcharge.getValue()));
 
-      int checkInput;
+      double checkInput;
       do {
         System.out.print("New Surcharge: SGD ");
         String input = scanner.nextLine();
-        checkInput = Helper.checkNoCharacters(input); // check for character input
-        if (checkInput == 0) {
+        checkInput = Helper.checkPriceInput(input); // check for character input
+        if (checkInput < 0) {
           double newSurcharge = Double.parseDouble(input);
           this.printChanges(surcharge.getKey().toString() + ": ", (newSurcharge != surcharge.getValue()), Double.toString(surcharge.getValue()), Double.toString(newSurcharge));
         }
