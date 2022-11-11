@@ -156,7 +156,7 @@ public class SettingsMenu extends Menu {
         System.out.print("New Surcharge: SGD ");
         String input = scanner.nextLine();
         checkInput = Helper.checkNoCharacters(input); // check for character input
-        if (checkInput == 0) {
+        if (checkInput < 0) {
           double newSurcharge = Double.parseDouble(input);
           this.printChanges(surcharge.getKey().toString() + ": ", (newSurcharge != surcharge.getValue()), Double.toString(surcharge.getValue()), Double.toString(newSurcharge));
         }

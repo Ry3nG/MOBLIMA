@@ -140,19 +140,26 @@ public class Helper {
    */
   public static double checkPriceInput(String input, boolean checkZero) {
     if (input.equals("-")) return -1; // Staff does not want to change
-    try {
-      double price = Double.parseDouble(input);
-      if (price <= 0 && checkZero) { // 0 or less
-        System.out.println("[ERROR] Please enter a price that is more than SGD 0, or - to keep the current price.");
-        return -2;
-      } else if (price < 0) { // less than 0
-        System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
-        return -2;
-      } else return price; // valid
-    } catch (NumberFormatException e) { // characters other than -
-      System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-      return -2;
+    Double price = null;
+    while (price == null) {
+      try {
+        price = Double.parseDouble(input);
+//      if (price == 0 && checkZero) { // 0 or less
+//        System.out.println("[ERROR] Please enter a price that is more than SGD 0, or - to keep the current price.");
+//        return -2;
+//      }
+//      else if (price < 0) { // less than 0
+//        System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
+//        return -2;
+//      }
+
+      } catch (NumberFormatException e) { // characters other than -
+        System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
+        price = null;
+      }
     }
+
+    return price;
   }
 
   /**
