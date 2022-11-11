@@ -13,40 +13,74 @@
 (5) Login / Register Account
 (6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Login / Register Account
-Next steps:
+SELECTED: 	>>> Book and purchase ticket
+Select movie: 
 ---------------------------------------------------------------------------
-(1) Already have an account? Login
-(2) Create account
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: Account Login
-Account Contact No.: Successful account login
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) Top 5 movies by overall rating
 (2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View account details
-Account:      6aacc839-fe91-4b09-bb02-5f13a57e9fdc  
-Name:         test                                  
-Contact No.:  00000000                              
-Email Addr.:  test@mail.com                         
-
+SELECTED: 	>>> Search / View all movies
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) Top 5 movies by overall rating
 (2) Search / View all movies
-(3) View and update reviews
-(4) Book and purchase ticket
-(5) View booking history
-(6) View account details
-(7) Exit
+(3) Book and purchase ticket
+(4) View booking history
+(5) Login / Register Account
+(6) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Quitting application...
----------------------------------------------------------------------------
-Thank you for using MOBLIMA. We hope to see you again soon!
+SELECTED: 

@@ -1,2 +1,106 @@
-Account Login
-Username: 
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update movie details
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. Black Adam
+(3) 3. All Quiet on the Western Front
+(4) 4. Black Panther: Wakanda Forever
+(5) 5. Fall
+(6) 6. The Invitation
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. Enola Holmes 2
+(9) 9. Top Gun: Maverick
+(10) 10. Orphan: First Kill
+(11) 11. The Stranger
+(12) 12. One Piece Film Red
+(13) 13. Piggy
+(14) 14. Dragon Ball Super: Super Hero
+(15) 15. Spider-Man: No Way Home
+(16) 16. Halloween Ends
+(17) 17. Mia and Me: The Hero of Centopia
+(18) 18. Smile
+(19) 19. Blackout
+(20) 20. Don't Worry Darling
+(21) 21. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: /// MOVIE DETAILS ///
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
+Review Rating:       3.5 /5.0                                                                                                                                                                                                                                                                                              
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
+Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
+
+Press any key to continue . . .
+Next steps:
+---------------------------------------------------------------------------
+(1) Set title
+(2) Set synopsis
+(3) Set blockbuster status
+(4) Set showing status
+(5) Set content rating
+(6) Discard changes
+(7) Remove movie
+(8) Save changes & return
+(9) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [CURRENT] Showing Status: Now Showing
+Set to:
+---------------------------------------------------------------------------
+(1) Coming Soon
+(2) Preview
+(3) Now Showing
+(4) End of Showing
+---------------------------------------------------------------------------
+SELECTED: [UPDATED] Showing Status: Now Showing -> Coming Soon
+Next steps:
+---------------------------------------------------------------------------
+(1) Set title
+(2) Set synopsis
+(3) Set blockbuster status
+(4) Set showing status
+(5) Set content rating
+(6) Discard changes
+(7) Remove movie
+(8) Save changes & return
+(9) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cinemas
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!

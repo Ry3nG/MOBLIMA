@@ -183,6 +183,7 @@ public class CustomerMenu extends Menu {
         }
 
         // Initialize and append to existing customer list
+        Helper.logger("CustomerMenu.register", name + " | " + contactNumber + " | " + emailAddress);
         customerIdx = handler.addCustomer(name, contactNumber, emailAddress);
 
         // Send registration email
