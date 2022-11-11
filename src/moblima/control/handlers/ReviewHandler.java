@@ -1,5 +1,6 @@
 package moblima.control.handlers;
 
+import moblima.entities.Movie;
 import moblima.entities.Review;
 import moblima.utils.Helper;
 import moblima.utils.datasource.Datasource;
@@ -8,6 +9,9 @@ import moblima.utils.datasource.MovieDatasource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.formatAsTable;
 
 /**
  * The type Review handler.
@@ -264,6 +268,28 @@ public class ReviewHandler extends MovieHandler {
       }
     }
     return reviewId;
+  }
+
+  /**
+   * Print movie details.
+   *
+   * @param movieIdx      the movie idx
+   * @param showTruncated the show truncated
+   * @return the string
+   */
+//+ printMovieDetails(movieldx : int) : void
+  public String printMovieDetails(int movieIdx, boolean showTruncated) {
+    Movie movie = getMovie(movieIdx);
+    if (movie == null) return "";
+
+    this.selectedMovieIdx = movieIdx;
+    String header = "/// MOVIE DETAILS ///";
+    System.out.println(colorizer(header, Helper.Preset.HIGHLIGHT));
+
+    boolean displayOverallRatings = this.getMovieReviews(movie.getId()).size() > 1;
+    System.out.println(colorizer(formatAsTable(movie.toStringRows(showTruncated, displayOverallRatings)), Helper.Preset.HIGHLIGHT));
+
+    return header + "\n" + movie;
   }
 
   /**
