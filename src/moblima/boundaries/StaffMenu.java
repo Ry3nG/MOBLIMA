@@ -232,7 +232,7 @@ public class StaffMenu extends Menu {
     Helper.logger("StaffMenu.isAuthenticated", "staffIdx: " + staffIdx);
 
     if (staffIdx < 0) {
-      System.out.println("\t>>> Access Denied, Quitting application...");
+      System.out.println("\t>>> Quitting application...");
       System.out.println("---------------------------------------------------------------------------");
       scanner.close();
       System.exit(0);
