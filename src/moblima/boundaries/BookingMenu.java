@@ -754,7 +754,7 @@ public class BookingMenu extends Menu {
       }
 
       // Set Cineplex Code
-      else if (proceedSelection == 2) {
+      else if (!hasBookedShowtime && proceedSelection == 2) {
         String prevStatus = cinema.getCineplexCode();
         colorPrint("Cineplex Code: " + prevStatus, Preset.CURRENT);
 
