@@ -184,7 +184,7 @@ public abstract class Menu {
     int val = -1;
     while (val < 0) {
       System.out.print(promptMsg);
-      scanner = new Scanner(System.in);
+      scanner = new Scanner(System.in).useDelimiter("\n");
       try {
         if (scanner.hasNextInt()) { // if the next in buffer is int
           val = scanner.nextInt();
@@ -197,6 +197,32 @@ public abstract class Menu {
       } catch (Exception e) {
         System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         val = -1;
+      }
+    }
+    return val;
+  }
+
+  /**
+   * Sets double.
+   *
+   * @param promptMsg the prompt msg
+   * @return the double
+   */
+  public Double setDouble(String promptMsg) {
+    Double val = null;
+    while (val == null) {
+      System.out.print(promptMsg);
+      scanner = new Scanner(System.in).useDelimiter("\n");
+      try {
+        if (scanner.hasNextDouble()) {
+          val = scanner.nextDouble();
+        } else {
+          scanner.next();
+          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
+        }
+      } catch (Exception e) {
+        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        val = null;
       }
     }
     return val;
