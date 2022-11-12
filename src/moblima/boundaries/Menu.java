@@ -136,7 +136,6 @@ public abstract class Menu {
           if (onlyFuture && date.isBefore(LocalDate.now())) {
             throw new Exception("Given date must not be in the past");
           }
-
         } else
           throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
       } catch (Exception e) {

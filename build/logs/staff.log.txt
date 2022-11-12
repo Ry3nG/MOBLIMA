@@ -1,2 +1,94 @@
 Account Login
-Username: 
+Username: Password: [✅SUCCESS] Successful account login
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update system settings
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Edit Holidays
+Next steps:
+---------------------------------------------------------------------------
+(1) 01-01-2022, SATURDAY
+(2) 01-02-2022, TUESDAY
+(3) 02-02-2022, WEDNESDAY
+(4) 15-04-2022, FRIDAY
+(5) 01-05-2022, SUNDAY
+(6) 03-05-2022, TUESDAY
+(7) 15-05-2022, SUNDAY
+(8) 10-07-2022, SUNDAY
+(9) 09-08-2022, TUESDAY
+(10) 24-10-2022, MONDAY
+(11) 25-12-2022, SUNDAY
+(12) Add new public holiday
+(13) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Add Holiday (dd-MM-yyyy): [✅SUCCESS] Date is marked as a holiday
+Next steps:
+---------------------------------------------------------------------------
+(1) 01-01-2022, SATURDAY
+(2) 01-02-2022, TUESDAY
+(3) 02-02-2022, WEDNESDAY
+(4) 15-04-2022, FRIDAY
+(5) 01-05-2022, SUNDAY
+(6) 03-05-2022, TUESDAY
+(7) 15-05-2022, SUNDAY
+(8) 10-07-2022, SUNDAY
+(9) 09-08-2022, TUESDAY
+(10) 24-10-2022, MONDAY
+(11) 25-12-2022, SUNDAY
+(12) 22-11-2022, TUESDAY
+(13) Add new public holiday
+(14) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
+Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
+Add Holiday (dd-MM-yyyy): [❌ERROR] Given date must not be in the past
+Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
+Add Holiday (dd-MM-yyyy): [✅SUCCESS] Date is marked as a holiday
+Next steps:
+---------------------------------------------------------------------------
+(1) 01-01-2022, SATURDAY
+(2) 01-02-2022, TUESDAY
+(3) 02-02-2022, WEDNESDAY
+(4) 15-04-2022, FRIDAY
+(5) 01-05-2022, SUNDAY
+(6) 03-05-2022, TUESDAY
+(7) 15-05-2022, SUNDAY
+(8) 10-07-2022, SUNDAY
+(9) 09-08-2022, TUESDAY
+(10) 24-10-2022, MONDAY
+(11) 25-12-2022, SUNDAY
+(12) 22-11-2022, TUESDAY
+(13) 01-01-2023, SUNDAY
+(14) Add new public holiday
+(15) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 
