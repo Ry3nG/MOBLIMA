@@ -213,13 +213,12 @@ public abstract class Menu {
     while (val == null) {
       System.out.print(promptMsg);
       scanner = new Scanner(System.in).useDelimiter("\n");
+
+      String input = scanner.next().trim();
+      if (input.isEmpty() || input.isBlank()) throw new InputMismatchException("[ERROR] Input cannot be blank");
+
       try {
-        if (scanner.hasNextDouble()) {
-          val = scanner.nextDouble();
-        } else {
-          scanner.next();
-          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
-        }
+        val = Double.parseDouble(input);
       } catch (Exception e) {
         System.out.println(colorizer(e.getMessage(), Preset.ERROR));
         val = null;
