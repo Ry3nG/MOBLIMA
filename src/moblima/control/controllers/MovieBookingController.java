@@ -7,6 +7,7 @@ import moblima.control.handlers.BookingHandler;
 import moblima.control.handlers.ReviewHandler;
 import moblima.control.handlers.SettingsHandler;
 import moblima.entities.Booking;
+import moblima.entities.Cinema;
 import moblima.entities.Movie;
 import moblima.entities.Showtime;
 import moblima.utils.Helper;
@@ -15,8 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static moblima.utils.Helper.colorizer;
-import static moblima.utils.Helper.formatAsTable;
+import static moblima.utils.Helper.*;
 
 /**
  * The type Movie booking controller.
@@ -90,7 +90,7 @@ public abstract class MovieBookingController {
 
     /// Check if movie's show status is COMING_SOON = no showtimes allowed
     if (selectedMovie.getShowStatus().equals(Movie.ShowStatus.COMING_SOON)) {
-      System.out.println("Movie is not available for booking at present time.");
+      colorPrint("Movie is not available for booking at present time.", Preset.WARNING);
       return showtimeIdx;
     }
 
@@ -141,7 +141,7 @@ public abstract class MovieBookingController {
     int movieIdx = movieMenu.selectMovieIdx();
     if (movieIdx < 0) return;
 
-    movieMenu.selectEditableAction(movieIdx);
+    movieMenu.editMovie(movieIdx);
   }
 
   /**
@@ -154,6 +154,27 @@ public abstract class MovieBookingController {
     if (cinemaIdx < 0) return;
     bookingMenu.editCinema(cinemaIdx);
   }
+
+  public void updateCinemas(String cineplexCode) {
+    List<Cinema> cineplexCinemas = bookingHandler().getCineplexCinemas(cineplexCode);
+
+    // Cinema ID / IDX is the same
+    int cinemaIdx = bookingMenu.selectCinemaIdx(cineplexCinemas);
+    if (cinemaIdx < 0) return;
+    bookingMenu.editCinema(cinemaIdx);
+  }
+
+  public void updateCineplexes() {
+    List<String> cineplexCodes = new ArrayList<String>(bookingHandler().getCineplexCodes());
+    int cineplexId = bookingMenu.selectCineplexIdx(cineplexCodes);
+    if (cineplexId < 0) return;
+
+    String cineplexCode = cineplexCodes.get(cineplexId);
+
+    System.out.println("Next steps:");
+    this.updateCinemas(cineplexCode);
+  }
+
 
   /**
    * Update settings.
@@ -170,7 +191,6 @@ public abstract class MovieBookingController {
    * @return the list
    */
   public LinkedHashMap<Movie, Integer> rankMoviesByBooking(int maxRanking) {
-    List<Movie> movies = reviewHandler().getMovies();
     List<Booking> bookings = bookingHandler().getBookings();
     if (bookings.isEmpty()) return new LinkedHashMap<>();
 
@@ -189,7 +209,7 @@ public abstract class MovieBookingController {
     }
     Helper.logger("BookingHandler.sortBookingMovies", "seatBookings: " + seatBookings.size());
 
-    Map<Integer, Long> bookedMovieIds = seatBookings.stream().collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
+    Map<Integer, Long> bookedMovieIds = seatBookings.stream().collect(Collectors.groupingBy(Booking::getMovieId, Collectors.counting()));
     Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + bookedMovieIds);
 
 //    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed()).map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey()))).limit(maxRanking).toList();
@@ -218,7 +238,7 @@ public abstract class MovieBookingController {
   public void printRankedMoviesByBooking(boolean showBookingCount) {
     LinkedHashMap<Movie, Integer> rankedMovies = this.rankMoviesByBooking(5);
     if (rankedMovies.size() < 1) {
-      System.out.println(colorizer("No bookings made yet", Helper.Preset.ERROR));
+      colorPrint("No bookings made yet", Preset.WARNING);
       return;
     }
 
@@ -263,7 +283,7 @@ public abstract class MovieBookingController {
   public void printRankedMoviesByRatings(boolean showRatingCount) {
     List<Movie> rankedMovies = this.rankMoviesByRatings(5);
     if (rankedMovies.size() < 1) {
-      System.out.println(colorizer("No movies available", Helper.Preset.ERROR));
+      colorPrint("No movies available", Preset.WARNING);
       return;
     }
 

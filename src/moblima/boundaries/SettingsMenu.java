@@ -40,11 +40,11 @@ public class SettingsMenu extends Menu {
       put("Edit Holidays", () -> editPublicHolidays());
       put("Discard changes", () -> {
         settings = handler.getCurrentSystemSettings();
-        System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
+        colorPrint("Changes discarded", Preset.WARNING);
       });
       put("Save changes", () -> {
         handler.updateSettings(settings);
-        System.out.println(colorizer("[UPDATED] Settings updated", Preset.SUCCESS));
+        colorPrint("Settings updated", Preset.SUCCESS);
       });
       put("Return to previous menu", () -> {
         settings = handler.getCurrentSystemSettings();
@@ -87,7 +87,7 @@ public class SettingsMenu extends Menu {
   // CD: -editAdultTicketPrice()
   private void editAdultTicketPrice() {
     double prevStatus = settings.getAdultTicket();
-    System.out.println("[CURRENT] Adult ticket price: " + prevStatus);
+    colorPrint("Adult ticket price: " + prevStatus, Preset.CURRENT);
 
     double price = this.setDouble("Set to: ");
     settings.setAdultTicket(price);
@@ -99,7 +99,7 @@ public class SettingsMenu extends Menu {
   // CD: -editBlockbusterSurcharge()
   private void editBlockbusterSurcharge() {
     double prevStatus = settings.getBlockbusterSurcharge();
-    System.out.println("[CURRENT] Blockbuster surcharge: " + prevStatus);
+    colorPrint("Blockbuster surcharge: " + prevStatus, Preset.CURRENT);
 
     double price = this.setDouble("Set to: ");
     settings.setBlockbusterSurcharge(price);
@@ -119,7 +119,7 @@ public class SettingsMenu extends Menu {
       Double val = surcharge.getValue();
 
       double prevStatus = val;
-      System.out.println("[CURRENT] " + key + " surcharge: " + prevStatus);
+      colorPrint( key + " surcharge: " + prevStatus, Preset.CURRENT);
 
       double price = this.setDouble("Set to: ");
       surcharge.setValue(price);
@@ -172,9 +172,9 @@ public class SettingsMenu extends Menu {
 
       boolean prevValue = surcharge.getValue();
 
-
+      //TODO: tweak this
       System.out.println("- " + surcharge.getKey().toString());
-      System.out.println("Current Visibility: " + prevValue);
+      colorPrint("Current Visibility: " + prevValue, Preset.HIGHLIGHT);
 
       List<String> updateOptions = Arrays.asList("True", "False");
       int selectionIdx = -1;
@@ -248,7 +248,7 @@ public class SettingsMenu extends Menu {
           // Remove holiday
           if ((selectionIdx == updateOptions.size() - 2)) {
             holidays.remove(proceedSelection);
-            System.out.println(colorizer("[SUCCESS] Holiday removed", Preset.SUCCESS));
+            colorPrint("Holiday removed", Preset.SUCCESS);
           }
 
           // Return to previous menu
@@ -259,7 +259,7 @@ public class SettingsMenu extends Menu {
         // Update holiday
         else if (selectionIdx == 0) {
           LocalDate prevStatus = selectedHoliday;
-          System.out.println("[CURRENT] Holiday: " + prevStatus.format(dateFormatter));
+          colorPrint("Holiday: " + prevStatus.format(dateFormatter), Preset.CURRENT);
 
           //TODO: Extract as separate function
           scanner = new Scanner(System.in).useDelimiter("\n");
@@ -269,7 +269,7 @@ public class SettingsMenu extends Menu {
             LocalDate holidayDate = LocalDate.parse(date, dateFormatter);
 
             if (holidays.contains(holidayDate)) {
-              System.out.println("[NO CHANGE] Given date is already marked as an existing Public Holiday");
+              colorPrint("Given date is already marked as an existing Public Holiday", Preset.WARNING);
             } else {
               LocalDate curStatus = holidayDate;
 
@@ -279,7 +279,7 @@ public class SettingsMenu extends Menu {
               this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
             }
           } else {
-            System.out.println("Invalid input, expected format (dd-MM-yyyy)");
+            colorPrint("Invalid input, expected format (dd-MM-yyyy)", Preset.ERROR);
           }
         }
       }
@@ -290,28 +290,20 @@ public class SettingsMenu extends Menu {
   }
 
   private void addPublicHoliday() {
+    List<LocalDate> holidays = settings.getHolidays();
 
-    // Setup
-    scanner.nextLine(); // consume any remaining input in buffer
-    System.out.println("---------------------------------------------------------------------------");
+    boolean status = false;
+    while (!status) {
+      LocalDate holiday = this.setDate("Add Holiday (dd-MM-yyyy): ", true);
 
-    // Get date
-    System.out.println("Enter the date of the public holiday:\n-------------------------------------");
-    int validDate = 0;
-    do {
-      System.out.print("Date (dd-MM-yyyy) or enter - to cancel: ");
-      String dateInput = scanner.nextLine();
+      if (holidays.contains(holiday)) {
+        colorPrint("Date is already marked as a holiday", Preset.ERROR);
+        continue;
+      }
 
-      if (dateInput.equals("-")) break; // if Staff wants to cancel
-      validDate = handler.addPublicHoliday(settings, dateInput); // check if date is valid, and add if valid
-
-      if (validDate >= 0) {
-        System.out.println(colorizer(String.format("\n[ADDED] Public holiday %s has been added successfully.", dateInput), Preset.SUCCESS));
-      } else if (validDate == -1)
-        System.out.println("[ERROR] Date is in the past. Please enter today's date or a date after today, or enter -  to cancel and return to the menu");
-      else
-        System.out.println("[ERROR] Date is invalid. Please enter a valid date, or enter - to cancel and return to the menu.");
-    } while (validDate != 1);
+      settings.addHoliday(holiday);
+      colorPrint("Date is marked as a holiday", Preset.SUCCESS);
+    }
   }
 
 }

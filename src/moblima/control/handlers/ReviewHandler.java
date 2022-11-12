@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.colorPrint;
 import static moblima.utils.Helper.formatAsTable;
 
 /**
@@ -283,11 +283,11 @@ public class ReviewHandler extends MovieHandler {
     if (movie == null) return "";
 
     this.selectedMovieIdx = movieIdx;
-    String header = "/// MOVIE DETAILS ///";
-    System.out.println(colorizer(header, Helper.Preset.HIGHLIGHT));
+    String header = "\n/// MOVIE DETAILS ///";
+    colorPrint(header, Helper.Preset.HIGHLIGHT);
 
     boolean displayOverallRatings = this.getMovieReviews(movie.getId()).size() > 1;
-    System.out.println(colorizer(formatAsTable(movie.toStringRows(showTruncated, displayOverallRatings)), Helper.Preset.HIGHLIGHT));
+    colorPrint(formatAsTable(movie.toStringRows(showTruncated, displayOverallRatings)), Helper.Preset.HIGHLIGHT);
 
     return header + "\n" + movie;
   }
