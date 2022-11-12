@@ -38,5 +38,40 @@ SELECTED: 	>>> Edit Adult (Standard) Ticket Price
 Enter the new price, or press - to return to the menu
 
 Current Price: SGD 10.00
-New Price: SGD [NO CHANGE] Adult / Standard Ticket Price: : SGD 10.00
+New Price: SGD [UPDATED] Adult / Standard Ticket Price: : SGD 10.00 -> SGD 9.00
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Edit Adult (Standard) Ticket Price
+---------------------------------------------------------------------------
+Enter the new price, or press - to return to the menu
+
+Current Price: SGD 9.00
+New Price: SGD [NO CHANGE] Adult / Standard Ticket Price: : SGD 9.00
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu . . .
 Press any key to continue . . .
