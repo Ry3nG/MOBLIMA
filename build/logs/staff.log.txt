@@ -1,9 +1,215 @@
 Account Login
-Username: [❌ERROR] Invalid username, no staff account associated.
+Username: Password: [SUCCESS] Successful account login
+  __  __    ___    ____    _       ___   __  __      _    
+ |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
+ | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
+ | |  | | | |_| | | |_) | | |___   | |  | |  | |  / ___ \ 
+ |_|  |_|  \___/  |____/  |_____| |___| |_|  |_| /_/   \_\
+                                                          
+
+STAFF: staff
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update cineplexes
+---------------------------------------------------------------------------
+(1) ZSN
+(2) TPD
+(3) CMQ
+(4) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: ---------------------------------------------------------------------------
+
+/// CINEPLEX DETAILS ///
+Cineplex:        ZSN  
+No. of Cinemas:  3    
+
+Press any key to continue . . .
 Next steps:
 ---------------------------------------------------------------------------
-(1) Proceed with login
-(2) Exit application
+(1) 
+ID:               0        
+Cineplex Code:    ZSN      
+Class Type:       Premium  
+Total Showtimes:  19       
+
+(2) 
+ID:               1        
+Cineplex Code:    ZSN      
+Class Type:       Premium  
+Total Showtimes:  19       
+
+(3) 
+ID:               2       
+Cineplex Code:    ZSN     
+Class Type:       Normal  
+Total Showtimes:  23      
+
+(4) Add new cinema
+(5) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Quitting application...
+SELECTED: ID:               2       
+Cineplex Code:    ZSN     
+Class Type:       Normal  
+Total Showtimes:  23      
+
+Next steps:
 ---------------------------------------------------------------------------
+(1) Set Class
+(2) Set Showtimes
+(3) Set Cineplex Code
+(4) Discard changes
+(5) Remove cinema
+(6) Save changes & return
+(7) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: ---------------------------------------------------------------------------
+(1) Datetime:       SUNDAY, 13-11-2022 at 04:20pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(2) Datetime:       SUNDAY, 13-11-2022 at 08:32pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(3) Datetime:       SUNDAY, 13-11-2022 at 09:04pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(4) Datetime:       SUNDAY, 13-11-2022 at 10:30pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Datetime:       SUNDAY, 13-11-2022 at 11:18pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(6) Datetime:       SUNDAY, 13-11-2022 at 11:23pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(7) Datetime:       MONDAY, 14-11-2022 at 01:09am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(8) Datetime:       MONDAY, 14-11-2022 at 01:38am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(9) Datetime:       MONDAY, 14-11-2022 at 01:59am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(10) Datetime:       MONDAY, 14-11-2022 at 02:24am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(11) Datetime:       MONDAY, 14-11-2022 at 03:59am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(12) Datetime:       MONDAY, 14-11-2022 at 05:14am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(13) Datetime:       MONDAY, 14-11-2022 at 05:27am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(14) Datetime:       MONDAY, 14-11-2022 at 05:36am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(15) Datetime:       MONDAY, 14-11-2022 at 06:29am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(16) Datetime:       MONDAY, 14-11-2022 at 09:31am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(17) Datetime:       MONDAY, 14-11-2022 at 09:38am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(18) Datetime:       MONDAY, 14-11-2022 at 10:45am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(19) Datetime:       MONDAY, 14-11-2022 at 01:20pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(20) Datetime:       MONDAY, 14-11-2022 at 03:24pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(21) Datetime:       MONDAY, 14-11-2022 at 03:57pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(22) Datetime:       MONDAY, 14-11-2022 at 05:03pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(23) Datetime:       MONDAY, 14-11-2022 at 10:45pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(24) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 

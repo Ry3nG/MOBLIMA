@@ -150,15 +150,15 @@ public class Helper {
     /**
      * Warning preset.
      */
-    WARNING(Attribute.TEXT_COLOR(208), "[⚠️WARNING] "),
+    WARNING(Attribute.TEXT_COLOR(208), "[WARNING] "),
     /**
      * Error preset.
      */
-    ERROR(Attribute.TEXT_COLOR(160), "[❌ERROR] "),
+    ERROR(Attribute.TEXT_COLOR(160), "[ERROR] "),
     /**
      * Success preset.
      */
-    SUCCESS(Attribute.TEXT_COLOR(118), "[✅SUCCESS] "),
+    SUCCESS(Attribute.TEXT_COLOR(118), "[SUCCESS] "),
     /**
      * Default preset.
      */
