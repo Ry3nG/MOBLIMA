@@ -5,7 +5,6 @@ import moblima.entities.Booking;
 import moblima.entities.Cinema;
 import moblima.entities.Settings;
 import moblima.entities.Showtime;
-import moblima.utils.Helper;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -88,62 +87,30 @@ public class SettingsMenu extends Menu {
   // CD: -editAdultTicketPrice()
   private void editAdultTicketPrice() {
     double prevStatus = settings.getAdultTicket();
-    // Setup
-    scanner.nextLine();
-    System.out.println("---------------------------------------------------------------------------");
-    System.out.println("Enter the new price, or press - to return to the menu\n");
-    System.out.println("Current Price: " + formatPrice(prevStatus));
+    System.out.println("[CURRENT] Adult ticket price: " + prevStatus);
 
-    // Get new price and update clone
-    double checkInput;
-    do {
-      System.out.print("New Price: SGD ");
-      String input = scanner.nextLine();
-      checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
-      if (checkInput > 0) {
-      boolean changed = (settings.getAdultTicket() == checkInput);
-        settings.setAdultTicket(checkInput);
+    double price = this.setDouble("Set to: ");
+    settings.setAdultTicket(price);
 
-        double curStatus = settings.getAdultTicket();
-        this.printChanges("Adult / Standard Ticket Price: ", (changed), formatPrice(prevStatus), formatPrice(curStatus));
-      }
-    } while (checkInput == 0);
+    double curStatus = settings.getAdultTicket();
+    this.printChanges("Adult ticket price: ", (prevStatus == curStatus), Double.toString(prevStatus), Double.toString(curStatus));
   }
 
   // CD: -editBlockbusterSurcharge()
   private void editBlockbusterSurcharge() {
-
     double prevStatus = settings.getBlockbusterSurcharge();
+    System.out.println("[CURRENT] Blockbuster surcharge: " + prevStatus);
 
-    // Setup
-    scanner.nextLine();
-    System.out.println("---------------------------------------------------------------------------");
-    System.out.println("Enter the new surcharge, or press - to return to the menu\n");
-    System.out.println("Current Surcharge: " + formatPrice(prevStatus));
+    double price = this.setDouble("Set to: ");
+    settings.setBlockbusterSurcharge(price);
 
-    // Get new surcharge and update clone
-    double checkInput;
-    do {
-      System.out.print("New Surcharge: SGD ");
-      String input = scanner.nextLine();
-      checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
-      if (checkInput >= 0) {
-        boolean changed = (settings.getBlockbusterSurcharge() == checkInput);
-        settings.setBlockbusterSurcharge(checkInput);
-        double curStatus = settings.getBlockbusterSurcharge();
-        this.printChanges("Blockbuster Surcharge: ", (changed), formatPrice(prevStatus), formatPrice(curStatus));
-      }
-    } while (checkInput < -1);
+    double curStatus = settings.getBlockbusterSurcharge();
+    this.printChanges("Blockbuster surcharge: ", (prevStatus == curStatus), Double.toString(prevStatus), Double.toString(curStatus));
   }
 
   private EnumMap editSurcharges(
       EnumMap surcharges
   ) {
-    // Setup
-    scanner.nextLine();
-    System.out.println("---------------------------------------------------------------------------");
-    System.out.println("Enter the new surcharge, or press - to return to the menu\n");
-
     // Loop through surcharges
     for (var surchargeSet : surcharges.entrySet()) {
       Map.Entry<Enum, Double> surcharge = (Map.Entry) surchargeSet;
@@ -151,18 +118,14 @@ public class SettingsMenu extends Menu {
       Enum key = surcharge.getKey();
       Double val = surcharge.getValue();
 
-      System.out.println("- " + key.toString() + " Surcharge");
-      System.out.println("Current Surcharge: " + formatPrice(val));
+      double prevStatus = val;
+      System.out.println("[CURRENT] " + key + " surcharge: " + prevStatus);
 
-      Double newSurcharge = null;
-      while(newSurcharge == null){
-        System.out.print("New Surcharge: SGD ");
-        String input = scanner.nextLine();
-        newSurcharge = Helper.checkPriceInput(input); // check for character input
-        this.printChanges(key.toString() + ": ", (newSurcharge == val), Double.toString(val), Double.toString(newSurcharge));
-      }
+      double price = this.setDouble("Set to: ");
+      surcharge.setValue(price);
 
-      surcharge.setValue(newSurcharge);
+      double curStatus = surcharge.getValue();
+      this.printChanges(key + " surcharge: ", (prevStatus == curStatus), Double.toString(prevStatus), Double.toString(curStatus));
     }
 
     return surcharges;
@@ -228,9 +191,7 @@ public class SettingsMenu extends Menu {
       }
       System.out.println();
     }
-
   }
-
 
   /**
    * Edit public holidays boolean.
@@ -342,7 +303,6 @@ public class SettingsMenu extends Menu {
       String dateInput = scanner.nextLine();
 
       if (dateInput.equals("-")) break; // if Staff wants to cancel
-
       validDate = handler.addPublicHoliday(settings, dateInput); // check if date is valid, and add if valid
 
       if (validDate >= 0) {

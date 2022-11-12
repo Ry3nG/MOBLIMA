@@ -130,30 +130,6 @@ public class Helper {
     return Integer.valueOf(String.format("%0" + digitCount + "d", number));
   }
 
-
-  /**
-   * Check price input double.
-   *
-   * @param input the input
-   * @return the double
-   */
-  public static double checkPriceInput(String input) {
-    if (input.equals("-")) return -1; // Staff does not want to change
-    Double price = null;
-    while (price == null) {
-      try {
-        price = Double.parseDouble(input);
-        break;
-      } catch (NumberFormatException e) { // characters other than -
-        System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-        price = null;
-      }
-    }
-
-    return price;
-  }
-
-
   /**
    * The enum Preset.
    */
