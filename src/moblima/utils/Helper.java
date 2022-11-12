@@ -54,7 +54,7 @@ public class Helper {
   }
 
   /**
-   * Parse str to int int.
+   * Parse str to int.
    *
    * @param inputStr the input str
    * @return the int
