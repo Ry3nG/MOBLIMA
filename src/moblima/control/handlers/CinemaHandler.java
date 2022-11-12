@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static moblima.utils.Helper.*;
+import static moblima.utils.Helper.colorPrint;
+import static moblima.utils.Helper.formatAsTable;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
@@ -72,10 +73,12 @@ public class CinemaHandler extends ShowtimeHandler {
    */
 //+ getCinema(cinemaId : int) : Cinema
   public Cinema getCinema(int cinemaId) {
-    this.selectedCinemaIdx = cinemaId < 0 ? -1 : cinemaId;
+    int cinemaIdx = this.getCinemaIdx(cinemaId);
+    this.selectedCinemaIdx = cinemaIdx;
+
 //    Helper.logger("CinemaHandler.getCinema", "Cinema: " + this.cinemas.get(cinemaId));
 //    Helper.logger("CinemaHandler.getCinema", "Cloned Cinema: " + new Cinema(this.cinemas.get(cinemaId)));
-    return (this.cinemas.size() < 1 || cinemaId < 0) ? null : new Cinema(this.cinemas.get(cinemaId));
+    return new Cinema(this.cinemas.get(cinemaIdx));
   }
 
   /**
@@ -256,22 +259,34 @@ public class CinemaHandler extends ShowtimeHandler {
   /**
    * Remove cinema boolean.
    *
-   * @param cinemaIdx the cinema idx
+   * @param cinemaId the cinema id
    * @return the boolean
    */
 //+removeCinema(cinemaIdx : int) : boolean
-  public boolean removeCinema(int cinemaIdx) {
+  public boolean removeCinema(int cinemaId) {
     boolean status = false;
-    if (this.cinemas.size() < 1 || cinemaIdx < 0) return status;
+    if (this.cinemas.size() < 1 || cinemaId < 0) return status;
 
     // Early return if cinema does not exist
-    if (this.getCinema(cinemaIdx) == null) return status;
+    Cinema cinema = this.getCinema(cinemaId);
+    if (cinema == null) return status;
+
+    // Remove all associated showtimes
+    List<String> showtimeIds = this.getCinemaShowtimes(cinemaId).stream()
+        .map(Showtime::getId)
+        .collect(Collectors.toList());
+    for(String id: showtimeIds)this.removeShowtime(id);
+
 
     // Remove cinema
-    this.cinemas.remove(cinemaIdx);
+    List<Cinema> cinemas = this.getCinemas().stream()
+        .filter(c -> c.getId() != cinemaId)
+        .collect(Collectors.toList());
+    this.cinemas = cinemas;
 
     //Serialize data
     this.saveCinemas();
+    this.saveShowtimes();
 
     status = true;
     return status;
@@ -499,6 +514,12 @@ public class CinemaHandler extends ShowtimeHandler {
     return hasClash;
   }
 
+  /**
+   * Gets cineplex cinemas.
+   *
+   * @param cineplexCode the cineplex code
+   * @return the cineplex cinemas
+   */
   public List<Cinema> getCineplexCinemas(String cineplexCode) {
     List<Cinema> cineplexCinemas = new ArrayList<Cinema>();
     List<String> cineplexCodes = this.getCineplexCodes();
@@ -536,6 +557,12 @@ public class CinemaHandler extends ShowtimeHandler {
     this.cineplexCodes = cineplexCodes;
   }
 
+  /**
+   * Print cineplex string.
+   *
+   * @param cineplexCode the cineplex code
+   * @return the string
+   */
   public String printCineplex(String cineplexCode) {
     List<Cinema> cineplexCinemas = this.getCineplexCinemas(cineplexCode);
 
@@ -556,14 +583,20 @@ public class CinemaHandler extends ShowtimeHandler {
     return header + "\n" + cineplex;
   }
 
-  public int getCinemaIdx(int cinemaId){
+  /**
+   * Get cinema idx int.
+   *
+   * @param cinemaId the cinema id
+   * @return the int
+   */
+  public int getCinemaIdx(int cinemaId) {
     int cinemaIdx = -1;
-    if(cinemaId < 0 || this.cinemas.size() < 1) return -1;
+    if (cinemaId < 0 || this.cinemas.size() < 1) return -1;
 
-    for(Cinema c : this.cinemas){
-      if(c.getId() == cinemaId) {
-        cinemaIdx = cinemaId;
-        break;
+    for(int i = 0; i < this.cinemas.size(); i++){
+      Cinema cinema = this.cinemas.get(i);
+      if(cinema.getId() == cinemaId){
+        cinemaIdx = i;
       }
     }
 

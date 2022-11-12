@@ -56,7 +56,7 @@ public class Helper {
    * @param text   the text
    * @param preset the preset
    */
-  public static void colorPrint(String text, Preset preset){
+  public static void colorPrint(String text, Preset preset) {
     Attribute color = preset.color;
     String tag = preset.tag;
 

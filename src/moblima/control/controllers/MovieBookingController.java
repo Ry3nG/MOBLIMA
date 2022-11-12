@@ -155,6 +155,11 @@ public abstract class MovieBookingController {
     bookingMenu.editCinema(cinemaIdx);
   }
 
+  /**
+   * Update cinemas.
+   *
+   * @param cineplexCode the cineplex code
+   */
   public void updateCinemas(String cineplexCode) {
     List<Cinema> cineplexCinemas = bookingHandler().getCineplexCinemas(cineplexCode);
 
@@ -164,6 +169,9 @@ public abstract class MovieBookingController {
     bookingMenu.editCinema(cinemaIdx);
   }
 
+  /**
+   * Update cineplexes.
+   */
   public void updateCineplexes() {
     List<String> cineplexCodes = new ArrayList<String>(bookingHandler().getCineplexCodes());
     int cineplexId = bookingMenu.selectCineplexIdx(cineplexCodes);

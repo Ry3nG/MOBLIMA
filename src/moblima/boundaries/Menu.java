@@ -117,7 +117,8 @@ public abstract class Menu {
   /**
    * Sets date.
    *
-   * @param promptMsg the prompt msg
+   * @param promptMsg  the prompt msg
+   * @param onlyFuture the only future
    * @return the date
    */
   public LocalDate setDate(String promptMsg, boolean onlyFuture) {

@@ -10,7 +10,13 @@ import static moblima.utils.Helper.formatAsTable;
  * The type Review.
  */
 public class Review {
+  /**
+   * The constant MIN_RATING.
+   */
   public static final int MIN_RATING = 1;
+  /**
+   * The constant MAX_RATING.
+   */
   public static final int MAX_RATING = 5;
 
   private String id;
@@ -169,7 +175,7 @@ public class Review {
     List<List<String>> rows = new ArrayList<List<String>>();
     rows.add(Arrays.asList("Author:", this.authorName));
     rows.add(Arrays.asList("Movie ID:", Integer.toString(this.movieId)));
-    rows.add(Arrays.asList("Rating:", Integer.toString(this.rating) + " / " + Integer.toString(MAX_RATING)));
+    rows.add(Arrays.asList("Rating:", this.rating + " / " + MAX_RATING));
     rows.add(Arrays.asList("Review:", this.review));
 
     return formatAsTable(rows);
