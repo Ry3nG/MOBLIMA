@@ -681,7 +681,7 @@ public class BookingMenu extends Menu {
     while (!status) {
       // Check if cinema has booked showtime
       boolean hasBookedShowtime = handler.checkIfCinemaHasBooking(cinema.getId());
-      if (!hasBookedShowtime) proceedOptions.add(2, "Set Cineplex Code");
+      if (!hasBookedShowtime && proceedOptions.size() < 7) proceedOptions.add(2, "Set Cineplex Code");
       else colorPrint("Unable to edit Cineplex Code as Cinema has active bookings", Preset.WARNING);
 
       System.out.println("Next steps:");
