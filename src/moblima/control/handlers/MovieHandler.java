@@ -77,7 +77,7 @@ public class MovieHandler {
     for (int i = 0; i < this.movies.size(); i++) {
       Movie movie = this.movies.get(i);
       if (movie.getId() == movieId) {
-        Helper.logger("MovieHandler.getMovieIdx", "Movie: " + movie);
+        Helper.logger("MovieHandler.getMovieIdx", "Matched Movie: " + movie.getTitle());
         return i;
       }
     }

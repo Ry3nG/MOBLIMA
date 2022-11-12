@@ -5,7 +5,6 @@ import moblima.utils.Helper;
 import moblima.utils.Helper.Preset;
 import moblima.utils.datasource.Datasource;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,30 +108,23 @@ public class ShowtimeHandler {
   }
 
   /**
-   * Update showtime boolean.
+   * Update showtime seats boolean.
    *
-   * @param cinemaId the cinema id
-   * @param movieId  the movie id
-   * @param showType the show type
-   * @param datetime the datetime
-   * @param seats    the seats
+   * @param showtimeIdx the showtime idx
+   * @param seats       the seats
    * @return the boolean
    */
-//+ updateShowtime(cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
-  public boolean updateShowtime(int cinemaId, int movieId, Showtime.ShowType showType, LocalDateTime datetime, boolean[][] seats) {
+  public boolean updateShowtimeSeats(int showtimeIdx, boolean[][] seats) {
     boolean status = false;
-    if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
+    if (this.showtimes.size() < 1 || showtimeIdx < 0) return status;
 
-    Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
+    Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtime == null) return status;
 
-    showtime.setCinemaId(cinemaId);
-    showtime.setMovieId(movieId);
-    showtime.setType(showType);
-    showtime.setDatetime(datetime);
     showtime.setSeats(seats);
-    this.showtimes.set(this.selectedShowtimeIdx, showtime);
-    Helper.logger("ShowtimeHandler.updateShowtime", "AVAIL SEATS: " + getAvailableSeatCount(this.selectedShowtimeIdx));
+    this.showtimes.set(showtimeIdx, showtime);
+
+    Helper.logger("ShowtimeHandler.updateShowtime", "AVAIL SEATS: " + getAvailableSeatCount(showtimeIdx));
 
     status = true;
 
@@ -141,6 +133,40 @@ public class ShowtimeHandler {
 
     return status;
   }
+
+//  /**
+//   * Update showtime boolean.
+//   *
+//   * @param cinemaId the cinema id
+//   * @param movieId  the movie id
+//   * @param showType the show type
+//   * @param datetime the datetime
+//   * @param seats    the seats
+//   * @return the boolean
+//   */
+////+ updateShowtime(cinemaId:int, movieId:int, datetime:LocalDateTime, seats:boolean[][]):boolean
+//  public boolean updateShowtime(int cinemaId, int movieId, Showtime.ShowType showType, LocalDateTime datetime, boolean[][] seats) {
+//    boolean status = false;
+//    if (this.showtimes.size() < 1 || this.selectedShowtimeIdx < 0) return status;
+//
+//    Showtime showtime = this.showtimes.get(this.selectedShowtimeIdx);
+//    if (showtime == null) return status;
+//
+//    showtime.setCinemaId(cinemaId);
+//    showtime.setMovieId(movieId);
+//    showtime.setType(showType);
+//    showtime.setDatetime(datetime);
+//    showtime.setSeats(seats);
+//    this.showtimes.set(this.selectedShowtimeIdx, showtime);
+//    Helper.logger("ShowtimeHandler.updateShowtime", "AVAIL SEATS: " + getAvailableSeatCount(this.selectedShowtimeIdx));
+//
+//    status = true;
+//
+//    // Serialize data
+//    this.saveShowtimes();
+//
+//    return status;
+//  }
 
   /**
    * Remove showtime boolean.
@@ -270,7 +296,7 @@ public class ShowtimeHandler {
     showtime.setSeats(seats);
     this.selectedShowtimeIdx = showtimeIdx;
 
-    this.updateShowtime(showtime.getCinemaId(), showtime.getMovieId(), showtime.getType(), showtime.getDatetime(), seats);
+    this.updateShowtimeSeats(showtimeIdx, seats);
 
     Helper.logger("ShowtimeHandler.assignSeat", "Showtime-SEATS: " + this.getAvailableSeatCount(showtimeIdx));
     Helper.logger("ShowtimeHandler.assignSeat", "SEATS: " + this.getAvailableSeatCount(showtimeIdx));

@@ -120,8 +120,8 @@ public class Datasource {
       String csvString = CDL.toString(jsonArray);
       if (csvString == null) csvString = CDL.rowToString(jsonArray);
 
-      Helper.logger("Datasource.serializeDataToCSV", "jsonArray: " + jsonArray);
-      Helper.logger("Datasource.serializeDataToCSV", "csvString: " + csvString);
+//      Helper.logger("Datasource.serializeDataToCSV", "jsonArray: " + jsonArray);
+//      Helper.logger("Datasource.serializeDataToCSV", "csvString: " + csvString);
 
 
       isSuccessful = saveCsv(file, csvString, overwrite);
@@ -212,7 +212,7 @@ public class Datasource {
       FileUtils.writeStringToFile(outputFile, csvObject, Charset.defaultCharset());
 
       Helper.logger("Datasource.saveCsv", "Output CSV to " + outputFile.getAbsolutePath());
-      Helper.logger("Datasource.saveCsv", "Output: " + csvObject);
+//      Helper.logger("Datasource.saveCsv", "Output: " + csvObject);
 
       isSaved = true;
     } catch (Catcher e) {

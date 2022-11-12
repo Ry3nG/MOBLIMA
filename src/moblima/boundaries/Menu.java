@@ -43,7 +43,7 @@ public abstract class Menu {
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1)
       exit(0);
-    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
+//    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
 
     int menuIdx = 1;
     System.out.println("---------------------------------------------------------------------------");
@@ -303,7 +303,7 @@ public abstract class Menu {
    */
 // # refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
   protected void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
-    Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
+//    Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;
   }
 
