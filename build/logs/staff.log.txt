@@ -1,5 +1,5 @@
 Account Login
-Username: Password: [✅SUCCESS] Successful account login
+Username: Password: [SUCCESS] Successful account login
   __  __    ___    ____    _       ___   __  __      _    
  |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
  | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
@@ -19,200 +19,197 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update movie details
-Select movie: 
+SELECTED: 	>>> View and update cineplexes
 ---------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
+(1) ZSN
+(2) TPD
+(3) CMQ
+(4) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 
-/// MOVIE DETAILS ///
-Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
-Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
-Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
-Review Rating:       NA                                                                                                                                                                                                                                                                                                    
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
-Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
-Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
-Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
-Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
+SELECTED: ---------------------------------------------------------------------------
+
+/// CINEPLEX DETAILS ///
+Cineplex:        ZSN  
+No. of Cinemas:  3    
 
 Press any key to continue . . .
 Next steps:
 ---------------------------------------------------------------------------
-(1) Set title
-(2) Set synopsis
-(3) Set blockbuster status
-(4) Set showing status
-(5) Set content rating
-(6) Discard changes
-(7) Remove movie
-(8) Save changes & return
-(9) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
-Press any key to continue . . .
----------------------------------------------------------------------------
-(1) Top 5 movies by ticket sales
-(2) Top 5 movies by overall rating
-(3) Add movie
-(4) View and update movie details
-(5) View and update showtimes
-(6) View and update cineplexes
-(7) View and update system settings
-(8) Register new staff account
-(9) Exit
----------------------------------------------------------------------------
-SELECTED: 	>>> View and update movie details
-Select movie: 
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 
-/// MOVIE DETAILS ///
-Title:               My Policeman                                                                                                                                                                                                                                           
-Runtime:             113 minutes                                                                                                                                                                                                                                            
-Synopsis:            In the late 1990s, the arrival of elderly invalid Patrick into Marion and Tom’s home triggers the exploration of seismic events from 40 years previous: the passionate relationship between Tom and Patrick at a time when homosexuality was illegal.  
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                               
-Content Rating:      PG13                                                                                                                                                                                                                                                   
-Showing Status:      Now Showing                                                                                                                                                                                                                                            
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                            
-Directed By:         Michael Grandage                                                                                                                                                                                                                                       
-Cast:                Harry Styles, Emma Corrin, David Dawson & 21 others                                                                                                                                                                                                    
-Link:                https://www.themoviedb.org/movie/744114                                                                                                                                                                                                                
+(1) 
+ID:               0        
+Cineplex Code:    ZSN      
+Class Type:       Premium  
+Total Showtimes:  19       
 
-Press any key to continue . . .
+(2) 
+ID:               1        
+Cineplex Code:    ZSN      
+Class Type:       Premium  
+Total Showtimes:  19       
+
+(3) 
+ID:               2       
+Cineplex Code:    ZSN     
+Class Type:       Normal  
+Total Showtimes:  23      
+
+(4) Add new cinema
+(5) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: ID:               2       
+Cineplex Code:    ZSN     
+Class Type:       Normal  
+Total Showtimes:  23      
+
 Next steps:
 ---------------------------------------------------------------------------
-(1) Set title
-(2) Set synopsis
-(3) Set blockbuster status
-(4) Set showing status
-(5) Set content rating
-(6) Discard changes
-(7) Remove movie
-(8) Save changes & return
-(9) Return to previous menu
+(1) Set Class
+(2) Set Showtimes
+(3) Set Cineplex Code
+(4) Discard changes
+(5) Remove cinema
+(6) Save changes & return
+(7) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
-Press any key to continue . . .
----------------------------------------------------------------------------
-(1) Top 5 movies by ticket sales
-(2) Top 5 movies by overall rating
-(3) Add movie
-(4) View and update movie details
-(5) View and update showtimes
-(6) View and update cineplexes
-(7) View and update system settings
-(8) Register new staff account
-(9) Exit
----------------------------------------------------------------------------
-SELECTED: 	>>> View and update movie details
-Select movie: 
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
+SELECTED: ---------------------------------------------------------------------------
+(1) Datetime:       SUNDAY, 13-11-2022 at 04:20pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(2) Datetime:       SUNDAY, 13-11-2022 at 08:32pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(3) Datetime:       SUNDAY, 13-11-2022 at 09:04pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(4) Datetime:       SUNDAY, 13-11-2022 at 10:30pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Datetime:       SUNDAY, 13-11-2022 at 11:18pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(6) Datetime:       SUNDAY, 13-11-2022 at 11:23pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(7) Datetime:       MONDAY, 14-11-2022 at 01:09am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(8) Datetime:       MONDAY, 14-11-2022 at 01:38am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(9) Datetime:       MONDAY, 14-11-2022 at 01:59am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(10) Datetime:       MONDAY, 14-11-2022 at 02:24am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(11) Datetime:       MONDAY, 14-11-2022 at 03:59am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(12) Datetime:       MONDAY, 14-11-2022 at 05:14am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(13) Datetime:       MONDAY, 14-11-2022 at 05:27am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(14) Datetime:       MONDAY, 14-11-2022 at 05:36am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(15) Datetime:       MONDAY, 14-11-2022 at 06:29am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(16) Datetime:       MONDAY, 14-11-2022 at 09:31am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(17) Datetime:       MONDAY, 14-11-2022 at 09:38am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(18) Datetime:       MONDAY, 14-11-2022 at 10:45am  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(19) Datetime:       MONDAY, 14-11-2022 at 01:20pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(20) Datetime:       MONDAY, 14-11-2022 at 03:24pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(21) Datetime:       MONDAY, 14-11-2022 at 03:57pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(22) Datetime:       MONDAY, 14-11-2022 at 05:03pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(23) Datetime:       MONDAY, 14-11-2022 at 10:45pm  
+Cineplex Code:  ZSN                            
+Cinema ID:      2                              
+Show Type:      3D                             
+Booked Seats:   0/40                           
+
+(24) Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: 
