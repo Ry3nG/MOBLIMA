@@ -220,7 +220,7 @@ public class ShowtimeHandler {
     Showtime showtime = this.getShowtime(showtimeIdx);
     if (showtimeIdx < 0 || showtime == null) return;
     boolean[][] seats = showtime.getSeats();
-    this.printSeats(seats);
+    this.printSeats(seats, new ArrayList<int[]>());
   }
 
   /**
@@ -229,8 +229,9 @@ public class ShowtimeHandler {
    * @param seats the seats
    */
 // +printSeats(seats:boolean[][]):void
-  public void printSeats(boolean[][] seats) {
+  public void printSeats(boolean[][] seats, List<int[]> selected) {
     //TODO: Current selection color
+    boolean hasSelected = selected.size() > 1;
 
     int GAP_COL = 2;
     String BUFFER = "=================";
@@ -252,6 +253,11 @@ public class ShowtimeHandler {
         }
         boolean isAvailable = (seats[row][col]);
         String seat = isAvailable ? "|O|" : "|X|";
+
+//        boolean isSelected = hasSelected && selected
+
+//        boolean isSelected = selected.stream()
+//                .findAny(s -> s)
         System.out.print(colorizer(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT));
       }
       System.out.print(new StringBuilder(strRowIdx).reverse());

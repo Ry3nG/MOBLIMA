@@ -61,25 +61,41 @@ public abstract class Menu {
   protected void displayMenu() {
     Helper.logger("Menu.displayMenu", "Displaying menu . . ." + this.menuMap);
 
-    int menuChoice = -1;
-    int lastChoice = this.menuMap.size() - 1;
-    while (menuChoice < lastChoice) {
+    int menuChoice = 0;
+    while(menuChoice > -1){
       scanner = new Scanner(System.in);
+
       List<String> menuList = this.menuMap.keySet().stream().toList();
-      lastChoice = menuList.size() - 1;
-      Helper.logger("Menu.displayMenu.PRECHECK", "MAX: " + lastChoice);
+      menuChoice = this.getListSelectionIdx(menuList);
 
-      menuChoice = this.getListSelectionIdx(menuList, true);
-
-      Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
       // Display selection choice
-      if (menuChoice != lastChoice)
-        System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+      System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
       this.menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
-      if (menuChoice != lastChoice)
+      if (menuChoice != menuList.size() - 1)
         this.awaitContinue();
+    }
+
+
+//    int lastChoice = this.menuMap.size() - 1;
+//    while (menuChoice < lastChoice) {
+//      scanner = new Scanner(System.in);
+//      List<String> menuList = this.menuMap.keySet().stream().toList();
+//      lastChoice = menuList.size() - 1;
+//      Helper.logger("Menu.displayMenu.PRECHECK", "MAX: " + lastChoice);
+//
+//      menuChoice = this.getListSelectionIdx(menuList, true);
+//
+//      Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
+//      // Display selection choice
+//      if (menuChoice != lastChoice)
+//        System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+//      this.menuMap.get(menuList.get(menuChoice)).run();
+//
+//      // Await continue
+//      if (menuChoice != lastChoice)
+//        this.awaitContinue();
     }
 
     // while (menuChoice != lastChoice) {
@@ -99,7 +115,6 @@ public abstract class Menu {
     // this.awaitContinue();
     // }
     // }
-  }
 
   /**
    * Await continue.
