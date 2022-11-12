@@ -143,15 +143,7 @@ public class Helper {
     while (price == null) {
       try {
         price = Double.parseDouble(input);
-//      if (price == 0 && checkZero) { // 0 or less
-//        System.out.println("[ERROR] Please enter a price that is more than SGD 0, or - to keep the current price.");
-//        return -2;
-//      }
-//      else if (price < 0) { // less than 0
-//        System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
-//        return -2;
-//      }
-
+        break;
       } catch (NumberFormatException e) { // characters other than -
         System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
         price = null;
