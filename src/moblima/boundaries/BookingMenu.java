@@ -355,7 +355,7 @@ public class BookingMenu extends Menu {
 
           // Sudo seat assignment
           handler.assignSeat(showtimeSeats, selectedSeat, true);
-          handler.printSeats(showtimeSeats);
+          handler.printSeats(showtimeSeats, new ArrayList<>());
         }
 
 
@@ -363,7 +363,7 @@ public class BookingMenu extends Menu {
         case 1 -> {
           // Finalize the seat selection
           colorPrint("Confirmed Seat Selection", Preset.SUCCESS);
-          handler.printSeats(showtimeSeats);
+          handler.printSeats(showtimeSeats, new ArrayList<>());
           return selectedSeats;
         }
 
@@ -400,7 +400,7 @@ public class BookingMenu extends Menu {
 //+ seatSelection(showtimeIdx:int):int[]
   public int[] seatSelection(int showtimeIdx) {
     boolean[][] seats = handler.getShowtime(showtimeIdx).getSeats();
-    handler.printSeats(seats);
+    handler.printSeats(seats,  new ArrayList<>());
 
     int[] seatCode = new int[2];
 
@@ -529,7 +529,6 @@ public class BookingMenu extends Menu {
     int showtimeIdx = handler.getShowtimeIdx(showtimeId);
     handler.printShowtimeDetails(showtimeIdx);
 
-    //TODO: Update with ShowType
     List<String> proceedOptions = new ArrayList<String>() {
       {
         add("Set Cinema ID");

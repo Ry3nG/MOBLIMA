@@ -44,3 +44,175 @@ Select movie:
 (20) 20. Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: 
+/// MOVIE DETAILS ///
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
+Review Rating:       NA                                                                                                                                                                                                                                                                                                    
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
+Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
+
+Press any key to continue . . .
+Next steps:
+---------------------------------------------------------------------------
+(1) Set title
+(2) Set synopsis
+(3) Set blockbuster status
+(4) Set showing status
+(5) Set content rating
+(6) Discard changes
+(7) Remove movie
+(8) Save changes & return
+(9) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update movie details
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. All Quiet on the Western Front
+(3) 3. Black Panther: Wakanda Forever
+(4) 4. Enola Holmes 2
+(5) 5. Fall
+(6) 6. Top Gun: Maverick
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. The Invitation
+(9) 9. Orphan: First Kill
+(10) 10. One Piece Film Red
+(11) 11. The Stranger
+(12) 12. Piggy
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. Spider-Man: No Way Home
+(15) 15. Mia and Me: The Hero of Centopia
+(16) 16. Smile
+(17) 17. Halloween Ends
+(18) 18. Blackout
+(19) 19. My Policeman
+(20) 20. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. All Quiet on the Western Front
+(3) 3. Black Panther: Wakanda Forever
+(4) 4. Enola Holmes 2
+(5) 5. Fall
+(6) 6. Top Gun: Maverick
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. The Invitation
+(9) 9. Orphan: First Kill
+(10) 10. One Piece Film Red
+(11) 11. The Stranger
+(12) 12. Piggy
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. Spider-Man: No Way Home
+(15) 15. Mia and Me: The Hero of Centopia
+(16) 16. Smile
+(17) 17. Halloween Ends
+(18) 18. Blackout
+(19) 19. My Policeman
+(20) 20. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 
+/// MOVIE DETAILS ///
+Title:               My Policeman                                                                                                                                                                                                                                           
+Runtime:             113 minutes                                                                                                                                                                                                                                            
+Synopsis:            In the late 1990s, the arrival of elderly invalid Patrick into Marion and Tom’s home triggers the exploration of seismic events from 40 years previous: the passionate relationship between Tom and Patrick at a time when homosexuality was illegal.  
+Review Rating:       4.0 /5.0                                                                                                                                                                                                                                               
+Content Rating:      PG13                                                                                                                                                                                                                                                   
+Showing Status:      Now Showing                                                                                                                                                                                                                                            
+Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                            
+Directed By:         Michael Grandage                                                                                                                                                                                                                                       
+Cast:                Harry Styles, Emma Corrin, David Dawson & 21 others                                                                                                                                                                                                    
+Link:                https://www.themoviedb.org/movie/744114                                                                                                                                                                                                                
+
+Press any key to continue . . .
+Next steps:
+---------------------------------------------------------------------------
+(1) Set title
+(2) Set synopsis
+(3) Set blockbuster status
+(4) Set showing status
+(5) Set content rating
+(6) Discard changes
+(7) Remove movie
+(8) Save changes & return
+(9) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 	>>> Returning to previous menu...
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> View and update movie details
+Select movie: 
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. All Quiet on the Western Front
+(3) 3. Black Panther: Wakanda Forever
+(4) 4. Enola Holmes 2
+(5) 5. Fall
+(6) 6. Top Gun: Maverick
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. The Invitation
+(9) 9. Orphan: First Kill
+(10) 10. One Piece Film Red
+(11) 11. The Stranger
+(12) 12. Piggy
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. Spider-Man: No Way Home
+(15) 15. Mia and Me: The Hero of Centopia
+(16) 16. Smile
+(17) 17. Halloween Ends
+(18) 18. Blackout
+(19) 19. My Policeman
+(20) 20. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
+---------------------------------------------------------------------------
+(1) 1. Terrifier 2
+(2) 2. All Quiet on the Western Front
+(3) 3. Black Panther: Wakanda Forever
+(4) 4. Enola Holmes 2
+(5) 5. Fall
+(6) 6. Top Gun: Maverick
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. The Invitation
+(9) 9. Orphan: First Kill
+(10) 10. One Piece Film Red
+(11) 11. The Stranger
+(12) 12. Piggy
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. Spider-Man: No Way Home
+(15) 15. Mia and Me: The Hero of Centopia
+(16) 16. Smile
+(17) 17. Halloween Ends
+(18) 18. Blackout
+(19) 19. My Policeman
+(20) 20. Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: 

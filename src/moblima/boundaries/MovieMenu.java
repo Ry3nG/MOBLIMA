@@ -317,6 +317,11 @@ public class MovieMenu extends Menu {
 
     // Retrieve user selection idx for movies
     List<Movie> movies = this.getViewableMovies();
+//    List<String> movieOptions = movies.stream()
+//        .map(Movie::getTitle)
+//        .collect(Collectors.toList());
+//    movieOptions.add("Return to previous menu");
+//    this.displayMenuList(movieOptions);
     int selectedIdx = this.getListSelectionIdx(movies);
 
     Helper.logger("MovieMenu.selectMovieIdx", "Max: " + (this.menuMap.size()));
