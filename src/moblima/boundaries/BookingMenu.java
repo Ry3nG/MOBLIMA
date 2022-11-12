@@ -722,7 +722,7 @@ public class BookingMenu extends Menu {
       // Set Class Type
       else if (proceedSelection == 0) {
         Cinema.ClassType prevStatus = cinema.getClassType();
-        colorPrint("Class" + prevStatus.toString(), Preset.CURRENT);
+        colorPrint("Class: " + prevStatus.toString(), Preset.CURRENT);
 
         List<Cinema.ClassType> classTypes = new ArrayList<Cinema.ClassType>(EnumSet.allOf(Cinema.ClassType.class));
         List<String> typeOptions = Stream.of(Cinema.ClassType.values()).map(Enum::toString).collect(Collectors.toList());
