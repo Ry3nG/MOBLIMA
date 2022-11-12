@@ -199,9 +199,10 @@ public class MovieHandler {
     if (this.movies.size() < 1 || movieIdx < 0) return status;
 
     // Early return if movie does not exist
+    Movie movie = this.getMovie(movieIdx);
     if (this.getMovie(movieIdx) == null) return status;
 
-    this.movies.remove(movieIdx);
+    this.movies.remove(movie);
 
     //Serialize data
     this.saveMovies();

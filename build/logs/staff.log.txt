@@ -19,76 +19,28 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update system settings
+SELECTED: 	>>> View and update movie details
+Select movie: 
 ---------------------------------------------------------------------------
-(1) View Current Settings
-(2) Edit Adult (Standard) Ticket Price
-(3) Edit Blockbuster Movie Surcharge
-(4) Edit Show Surcharges
-(5) Edit Ticket Surcharges
-(6) Edit Cinema Surcharges
-(7) Edit Ranked Types
-(8) Edit Holidays
-(9) Discard changes
-(10) Save changes
-(11) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: 	>>> Edit Holidays
-Next steps:
----------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) Add new public holiday
-(13) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: Add Holiday (dd-MM-yyyy): [✅SUCCESS] Date is marked as a holiday
-Next steps:
----------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) 22-11-2022, TUESDAY
-(13) Add new public holiday
-(14) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
-Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
-Add Holiday (dd-MM-yyyy): [❌ERROR] Given date must not be in the past
-Add Holiday (dd-MM-yyyy): [❌ERROR] Invalid input, expected format (dd-MM-yyyy)
-Add Holiday (dd-MM-yyyy): [✅SUCCESS] Date is marked as a holiday
-Next steps:
----------------------------------------------------------------------------
-(1) 01-01-2022, SATURDAY
-(2) 01-02-2022, TUESDAY
-(3) 02-02-2022, WEDNESDAY
-(4) 15-04-2022, FRIDAY
-(5) 01-05-2022, SUNDAY
-(6) 03-05-2022, TUESDAY
-(7) 15-05-2022, SUNDAY
-(8) 10-07-2022, SUNDAY
-(9) 09-08-2022, TUESDAY
-(10) 24-10-2022, MONDAY
-(11) 25-12-2022, SUNDAY
-(12) 22-11-2022, TUESDAY
-(13) 01-01-2023, SUNDAY
-(14) Add new public holiday
-(15) Return to previous menu
+(1) 1. Terrifier 2
+(2) 2. All Quiet on the Western Front
+(3) 3. Black Panther: Wakanda Forever
+(4) 4. Enola Holmes 2
+(5) 5. Fall
+(6) 6. Top Gun: Maverick
+(7) 7. Jeepers Creepers: Reborn
+(8) 8. The Invitation
+(9) 9. Orphan: First Kill
+(10) 10. One Piece Film Red
+(11) 11. The Stranger
+(12) 12. Piggy
+(13) 13. Dragon Ball Super: Super Hero
+(14) 14. Spider-Man: No Way Home
+(15) 15. Mia and Me: The Hero of Centopia
+(16) 16. Smile
+(17) 17. Halloween Ends
+(18) 18. Blackout
+(19) 19. My Policeman
+(20) 20. Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: 
