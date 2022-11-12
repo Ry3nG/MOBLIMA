@@ -120,84 +120,53 @@ Select movie:
 [LOG/MovieHandler.getMovieIdx] Matched Movie: Blackout
 [LOG/MovieHandler.getMovieIdx] MovieId: 744114
 [LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
-[LOG/Menu.displayMenuList] Menu: 
-[1. Terrifier 2, 2. All Quiet on the Western Front, 3. Black Panther: Wakanda Forever, 4. Enola Holmes 2, 5. Fall, 6. Top Gun: Maverick, 7. Jeepers Creepers: Reborn, 8. The Invitation, 9. Orphan: First Kill, 10. One Piece Film Red, 11. The Stranger, 12. Piggy, 13. Dragon Ball Super: Super Hero, 14. Spider-Man: No Way Home, 15. Mia and Me: The Hero of Centopia, 16. Smile, 17. Halloween Ends, 18. Blackout, 19. My Policeman, 20. Return to previous menu]
 ---------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
+(1) Terrifier 2
+(2) All Quiet on the Western Front
+(3) Black Panther: Wakanda Forever
+(4) Enola Holmes 2
+(5) Fall
+(6) Top Gun: Maverick
+(7) Jeepers Creepers: Reborn
+(8) The Invitation
+(9) Orphan: First Kill
+(10) One Piece Film Red
+(11) The Stranger
+(12) Piggy
+(13) Dragon Ball Super: Super Hero
+(14) Spider-Man: No Way Home
+(15) Mia and Me: The Hero of Centopia
+(16) Smile
+(17) Halloween Ends
+(18) Blackout
+(19) My Policeman
+(20) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
-[LOG/Menu.displayMenuList] Menu: 
-[1. Terrifier 2, 2. All Quiet on the Western Front, 3. Black Panther: Wakanda Forever, 4. Enola Holmes 2, 5. Fall, 6. Top Gun: Maverick, 7. Jeepers Creepers: Reborn, 8. The Invitation, 9. Orphan: First Kill, 10. One Piece Film Red, 11. The Stranger, 12. Piggy, 13. Dragon Ball Super: Super Hero, 14. Spider-Man: No Way Home, 15. Mia and Me: The Hero of Centopia, 16. Smile, 17. Halloween Ends, 18. Blackout, 19. My Policeman, 20. Return to previous menu]
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 18 / 18
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 0 / 19
 [LOG/MovieMenu.selectMovieIdx] Max: 20
-[LOG/MovieMenu.selectMovieIdx] Selected: 18
+[LOG/MovieMenu.selectMovieIdx] Selected: 0
 
 /// MOVIE DETAILS ///
-[LOG/ReviewHandler.getMovieReviews] Reviews: [Author:    MSB                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-Movie ID:  744114                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-Rating:    2 / 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-Review:    MORE SPOILER-FREE MINI-REVIEWS @ https://www.msbreviews.com/movie-reviews/other-films-watched-lff-2022My Policeman lacks everything: energy, surprises, good performances, and an interesting story.A hollow, dull, instantly forgettable movie that fails to deliver anything of merit. Harry Styles reveals many problems when a scene needs to be carried by him, even turning dramatic moments into laughable line deliveries. The older cast saves this from a total disaster by trying to sail the whole film to safe harbor.Not only is it by far the worst movie of the festival, but it's also difficult to find similar competition in 2022.Rating: D-  
-, Author:    CinemaSerf                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-Movie ID:  744114                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-Rating:    7 / 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-Review:    I was rather nervous about seeing this film. After his lacklustre debut in Don't Worry Darling I feared that Harry Styles was just going to turn up, smile, get naked, and that would be that. Well, to be fair, we have quite a bit more here in this engaging drama. David Dawson is also quite effective as art gallery curator Patrick who takes a bit of a shine to policeman Tom (Styles) after a cycle incident. The latter shows some interest in art and agrees to be drawn (in full constable's uniform). Nervous, Patrick gives his visitor some Scotch and well, you can imagine the rest. The thing is, of course, the UK in the 1950s was still pretty homophobic, and their behaviour must be clandestine to say the least. Simultaneously, Tom is trying to conform with a relationship with, and marriage to, Marion (Emma Corrin) but gradually she becomes aware that Princess Diana wasn't the only person to have three people in her marriage. Reported, somehow, to the authorities, Patrick faces ruin and violent imprisonment. This historical story is set within a rather less interesting template of modern day life, with the recently stroke-affected Patrick (a strong, if largely dialogue-free, effort from Rupert Everett) coming to live with the now going-through-the-motions Marion (Gina McKee) - whose reading of the invalid man's diaries provides us with the basis for the retrospective - and Tom (Linus Roache) and this rather downbeat scenario rather robs the film of any jeopardy and also drags the pace down into something akin to the soporific. Styles is not yet a very good actor. His frequent kissing scenes are quite clumsy to watch and he speaks in a sort of clipped manner suggesting the elocution people have got at him, but there is still something natural about his performance here. He gels well with the accomplished theatre actor Dawson, and the increasingly disaffected Marion is well portrayed by Corrin - all delivering a script that does enough to set the scene. It's a stylish production. Amazon have clearly thrown some money at it and combined with a pleasing score from Steven Price this presents us with a better than expected love story with just enough political sense to alert us to the difficulties faced by gay men as recently as 1957. Styles' participation in this movie is bound to raise the profile of the persecution culture that existed then, and still exists in many nations around the world now - and for that he also ought to be commended. It's a solid film, not a great one - but it is certainly worth a gander.  
+[LOG/ReviewHandler.getMovieReviews] Reviews: [Author:    Nathan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+Movie ID:  663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+Rating:    6 / 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+Review:    _Terrifier 2_ is a massive improvement over its parent film but doesn't quite do enough to move the needle for me. From the get-go, this films tone and quality is drastically superior to the previous entry. The writing gives characters room to develop, and audiences can actually grow attached to characters in way that was blatantly absent from the first film. I enjoyed the added lore for Art that was sprinkled throughout, adds a level of depth to the newly founded horror icon. The writing allows for much more creative kills and set pieces, with the story taking place across an entire town rather than one claustrophobic apartment building. But with all those improvements, there are still lingering problems that carried over from the first film. Actor performances were all over the board. Some actresses were really compelling and honestly shocked me for the indie type feel of the film. Some notable highlights for me were the lead actress _Lauren LaVera_, _Kailey Hyman_, and _Elliott Fullam_. But other performances were legitimately bad, it felt like I was watching a high school drama production. There are some major pacing problems, for starters this movie is almost 2.5 hours long. There is no need for a runtime this long, there is so much fluff in here that it really bogs down the flow of the film. This movie does a better job of adding suspense to its scenes but is too reliant on blood and gore to get its gasps from the audience. I normally am one to appreciate when a movie goes above and beyond in the gore department, but this movie went overboard. So many scenes had be physically ill due to the graphic content. Sometimes less is more and that is for sure the case here. Despite its flaws, this is a great next step for this small-time studio and with the success at the box office there will surely be a sequel where Dameon Leone has the opportunity to craft a real top notch horror film.**Score:** _63%_ |**Verdict:** _Decent_  
 ]
-Title:               My Policeman                                                                                                                                                                                                                                           
-Runtime:             113 minutes                                                                                                                                                                                                                                            
-Synopsis:            In the late 1990s, the arrival of elderly invalid Patrick into Marion and Tom’s home triggers the exploration of seismic events from 40 years previous: the passionate relationship between Tom and Patrick at a time when homosexuality was illegal.  
-Review Rating:       4.0 /5.0                                                                                                                                                                                                                                               
-Content Rating:      PG13                                                                                                                                                                                                                                                   
-Showing Status:      Now Showing                                                                                                                                                                                                                                            
-Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                            
-Directed By:         Michael Grandage                                                                                                                                                                                                                                       
-Cast:                Harry Styles, Emma Corrin, David Dawson & 21 others                                                                                                                                                                                                    
-Link:                https://www.themoviedb.org/movie/744114                                                                                                                                                                                                                
+Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
+Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
+Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
+Review Rating:       NA                                                                                                                                                                                                                                                                                                    
+Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
+Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
+Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
+Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
+Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
+Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
 
 Press any key to continue . . .
-[LOG/MovieHandler.getMovieIdx] MovieId: 744114
-[LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
-[LOG/MovieMenu.selectMovieIdx] Selected Movie Idx: 744114
+[LOG/MovieHandler.getMovieIdx] MovieId: 663712
+[LOG/MovieHandler.getMovieIdx] Matched Movie: Terrifier 2
+[LOG/MovieMenu.selectMovieIdx] Selected Movie Idx: 663712
 [LOG/MovieMenu.getMovieMenu] SHOW LIMITED: false
 [LOG/MovieMenu.getMovieMenu] SHOW REVIEWS: true
 [LOG/MovieMenu.getMovieMenu] MOVIES: 19
@@ -313,53 +282,45 @@ Select movie:
 [LOG/MovieHandler.getMovieIdx] Matched Movie: Blackout
 [LOG/MovieHandler.getMovieIdx] MovieId: 744114
 [LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
+---------------------------------------------------------------------------
+(1) Terrifier 2
+(2) All Quiet on the Western Front
+(3) Black Panther: Wakanda Forever
+(4) Enola Holmes 2
+(5) Fall
+(6) Top Gun: Maverick
+(7) Jeepers Creepers: Reborn
+(8) The Invitation
+(9) Orphan: First Kill
+(10) One Piece Film Red
+(11) The Stranger
+(12) Piggy
+(13) Dragon Ball Super: Super Hero
+(14) Spider-Man: No Way Home
+(15) Mia and Me: The Hero of Centopia
+(16) Smile
+(17) Halloween Ends
+(18) Blackout
+(19) My Policeman
+(20) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 19 / 19
+[LOG/MovieMenu.selectMovieIdx] Max: 20
+[LOG/MovieMenu.selectMovieIdx] Selected: 19
+	>>> Returning to previous menu...
+Press any key to continue . . .
+Press any key to continue . . .
 [LOG/Menu.displayMenuList] Menu: 
-[1. Terrifier 2, 2. All Quiet on the Western Front, 3. Black Panther: Wakanda Forever, 4. Enola Holmes 2, 5. Fall, 6. Top Gun: Maverick, 7. Jeepers Creepers: Reborn, 8. The Invitation, 9. Orphan: First Kill, 10. One Piece Film Red, 11. The Stranger, 12. Piggy, 13. Dragon Ball Super: Super Hero, 14. Spider-Man: No Way Home, 15. Mia and Me: The Hero of Centopia, 16. Smile, 17. Halloween Ends, 18. Blackout, 19. My Policeman, 20. Return to previous menu]
+[Top 5 movies by ticket sales, Top 5 movies by overall rating, Add movie, View and update movie details, View and update showtimes, View and update cineplexes, View and update system settings, Register new staff account, Exit]
 ---------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [❌ERROR] Invalid menu selection - input must be between 1 and 19
-[LOG/Menu.displayMenuList] Menu: 
-[1. Terrifier 2, 2. All Quiet on the Western Front, 3. Black Panther: Wakanda Forever, 4. Enola Holmes 2, 5. Fall, 6. Top Gun: Maverick, 7. Jeepers Creepers: Reborn, 8. The Invitation, 9. Orphan: First Kill, 10. One Piece Film Red, 11. The Stranger, 12. Piggy, 13. Dragon Ball Super: Super Hero, 14. Spider-Man: No Way Home, 15. Mia and Me: The Hero of Centopia, 16. Smile, 17. Halloween Ends, 18. Blackout, 19. My Policeman, 20. Return to previous menu]
----------------------------------------------------------------------------
-(1) 1. Terrifier 2
-(2) 2. All Quiet on the Western Front
-(3) 3. Black Panther: Wakanda Forever
-(4) 4. Enola Holmes 2
-(5) 5. Fall
-(6) 6. Top Gun: Maverick
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. The Invitation
-(9) 9. Orphan: First Kill
-(10) 10. One Piece Film Red
-(11) 11. The Stranger
-(12) 12. Piggy
-(13) 13. Dragon Ball Super: Super Hero
-(14) 14. Spider-Man: No Way Home
-(15) 15. Mia and Me: The Hero of Centopia
-(16) 16. Smile
-(17) 17. Halloween Ends
-(18) 18. Blackout
-(19) 19. My Policeman
-(20) 20. Return to previous menu
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
 ---------------------------------------------------------------------------
 SELECTED: 
