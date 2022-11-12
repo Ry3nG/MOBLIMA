@@ -412,17 +412,35 @@ public class BookingMenu extends Menu {
   /**
    * Sets cinema id.
    *
+   * @param excludeId the exclude id
    * @return the cinema id
    */
-  public int setCinemaId() {
-    List<String> updateOptions = handler.getCinemas().stream().map(Cinema::toString).collect(Collectors.toList());
+  public int setCinemaId(int excludeId) {
+    List<Cinema> cinemas = handler.getCinemas().stream()
+        .filter(c -> c.getId() != excludeId)
+        .collect(Collectors.toList());
+
+    List<String> updateOptions = cinemas.stream()
+        .map(Cinema::toString)
+        .collect(Collectors.toList());
 
     System.out.println("Set to:");
     this.displayMenuList(updateOptions);
     int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-    return selectionIdx;
+    Cinema cinema = cinemas.get(selectionIdx);
+    return cinema.getId();
   }
+
+  /**
+   * Sets cinema id.
+   *
+   * @return the cinema id
+   */
+  public int setCinemaId() {
+    return setCinemaId(-999);
+  }
+
 
   /**
    * Sets movie id.
@@ -526,7 +544,7 @@ public class BookingMenu extends Menu {
         int prevStatus = showtime.getCinemaId();
         System.out.println("[CURRENT] Cinema ID: " + prevStatus);
 
-        int cinemaId = this.setCinemaId();
+        int cinemaId = this.setCinemaId(prevStatus);
 
         if (handler.checkClashingShowtime(cinemaId, showtime.getDatetime())) {
           System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");

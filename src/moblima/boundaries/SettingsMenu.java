@@ -128,7 +128,7 @@ public class SettingsMenu extends Menu {
       String input = scanner.nextLine();
       checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
       if (checkInput >= 0) {
-        boolean changed = (settings.getBlockbusterSurcharge() != checkInput);
+        boolean changed = (settings.getBlockbusterSurcharge() == checkInput);
         settings.setBlockbusterSurcharge(checkInput);
         double curStatus = settings.getBlockbusterSurcharge();
         this.printChanges("Blockbuster Surcharge: ", (changed), formatPrice(prevStatus), formatPrice(curStatus));
@@ -148,21 +148,23 @@ public class SettingsMenu extends Menu {
     for (var surchargeSet : surcharges.entrySet()) {
       Map.Entry<Enum, Double> surcharge = (Map.Entry) surchargeSet;
 
-      System.out.println("- " + surcharge.getKey().toString() + " Surcharge");
-      System.out.println("Current Surcharge: " + formatPrice(surcharge.getValue()));
+      Enum key = surcharge.getKey();
+      Double val = surcharge.getValue();
 
-      double checkInput;
-      do {
+      System.out.println("- " + key.toString() + " Surcharge");
+      System.out.println("Current Surcharge: " + formatPrice(val));
+
+      Double newSurcharge = null;
+      while(newSurcharge == null){
         System.out.print("New Surcharge: SGD ");
         String input = scanner.nextLine();
-        checkInput = Helper.checkPriceInput(input); // check for character input
-        if (checkInput < 0) {
-          double newSurcharge = Double.parseDouble(input);
-          this.printChanges(surcharge.getKey().toString() + ": ", (newSurcharge != surcharge.getValue()), Double.toString(surcharge.getValue()), Double.toString(newSurcharge));
-        }
-      } while (checkInput < -1);
-      System.out.println();
+        newSurcharge = Helper.checkPriceInput(input); // check for character input
+        this.printChanges(key.toString() + ": ", (newSurcharge == val), Double.toString(val), Double.toString(newSurcharge));
+      }
+
+      surcharge.setValue(newSurcharge);
     }
+
     return surcharges;
   }
 

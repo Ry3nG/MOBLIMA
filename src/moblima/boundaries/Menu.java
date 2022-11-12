@@ -43,7 +43,7 @@ public abstract class Menu {
   protected void displayMenuList(List<String> menuList) {
     if (menuList.size() < 1)
       exit(0);
-    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
+//    Helper.logger("Menu.displayMenuList", "MENU LIST: " + menuMap.keySet());
 
     int menuIdx = 1;
     System.out.println("---------------------------------------------------------------------------");
@@ -144,7 +144,8 @@ public abstract class Menu {
   /**
    * Sets date time.
    *
-   * @param promptMsg the prompt msg
+   * @param promptMsg  the prompt msg
+   * @param onlyFuture the only future
    * @return the date time
    */
   public LocalDateTime setDateTime(String promptMsg, boolean onlyFuture) {
@@ -159,7 +160,7 @@ public abstract class Menu {
           datetime = LocalDateTime.parse(strDateTime, dateTimeFormatter);
 
           // VALIDATION: Present or future dates
-          if(onlyFuture && datetime.isBefore(LocalDateTime.now())){
+          if (onlyFuture && datetime.isBefore(LocalDateTime.now())) {
             throw new Exception("Given datetime must not be in the past");
           }
         } else
@@ -201,7 +202,14 @@ public abstract class Menu {
     return val;
   }
 
-  public String setString(String varname, String promptMsg){
+  /**
+   * Sets string.
+   *
+   * @param varname   the varname
+   * @param promptMsg the prompt msg
+   * @return the string
+   */
+  public String setString(String varname, String promptMsg) {
     String text = null;
     while (text == null) {
       System.out.print(varname);
@@ -295,7 +303,7 @@ public abstract class Menu {
    */
 // # refreshMenu(menuMap: LinkedHashMap<String, Runnable>) :void
   protected void refreshMenu(LinkedHashMap<String, Runnable> menuMap) {
-    Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
+//    Helper.logger("Menu.refreshMenu", menuMap.keySet().toString());
     this.menuMap = menuMap;
   }
 

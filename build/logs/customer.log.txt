@@ -20,108 +20,105 @@ Select movie:
 (2) 2. Black Adam
 (3) 3. All Quiet on the Western Front
 (4) 4. Black Panther: Wakanda Forever
-(5) 5. Fall
-(6) 6. The Invitation
-(7) 7. Jeepers Creepers: Reborn
-(8) 8. Enola Holmes 2
-(9) 9. Top Gun: Maverick
+(5) 5. Enola Holmes 2
+(6) 6. Fall
+(7) 7. Top Gun: Maverick
+(8) 8. Jeepers Creepers: Reborn
+(9) 9. The Invitation
 (10) 10. Orphan: First Kill
-(11) 11. The Stranger
-(12) 12. One Piece Film Red
+(11) 11. One Piece Film Red
+(12) 12. The Stranger
 (13) 13. Piggy
 (14) 14. Dragon Ball Super: Super Hero
 (15) 15. Spider-Man: No Way Home
-(16) 16. Halloween Ends
-(17) 17. Mia and Me: The Hero of Centopia
-(18) 18. Smile
+(16) 16. Mia and Me: The Hero of Centopia
+(17) 17. Smile
+(18) 18. Halloween Ends
 (19) 19. Blackout
-(20) 20. Don't Worry Darling
-(21) 21. Test
-(22) 22. Test
-(23) 23. Test
-(24) 24. Return to previous menu
+(20) 20. My Policeman
+(21) 21. Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: /// MOVIE DETAILS ///
-Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
-Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
-Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
-Review Rating:       NA                                                                                                                                                                                                                                                                                                    
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
-Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
-Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
-Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
-Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
+Title:               My Policeman                                                                                                                                                                                                                                           
+Runtime:             113 minutes                                                                                                                                                                                                                                            
+Synopsis:            In the late 1990s, the arrival of elderly invalid Patrick into Marion and Tom’s home triggers the exploration of seismic events from 40 years previous: the passionate relationship between Tom and Patrick at a time when homosexuality was illegal.  
+Review Rating:       4.0 /5.0                                                                                                                                                                                                                                               
+Content Rating:      PG13                                                                                                                                                                                                                                                   
+Showing Status:      Now Showing                                                                                                                                                                                                                                            
+Blockbuster Status:  BLOCKBUSTER                                                                                                                                                                                                                                            
+Directed By:         Michael Grandage                                                                                                                                                                                                                                       
+Cast:                Harry Styles, Emma Corrin, David Dawson & 21 others                                                                                                                                                                                                    
+Link:                https://www.themoviedb.org/movie/744114                                                                                                                                                                                                                
 
 Press any key to continue . . .
 Select showtime slot: 
 ---------------------------------------------------------------------------
-(1) Datetime:       SATURDAY, 12-11-2022 at 10:35pm  
-Cineplex Code:  MAM                              
-Cinema ID:      0                                
-Show Type:      Digital                          
-Booked Seats:   1/40                             
+(1) Datetime:       SUNDAY, 13-11-2022 at 08:48pm  
+Cineplex Code:  SSN                            
+Cinema ID:      0                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
 
-(2) Datetime:       FRIDAY, 11-11-2022 at 09:35pm  
-Cineplex Code:  MAM                            
-Cinema ID:      1                              
-Show Type:      3D                             
-Booked Seats:   1/40                           
-
-(3) Datetime:       SATURDAY, 19-11-2022 at 05:35am  
-Cineplex Code:  MAM                              
-Cinema ID:      1                                
-Show Type:      3D                               
-Booked Seats:   0/40                             
-
-(4) Datetime:       SUNDAY, 20-11-2022 at 06:35am  
-Cineplex Code:  MAM                            
+(2) Datetime:       MONDAY, 14-11-2022 at 03:50pm  
+Cineplex Code:  SSN                            
 Cinema ID:      2                              
 Show Type:      Digital                        
 Booked Seats:   0/40                           
 
-(5) Datetime:       THURSDAY, 17-11-2022 at 02:35am  
-Cineplex Code:  UUQ                              
-Cinema ID:      3                                
-Show Type:      3D                               
-Booked Seats:   0/40                             
-
-(6) Datetime:       FRIDAY, 18-11-2022 at 04:35am  
-Cineplex Code:  UUQ                            
+(3) Datetime:       SUNDAY, 13-11-2022 at 09:42pm  
+Cineplex Code:  DXQ                            
 Cinema ID:      4                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(4) Datetime:       MONDAY, 14-11-2022 at 12:07am  
+Cineplex Code:  DXQ                            
+Cinema ID:      4                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(5) Datetime:       MONDAY, 14-11-2022 at 12:42pm  
+Cineplex Code:  DXQ                            
+Cinema ID:      4                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(6) Datetime:       SUNDAY, 13-11-2022 at 07:01pm  
+Cineplex Code:  DXQ                            
+Cinema ID:      5                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
+
+(7) Datetime:       MONDAY, 14-11-2022 at 03:45am  
+Cineplex Code:  DXQ                            
+Cinema ID:      5                              
 Show Type:      3D                             
 Booked Seats:   0/40                           
 
-(7) Datetime:       TUESDAY, 15-11-2022 at 12:35am  
-Cineplex Code:  RXG                             
-Cinema ID:      6                               
-Show Type:      Digital                         
-Booked Seats:   0/40                            
+(8) Datetime:       MONDAY, 14-11-2022 at 02:21pm  
+Cineplex Code:  BPV                            
+Cinema ID:      6                              
+Show Type:      Digital                        
+Booked Seats:   0/40                           
 
-(8) Datetime:       SUNDAY, 13-11-2022 at 11:35pm  
-Cineplex Code:  RXG                            
+(9) Datetime:       MONDAY, 14-11-2022 at 06:28am  
+Cineplex Code:  BPV                            
 Cinema ID:      7                              
 Show Type:      Digital                        
 Booked Seats:   0/40                           
 
-(9) Datetime:       WEDNESDAY, 16-11-2022 at 01:35am  
-Cineplex Code:  RXG                               
-Cinema ID:      7                                 
-Show Type:      3D                                
-Booked Seats:   0/40                              
-
 (10) Return to previous menu
 ---------------------------------------------------------------------------
 SELECTED: /// SHOWTIME DETAILS ///
-Datetime:      SATURDAY, 12-11-2022 at 10:35pm  
-Cinema ID:     0                                
-Show Type:     Digital                          
-Booked Seats:  1/40                             
+Datetime:      MONDAY, 14-11-2022 at 06:28am  
+Cinema ID:     7                              
+Show Type:     Digital                        
+Booked Seats:  0/40                           
 
 ================= SCREEN =================
 
       1  2  -  3  4  5  6  -  7  8
-1  - |X||O| - |O||O||O||O| - |O||O| -  1
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
 2  - |O||O| - |O||O||O||O| - |O||O| -  2
 3  - |O||O| - |O||O||O||O| - |O||O| -  3
 4  - |O||O| - |O||O||O||O| - |O||O| -  4
@@ -139,11 +136,11 @@ SELECTED: Next steps:
 ---------------------------------------------------------------------------
 SELECTED: Account Login
 Account Contact No.: Successful account login
-ACCOUNT: b3e92e8f-2b82-43ad-8541-88003c3ec5ab / NAME: Test
+ACCOUNT: d38058f7-b9be-4d6f-bd00-8351a594d496 / NAME: Test
 ================= SCREEN =================
 
       1  2  -  3  4  5  6  -  7  8
-1  - |X||O| - |O||O||O||O| - |O||O| -  1
+1  - |O||O| - |O||O||O||O| - |O||O| -  1
 2  - |O||O| - |O||O||O||O| - |O||O| -  2
 3  - |O||O| - |O||O||O||O| - |O||O| -  3
 4  - |O||O| - |O||O||O||O| - |O||O| -  4
@@ -151,7 +148,23 @@ ACCOUNT: b3e92e8f-2b82-43ad-8541-88003c3ec5ab / NAME: Test
 
 Enter the seat row: 
 SELECTED: Enter the seat column: 
-SELECTED: Seat is already selected. Try another
+SELECTED: ================= SCREEN =================
+
+      1  2  -  3  4  5  6  -  7  8
+1  - |X||O| - |O||O||O||O| - |O||O| -  1
+2  - |O||O| - |O||O||O||O| - |O||O| -  2
+3  - |O||O| - |O||O||O||O| - |O||O| -  3
+4  - |O||O| - |O||O||O||O| - |O||O| -  4
+5  - |O||O| - |O||O||O||O| - |O||O| -  5
+
+Next steps:
+---------------------------------------------------------------------------
+(1) Continue selecting more seats
+(2) Confirm booking
+(3) Discard selection
+(4) Return to previous menu
+---------------------------------------------------------------------------
+SELECTED: Confirmed Seat Selection
 ================= SCREEN =================
 
       1  2  -  3  4  5  6  -  7  8
@@ -161,5 +174,51 @@ SELECTED: Seat is already selected. Try another
 4  - |O||O| - |O||O||O||O| - |O||O| -  4
 5  - |O||O| - |O||O||O||O| - |O||O| -  5
 
-Enter the seat row: 
-SELECTED: 
+Select ticket type:
+---------------------------------------------------------------------------
+(1) Senior Citizen - 13.0
+(2) Student - 13.0
+(3) Non Peak - 18.0
+---------------------------------------------------------------------------
+SELECTED: Ticket type: Student
+---------------------------------------------------------------------------
+/// BOOKING DETAILS ///
+Transaction ID:  BPV202211120426  
+Seats:           [R1C1]           
+Type:            Student          
+Total Price:     SGD $13.00       
+
+/// SHOWTIME DETAILS ///
+Datetime:      MONDAY, 14-11-2022 at 06:28am  
+Cinema ID:     7                              
+Show Type:     Digital                        
+Booked Seats:  1/40                           
+
+/// MOVIE DETAILS ///
+Title:               My Policeman                                                                                                                                            
+Runtime:             113 minutes                                                                                                                                             
+Synopsis:            In the late 1990s, the arrival of elderly invalid Patrick into Marion and Tom’s home triggers the exploration of seismic events from 40 years previ...  
+Review Rating:       4.0 /5.0                                                                                                                                                
+Content Rating:      PG13                                                                                                                                                    
+Showing Status:      Now Showing                                                                                                                                             
+Blockbuster Status:  BLOCKBUSTER                                                                                                                                             
+Directed By:         Michael Grandage                                                                                                                                        
+Cast:                Harry Styles, Emma Corrin, David Dawson & 21 others                                                                                                     
+Link:                https://www.themoviedb.org/movie/744114                                                                                                                 
+
+---------------------------------------------------------------------------
+Processing booking . . .
+Successfully booked. Reference: BPV202211120426
+Press any key to continue . . .
+---------------------------------------------------------------------------
+(1) Top 5 movies by overall rating
+(2) Search / View all movies
+(3) View and update reviews
+(4) Book and purchase ticket
+(5) View booking history
+(6) View account details
+(7) Exit
+---------------------------------------------------------------------------
+SELECTED: 	>>> Quitting application...
+---------------------------------------------------------------------------
+Thank you for using MOBLIMA. We hope to see you again soon!

@@ -118,7 +118,7 @@ public class MovieMenu extends Menu {
     List<Movie> movies = this.getViewableMovies();
     Helper.logger("MovieMenu.getMovieMenu", "SHOW LIMITED: " + showLimitedMovies);
     Helper.logger("MovieMenu.getMovieMenu", "SHOW REVIEWS: " + showReviews);
-    Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies);
+    Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies.size());
     Helper.logger("MovieMenu.getMovieMenu", "RUNNABLE: " + (addMovieRunnable != null));
 
     for (int i = 0; i < movies.size(); i++) {

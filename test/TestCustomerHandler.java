@@ -69,6 +69,9 @@ public class TestCustomerHandler {
     }
   }
 
+  /**
+   * Teardown.
+   */
   @AfterAll
   public static void teardown() {
     // Wipe all existing customers
@@ -91,6 +94,9 @@ public class TestCustomerHandler {
     exit(0);
   }
 
+  /**
+   * Test add customer.
+   */
   @Test
   public void testAddCustomer() {
     String name = generateName();
@@ -124,6 +130,9 @@ public class TestCustomerHandler {
     }
   }
 
+  /**
+   * Test check if account exists.
+   */
   @Test
   public void testCheckIfAccountExists() {
     String name = generateName();
@@ -157,6 +166,9 @@ public class TestCustomerHandler {
     }
   }
 
+  /**
+   * Test get customer.
+   */
   @Test
   public void testGetCustomer() {
     int customerCount = handler.getCustomers().size();
@@ -178,6 +190,9 @@ public class TestCustomerHandler {
     assertEquals(expectedCustomer.getId(), actualCustomer.getId(), "Check if customers are the same");
   }
 
+  /**
+   * Test remove customer.
+   */
   @Test
   public void testRemoveCustomer() {
     int customerCount = handler.getCustomers().size();

@@ -283,6 +283,13 @@ public class Movie {
     return "https://www.themoviedb.org/movie/" + this.id;
   }
 
+  /**
+   * To string rows list.
+   *
+   * @param truncate          the truncate
+   * @param showOverallRating the show overall rating
+   * @return the list
+   */
   public List<List<String>> toStringRows(boolean truncate, boolean showOverallRating) {
     int maxCast = 3;
     boolean isNotTruncated = (this.castList.size() <= maxCast);
