@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static moblima.utils.Helper.colorizer;
-import static moblima.utils.Helper.formatAsTable;
+import static moblima.utils.Helper.*;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
@@ -321,7 +320,7 @@ public class CinemaHandler extends ShowtimeHandler {
   public List<Showtime> getShowtimes() {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.cinemas == null || this.cinemas.size() < 0) {
-      System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
+      colorPrint("No cinemas available to host showtimes", Preset.WARNING);
       return showtimes;
     }
 
@@ -437,9 +436,7 @@ public class CinemaHandler extends ShowtimeHandler {
     }
 
     // Sort datetime ASC
-    showtimes = showtimes.stream()
-        .sorted((a, b) -> a.getDatetime().compareTo(b.getDatetime()))
-        .collect(Collectors.toList());
+    showtimes = showtimes.stream().sorted((a, b) -> a.getDatetime().compareTo(b.getDatetime())).collect(Collectors.toList());
 
     return showtimes;
   }
@@ -457,10 +454,10 @@ public class CinemaHandler extends ShowtimeHandler {
   public int addShowtime(int cinemaId, int movieId, LocalDateTime datetime, ShowType type) {
     List<Showtime> showtimes = this.getCinemaShowtimes(cinemaId);
     if (showtimes.size() < 0) {
-      System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
+      colorPrint("No cinemas available to host showtimes", Preset.WARNING);
       return -1;
     } else if (this.checkClashingShowtime(cinemaId, datetime)) {
-      System.out.println(colorizer("Cinema already has a showing at the given datetime", Preset.ERROR));
+      colorPrint("Cinema already has a showing at the given datetime", Preset.WARNING);
       return -1;
     }
 
@@ -502,6 +499,17 @@ public class CinemaHandler extends ShowtimeHandler {
     return hasClash;
   }
 
+  public List<Cinema> getCineplexCinemas(String cineplexCode) {
+    List<Cinema> cineplexCinemas = new ArrayList<Cinema>();
+    List<String> cineplexCodes = this.getCineplexCodes();
+    if (cineplexCodes.size() < 1 || !cineplexCodes.contains(cineplexCode)) return cineplexCinemas;
+
+    cineplexCinemas = this.cinemas.stream().filter(c -> c.getCineplexCode().equals(cineplexCode)).collect(Collectors.toList());
+
+    Helper.logger("CinemaHandler.getCineplexCinemas", "Cineplex Cinemas: " + cineplexCinemas);
+    return cineplexCinemas;
+  }
+
   /**
    * Get cineplex codes list.
    *
@@ -528,6 +536,39 @@ public class CinemaHandler extends ShowtimeHandler {
     this.cineplexCodes = cineplexCodes;
   }
 
+  public String printCineplex(String cineplexCode) {
+    List<Cinema> cineplexCinemas = this.getCineplexCinemas(cineplexCode);
+
+    // Cineplex MUST have at least 1 or more Cinemas
+    if (cineplexCinemas.size() < 0) return "";
+
+    String header = "\n/// CINEPLEX DETAILS ///";
+    System.out.println("---------------------------------------------------------------------------");
+    colorPrint(header, Preset.HIGHLIGHT);
+
+    List<List<String>> rows = new ArrayList<List<String>>();
+    rows.add(Arrays.asList("Cineplex:", cineplexCode));
+    rows.add(Arrays.asList("No. of Cinemas:", Integer.toString(cineplexCinemas.size())));
+    String cineplex = formatAsTable(rows);
+    colorPrint(cineplex, Preset.HIGHLIGHT);
+//    System.out.println("---------------------------------------------------------------------------");
+
+    return header + "\n" + cineplex;
+  }
+
+  public int getCinemaIdx(int cinemaId){
+    int cinemaIdx = -1;
+    if(cinemaId < 0 || this.cinemas.size() < 1) return -1;
+
+    for(Cinema c : this.cinemas){
+      if(c.getId() == cinemaId) {
+        cinemaIdx = cinemaId;
+        break;
+      }
+    }
+
+    return cinemaIdx;
+  }
 
   /**
    * Update showtime boolean.
@@ -555,17 +596,11 @@ public class CinemaHandler extends ShowtimeHandler {
       // Remove showtime from specified Cinema by ID
       Cinema prevCinema = this.getCinema(prevCinemaId);
       List<Showtime> prevCinemaShowtimes = this.getCinemaShowtimes(prevCinemaId);
-      List<Showtime> updatedCinemaShowtimes = prevCinemaShowtimes.stream()
-          .filter(s -> !s.getId().equals(showtimeId))
-          .collect(Collectors.toList());
+      List<Showtime> updatedCinemaShowtimes = prevCinemaShowtimes.stream().filter(s -> !s.getId().equals(showtimeId)).collect(Collectors.toList());
 
       if (prevCinemaShowtimes.size() - updatedCinemaShowtimes.size() == 1) {
         this.selectedCinemaIdx = prevCinemaId;
-        this.updateCinema(
-            prevCinema.getClassType(),
-            updatedCinemaShowtimes,
-            prevCinema.getCineplexCode()
-        );
+        this.updateCinema(prevCinema.getClassType(), updatedCinemaShowtimes, prevCinema.getCineplexCode());
 
         Helper.logger("CinemaHandler.updateShowtime", "Cinema ID changed from " + prevCinemaId + " to " + cinemaId);
         Helper.logger("CinemaHandler.updateShowtime", "Showtime Removed " + showtime);

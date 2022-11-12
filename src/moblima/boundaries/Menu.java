@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static java.lang.System.exit;
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.colorPrint;
 import static moblima.utils.deserializers.LocalDateDeserializer.dateFormatter;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
@@ -107,7 +107,7 @@ public abstract class Menu {
   public void awaitContinue() {
     try {
       scanner = new Scanner(System.in);
-      System.out.println(colorizer("Press any key to continue . . .", Preset.LOG));
+      colorPrint("Press any key to continue . . .", Preset.LOG);
       System.in.read();
     } catch (Exception e) {
 
@@ -120,7 +120,7 @@ public abstract class Menu {
    * @param promptMsg the prompt msg
    * @return the date
    */
-  public LocalDate setDate(String promptMsg) {
+  public LocalDate setDate(String promptMsg, boolean onlyFuture) {
     LocalDate date = null;
 
     while (date == null) {
@@ -130,10 +130,16 @@ public abstract class Menu {
         String strDate = scanner.next().trim();
         if (strDate.matches("^\\d{2}-\\d{2}-\\d{4}")) {
           date = LocalDate.parse(strDate, dateFormatter);
+
+          // VALIDATION: Present or future dates
+          if (onlyFuture && date.isBefore(LocalDate.now())) {
+            throw new Exception("Given date must not be in the past");
+          }
+
         } else
           throw new Exception("Invalid input, expected format (dd-MM-yyyy)");
       } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        colorPrint(e.getMessage(), Preset.ERROR);
         date = null;
       }
     }
@@ -166,7 +172,7 @@ public abstract class Menu {
         } else
           throw new Exception("Invalid input, expected format (dd-MM-yyyy hh:mma)");
       } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        colorPrint(e.getMessage(), Preset.ERROR);
         datetime = null;
       }
     }
@@ -189,13 +195,13 @@ public abstract class Menu {
         if (scanner.hasNextInt()) { // if the next in buffer is int
           val = scanner.nextInt();
           if (val <= 0)
-            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
+            throw new IllegalArgumentException("Negative value - input must be a positive integer");
         } else { // next in buffer is not int
           scanner.next(); // clear buffer
-          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
+          throw new InputMismatchException("Invalid non-numerical value - input must be an integer");
         }
       } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        colorPrint(e.getMessage(), Preset.ERROR);
         val = -1;
       }
     }
@@ -215,12 +221,12 @@ public abstract class Menu {
       scanner = new Scanner(System.in).useDelimiter("\n");
 
       String input = scanner.next().trim();
-      if (input.isEmpty() || input.isBlank()) throw new InputMismatchException("[ERROR] Input cannot be blank");
+      if (input.isEmpty() || input.isBlank()) throw new InputMismatchException("Input cannot be blank");
 
       try {
         val = Double.parseDouble(input);
       } catch (Exception e) {
-        System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+        colorPrint(e.getMessage(), Preset.ERROR);
         val = null;
       }
     }
@@ -242,7 +248,7 @@ public abstract class Menu {
 
       if (text.isEmpty() || text.isBlank()) {
         text = null;
-        System.out.println(colorizer(promptMsg, Preset.ERROR));
+        colorPrint(promptMsg, Preset.ERROR);
       }
     }
     return text;
@@ -258,9 +264,9 @@ public abstract class Menu {
    */
   public void printChanges(String label, boolean isSame, String prevStatus, String curStatus) {
     if (isSame) {
-      System.out.println(colorizer("[NO CHANGE] " + label + ": " + prevStatus, Preset.SUCCESS));
+      colorPrint("/ NO CHANGE - " + label + ": " + prevStatus, Preset.WARNING);
     } else {
-      System.out.println(colorizer("[UPDATED] " + label + ": " + prevStatus + " -> " + curStatus, Preset.SUCCESS));
+      colorPrint(label + ": " + prevStatus + " -> " + curStatus, Preset.SUCCESS);
     }
   }
 
@@ -297,22 +303,22 @@ public abstract class Menu {
           menuChoice = scanner.nextInt();
           menuChoice -= 1;
           if (menuChoice < 0)
-            throw new IllegalArgumentException("[ERROR] Negative value - input must be a positive integer");
+            throw new IllegalArgumentException("Negative value - input must be a positive integer");
           else if (menuChoice > lastChoice)
             throw new IllegalArgumentException(
-                "[ERROR] Invalid menu selection - input must be between 1 and " + list.size());
+                "Invalid menu selection - input must be between 1 and " + list.size());
         } else {
           // clear buffer
           scanner.next();
-          throw new InputMismatchException("[ERROR] Invalid non-numerical value - input must be an integer");
+          throw new InputMismatchException("Invalid non-numerical value - input must be an integer");
         }
 
         Helper.logger("Menu.getListSelectionIdx", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
         return menuChoice;
       } catch (Exception e) {
         String errMsg = !e.getMessage().isEmpty() ? e.getMessage()
-            : "[ERROR] Invalid menu input - input must be of " + Arrays.toString(list.toArray());
-        System.out.println(colorizer(errMsg, Preset.ERROR));
+            : "Invalid menu input - input must be of " + Arrays.toString(list.toArray());
+        colorPrint(errMsg, Preset.ERROR);
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);

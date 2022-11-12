@@ -32,10 +32,7 @@ public class Helper {
    * @param methodName the method name
    * @param msg        the msg
    */
-  public static void logger(
-      String methodName,
-      String msg
-  ) {
+  public static void logger(String methodName, String msg) {
     if (!Constants.DEBUG_MODE) return;
     String outputStr = "[LOG/" + methodName + "] " + msg;
     System.out.println(colorize(outputStr, Preset.LOG.color));
@@ -48,9 +45,23 @@ public class Helper {
    * @param preset the preset
    * @return the string
    */
-  public static String colorizer(String text, Preset preset) {
+  private static String colorizer(String text, Preset preset) {
     Attribute color = preset.color;
     return colorize(text, color);
+  }
+
+  /**
+   * Color print.
+   *
+   * @param text   the text
+   * @param preset the preset
+   */
+  public static void colorPrint(String text, Preset preset){
+    Attribute color = preset.color;
+    String tag = preset.tag;
+
+    String content = tag + text;
+    System.out.println(colorize(content, color));
   }
 
   /**
@@ -59,9 +70,7 @@ public class Helper {
    * @param inputStr the input str
    * @return the int
    */
-  public static int parseStrToInt(
-      String inputStr
-  ) {
+  public static int parseStrToInt(String inputStr) {
     int result = -1;
     boolean isNumericString = inputStr != null && inputStr.matches("[0-9.]+");
 
@@ -137,35 +146,45 @@ public class Helper {
     /**
      * Log preset.
      */
-    LOG(Attribute.TEXT_COLOR(240)),
+    LOG(Attribute.TEXT_COLOR(240), ""),
     /**
      * Warning preset.
      */
-    WARNING(Attribute.TEXT_COLOR(208)),
+    WARNING(Attribute.TEXT_COLOR(208), "[⚠️WARNING] "),
     /**
      * Error preset.
      */
-    ERROR(Attribute.TEXT_COLOR(160)),
+    ERROR(Attribute.TEXT_COLOR(160), "[❌ERROR] "),
     /**
      * Success preset.
      */
-    SUCCESS(Attribute.TEXT_COLOR(118)),
+    SUCCESS(Attribute.TEXT_COLOR(118), "[✅SUCCESS] "),
     /**
      * Default preset.
      */
-    DEFAULT(Attribute.TEXT_COLOR(7)),
+    DEFAULT(Attribute.TEXT_COLOR(7), ""),
+    /**
+     * Current preset.
+     */
+    CURRENT(Attribute.TEXT_COLOR(190), "[CURRENT] "),
     /**
      * Highlight preset.
      */
-    HIGHLIGHT(Attribute.TEXT_COLOR(200));
+    HIGHLIGHT(Attribute.TEXT_COLOR(200), "");
 
     /**
      * The Color.
      */
     public final Attribute color;
+    /**
+     * The Tag.
+     */
+    public final String tag;
 
-    Preset(Attribute attr) {
+    Preset(Attribute attr, String tagDisplay) {
+
       this.color = attr;
+      this.tag = tagDisplay;
     }
   }
 }

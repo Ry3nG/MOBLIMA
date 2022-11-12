@@ -8,7 +8,7 @@ import moblima.utils.datasource.Datasource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.colorPrint;
 
 /**
  * The type Showtime handler.
@@ -97,7 +97,7 @@ public class ShowtimeHandler {
   public List<Showtime> getShowtimes(int movieId) {
     List<Showtime> showtimes = new ArrayList<Showtime>();
     if (this.showtimes.size() < 1 || movieId < 0) {
-      System.out.println(colorizer("No cinemas available to host showtimes", Preset.ERROR));
+      colorPrint("No cinemas available to host showtimes", Preset.ERROR);
       return showtimes;
     }
 
@@ -202,9 +202,9 @@ public class ShowtimeHandler {
     if (showtime == null) return "";
     this.selectedShowtimeIdx = showtimeIdx;
 
-    String header = "/// SHOWTIME DETAILS ///";
-    System.out.println(colorizer(header, Preset.HIGHLIGHT));
-    System.out.println(colorizer(showtime.toString(), Preset.HIGHLIGHT));
+    String header = "\n/// SHOWTIME DETAILS ///";
+    colorPrint(header, Preset.HIGHLIGHT);
+    colorPrint(showtime.toString(), Preset.HIGHLIGHT);
 
     return header + "\n" + showtime;
   }
@@ -229,6 +229,8 @@ public class ShowtimeHandler {
    */
 // +printSeats(seats:boolean[][]):void
   public void printSeats(boolean[][] seats) {
+    //TODO: Current selection color
+
     int GAP_COL = 2;
     String BUFFER = "=================";
 
@@ -249,7 +251,7 @@ public class ShowtimeHandler {
         }
         boolean isAvailable = (seats[row][col]);
         String seat = isAvailable ? "|O|" : "|X|";
-        System.out.print(colorizer(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT));
+        colorPrint(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT);
       }
       System.out.print(new StringBuilder(strRowIdx).reverse());
       System.out.println();

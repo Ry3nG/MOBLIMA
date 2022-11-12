@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.colorPrint;
+import static moblima.utils.Helper.Preset;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
@@ -64,7 +65,7 @@ public class BookingMenu extends Menu {
   public LinkedHashMap<String, Runnable> getShowtimeMenu(List<Showtime> showtimes) {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     if (showtimes.size() < 1) {
-      System.out.println("No showtimes available.");
+      colorPrint("No showtimes available.", Preset.WARNING);
     } else {
       for (int i = 0; i < showtimes.size(); i++) {
         Showtime showtime = showtimes.get(i);
@@ -90,7 +91,7 @@ public class BookingMenu extends Menu {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Booking> bookings = handler.getBookings(customerId);
     if (bookings.size() < 1) {
-      System.out.println(colorizer("No bookings available.", Helper.Preset.ERROR));
+      colorPrint("No bookings available.", Preset.WARNING);
     } else {
       for (int i = 0; i < bookings.size(); i++) {
         Booking booking = bookings.get(i);
@@ -115,14 +116,13 @@ public class BookingMenu extends Menu {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Cinema> cinemas = handler.getCinemas();
     if (cinemas.size() < 1) {
-      System.out.println("No cinemas available.");
+      colorPrint("No cinemas available.", Preset.WARNING);
     } else {
       for (int i = 0; i < cinemas.size(); i++) {
         Cinema cinema = cinemas.get(i);
         menuMap.put((i + 1) + ". " + cinema.getClassType(), () -> {
           handler.setSelectedCinemaId(cinema.getId());
           System.out.println(cinema);
-//          this.editCinema(cinema.getId());
         });
       }
     }
@@ -145,6 +145,26 @@ public class BookingMenu extends Menu {
     return -1;
   }
 
+  public int selectCineplexIdx(List<String> cineplexCodes) {
+    cineplexCodes.add((cineplexCodes.size()), "Return to previous menu");
+
+    this.displayMenuList(cineplexCodes);
+    int selectionIdx = getListSelectionIdx(cineplexCodes, false);
+
+
+    // Return to previous menu
+    if (selectionIdx == (cineplexCodes.size() - 1)) {
+      System.out.println("\t>>> " + "Returning to previous menu...");
+      return -1;
+    }
+
+    String cineplexCode = cineplexCodes.get(selectionIdx);
+    handler.printCineplex(cineplexCode);
+    awaitContinue();
+
+    return selectionIdx;
+  }
+
   /**
    * Select cinema idx int.
    *
@@ -157,6 +177,12 @@ public class BookingMenu extends Menu {
 
     // Initialize options with a return at the end
     List<Cinema> cinemas = handler.getCinemas();
+    return this.selectCinemaIdx(cinemas);
+  }
+
+  public int selectCinemaIdx(List<Cinema> cinemas) {
+
+    // Initialize options with a return at the end
     List<String> cinemaOptions = cinemas.stream().map(c -> "\n" + c.toString()).collect(Collectors.toList());
     cinemaOptions.add((cinemaOptions.size()), "Add new cinema");
     cinemaOptions.add((cinemaOptions.size()), "Return to previous menu");
@@ -174,14 +200,17 @@ public class BookingMenu extends Menu {
     // Add new cinema
     else if (selectedIdx == (cinemaOptions.size() - 2)) {
       selectedIdx = this.registerCinema();
+
+      return selectedIdx;
     }
 
 
     // Display selected
     Cinema cinema = cinemas.get(selectedIdx);
+    int cinemaIdx = cinema.getId();
     System.out.println(cinema);
 
-    return selectedIdx;
+    return cinemaIdx;
   }
 
   /**
@@ -306,7 +335,7 @@ public class BookingMenu extends Menu {
 
           // VALIDATION: Check if seat was previously selected
           if (!showtimeSeats[selectedSeat[0]][selectedSeat[1]]) {
-            System.out.println("Seat is already selected. Try another");
+            colorPrint("Seat is already selected. Try another", Preset.WARNING);
             continue;
           }
 
@@ -321,7 +350,7 @@ public class BookingMenu extends Menu {
         // Selection Confirmation
         case 1 -> {
           // Finalize the seat selection
-          System.out.println("Confirmed Seat Selection");
+          colorPrint("Confirmed Seat Selection", Preset.SUCCESS);
           handler.printSeats(showtimeSeats);
           return selectedSeats;
         }
@@ -400,9 +429,8 @@ public class BookingMenu extends Menu {
       System.out.println("Show Type: " + showType);
 
       showtimeIdx = handler.addShowtime(cinemaId, movieId, showDateTime, showType);
-      if (showtimeIdx < 0) System.out.println(colorizer("[FAILED] Unable to add showtime", Helper.Preset.ERROR));
-      else System.out.println(colorizer("[SUCCESS] Added new showtime", Helper.Preset.SUCCESS));
-
+      if (showtimeIdx < 0) colorPrint("Unable to add showtime", Preset.ERROR);
+      else colorPrint("Added new showtime", Preset.SUCCESS);
       this.awaitContinue();
     }
 
@@ -514,17 +542,17 @@ public class BookingMenu extends Menu {
         if (proceedSelection == proceedOptions.size() - 2) {
           handler.updateShowtime(showtime.getCinemaId(), showtime.getMovieId(), showtime.getType(), showtime.getDatetime(), showtime.getSeats());
           status = true;
-          System.out.println(colorizer("[UPDATED] Showtime updated", Helper.Preset.SUCCESS));
+          colorPrint("Showtime updated", Preset.SUCCESS);
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
           // VALIDATION: Check if showtime has associated bookings
           if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-            System.out.println(colorizer("[FAILED] Unable to remove showtime with associated bookings", Helper.Preset.ERROR));
+            colorPrint("Unable to remove showtime with associated bookings", Preset.WARNING);
             continue;
           }
 
-          System.out.println(colorizer("[UPDATED] Showtime removed", Helper.Preset.SUCCESS));
+          colorPrint("Showtime removed", Preset.SUCCESS);
           handler.removeShowtime(showtime.getId());
         }
 
@@ -534,7 +562,7 @@ public class BookingMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println("[REVERTED] Changes discarded");
+        colorPrint("Changes discarded", Preset.WARNING);
         showtime = handler.getShowtime(showtimeIdx);
         System.out.println(showtime);
       }
@@ -542,12 +570,12 @@ public class BookingMenu extends Menu {
       // Set Cinema ID
       else if (proceedSelection == 0) {
         int prevStatus = showtime.getCinemaId();
-        System.out.println("[CURRENT] Cinema ID: " + prevStatus);
+        colorPrint("Cinema ID: " + prevStatus, Preset.CURRENT);
 
         int cinemaId = this.setCinemaId(prevStatus);
 
         if (handler.checkClashingShowtime(cinemaId, showtime.getDatetime())) {
-          System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
+          colorPrint("/ NO CHANGE - Cinema already has a showing at the given datetime" , Preset.WARNING);
           continue;
         }
         showtime.setCinemaId(cinemaId);
@@ -559,13 +587,13 @@ public class BookingMenu extends Menu {
       // Set Movie ID
       else if (proceedSelection == 1) {
         int prevStatus = showtime.getMovieId();
-        System.out.println("[CURRENT] Movie ID: " + prevStatus);
+        colorPrint("Movie ID: " + prevStatus, Preset.CURRENT);
 
         int movieId = this.setMovieId();
 
         // VALIDATION: Check if showtime has associated bookings
         if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-          System.out.println("[NO CHANGE] Unable to change movie ID of showtime with associated bookings");
+          colorPrint("/ NO CHANGE - Unable to change movie ID of showtime with associated bookings" , Preset.WARNING);
           continue;
         }
 
@@ -577,12 +605,12 @@ public class BookingMenu extends Menu {
       // Set Datetime
       else if (proceedSelection == 2) {
         LocalDateTime prevStatus = showtime.getDatetime();
-        System.out.println("[CURRENT] Datetime: " + prevStatus.format(dateTimeFormatter));
+        colorPrint("Datetime: " + prevStatus.format(dateTimeFormatter), Preset.CURRENT);
 
         //TODO: Extract as separate function
         LocalDateTime showDatetime = this.setDateTime("Set to (dd-MM-yyyy hh:mm[AM/PM]):", false);
         if (handler.checkClashingShowtime(showtime.getCinemaId(), showDatetime)) {
-          System.out.println("[NO CHANGE] Cinema already has a showing at the given datetime");
+          colorPrint("/ NOT CHANGE Cinema already has a showing at the given datetime" , Preset.WARNING);
         } else {
           showtime.setDatetime(showDatetime);
           this.printChanges("Datetime: ", (prevStatus.isEqual(showDatetime)), prevStatus.format(dateTimeFormatter), showDatetime.format(dateTimeFormatter));
@@ -592,13 +620,13 @@ public class BookingMenu extends Menu {
       // Set Show Type
       else if (proceedSelection == 3) {
         Showtime.ShowType prevStatus = showtime.getType();
-        System.out.println("[CURRENT] Show Type: " + prevStatus.toString());
+        colorPrint("Show Type: " + prevStatus.toString(), Preset.CURRENT);
 
         Showtime.ShowType showType = this.setShowType();
 
         // VALIDATION: Check if showtime has associated bookings
         if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-          System.out.println("[NO CHANGE] Unable to change movie ID of showtime with associated bookings");
+          colorPrint("Unable to change movie ID of showtime with associated bookings", Preset.WARNING);
           continue;
         }
 
@@ -631,7 +659,7 @@ public class BookingMenu extends Menu {
       {
         add("Set Class");
         add("Set Showtimes");
-        add("Set Cineplex Code");
+//        add("Set Cineplex Code");
         add("Discard changes");
         add("Remove cinema");
         add("Save changes & return");
@@ -640,6 +668,11 @@ public class BookingMenu extends Menu {
     };
 
     while (!status) {
+      // Check if cinema has booked showtime
+      boolean hasBookedShowtime = handler.checkIfCinemaHasBooking(cinema.getId());
+      if (!hasBookedShowtime) proceedOptions.add(2, "Set Cineplex Code");
+      else colorPrint("Unable to edit Cineplex Code as Cinema has active bookings", Preset.WARNING);
+
       System.out.println("Next steps:");
       this.displayMenuList(proceedOptions);
       int proceedSelection = getListSelectionIdx(proceedOptions, false);
@@ -649,17 +682,17 @@ public class BookingMenu extends Menu {
         // Save changes
         if (proceedSelection == proceedOptions.size() - 2) {
           handler.updateCinema(cinema.getClassType(), cinema.getShowtimes(), cinema.getCineplexCode());
-          System.out.println("[UPDATED] Cinema updated");
+          colorPrint("Cinema updated", Preset.SUCCESS);
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
           // VALIDATION: Check if cinema has associated bookings
-          if (handler.checkIfCinemaHasBooking(cinema.getId())) {
-            System.out.println("Unable to remove cinema with associated bookings");
+          if (hasBookedShowtime) {
+            colorPrint("Unable to remove cinema with active bookings", Preset.WARNING);
             continue;
           }
 
-          System.out.println("[UPDATED] Cinema removed");
+          colorPrint("Cinema removed", Preset.SUCCESS);
           handler.removeCinema(cinema.getId());
         }
 
@@ -669,7 +702,7 @@ public class BookingMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println("[REVERTED] Changes discarded");
+        colorPrint("Changes discarded", Preset.WARNING);
         cinema = handler.getCinema(cinemaId);
         cinemaShowtimes = handler.getCinemaShowtimes(cinemaId);
         cinema.setShowtimes(cinemaShowtimes);
@@ -678,7 +711,7 @@ public class BookingMenu extends Menu {
       // Set Class Type
       else if (proceedSelection == 0) {
         Cinema.ClassType prevStatus = cinema.getClassType();
-        System.out.println("[CURRENT] Class: " + prevStatus);
+        colorPrint("Class", Preset.CURRENT);
 
         List<Cinema.ClassType> classTypes = new ArrayList<Cinema.ClassType>(EnumSet.allOf(Cinema.ClassType.class));
         List<String> typeOptions = Stream.of(Cinema.ClassType.values()).map(Enum::toString).collect(Collectors.toList());
@@ -690,11 +723,6 @@ public class BookingMenu extends Menu {
         cinema.setClassType(classTypes.get(selectionIdx));
         Cinema.ClassType curStatus = cinema.getClassType();
         this.printChanges("Class", (prevStatus.toString().equals(curStatus.toString())), prevStatus.toString(), curStatus.toString());
-//        if (prevStatus == curStatus) {
-//          System.out.println("[NO CHANGE] Class: " + prevStatus);
-//        } else {
-//          System.out.println("[UPDATED] Class: " + prevStatus + " -> " + curStatus);
-//        }
       }
 
       // Set Showtimes
@@ -717,7 +745,7 @@ public class BookingMenu extends Menu {
       // Set Cineplex Code
       else if (proceedSelection == 2) {
         String prevStatus = cinema.getCineplexCode();
-        System.out.println("[CURRENT] Cineplex Code: " + prevStatus);
+        colorPrint("Cineplex Code: " + prevStatus, Preset.CURRENT);
 
         List<String> cineplexCodes = handler.getCineplexCodes().stream().filter(c -> !c.equals(prevStatus)).collect(Collectors.toList());
 
@@ -725,30 +753,14 @@ public class BookingMenu extends Menu {
         this.displayMenuList(cineplexCodes);
         int selectionIdx = getListSelectionIdx(cineplexCodes, false);
 
-        boolean hasBookedShowtime = false;
-        if (cinemaShowtimes.size() > 0) {
-          for (Showtime showtime : cinemaShowtimes) {
-            // VALIDATION: Check if showtime has associated bookings
-            if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-              hasBookedShowtime = true;
-              break;
-            }
-          }
-        }
-
         if (hasBookedShowtime) {
-          System.out.println(colorizer("[FAILED] Unable to update cinema consisting of showtime with associated bookings", Helper.Preset.ERROR));
+          colorPrint("Unable to update cinema consisting of showtime with associated bookings", Preset.WARNING);
           continue;
         }
 
         cinema.setCineplexCode(cineplexCodes.get(selectionIdx));
         String curStatus = cinema.getCineplexCode();
         this.printChanges("Cineplex Code: ", (prevStatus.equals(curStatus)), prevStatus, curStatus);
-//        if (prevStatus.equals(curStatus)) {
-//          System.out.println("[NO CHANGE] Cineplex Code: " + prevStatus);
-//        } else {
-//          System.out.println("[UPDATED] Cineplex Code: " + prevStatus + " -> " + curStatus);
-//        }
       }
 
       // Print updated cinema
@@ -775,10 +787,17 @@ public class BookingMenu extends Menu {
 
         List<Cinema.ClassType> classTypes = new ArrayList<Cinema.ClassType>(EnumSet.allOf(Cinema.ClassType.class));
         List<String> typeOptions = Stream.of(Cinema.ClassType.values()).map(Enum::toString).collect(Collectors.toList());
+        typeOptions.add("Return to previous menu");
 
         System.out.println("Class type:");
         this.displayMenuList(typeOptions);
         int typeSelection = getListSelectionIdx(typeOptions, false);
+
+        // Return to previous menu
+        if (typeSelection == typeOptions.size() - 1) {
+          System.out.println("\t>>> " + "Returning to previous menu...");
+          return cinemaId;
+        }
 
         // Prompt for Cineplex Code
         String cineplexCode = null;
@@ -792,16 +811,15 @@ public class BookingMenu extends Menu {
           cineplexCode = inputCineplexCode;
         }
 
-        // Return to previous menu
-        if (typeSelection == typeOptions.size() - 1) {
-          System.out.println("\t>>> " + "Returning to previous menu...");
-          return cinemaId;
-        }
+
         Cinema.ClassType classType = classTypes.get(typeSelection);
         cinemaId = handler.addCinema(classType, new ArrayList<Showtime>(), cineplexCode);
         this.refreshMenu(this.getCinemaMenu());
 
-        System.out.println("Successful cinema registration");
+        colorPrint("Successful cinema registration\n", Preset.SUCCESS);
+        Cinema cinema = handler.getCinema(cinemaId);
+        System.out.println(cinema);
+
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
