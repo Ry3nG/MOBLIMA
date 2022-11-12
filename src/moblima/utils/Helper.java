@@ -45,7 +45,7 @@ public class Helper {
    * @param preset the preset
    * @return the string
    */
-  private static String colorizer(String text, Preset preset) {
+  public static String colorizer(String text, Preset preset) {
     Attribute color = preset.color;
     return colorize(text, color);
   }

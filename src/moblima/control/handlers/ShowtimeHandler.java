@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static moblima.utils.Helper.colorPrint;
+import static moblima.utils.Helper.colorizer;
 
 /**
  * The type Showtime handler.
@@ -251,7 +252,7 @@ public class ShowtimeHandler {
         }
         boolean isAvailable = (seats[row][col]);
         String seat = isAvailable ? "|O|" : "|X|";
-        colorPrint(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT);
+        System.out.print(colorizer(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT));
       }
       System.out.print(new StringBuilder(strRowIdx).reverse());
       System.out.println();
