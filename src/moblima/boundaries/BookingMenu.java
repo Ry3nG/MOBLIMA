@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.lang.System.exit;
 import static moblima.utils.Helper.colorizer;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
@@ -363,8 +364,8 @@ public class BookingMenu extends Menu {
 
     int[] seatCode = new int[2];
 
-    List<Integer> rowRange = IntStream.rangeClosed(0, seats.length).boxed().toList();
-    List<Integer> colRange = IntStream.rangeClosed(0, seats[0].length).boxed().toList();
+    List<Integer> rowRange = IntStream.rangeClosed(0, seats.length - 1).boxed().toList();
+    List<Integer> colRange = IntStream.rangeClosed(0, seats[0].length - 1 ).boxed().toList();
 
     //BUG:
     System.out.println("Enter the seat row: ");
