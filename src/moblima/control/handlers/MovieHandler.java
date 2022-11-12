@@ -4,15 +4,12 @@ import moblima.entities.Movie;
 import moblima.entities.Movie.ContentRating;
 import moblima.entities.Movie.ShowStatus;
 import moblima.utils.Helper;
-import moblima.utils.Helper.Preset;
 import moblima.utils.datasource.Datasource;
 import moblima.utils.datasource.MovieDatasource;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static moblima.utils.Helper.colorizer;
 
 /**
  * The type Movie handler.

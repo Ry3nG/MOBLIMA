@@ -134,8 +134,7 @@ public class Helper {
   /**
    * Check price input double.
    *
-   * @param input     the input
-   * @param checkZero the check zero
+   * @param input the input
    * @return the double
    */
   public static double checkPriceInput(String input) {

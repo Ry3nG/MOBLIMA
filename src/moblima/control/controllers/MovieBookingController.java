@@ -174,7 +174,22 @@ public abstract class MovieBookingController {
     List<Booking> bookings = bookingHandler().getBookings();
     if (bookings.isEmpty()) return new LinkedHashMap<>();
 
-    Map<Integer, Long> bookedMovieIds = bookings.stream().collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
+    // Derive seat booking
+    List<Booking> seatBookings = new ArrayList<Booking>();
+    for (Booking booking : bookings) {
+      // DEFAULT
+      seatBookings.add(booking);
+
+      // Duplicate booking per seats
+      int seatsBooked = booking.getSeats().size();
+      while (seatsBooked > 1) {
+        seatBookings.add(booking);
+        seatsBooked--;
+      }
+    }
+    Helper.logger("BookingHandler.sortBookingMovies", "seatBookings: " + seatBookings.size());
+
+    Map<Integer, Long> bookedMovieIds = seatBookings.stream().collect(Collectors.groupingBy(b -> b.getMovieId(), Collectors.counting()));
     Helper.logger("BookingHandler.sortBookingMovies", "bookedMovieIds: " + bookedMovieIds);
 
 //    List<Movie> rankedMovies = bookedMovieIds.entrySet().stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed()).map(e -> reviewHandler().getMovie(reviewHandler().getMovieIdx(e.getKey()))).limit(maxRanking).toList();

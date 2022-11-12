@@ -74,7 +74,7 @@ public class App {
   /**
    * Generate.
    */
-  protected static void generate(){
+  protected static void generate() {
     // Movies, Reviews
     MovieDatasource dsMovie = new MovieDatasource();
     dsMovie.getMovies();
