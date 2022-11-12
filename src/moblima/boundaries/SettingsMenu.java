@@ -101,7 +101,7 @@ public class SettingsMenu extends Menu {
       String input = scanner.nextLine();
       checkInput = Helper.checkPriceInput(input); // check for character input, - input, 0 input, <0 input
       if (checkInput > 0) {
-        boolean changed = (settings.getAdultTicket() != checkInput);
+      boolean changed = (settings.getAdultTicket() == checkInput);
         settings.setAdultTicket(checkInput);
 
         double curStatus = settings.getAdultTicket();
