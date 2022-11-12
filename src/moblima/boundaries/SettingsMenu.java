@@ -119,7 +119,7 @@ public class SettingsMenu extends Menu {
       Double val = surcharge.getValue();
 
       double prevStatus = val;
-      colorPrint( key + " surcharge: " + prevStatus, Preset.CURRENT);
+      colorPrint(key + " surcharge: " + prevStatus, Preset.CURRENT);
 
       double price = this.setDouble("Set to: ");
       surcharge.setValue(price);

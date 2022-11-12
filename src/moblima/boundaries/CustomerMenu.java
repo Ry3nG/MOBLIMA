@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import static moblima.utils.Helper.colorPrint;
-import static moblima.utils.Helper.Preset;
 
 /**
  * The type Customer menu.

@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 import static moblima.entities.Review.MAX_RATING;
 import static moblima.entities.Review.MIN_RATING;
 import static moblima.utils.Helper.colorPrint;
-import static moblima.utils.Helper.Preset;
 
 /**
  * The type Movie menu.

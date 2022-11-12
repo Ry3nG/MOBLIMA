@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static moblima.utils.Helper.colorPrint;
 import static moblima.utils.Helper.Preset;
+import static moblima.utils.Helper.colorPrint;
 import static moblima.utils.deserializers.LocalDateTimeDeserializer.dateTimeFormatter;
 
 /**
@@ -145,6 +145,12 @@ public class BookingMenu extends Menu {
     return -1;
   }
 
+  /**
+   * Select cineplex idx int.
+   *
+   * @param cineplexCodes the cineplex codes
+   * @return the int
+   */
   public int selectCineplexIdx(List<String> cineplexCodes) {
     cineplexCodes.add((cineplexCodes.size()), "Return to previous menu");
 
@@ -180,6 +186,12 @@ public class BookingMenu extends Menu {
     return this.selectCinemaIdx(cinemas);
   }
 
+  /**
+   * Select cinema idx int.
+   *
+   * @param cinemas the cinemas
+   * @return the int
+   */
   public int selectCinemaIdx(List<Cinema> cinemas) {
 
     // Initialize options with a return at the end
@@ -575,7 +587,7 @@ public class BookingMenu extends Menu {
         int cinemaId = this.setCinemaId(prevStatus);
 
         if (handler.checkClashingShowtime(cinemaId, showtime.getDatetime())) {
-          colorPrint("/ NO CHANGE - Cinema already has a showing at the given datetime" , Preset.WARNING);
+          colorPrint("/ NO CHANGE - Cinema already has a showing at the given datetime", Preset.WARNING);
           continue;
         }
         showtime.setCinemaId(cinemaId);
@@ -593,7 +605,7 @@ public class BookingMenu extends Menu {
 
         // VALIDATION: Check if showtime has associated bookings
         if (handler.checkIfShowtimeHasBooking(showtime.getId())) {
-          colorPrint("/ NO CHANGE - Unable to change movie ID of showtime with associated bookings" , Preset.WARNING);
+          colorPrint("/ NO CHANGE - Unable to change movie ID of showtime with associated bookings", Preset.WARNING);
           continue;
         }
 
@@ -610,7 +622,7 @@ public class BookingMenu extends Menu {
         //TODO: Extract as separate function
         LocalDateTime showDatetime = this.setDateTime("Set to (dd-MM-yyyy hh:mm[AM/PM]):", false);
         if (handler.checkClashingShowtime(showtime.getCinemaId(), showDatetime)) {
-          colorPrint("/ NOT CHANGE Cinema already has a showing at the given datetime" , Preset.WARNING);
+          colorPrint("/ NOT CHANGE Cinema already has a showing at the given datetime", Preset.WARNING);
         } else {
           showtime.setDatetime(showDatetime);
           this.printChanges("Datetime: ", (prevStatus.isEqual(showDatetime)), prevStatus.format(dateTimeFormatter), showDatetime.format(dateTimeFormatter));
