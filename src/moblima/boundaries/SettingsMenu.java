@@ -303,6 +303,7 @@ public class SettingsMenu extends Menu {
 
       settings.addHoliday(holiday);
       colorPrint("Date is marked as a holiday", Preset.SUCCESS);
+      status = true;
     }
   }
 
