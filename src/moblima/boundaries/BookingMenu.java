@@ -90,7 +90,7 @@ public class BookingMenu extends Menu {
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>();
     List<Booking> bookings = handler.getBookings(customerId);
     if (bookings.size() < 1) {
-      System.out.println("No bookings available.");
+      System.out.println(colorizer("No bookings available.", Helper.Preset.ERROR));
     } else {
       for (int i = 0; i < bookings.size(); i++) {
         Booking booking = bookings.get(i);
