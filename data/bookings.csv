@@ -1,0 +1,2 @@
+totalPrice,cinemaId,customerId,movieId,showtimeId,type,seats,transactionId
+36.0,7,4db64e05-1369-4401-bbd4-249433dff5ab,663712,5140e5ac-9244-4f6c-9906-de3782a28e6f,STUDENT,"[[2,0],[2,1],[2,2]]",AOJ202211130506

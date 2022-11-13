@@ -51,7 +51,6 @@ public class SettingsMenu extends Menu {
         settings = handler.getCurrentSettings();
         colorPrint("Any unsaved changes will be discarded", Preset.WARNING);
         System.out.println("\t>>> Returning to previous menu . . .");
-        return;
       });
     }};
   }
@@ -111,9 +110,7 @@ public class SettingsMenu extends Menu {
     this.printChanges("Blockbuster surcharge: ", (prevStatus == curStatus), Double.toString(prevStatus), Double.toString(curStatus));
   }
 
-  private EnumMap editSurcharges(
-      EnumMap surcharges
-  ) {
+  private EnumMap editSurcharges(EnumMap surcharges) {
     // Loop through surcharges
     for (var surchargeSet : surcharges.entrySet()) {
       Map.Entry<Enum, Double> surcharge = (Map.Entry) surchargeSet;
@@ -189,7 +186,7 @@ public class SettingsMenu extends Menu {
         if (selectionIdx >= 0) {
           boolean curValue = selectionIdx == 0;
           surcharge.setValue(curValue);
-          this.printChanges("Display " + surcharge.getKey().toString() + ": " , (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
+          this.printChanges("Display " + surcharge.getKey().toString() + ": ", (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
         }
       }
       System.out.println();
@@ -201,14 +198,14 @@ public class SettingsMenu extends Menu {
    *
    * @return the boolean
    */
-  public boolean editPublicHolidays() {
+  public List<LocalDate> editPublicHolidays() {
+    List<LocalDate> holidays = this.settings.getHolidays();
     boolean status = false;
 
     while (!status) {
-      List<LocalDate> holidays = this.settings.getHolidays();
-      List<String> proceedOptions = holidays.stream()
-          .map(h -> h.format(dateFormatter) + ", " + h.getDayOfWeek().toString())
-          .collect(Collectors.toList());
+      // Prompt selection
+      holidays = this.settings.getHolidays();
+      List<String> proceedOptions = holidays.stream().map(h -> h.format(dateFormatter) + ", " + h.getDayOfWeek().toString()).collect(Collectors.toList());
       proceedOptions.add("Add new public holiday");
       proceedOptions.add("Return to previous menu");
 
@@ -216,86 +213,86 @@ public class SettingsMenu extends Menu {
       this.displayMenuList(proceedOptions);
       int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
-      // Add new public holiday || Return
-      if (proceedSelection >= proceedOptions.size() - 2) {
-        //  Add new public holiday
-        if (proceedSelection == proceedOptions.size() - 2) {
-          holidays = this.addPublicHoliday();
-          continue;
-        }
-
+      // Return to previous menu
+      if (proceedSelection == proceedOptions.size() - 1) {
         System.out.println("\t>>> " + "Returning to previous menu...");
         status = true;
-      } else {
-        // Update / Remove selected holiday
-        LocalDate selectedHoliday = holidays.get(proceedSelection);
-        System.out.println("Selected Holiday: " + selectedHoliday.format(dateFormatter));
+        break;
+      }
 
-        //TODO: Extract as seperate function
-        List<String> updateOptions = new ArrayList<String>() {
-          {
-            add("Update holiday");
-            add("Remove holiday");
-            add("Return to previous menu");
-          }
-        };
+      // Add new public holiday
+      else if (proceedSelection == proceedOptions.size() - 2) {
+        holidays = this.addPublicHoliday();
+        continue;
+      }
 
-        System.out.println("Update by:");
-        this.displayMenuList(updateOptions);
-        int selectionIdx = getListSelectionIdx(updateOptions, false);
+      // Selected Holiday: Update or Remove
+      LocalDate selectedHoliday = holidays.get(proceedSelection);
+      System.out.println("Selected Holiday: " + selectedHoliday.format(dateFormatter));
+      List<String> updateOptions = new ArrayList<String>() {
+        {
+          add("Update holiday");
+          add("Remove holiday");
+          add("Return to previous menu");
+        }
+      };
 
+      System.out.println("Update by:");
+      this.displayMenuList(updateOptions);
+      int updateSelection = getListSelectionIdx(updateOptions, false);
+      int updateExit = updateOptions.size() - 1;
 
-        // Remove holiday || Exit
-        if (selectionIdx >= updateOptions.size() - 2) {
+      while (updateSelection != updateExit) {
+        // Remove holiday || Return to previous menu
+        if (updateSelection >= updateExit - 1) {
           // Remove holiday
-          if ((selectionIdx == updateOptions.size() - 2)) {
-            holidays.remove(proceedSelection);
+          if (updateSelection == updateExit - 1) {
+            holidays.remove(selectedHoliday);
             colorPrint("Holiday removed", Preset.SUCCESS);
           }
 
           // Return to previous menu
-          settings.setHolidays(holidays);
           System.out.println("\t>>> " + "Returning to previous menu...");
-          return status;
+          break;
         }
+
         // Update holiday
-        else if (selectionIdx == 0) {
-          LocalDate prevStatus = selectedHoliday;
-          colorPrint("Holiday: " + prevStatus.format(dateFormatter), Preset.CURRENT);
+        LocalDate prevStatus = selectedHoliday;
+        colorPrint("Holiday: " + prevStatus.format(dateFormatter), Preset.CURRENT);
 
-          //TODO: Extract as separate function
-          LocalDate curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
-          while (holidays.contains(curStatus)) {
-            colorPrint("Given date is already marked as an existing Public Holiday", Preset.WARNING);
-            curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
-          }
-
-          holidays.set(proceedSelection, curStatus);
-          this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
+        LocalDate curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
+        while (holidays.contains(curStatus)) {
+          colorPrint("Given date is already marked as an existing Public Holiday", Preset.WARNING);
+          curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
         }
+
+        /// Replace holiday
+        holidays.set(proceedSelection, selectedHoliday);
+        this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
       }
     }
-    return status;
+
+    settings.setHolidays(holidays);
+    return holidays;
   }
 
   private List<LocalDate> addPublicHoliday() {
     List<LocalDate> holidays = settings.getHolidays();
 
-    boolean status = false;
-    while (!status) {
+    int holidayCount = holidays.size();
+    while (holidays.size() == holidayCount) {
       LocalDate holiday = this.setDate("Add Holiday (dd-MM-yyyy): ", true);
 
+      //VALIDATION: Check if holiday is already a public holiday
       if (holidays.contains(holiday)) {
         colorPrint("Date is already marked as a holiday", Preset.ERROR);
         continue;
       }
 
+      // Append to holidays
       holidays.add(holiday);
       colorPrint("Date is marked as a holiday", Preset.SUCCESS);
-      status = true;
     }
-
     return holidays;
   }
-
 }
