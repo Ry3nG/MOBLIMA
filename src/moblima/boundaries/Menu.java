@@ -203,10 +203,10 @@ public abstract class Menu {
       System.out.print(promptMsg);
       scanner = new Scanner(System.in).useDelimiter("\n");
 
-      String input = scanner.next().trim();
-      if (input.isEmpty() || input.isBlank()) throw new InputMismatchException("Input cannot be blank");
-
       try {
+        String input = scanner.next().trim();
+        if (input.isEmpty() || input.isBlank()) throw new InputMismatchException("Input cannot be blank");
+
         val = Double.parseDouble(input);
       } catch (Exception e) {
         colorPrint(e.getMessage(), Preset.ERROR);
