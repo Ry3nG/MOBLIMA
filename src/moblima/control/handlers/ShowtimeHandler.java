@@ -226,7 +226,8 @@ public class ShowtimeHandler {
   /**
    * Print seats.
    *
-   * @param seats the seats
+   * @param seats    the seats
+   * @param selected the selected
    */
 // +printSeats(seats:boolean[][]):void
   public void printSeats(boolean[][] seats, List<int[]> selected) {
