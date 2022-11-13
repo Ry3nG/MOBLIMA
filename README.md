@@ -1,7 +1,7 @@
 ### SC2002 Object-Oriented Project — *MOBLIMA*
 
 > A console-based Movie Booking and Listing Management application.<br/>
-> - [Demo](https://youtu.be/i3nVaSZvLVc)
+> - [Demo](https://youtu.be/apbWi2NVMBU)
 > - [Documentation](https://ry3ng.github.io/MOBLIMA/)
 
 
