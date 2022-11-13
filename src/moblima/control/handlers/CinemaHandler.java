@@ -275,7 +275,7 @@ public class CinemaHandler extends ShowtimeHandler {
     List<String> showtimeIds = this.getCinemaShowtimes(cinemaId).stream()
         .map(Showtime::getId)
         .collect(Collectors.toList());
-    for(String id: showtimeIds)this.removeShowtime(id);
+    for (String id : showtimeIds) this.removeShowtime(id);
 
 
     // Remove cinema
@@ -593,9 +593,9 @@ public class CinemaHandler extends ShowtimeHandler {
     int cinemaIdx = -1;
     if (cinemaId < 0 || this.cinemas.size() < 1) return -1;
 
-    for(int i = 0; i < this.cinemas.size(); i++){
+    for (int i = 0; i < this.cinemas.size(); i++) {
       Cinema cinema = this.cinemas.get(i);
-      if(cinema.getId() == cinemaId){
+      if (cinema.getId() == cinemaId) {
         cinemaIdx = i;
       }
     }

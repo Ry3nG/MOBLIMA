@@ -400,7 +400,7 @@ public class BookingMenu extends Menu {
 //+ seatSelection(showtimeIdx:int):int[]
   public int[] seatSelection(int showtimeIdx) {
     boolean[][] seats = handler.getShowtime(showtimeIdx).getSeats();
-    handler.printSeats(seats,  new ArrayList<>());
+    handler.printSeats(seats, new ArrayList<>());
 
     int[] seatCode = new int[2];
 
