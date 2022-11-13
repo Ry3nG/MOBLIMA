@@ -170,7 +170,7 @@ public class Helper {
     /**
      * Highlight preset.
      */
-    HIGHLIGHT(Attribute.TEXT_COLOR(200), "");
+    HIGHLIGHT(Attribute.TEXT_COLOR(159), "");
 
     /**
      * The Color.
