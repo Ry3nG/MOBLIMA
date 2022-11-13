@@ -1,11 +1,17 @@
 ### SC2002 Object-Oriented Project — *MOBLIMA*
 
 > A console-based Movie Booking and Listing Management application.<br/>
-> - [Demo](https://youtu.be/i3nVaSZvLVc)
+> - [Demo](https://youtu.be/apbWi2NVMBU)
 > - [Documentation](https://ry3ng.github.io/MOBLIMA/)
+
 
 <br/>
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/65748007/201518843-d3c4fcfd-d4bd-4eb1-9826-dd8bbdef3c46.png" alt="Project Cover"
+    width="960px"
+  />
+</p>
 
 ---
 
@@ -94,6 +100,16 @@ OPTION `#2`
 - Movie Data - <a href="https://developers.themoviedb.org/3" target="_blank">The Movie Database (TMDB)</a>
 - Public Holiday Data - <a href="https://www.mom.gov.sg/employment-practices/public-holidays" target="_blank">Ministry of Manpower (MOM)</a> / <a href="https://github.com/rjchow/singapore_public_holidays" target="_blank">API</a>
 
+
+---
+####  🧰 Languages & Tools
+- Languages <br/>
+  <img alt="Java" src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" height="25"/>
+
+- Tools, IDE <br/>
+  <img alt="Github" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" height="25"/>
+  <img alt="Github Actions" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" height="25"/>
+  <img alt="IntelliJ IDEA" src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white" height="25"/>
 
 ---
 

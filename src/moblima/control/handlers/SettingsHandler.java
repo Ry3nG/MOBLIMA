@@ -137,7 +137,8 @@ public class SettingsHandler {
    */
 // + getCurrentPrice():Price
   public Settings getCurrentSettings() {
-    if (this.currentSettings == null) this.currentSettings = this.getSettings();
+//    if (this.currentSettings == null)
+    this.currentSettings = this.getSettings();
     Helper.logger("SettingsHandler.getCurrentSystemSettings", "Settings: \n" + this.currentSettings);
 
     return new Settings(this.currentSettings);

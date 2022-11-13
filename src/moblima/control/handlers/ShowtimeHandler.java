@@ -6,10 +6,10 @@ import moblima.utils.Helper.Preset;
 import moblima.utils.datasource.Datasource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static moblima.utils.Helper.colorPrint;
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.*;
 
 /**
  * The type Showtime handler.
@@ -226,13 +226,13 @@ public class ShowtimeHandler {
   /**
    * Print seats.
    *
-   * @param seats    the seats
-   * @param selected the selected
+   * @param seats         the seats
+   * @param selectedSeats the selected
    */
 // +printSeats(seats:boolean[][]):void
-  public void printSeats(boolean[][] seats, List<int[]> selected) {
+  public void printSeats(boolean[][] seats, List<int[]> selectedSeats) {
     //TODO: Current selection color
-    boolean hasSelected = selected.size() > 1;
+    boolean hasSelected = selectedSeats.size() > 0;
 
     int GAP_COL = 2;
     String BUFFER = "=================";
@@ -248,18 +248,27 @@ public class ShowtimeHandler {
     for (int row = 0; row < seats.length; row++) {
       String strRowIdx = (row + 1) + "  - ";
       System.out.print(strRowIdx);
+
+      // Check if row has selected seats
+      int currentRow = row;
+      List<int[]> rowSelectedSeats = new ArrayList<int[]>();
+      if (hasSelected) rowSelectedSeats = selectedSeats.stream().filter(s -> s[0] == currentRow).toList();
+//      logger("ShowtimeHandler.printSeats", "Selected seats: " + Arrays.deepToString(selectedSeats.toArray()));
+//      logger("ShowtimeHandler.printSeats", "rowSelectedSeats: " + Arrays.deepToString(rowSelectedSeats.toArray()));
+
       for (int col = 0; col < seats[row].length; col++) {
         if (col > 0 && (col == GAP_COL || col == seats[row].length - GAP_COL)) {
           System.out.print(" - ");
         }
         boolean isAvailable = (seats[row][col]);
+        int currentCol = col;
+        boolean isSelected = hasSelected && rowSelectedSeats.size() > 0 && rowSelectedSeats.stream().anyMatch(s -> s[1] == currentCol);
+//        logger("ShowtimeHandler.printSeats", "isSelected: " + isSelected);
+
         String seat = isAvailable ? "|O|" : "|X|";
-
-//        boolean isSelected = hasSelected && selected
-
-//        boolean isSelected = selected.stream()
-//                .findAny(s -> s)
-        System.out.print(colorizer(seat, (isAvailable) ? Preset.HIGHLIGHT : Preset.DEFAULT));
+        Preset preset = (isAvailable) ? Preset.HIGHLIGHT : Preset.LOG;
+        if (isSelected) preset = Preset.CURRENT;
+        System.out.print(colorizer(seat, preset));
       }
       System.out.print(new StringBuilder(strRowIdx).reverse());
       System.out.println();
