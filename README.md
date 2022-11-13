@@ -16,11 +16,10 @@
     ```
 
   - Run build executable 
-    ```
-    java -jar build/moblima.jar
-    ```
-
-  - Run modes 
+    - Customer mode
+      ```
+      java -jar build/moblima.jar
+      ```
     - Staff mode
       ```
       java -jar build/moblima.jar --staff
