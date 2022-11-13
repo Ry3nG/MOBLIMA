@@ -67,6 +67,29 @@
 ---
 
 #### 📑 Data Sources
+A working set of serialized data is readily available in the `/data` folder.<br/>
+
+<details>
+<summary>🧬 Retrieval and Re-Generation</summary>
+<br/>
+
+OPTION `#1`
+> To re-generate a clean data set, run the build executable with 
+> ```
+> java -jar build/moblima.jar --generate --debug
+> ```
+
+OPTION `#2`
+> ⚠️ This option requires an `TMDB_API_KEY` from <a href="https://developers.themoviedb.org/3" target="_blank">The Movie Database (TMDB)</a><br/>
+> 1. Duplicate the `.env.example` and save as `.env`. <br/>
+> 2. Store your API KEY as `TMDB_API_KEY=<YOUR API KEY>` <br/>
+> 3. Run `App.java` to start the application <br/>
+
+</details>
+
+<br/>
+
+
 - Movie Data - <a href="https://developers.themoviedb.org/3" target="_blank">The Movie Database (TMDB)</a>
 - Public Holiday Data - <a href="https://www.mom.gov.sg/employment-practices/public-holidays" target="_blank">Ministry of Manpower (MOM)</a> / <a href="https://github.com/rjchow/singapore_public_holidays" target="_blank">API</a>
 
