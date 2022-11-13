@@ -162,7 +162,7 @@ public class Helper {
     /**
      * Default preset.
      */
-    DEFAULT(Attribute.TEXT_COLOR(7), ""),
+    DEFAULT(Attribute.TEXT_COLOR(15), ""),
     /**
      * Current preset.
      */
