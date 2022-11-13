@@ -90,7 +90,7 @@ public class StaffMenu extends Menu {
     int staffIdx = -1;
 
     String username = null;
-    System.out.println("Account Login");
+    colorPrint("/// STAFF LOGIN ///", Preset.DEFAULT);
     while (staffIdx == -1) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");

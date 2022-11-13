@@ -71,7 +71,7 @@ public abstract class Menu {
       // Display selection choice
       int lastChoice = this.menuMap.size() - 1;
       if (menuChoice != lastChoice)
-        colorPrint("\t>>> " + menuList.get(menuChoice) + "\n", Preset.HIGHLIGHT);
+        colorPrint("\t>>> " + menuList.get(menuChoice) + "\n", Preset.DEFAULT);
       this.menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
