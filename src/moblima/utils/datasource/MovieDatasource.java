@@ -259,7 +259,7 @@ public class MovieDatasource extends Datasource {
 
           JsonElement ratingObject = r.get("author_details").getAsJsonObject().get("rating");
           if (ratingObject.isJsonNull()) continue;
-          int rating = ratingObject.getAsInt();
+          int rating = ratingObject.getAsInt() / 2;
 
           // Initialise and append to list
           reviews.add(new Review(

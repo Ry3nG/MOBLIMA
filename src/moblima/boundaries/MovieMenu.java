@@ -187,7 +187,10 @@ public class MovieMenu extends Menu {
           continue;
         }
 
-        for (Review review : movieReviews) System.out.println(review);
+        for (Review review : movieReviews) {
+          colorPrint("\nReview #" + review.getId(), Preset.HIGHLIGHT);
+          System.out.println(review);
+        }
 
         // Automatically revert to previous menu
         if (!canAddReview) status = true;

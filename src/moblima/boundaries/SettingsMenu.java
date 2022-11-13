@@ -140,6 +140,7 @@ public class SettingsMenu extends Menu {
   public void editShowSurcharges() {
     EnumMap<Showtime.ShowType, Double> showSurcharges = settings.getShowSurcharges();
     showSurcharges = this.editSurcharges(showSurcharges);
+    settings.setShowSurcharges(showSurcharges);
   }
 
   /**
@@ -148,6 +149,7 @@ public class SettingsMenu extends Menu {
   public void editTicketSurcharges() {
     EnumMap<Booking.TicketType, Double> ticketSurcharges = settings.getTicketSurcharges();
     ticketSurcharges = this.editSurcharges(ticketSurcharges);
+    settings.setTicketSurcharges(ticketSurcharges);
   }
 
   /**
@@ -156,6 +158,7 @@ public class SettingsMenu extends Menu {
   public void editCinemaSurcharges() {
     EnumMap<Cinema.ClassType, Double> cinemaSurcharges = settings.getCinemaSurcharges();
     cinemaSurcharges = this.editSurcharges(cinemaSurcharges);
+    settings.setCinemaSurcharges(cinemaSurcharges);
   }
 
   /**
@@ -174,10 +177,7 @@ public class SettingsMenu extends Menu {
       Map.Entry<Enum, Boolean> surcharge = (Map.Entry) surchargeSet;
 
       boolean prevValue = surcharge.getValue();
-
-      //TODO: tweak this
-      System.out.println("- " + surcharge.getKey().toString());
-      colorPrint("Current Visibility: " + prevValue, Preset.HIGHLIGHT);
+      colorPrint("Display " + surcharge.getKey().toString() + ": " + prevValue, Preset.CURRENT);
 
       List<String> updateOptions = Arrays.asList("True", "False");
       int selectionIdx = -1;
@@ -189,7 +189,7 @@ public class SettingsMenu extends Menu {
         if (selectionIdx >= 0) {
           boolean curValue = selectionIdx == 0;
           surcharge.setValue(curValue);
-          this.printChanges(surcharge.getKey().toString() + ": ", (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
+          this.printChanges("Display " + surcharge.getKey().toString() + ": " , (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
         }
       }
       System.out.println();
