@@ -19,23 +19,25 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update system settings
-	>>> View and update system settings
+SELECTED: 	>>> Top 5 movies by ticket sales
+[WARNING] No bookings made yet
+Press any key to continue . . .
 ---------------------------------------------------------------------------
-(1) View Current Settings
-(2) Edit Adult (Standard) Ticket Price
-(3) Edit Blockbuster Movie Surcharge
-(4) Edit Show Surcharges
-(5) Edit Ticket Surcharges
-(6) Edit Cinema Surcharges
-(7) Edit Ranked Types
-(8) Edit Holidays
-(9) Discard changes
-(10) Save changes
-(11) Return to previous menu
+(1) Top 5 movies by ticket sales
+(2) Top 5 movies by overall rating
+(3) Add movie
+(4) View and update movie details
+(5) View and update showtimes
+(6) View and update cineplexes
+(7) View and update system settings
+(8) Register new staff account
+(9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Edit Adult (Standard) Ticket Price
-	>>> Edit Adult (Standard) Ticket Price
-[CURRENT] Adult ticket price: 10.0
-Set to: [ERROR] Input cannot be blank
-Set to: 
+SELECTED: 	>>> Top 5 movies by overall rating
+> 1. Top Gun: Maverick               | Rating: 4.0  
+> 2. Spider-Man: No Way Home         | Rating: 4.0  
+> 3. Dragon Ball Super: Super Hero   | Rating: 4.0  
+> 4. My Policeman                    | Rating: 4.0  
+> 5. Terrifier 2                     | Rating: 3.5  
+
+Press any key to continue . . .
