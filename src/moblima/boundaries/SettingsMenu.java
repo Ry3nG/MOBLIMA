@@ -140,6 +140,7 @@ public class SettingsMenu extends Menu {
   public void editShowSurcharges() {
     EnumMap<Showtime.ShowType, Double> showSurcharges = settings.getShowSurcharges();
     showSurcharges = this.editSurcharges(showSurcharges);
+    settings.setShowSurcharges(showSurcharges);
   }
 
   /**
@@ -148,6 +149,7 @@ public class SettingsMenu extends Menu {
   public void editTicketSurcharges() {
     EnumMap<Booking.TicketType, Double> ticketSurcharges = settings.getTicketSurcharges();
     ticketSurcharges = this.editSurcharges(ticketSurcharges);
+    settings.setTicketSurcharges(ticketSurcharges);
   }
 
   /**
@@ -156,6 +158,7 @@ public class SettingsMenu extends Menu {
   public void editCinemaSurcharges() {
     EnumMap<Cinema.ClassType, Double> cinemaSurcharges = settings.getCinemaSurcharges();
     cinemaSurcharges = this.editSurcharges(cinemaSurcharges);
+    settings.setCinemaSurcharges(cinemaSurcharges);
   }
 
   /**
