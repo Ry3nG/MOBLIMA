@@ -1,8 +1,8 @@
 [LOG/App.main] ARGS: [--staff, --debug]
 [LOG/App.main] DEBUG MODE: true
 [LOG/Datasource.readArrayFromCsv] Reading from /Users/ccyq/Projects/Sandbox/MOBLIMA/./data/staffs.csv
-[LOG/Datasource.readArrayFromCsv] Stringified [{"name":"Staff","password":"staff","id":"5241e9fe-1789-42cf-a5fd-bbc0b9f92956","username":"staff"}]
-[LOG/Datasource.readArrayFromCsv] Result [{"name":"Staff","password":"staff","id":"5241e9fe-1789-42cf-a5fd-bbc0b9f92956","username":"staff"}]
+[LOG/Datasource.readArrayFromCsv] Stringified [{"name":"Staff","password":"staff","id":"8d4addfa-6471-4e6b-8563-426fb31cbf4d","username":"staff"}]
+[LOG/Datasource.readArrayFromCsv] Result [{"name":"Staff","password":"staff","id":"8d4addfa-6471-4e6b-8563-426fb31cbf4d","username":"staff"}]
 [LOG/MovieBookingController] Initialization
 [LOG/MovieBookingController.StaffController] Initialization
 [LOG/Datasource.readArrayFromCsv] Reading from /Users/ccyq/Projects/Sandbox/MOBLIMA/./data/holidays.csv
@@ -49,7 +49,7 @@ Public Holidays:
 25-12-2022                      SUNDAY     
 
 Account Login
-Username: Password: [✅SUCCESS] Successful account login
+Username: Password: [SUCCESS] Successful account login
 [LOG/StaffMenu.login] staffIdx: 0
 [LOG/StaffMenu.isAuthenticated] staffIdx: 0
   __  __    ___    ____    _       ___   __  __      _    
@@ -75,240 +75,64 @@ STAFF: staff
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 3 / 8
-	>>> View and update movie details
-Select movie: 
-[LOG/MovieMenu.getMovieMenu] SHOW LIMITED: false
-[LOG/MovieMenu.getMovieMenu] SHOW REVIEWS: false
-[LOG/MovieMenu.getMovieMenu] MOVIES: 19
-[LOG/MovieMenu.getMovieMenu] RUNNABLE: false
-[LOG/MovieHandler.getMovieIdx] MovieId: 663712
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Terrifier 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 49046
-[LOG/MovieHandler.getMovieIdx] Matched Movie: All Quiet on the Western Front
-[LOG/MovieHandler.getMovieIdx] MovieId: 505642
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Black Panther: Wakanda Forever
-[LOG/MovieHandler.getMovieIdx] MovieId: 829280
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Enola Holmes 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 985939
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Fall
-[LOG/MovieHandler.getMovieIdx] MovieId: 361743
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Top Gun: Maverick
-[LOG/MovieHandler.getMovieIdx] MovieId: 717728
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Jeepers Creepers: Reborn
-[LOG/MovieHandler.getMovieIdx] MovieId: 830788
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Invitation
-[LOG/MovieHandler.getMovieIdx] MovieId: 760161
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Orphan: First Kill
-[LOG/MovieHandler.getMovieIdx] MovieId: 900667
-[LOG/MovieHandler.getMovieIdx] Matched Movie: One Piece Film Red
-[LOG/MovieHandler.getMovieIdx] MovieId: 848791
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Stranger
-[LOG/MovieHandler.getMovieIdx] MovieId: 848058
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Piggy
-[LOG/MovieHandler.getMovieIdx] MovieId: 610150
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Dragon Ball Super: Super Hero
-[LOG/MovieHandler.getMovieIdx] MovieId: 634649
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Spider-Man: No Way Home
-[LOG/MovieHandler.getMovieIdx] MovieId: 955644
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Mia and Me: The Hero of Centopia
-[LOG/MovieHandler.getMovieIdx] MovieId: 882598
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Smile
-[LOG/MovieHandler.getMovieIdx] MovieId: 616820
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Halloween Ends
-[LOG/MovieHandler.getMovieIdx] MovieId: 759507
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Blackout
-[LOG/MovieHandler.getMovieIdx] MovieId: 744114
-[LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
----------------------------------------------------------------------------
-(1) Terrifier 2
-(2) All Quiet on the Western Front
-(3) Black Panther: Wakanda Forever
-(4) Enola Holmes 2
-(5) Fall
-(6) Top Gun: Maverick
-(7) Jeepers Creepers: Reborn
-(8) The Invitation
-(9) Orphan: First Kill
-(10) One Piece Film Red
-(11) The Stranger
-(12) Piggy
-(13) Dragon Ball Super: Super Hero
-(14) Spider-Man: No Way Home
-(15) Mia and Me: The Hero of Centopia
-(16) Smile
-(17) Halloween Ends
-(18) Blackout
-(19) My Policeman
-(20) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 0 / 19
-[LOG/MovieMenu.selectMovieIdx] Max: 20
-[LOG/MovieMenu.selectMovieIdx] Selected: 0
-
-/// MOVIE DETAILS ///
-[LOG/ReviewHandler.getMovieReviews] Reviews: [Author:    Nathan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-Movie ID:  663712                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-Rating:    6 / 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-Review:    _Terrifier 2_ is a massive improvement over its parent film but doesn't quite do enough to move the needle for me. From the get-go, this films tone and quality is drastically superior to the previous entry. The writing gives characters room to develop, and audiences can actually grow attached to characters in way that was blatantly absent from the first film. I enjoyed the added lore for Art that was sprinkled throughout, adds a level of depth to the newly founded horror icon. The writing allows for much more creative kills and set pieces, with the story taking place across an entire town rather than one claustrophobic apartment building. But with all those improvements, there are still lingering problems that carried over from the first film. Actor performances were all over the board. Some actresses were really compelling and honestly shocked me for the indie type feel of the film. Some notable highlights for me were the lead actress _Lauren LaVera_, _Kailey Hyman_, and _Elliott Fullam_. But other performances were legitimately bad, it felt like I was watching a high school drama production. There are some major pacing problems, for starters this movie is almost 2.5 hours long. There is no need for a runtime this long, there is so much fluff in here that it really bogs down the flow of the film. This movie does a better job of adding suspense to its scenes but is too reliant on blood and gore to get its gasps from the audience. I normally am one to appreciate when a movie goes above and beyond in the gore department, but this movie went overboard. So many scenes had be physically ill due to the graphic content. Sometimes less is more and that is for sure the case here. Despite its flaws, this is a great next step for this small-time studio and with the success at the box office there will surely be a sequel where Dameon Leone has the opportunity to craft a real top notch horror film.**Score:** _63%_ |**Verdict:** _Decent_  
-]
-Title:               Terrifier 2                                                                                                                                                                                                                                                                                           
-Runtime:             138 minutes                                                                                                                                                                                                                                                                                           
-Synopsis:            After being resurrected by a sinister entity, Art the Clown returns to Miles County where he must hunt down and destroy a teenage girl and her younger brother on Halloween night.  As the body count rises, the siblings fight to stay alive while uncovering the true nature of Art's evil intent.  
-Review Rating:       NA                                                                                                                                                                                                                                                                                                    
-Content Rating:      PG13                                                                                                                                                                                                                                                                                                  
-Showing Status:      Now Showing                                                                                                                                                                                                                                                                                           
-Blockbuster Status:  NON-BLOCKBUSTER                                                                                                                                                                                                                                                                                       
-Directed By:         Damien Leone                                                                                                                                                                                                                                                                                          
-Cast:                Lauren LaVera, David Howard Thornton, Elliott Fullam & 52 others                                                                                                                                                                                                                                      
-Link:                https://www.themoviedb.org/movie/663712                                                                                                                                                                                                                                                               
-
-Press any key to continue . . .
-[LOG/MovieHandler.getMovieIdx] MovieId: 663712
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Terrifier 2
-[LOG/MovieMenu.selectMovieIdx] Selected Movie Idx: 663712
-[LOG/MovieMenu.getMovieMenu] SHOW LIMITED: false
-[LOG/MovieMenu.getMovieMenu] SHOW REVIEWS: true
-[LOG/MovieMenu.getMovieMenu] MOVIES: 19
-[LOG/MovieMenu.getMovieMenu] RUNNABLE: false
-[LOG/MovieHandler.getMovieIdx] MovieId: 663712
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Terrifier 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 49046
-[LOG/MovieHandler.getMovieIdx] Matched Movie: All Quiet on the Western Front
-[LOG/MovieHandler.getMovieIdx] MovieId: 505642
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Black Panther: Wakanda Forever
-[LOG/MovieHandler.getMovieIdx] MovieId: 829280
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Enola Holmes 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 985939
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Fall
-[LOG/MovieHandler.getMovieIdx] MovieId: 361743
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Top Gun: Maverick
-[LOG/MovieHandler.getMovieIdx] MovieId: 717728
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Jeepers Creepers: Reborn
-[LOG/MovieHandler.getMovieIdx] MovieId: 830788
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Invitation
-[LOG/MovieHandler.getMovieIdx] MovieId: 760161
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Orphan: First Kill
-[LOG/MovieHandler.getMovieIdx] MovieId: 900667
-[LOG/MovieHandler.getMovieIdx] Matched Movie: One Piece Film Red
-[LOG/MovieHandler.getMovieIdx] MovieId: 848791
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Stranger
-[LOG/MovieHandler.getMovieIdx] MovieId: 848058
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Piggy
-[LOG/MovieHandler.getMovieIdx] MovieId: 610150
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Dragon Ball Super: Super Hero
-[LOG/MovieHandler.getMovieIdx] MovieId: 634649
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Spider-Man: No Way Home
-[LOG/MovieHandler.getMovieIdx] MovieId: 955644
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Mia and Me: The Hero of Centopia
-[LOG/MovieHandler.getMovieIdx] MovieId: 882598
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Smile
-[LOG/MovieHandler.getMovieIdx] MovieId: 616820
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Halloween Ends
-[LOG/MovieHandler.getMovieIdx] MovieId: 759507
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Blackout
-[LOG/MovieHandler.getMovieIdx] MovieId: 744114
-[LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
-Next steps:
----------------------------------------------------------------------------
-(1) Set title
-(2) Set synopsis
-(3) Set blockbuster status
-(4) Set showing status
-(5) Set content rating
-(6) Discard changes
-(7) Remove movie
-(8) Save changes & return
-(9) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 8 / 8
-	>>> Returning to previous menu...
-Press any key to continue . . .
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 6 / 8
+	>>> View and update system settings
+	>>> View and update system settings
+[LOG/Menu.displayMenu] Displaying menu . . .{View Current Settings=moblima.boundaries.SettingsMenu$1$$Lambda$88/0x000000080103cbb8@35d176f7, Edit Adult (Standard) Ticket Price=moblima.boundaries.SettingsMenu$1$$Lambda$89/0x000000080103cde8@1dfe2924, Edit Blockbuster Movie Surcharge=moblima.boundaries.SettingsMenu$1$$Lambda$90/0x000000080103d018@6ebc05a6, Edit Show Surcharges=moblima.boundaries.SettingsMenu$1$$Lambda$91/0x000000080103d248@6e6c3152, Edit Ticket Surcharges=moblima.boundaries.SettingsMenu$1$$Lambda$92/0x000000080103d478@50b494a6, Edit Cinema Surcharges=moblima.boundaries.SettingsMenu$1$$Lambda$93/0x000000080103d6a8@3cef309d, Edit Ranked Types=moblima.boundaries.SettingsMenu$1$$Lambda$94/0x000000080103d8d8@32709393, Edit Holidays=moblima.boundaries.SettingsMenu$1$$Lambda$95/0x000000080103db08@3d99d22e, Discard changes=moblima.boundaries.SettingsMenu$1$$Lambda$96/0x000000080103dd38@49fc609f, Save changes=moblima.boundaries.SettingsMenu$1$$Lambda$97/0x000000080103df68@cd2dae5, Return to previous menu=moblima.boundaries.SettingsMenu$1$$Lambda$98/0x000000080103e198@3a883ce7}
 [LOG/Menu.displayMenuList] Menu: 
-[Top 5 movies by ticket sales, Top 5 movies by overall rating, Add movie, View and update movie details, View and update showtimes, View and update cineplexes, View and update system settings, Register new staff account, Exit]
+[View Current Settings, Edit Adult (Standard) Ticket Price, Edit Blockbuster Movie Surcharge, Edit Show Surcharges, Edit Ticket Surcharges, Edit Cinema Surcharges, Edit Ranked Types, Edit Holidays, Discard changes, Save changes, Return to previous menu]
 ---------------------------------------------------------------------------
-(1) Top 5 movies by ticket sales
-(2) Top 5 movies by overall rating
-(3) Add movie
-(4) View and update movie details
-(5) View and update showtimes
-(6) View and update cineplexes
-(7) View and update system settings
-(8) Register new staff account
-(9) Exit
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 3 / 8
-	>>> View and update movie details
-Select movie: 
-[LOG/MovieMenu.getMovieMenu] SHOW LIMITED: false
-[LOG/MovieMenu.getMovieMenu] SHOW REVIEWS: false
-[LOG/MovieMenu.getMovieMenu] MOVIES: 19
-[LOG/MovieMenu.getMovieMenu] RUNNABLE: false
-[LOG/MovieHandler.getMovieIdx] MovieId: 663712
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Terrifier 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 49046
-[LOG/MovieHandler.getMovieIdx] Matched Movie: All Quiet on the Western Front
-[LOG/MovieHandler.getMovieIdx] MovieId: 505642
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Black Panther: Wakanda Forever
-[LOG/MovieHandler.getMovieIdx] MovieId: 829280
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Enola Holmes 2
-[LOG/MovieHandler.getMovieIdx] MovieId: 985939
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Fall
-[LOG/MovieHandler.getMovieIdx] MovieId: 361743
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Top Gun: Maverick
-[LOG/MovieHandler.getMovieIdx] MovieId: 717728
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Jeepers Creepers: Reborn
-[LOG/MovieHandler.getMovieIdx] MovieId: 830788
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Invitation
-[LOG/MovieHandler.getMovieIdx] MovieId: 760161
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Orphan: First Kill
-[LOG/MovieHandler.getMovieIdx] MovieId: 900667
-[LOG/MovieHandler.getMovieIdx] Matched Movie: One Piece Film Red
-[LOG/MovieHandler.getMovieIdx] MovieId: 848791
-[LOG/MovieHandler.getMovieIdx] Matched Movie: The Stranger
-[LOG/MovieHandler.getMovieIdx] MovieId: 848058
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Piggy
-[LOG/MovieHandler.getMovieIdx] MovieId: 610150
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Dragon Ball Super: Super Hero
-[LOG/MovieHandler.getMovieIdx] MovieId: 634649
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Spider-Man: No Way Home
-[LOG/MovieHandler.getMovieIdx] MovieId: 955644
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Mia and Me: The Hero of Centopia
-[LOG/MovieHandler.getMovieIdx] MovieId: 882598
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Smile
-[LOG/MovieHandler.getMovieIdx] MovieId: 616820
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Halloween Ends
-[LOG/MovieHandler.getMovieIdx] MovieId: 759507
-[LOG/MovieHandler.getMovieIdx] Matched Movie: Blackout
-[LOG/MovieHandler.getMovieIdx] MovieId: 744114
-[LOG/MovieHandler.getMovieIdx] Matched Movie: My Policeman
----------------------------------------------------------------------------
-(1) Terrifier 2
-(2) All Quiet on the Western Front
-(3) Black Panther: Wakanda Forever
-(4) Enola Holmes 2
-(5) Fall
-(6) Top Gun: Maverick
-(7) Jeepers Creepers: Reborn
-(8) The Invitation
-(9) Orphan: First Kill
-(10) One Piece Film Red
-(11) The Stranger
-(12) Piggy
-(13) Dragon Ball Super: Super Hero
-(14) Spider-Man: No Way Home
-(15) Mia and Me: The Hero of Centopia
-(16) Smile
-(17) Halloween Ends
-(18) Blackout
-(19) My Policeman
-(20) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 19 / 19
-[LOG/MovieMenu.selectMovieIdx] Max: 20
-[LOG/MovieMenu.selectMovieIdx] Selected: 19
-	>>> Returning to previous menu...
-Press any key to continue . . .
+SELECTED: [LOG/Menu.getListSelectionIdx] MENU CHOICE: 10 / 10
+	>>> Return to previous menu
+[LOG/SettingsHandler.getCurrentSystemSettings] Settings: 
+Adult Ticket:                   SGD 10.00  
+Blockbuster Surcharge:          SGD 8.00   
+
+Show Surcharges:                          
+Digital                         SGD 0.00   
+3D                              SGD 5.00   
+
+Ticket Surcharges:                        
+Senior Citizen                  SGD -5.00  
+Student                         SGD -5.00  
+Non Peak                        SGD 0.00   
+Peak                            SGD 5.00   
+Super Peak                      SGD 8.00   
+
+Cinema Surcharges:                        
+Normal                          SGD 0.00   
+Premium                         SGD 8.00   
+
+Ranked Types:                             
+Top 5 movies by ticket sales    false      
+Top 5 movies by overall rating  true       
+
+Public Holidays:                          
+01-01-2022                      SATURDAY   
+01-02-2022                      TUESDAY    
+02-02-2022                      WEDNESDAY  
+15-04-2022                      FRIDAY     
+01-05-2022                      SUNDAY     
+03-05-2022                      TUESDAY    
+15-05-2022                      SUNDAY     
+10-07-2022                      SUNDAY     
+09-08-2022                      TUESDAY    
+24-10-2022                      MONDAY     
+25-12-2022                      SUNDAY     
+
+	>>> Returning to previous menu . . .
 Press any key to continue . . .
 [LOG/Menu.displayMenuList] Menu: 
 [Top 5 movies by ticket sales, Top 5 movies by overall rating, Add movie, View and update movie details, View and update showtimes, View and update cineplexes, View and update system settings, Register new staff account, Exit]

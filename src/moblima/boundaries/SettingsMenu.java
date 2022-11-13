@@ -10,7 +10,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static moblima.utils.Helper.*;
+import static moblima.utils.Helper.Preset;
+import static moblima.utils.Helper.colorPrint;
 import static moblima.utils.deserializers.LocalDateDeserializer.dateFormatter;
 
 /**
@@ -26,7 +27,7 @@ public class SettingsMenu extends Menu {
     super();
 
     handler = new SettingsHandler();
-    this.settings = handler.getCurrentSystemSettings();
+    this.settings = handler.getCurrentSettings();
 
     // Menu
     this.menuMap = new LinkedHashMap<String, Runnable>() {{
@@ -39,7 +40,7 @@ public class SettingsMenu extends Menu {
       put("Edit Ranked Types", () -> editRankedTypes());
       put("Edit Holidays", () -> editPublicHolidays());
       put("Discard changes", () -> {
-        settings = handler.getCurrentSystemSettings();
+        settings = handler.getCurrentSettings();
         colorPrint("Changes discarded", Preset.WARNING);
       });
       put("Save changes", () -> {
@@ -47,8 +48,10 @@ public class SettingsMenu extends Menu {
         colorPrint("Settings updated", Preset.SUCCESS);
       });
       put("Return to previous menu", () -> {
-        settings = handler.getCurrentSystemSettings();
+        settings = handler.getCurrentSettings();
+        colorPrint("Any unsaved changes will be discarded", Preset.WARNING);
         System.out.println("\t>>> Returning to previous menu . . .");
+        return;
       });
     }};
   }
@@ -200,10 +203,9 @@ public class SettingsMenu extends Menu {
    */
   public boolean editPublicHolidays() {
     boolean status = false;
-    List<LocalDate> holidays = this.settings.getHolidays();
-
 
     while (!status) {
+      List<LocalDate> holidays = this.settings.getHolidays();
       List<String> proceedOptions = holidays.stream()
           .map(h -> h.format(dateFormatter) + ", " + h.getDayOfWeek().toString())
           .collect(Collectors.toList());
@@ -214,23 +216,22 @@ public class SettingsMenu extends Menu {
       this.displayMenuList(proceedOptions);
       int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
-      // Save changes & return OR Return to previous menu
-      if (proceedSelection == proceedOptions.size() - 1) {
+      // Add new public holiday || Return
+      if (proceedSelection >= proceedOptions.size() - 2) {
+        //  Add new public holiday
+        if (proceedSelection == proceedOptions.size() - 2) {
+          holidays = this.addPublicHoliday();
+          continue;
+        }
+
         System.out.println("\t>>> " + "Returning to previous menu...");
-        return status;
-      }
-
-      // Add new public holiday
-      if (proceedSelection == proceedOptions.size() - 2) {
-        this.addPublicHoliday();
-      }
-
-      // Update / Remove selected holiday
-      else {
+        status = true;
+      } else {
+        // Update / Remove selected holiday
         LocalDate selectedHoliday = holidays.get(proceedSelection);
         System.out.println("Selected Holiday: " + selectedHoliday.format(dateFormatter));
 
-        //TODO: Extract as separate function
+        //TODO: Extract as seperate function
         List<String> updateOptions = new ArrayList<String>() {
           {
             add("Update holiday");
@@ -243,7 +244,8 @@ public class SettingsMenu extends Menu {
         this.displayMenuList(updateOptions);
         int selectionIdx = getListSelectionIdx(updateOptions, false);
 
-        // Remove holiday
+
+        // Remove holiday || Exit
         if (selectionIdx >= updateOptions.size() - 2) {
           // Remove holiday
           if ((selectionIdx == updateOptions.size() - 2)) {
@@ -252,44 +254,31 @@ public class SettingsMenu extends Menu {
           }
 
           // Return to previous menu
+          settings.setHolidays(holidays);
           System.out.println("\t>>> " + "Returning to previous menu...");
-          continue;
+          return status;
         }
-
         // Update holiday
         else if (selectionIdx == 0) {
           LocalDate prevStatus = selectedHoliday;
           colorPrint("Holiday: " + prevStatus.format(dateFormatter), Preset.CURRENT);
 
           //TODO: Extract as separate function
-          scanner = new Scanner(System.in).useDelimiter("\n");
-          System.out.print("Set to (dd-MM-yyyy):");
-          String date = scanner.next().trim();
-          if (date.matches("^\\d{2}-\\d{2}-\\d{4}")) {
-            LocalDate holidayDate = LocalDate.parse(date, dateFormatter);
-
-            if (holidays.contains(holidayDate)) {
-              colorPrint("Given date is already marked as an existing Public Holiday", Preset.WARNING);
-            } else {
-              LocalDate curStatus = holidayDate;
-
-              holidays.set(proceedSelection, curStatus);
-              logger("SettingsMenu.editPublicHolidays", "Holidays: \n" + holidays);
-
-              this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
-            }
-          } else {
-            colorPrint("Invalid input, expected format (dd-MM-yyyy)", Preset.ERROR);
+          LocalDate curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
+          while (holidays.contains(curStatus)) {
+            colorPrint("Given date is already marked as an existing Public Holiday", Preset.WARNING);
+            curStatus = this.setDate("Set to (dd-MM-yyyy):", true);
           }
+
+          holidays.set(proceedSelection, curStatus);
+          this.printChanges("Datetime: ", (prevStatus.isEqual(curStatus)), prevStatus.format(dateFormatter), curStatus.format(dateFormatter));
         }
       }
     }
-
-
     return status;
   }
 
-  private void addPublicHoliday() {
+  private List<LocalDate> addPublicHoliday() {
     List<LocalDate> holidays = settings.getHolidays();
 
     boolean status = false;
@@ -301,10 +290,12 @@ public class SettingsMenu extends Menu {
         continue;
       }
 
-      settings.addHoliday(holiday);
+      holidays.add(holiday);
       colorPrint("Date is marked as a holiday", Preset.SUCCESS);
       status = true;
     }
+
+    return holidays;
   }
 
 }
