@@ -4,8 +4,14 @@
 > - [Demo](https://youtu.be/i3nVaSZvLVc)
 > - [Documentation](https://ry3ng.github.io/MOBLIMA/)
 
+
 <br/>
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/65748007/201518116-8134a4bd-914c-4c42-aa89-5933ec26df40.png" alt="Project Cover"
+    width="960px"
+  />
+</p>
 
 ---
 
