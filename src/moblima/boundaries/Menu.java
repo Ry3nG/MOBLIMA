@@ -62,7 +62,7 @@ public abstract class Menu {
     Helper.logger("Menu.displayMenu", "Displaying menu . . ." + this.menuMap);
 
     int menuChoice = 0;
-    while(menuChoice > -1){
+    while (menuChoice > -1) {
       scanner = new Scanner(System.in);
 
       List<String> menuList = this.menuMap.keySet().stream().toList();
@@ -70,51 +70,19 @@ public abstract class Menu {
 
       // Display selection choice
       System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
+//      this.menuMap.get(menuList.get(menuChoice)).run();
+
+      int lastChoice = this.menuMap.size() - 1;
+      if (menuChoice != lastChoice)
+        System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
       this.menuMap.get(menuList.get(menuChoice)).run();
 
       // Await continue
-      if (menuChoice != menuList.size() - 1)
+      if (menuChoice != lastChoice)
         this.awaitContinue();
+      else menuChoice = -1;
     }
-
-
-//    int lastChoice = this.menuMap.size() - 1;
-//    while (menuChoice < lastChoice) {
-//      scanner = new Scanner(System.in);
-//      List<String> menuList = this.menuMap.keySet().stream().toList();
-//      lastChoice = menuList.size() - 1;
-//      Helper.logger("Menu.displayMenu.PRECHECK", "MAX: " + lastChoice);
-//
-//      menuChoice = this.getListSelectionIdx(menuList, true);
-//
-//      Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + " / " + lastChoice);
-//      // Display selection choice
-//      if (menuChoice != lastChoice)
-//        System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
-//      this.menuMap.get(menuList.get(menuChoice)).run();
-//
-//      // Await continue
-//      if (menuChoice != lastChoice)
-//        this.awaitContinue();
-    }
-
-    // while (menuChoice != lastChoice) {
-    // List<String> menuList = this.menuMap.keySet().stream().toList();
-    // menuChoice = this.getListSelectionIdx(menuList, true);
-
-    // Helper.logger("Menu.displayMenu.POSTCHECK", "MENU CHOICE: " + menuChoice + "
-    // / " + lastChoice);
-
-    // // Display selection choice
-    // if (menuChoice != lastChoice)
-    // System.out.print("\t>>> " + menuList.get(menuChoice) + "\n");
-    // menuMap.get(menuList.get(menuChoice)).run();
-
-    // // Await continue
-    // if (menuChoice != lastChoice) {
-    // this.awaitContinue();
-    // }
-    // }
+  }
 
   /**
    * Await continue.

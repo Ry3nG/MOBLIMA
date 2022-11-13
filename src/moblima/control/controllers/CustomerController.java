@@ -70,7 +70,7 @@ public class CustomerController extends MovieBookingController {
     }};
 
     // Fetch ranked types
-    Settings settings = settingsHandler().getCurrentSystemSettings();
+    Settings settings = settingsHandler().getCurrentSettings();
     settings.getRankedTypes().entrySet().stream()
         .filter(t -> !t.getValue())
         .forEach(t -> menuMap.remove(t.getKey().toString()));
@@ -146,7 +146,7 @@ public class CustomerController extends MovieBookingController {
     if (seats.size() < 1) return bookingIdx;
 
     // Select TicketType (only if not PEAK)
-    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSystemSettings().getTicketSurcharges();
+    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSettings().getTicketSurcharges();
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
 
     List<Booking.TicketType> peakTickets = Arrays.asList(Booking.TicketType.PEAK, Booking.TicketType.SUPER_PEAK);

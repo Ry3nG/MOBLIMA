@@ -40,7 +40,7 @@ public class SettingsHandler {
    * Instantiates a new Settings handler.
    */
   public SettingsHandler() {
-    this.currentSettings = this.getCurrentSystemSettings();
+    this.currentSettings = this.getCurrentSettings();
   }
 
   /**
@@ -136,7 +136,7 @@ public class SettingsHandler {
    * @return the current system settings
    */
 // + getCurrentPrice():Price
-  public Settings getCurrentSystemSettings() {
+  public Settings getCurrentSettings() {
     if (this.currentSettings == null) this.currentSettings = this.getSettings();
     Helper.logger("SettingsHandler.getCurrentSystemSettings", "Settings: \n" + this.currentSettings);
 
