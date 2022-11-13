@@ -8,6 +8,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+import static moblima.utils.Helper.colorPrint;
+
 
 /**
  * The type Email service.
@@ -85,7 +87,7 @@ public class EmailService {
     body += "Welcome to MOBLIMA! You have successfully created an account.\n";
     body += "Start exploring the latest movies in theaters and book your seats to watch!\n";
 
-    System.out.println("Processing registration . . .");
+    colorPrint("Processing registration . . .", Helper.Preset.LOG);
     return this.sentEmail(recepientAddress, subject, body);
   }
 
@@ -104,7 +106,7 @@ public class EmailService {
     body += "This email is a confirmation of your booking.\n\n";
     body += bookingDetails;
 
-    System.out.println("Processing booking . . .");
+    colorPrint("Processing booking . . .", Helper.Preset.LOG);
     return this.sentEmail(recepientAddress, subject, body);
   }
 }

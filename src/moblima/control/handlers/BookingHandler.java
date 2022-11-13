@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static moblima.utils.Helper.colorizer;
+import static moblima.utils.Helper.colorPrint;
 
 /**
  * The type Booking handler.
@@ -105,7 +105,7 @@ public class BookingHandler extends CinemaHandler {
     List<Booking> bookings = new ArrayList<Booking>();
 
     if (this.showtimes.size() < 1 || this.cinemas.size() < 1) {
-      System.out.println(colorizer("No showtimes available to fulfil bookings", Preset.ERROR));
+      colorPrint("No showtimes available to fulfil bookings", Preset.WARNING);
       return bookings;
     }
 
@@ -242,7 +242,9 @@ public class BookingHandler extends CinemaHandler {
     if (cinemaId < 0 || this.bookings.isEmpty()) return false;
 
     for (Booking booking : this.bookings) {
-      if (booking.getCinemaId() == cinemaId) {
+      Showtime bookingShowtime = this.getShowtime(booking.getShowtimeId());
+      boolean isActiveBooking = !bookingShowtime.getDatetime().isBefore(LocalDateTime.now());
+      if (booking.getCinemaId() == cinemaId && isActiveBooking) {
         hasBooking = true;
         break;
       }
@@ -262,10 +264,10 @@ public class BookingHandler extends CinemaHandler {
     Booking booking = this.getBooking(transactionId);
     if (booking == null) return "";
 
-    String header = "/// BOOKING DETAILS ///";
+    String header = "\n/// BOOKING DETAILS ///";
     System.out.println("---------------------------------------------------------------------------");
-    System.out.println(colorizer(header, Preset.HIGHLIGHT));
-    System.out.println(colorizer(booking.toString(), Preset.HIGHLIGHT));
+    colorPrint(header, Preset.HIGHLIGHT);
+    colorPrint(booking.toString(), Preset.HIGHLIGHT);
 
     // Showtime
     int showtimeIdx = this.getShowtimeIdx(booking.getShowtimeId());

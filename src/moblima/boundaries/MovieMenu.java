@@ -13,7 +13,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static moblima.utils.Helper.colorizer;
+import static moblima.entities.Review.MAX_RATING;
+import static moblima.entities.Review.MIN_RATING;
+import static moblima.utils.Helper.colorPrint;
 
 /**
  * The type Movie menu.
@@ -118,7 +120,7 @@ public class MovieMenu extends Menu {
     List<Movie> movies = this.getViewableMovies();
     Helper.logger("MovieMenu.getMovieMenu", "SHOW LIMITED: " + showLimitedMovies);
     Helper.logger("MovieMenu.getMovieMenu", "SHOW REVIEWS: " + showReviews);
-    Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies);
+    Helper.logger("MovieMenu.getMovieMenu", "MOVIES: " + movies.size());
     Helper.logger("MovieMenu.getMovieMenu", "RUNNABLE: " + (addMovieRunnable != null));
 
     for (int i = 0; i < movies.size(); i++) {
@@ -181,7 +183,7 @@ public class MovieMenu extends Menu {
       else if (proceedSelection == 0) {
         List<Review> movieReviews = handler.getMovieReviews(movieId);
         if (movieReviews.size() < 1) {
-          System.out.println("No reviews available");
+          colorPrint("No reviews available", Preset.WARNING);
           continue;
         }
 
@@ -227,7 +229,7 @@ public class MovieMenu extends Menu {
 
                 // VALIDATION: Verify valid rating
                 if (rating < 1 || rating > 5) {
-                  System.out.println(colorizer("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR));
+                  colorPrint("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR);
                   rating = -1;
                   continue;
                 }
@@ -244,14 +246,14 @@ public class MovieMenu extends Menu {
             reviewIdx = handler.addReview(movieId, review, rating, reviewerName, reviewerId);
             if (reviewIdx < 0) throw new Exception("Unable to add review");
 
-            System.out.println(colorizer("Successfully added review", Preset.SUCCESS));
+            colorPrint("Successfully added review", Preset.SUCCESS);
 
             // Flush excess scanner buffer
             scanner = new Scanner(System.in);
 
             status = true;
           } catch (Exception e) {
-            System.out.println(colorizer(e.getMessage(), Preset.ERROR));
+            colorPrint(e.getMessage(), Preset.ERROR);
             review = null;
             rating = -1;
           }
@@ -272,7 +274,7 @@ public class MovieMenu extends Menu {
   public int selectReviewIdx(List<Review> reviews) {
     int reviewIdx = -1;
     if (reviews.size() < 1) {
-      System.out.println("No reviews available . . .");
+      colorPrint("No reviews available . . .", Preset.WARNING);
       return reviewIdx;
     }
 
@@ -315,7 +317,12 @@ public class MovieMenu extends Menu {
 
     // Retrieve user selection idx for movies
     List<Movie> movies = this.getViewableMovies();
-    int selectedIdx = this.getListSelectionIdx(movies);
+    List<String> movieOptions = movies.stream()
+        .map(Movie::getTitle)
+        .collect(Collectors.toList());
+    movieOptions.add("Return to previous menu");
+    this.displayMenuList(movieOptions);
+    int selectedIdx = this.getListSelectionIdx(movieOptions, false);
 
     Helper.logger("MovieMenu.selectMovieIdx", "Max: " + (this.menuMap.size()));
     Helper.logger("MovieMenu.selectMovieIdx", "Selected: " + selectedIdx);
@@ -373,11 +380,11 @@ public class MovieMenu extends Menu {
         if (proceedSelection == proceedOptions.size() - 2) {
           Helper.logger("MovieMenu.selectUpdatableAction", "Saved Review: \n" + review);
           status = handler.updateReview(review.getRating(), review.getReview());
-          System.out.println(colorizer("[UPDATED] Review updated", Preset.SUCCESS));
+          colorPrint("Review updated", Preset.SUCCESS);
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
-          System.out.println(colorizer("[UPDATED] Review removed", Preset.SUCCESS));
+          colorPrint("Review removed", Preset.SUCCESS);
           status = handler.removeReview(reviewId);
         }
 
@@ -387,7 +394,7 @@ public class MovieMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
+        colorPrint("Changes discarded", Preset.WARNING);
         review = handler.getReview(reviewId);
         System.out.println(review);
       }
@@ -395,7 +402,7 @@ public class MovieMenu extends Menu {
       // Set rating
       else if (proceedSelection == 0) {
         int prevStatus = review.getRating();
-        System.out.println("[CURRENT] Rating: " + prevStatus + " / 5");
+        colorPrint("Rating: " + prevStatus + " / " + MAX_RATING, Preset.CURRENT);
 
         //TODO: Extract as separate function
         scanner = new Scanner(System.in).useDelimiter("\n");
@@ -409,8 +416,8 @@ public class MovieMenu extends Menu {
             curStatus = Helper.parseStrToInt(input);
 
             // VALIDATION: Verify valid rating
-            if (curStatus < 1 || curStatus > 5) {
-              System.out.println(colorizer("Invalid rating value, rate from 1 – 5 [best].", Preset.ERROR));
+            if (curStatus < MIN_RATING || curStatus > MAX_RATING) {
+              colorPrint("Invalid rating value, rate from " + MIN_RATING + " – " + MAX_RATING + " [best].", Preset.ERROR);
               curStatus = -1;
               continue;
             }
@@ -425,7 +432,7 @@ public class MovieMenu extends Menu {
       // Set review
       else if (proceedSelection == 1) {
         String prevStatus = review.getReview();
-        System.out.println("[CURRENT] Review: " + prevStatus);
+        colorPrint("Review: " + prevStatus, Preset.CURRENT);
 
         //TODO: Extract as separate function
         scanner = new Scanner(System.in).useDelimiter("\n");
@@ -527,8 +534,8 @@ public class MovieMenu extends Menu {
    * @param movieIdx the movie idx
    * @return the boolean
    */
-//+ selectEditableAction():int
-  public boolean selectEditableAction(int movieIdx) {
+//+ editMovie():int
+  public boolean editMovie(int movieIdx) {
     boolean status = false;
 
     Movie movie = handler.getMovie(movieIdx);
@@ -562,7 +569,7 @@ public class MovieMenu extends Menu {
         }
         // Remove movie
         else if (proceedSelection == proceedOptions.size() - 3) {
-          System.out.println(colorizer("[UPDATED] Movie removed", Preset.SUCCESS));
+          colorPrint("Movie removed", Preset.SUCCESS);
           status = handler.removeMovie(movieIdx);
         }
 
@@ -572,15 +579,16 @@ public class MovieMenu extends Menu {
 
       // Discard changes
       else if (proceedSelection == proceedOptions.size() - 4) {
-        System.out.println(colorizer("[REVERTED] Changes discarded", Preset.SUCCESS));
+        colorPrint("Changes discarded", Preset.WARNING);
         movie = handler.getMovie(movieIdx);
-        System.out.println(movie);
+
+        awaitContinue();
       }
 
       // Set title
       else if (proceedSelection == 0) {
         String prevStatus = movie.getTitle();
-        System.out.println("[CURRENT] Title: " + prevStatus);
+        colorPrint("Title: " + prevStatus, Preset.CURRENT);
 
         System.out.print("Set to: ");
         String title = scanner.next().trim();
@@ -595,7 +603,7 @@ public class MovieMenu extends Menu {
       // Set synopsis
       else if (proceedSelection == 1) {
         String prevStatus = movie.getSynopsis();
-        System.out.println("[CURRENT] Synopsis: " + prevStatus);
+        colorPrint("Synopsis: " + prevStatus, Preset.CURRENT);
 
         System.out.print("Set to: ");
         String Synopsis = scanner.next().trim();
@@ -610,7 +618,7 @@ public class MovieMenu extends Menu {
       // Set blockbuster status
       else if (proceedSelection == 2) {
         String prevStatus = (movie.isBlockbuster() ? "Blockbuster" : "Non-Blockbuster");
-        System.out.println("[CURRENT] Blockbuster Status: " + prevStatus);
+        colorPrint("Blockbuster Status: " + prevStatus, Preset.CURRENT);
 
         boolean isBlockbuster = this.setBlockbusterStatus();
 
@@ -624,7 +632,7 @@ public class MovieMenu extends Menu {
       // Set showing status
       else if (proceedSelection == 3) {
         ShowStatus prevStatus = movie.getShowStatus();
-        System.out.println("[CURRENT] Showing Status: " + prevStatus);
+        colorPrint("Showing Status: ", Preset.CURRENT);
 
         ShowStatus showStatus = this.setShowStatus();
 
@@ -638,7 +646,7 @@ public class MovieMenu extends Menu {
       // Set content rating
       else if (proceedSelection == 4) {
         ContentRating prevStatus = movie.getContentRating();
-        System.out.println("[CURRENT] Current Rating: " + prevStatus);
+        colorPrint("Current Rating: ", Preset.CURRENT);
 
         ContentRating contentRating = this.setContentRating();
 
@@ -687,7 +695,7 @@ public class MovieMenu extends Menu {
       System.out.print("Director: ");
       String director = scanner.next().trim();
 
-      LocalDate releaseDate = this.setDate("Release Date (dd-MM-yyyy): ");
+      LocalDate releaseDate = this.setDate("Release Date (dd-MM-yyyy): ", false);
 
       // Generate random 6 digit
       int id = Helper.generateDigits(6);
@@ -697,8 +705,8 @@ public class MovieMenu extends Menu {
 
       // Add to movies
       movieIdx = handler.addMovie(id, title, synopsis, director, castList, runtime, releaseDate, isBlockbuster, showStatus, contentRating, overallRating);
-      if (movieIdx < 0) System.out.println(colorizer("[FAILED] Unable to add movie", Preset.ERROR));
-      else System.out.println(colorizer("[SUCCESS] Added new movie", Preset.SUCCESS));
+      if (movieIdx < 0) colorPrint("[FAILED] Unable to add movie", Preset.ERROR);
+      else colorPrint("Added new movie", Preset.SUCCESS);
 
       // Display movie
       handler.printMovieDetails(movieIdx, false);

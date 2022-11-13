@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.diogonunes.jcolor.Ansi.colorize;
+import static moblima.utils.Helper.colorPrint;
 
 /**
  * The type Staff menu.
@@ -40,8 +40,7 @@ public class StaffMenu extends Menu {
    * @return the instance
    */
   public static StaffMenu getInstance() {
-    if (instance == null)
-      instance = new StaffMenu();
+    if (instance == null) instance = new StaffMenu();
     return instance;
   }
 
@@ -51,7 +50,7 @@ public class StaffMenu extends Menu {
     if (isAuthenticated) {
       Staff currentStaff = handler.getCurrentStaff();
       controller.settingsHandler().setIsAuthenticated(currentStaff);
-      System.out.println(colorize("STAFF: " + currentStaff.getUsername(), Preset.SUCCESS.color));
+      colorPrint("STAFF: " + currentStaff.getUsername(), Preset.HIGHLIGHT);
     }
     this.displayMenu();
   }
@@ -91,7 +90,7 @@ public class StaffMenu extends Menu {
     int staffIdx = -1;
 
     String username = null;
-    System.out.println("Account Login");
+    colorPrint("/// STAFF LOGIN ///", Preset.DEFAULT);
     while (staffIdx == -1) {
       try {
         scanner = new Scanner(System.in).useDelimiter("\n");
@@ -102,9 +101,7 @@ public class StaffMenu extends Menu {
 
           // VALIDATION: Check if username already exists
           if (handler.validateUsernameAvailability(username)) {
-            System.out.println(colorize("Invalid username, no staff account associated.", Preset.ERROR.color));
-            username = null;
-            continue;
+            throw new Exception("Invalid username, no staff account associated.");
           }
         }
 
@@ -123,19 +120,20 @@ public class StaffMenu extends Menu {
         if (!staff.getPassword().equals(password))
           throw new Exception("Invalid login credentials, unable to authenticate");
 
-        System.out.println(colorize("Successful account login", Preset.SUCCESS.color));
+        colorPrint("Successful account login", Preset.SUCCESS);
         staffIdx = handler.getStaffIdx(staff.getId());
         Helper.logger("StaffMenu.login", "staffIdx: " + staffIdx);
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+        colorPrint(e.getMessage(), Preset.ERROR);
+
         username = null;
 
         List<String> proceedOptions = new ArrayList<String>() {{
           add("Proceed with login");
-          add("Return to previous menu");
+          add("Exit application");
         }};
 
         System.out.println("Next steps:");
@@ -179,7 +177,7 @@ public class StaffMenu extends Menu {
           username = scanner.next().trim();
 
           if (!handler.validateUsernameAvailability(username)) {
-            System.out.println(colorize("Username is taken, try another", Preset.ERROR.color));
+            colorPrint("Username is taken, try another", Preset.ERROR);
             username = null;
             continue;
           }
@@ -194,12 +192,12 @@ public class StaffMenu extends Menu {
         if (staffIdx < 0) throw new Exception("Unable to register, account with username already exists");
 
         status = true;
-        System.out.println(colorize("Successful account registration", Preset.SUCCESS.color));
+        colorPrint("Successful account registration", Preset.SUCCESS);
 
         // Flush excess scanner buffer
         scanner = new Scanner(System.in);
       } catch (Exception e) {
-        System.out.println(colorize(e.getMessage(), Preset.ERROR.color));
+        colorPrint(e.getMessage(), Preset.ERROR);
         username = password = null;
 
         List<String> proceedOptions = new ArrayList<String>() {
@@ -214,8 +212,7 @@ public class StaffMenu extends Menu {
         int proceedSelection = getListSelectionIdx(proceedOptions, false);
 
         // Return to previous menu
-        if (proceedSelection == proceedOptions.size() - 1)
-          return status;
+        if (proceedSelection == proceedOptions.size() - 1) return status;
       }
     }
 
@@ -235,7 +232,7 @@ public class StaffMenu extends Menu {
     Helper.logger("StaffMenu.isAuthenticated", "staffIdx: " + staffIdx);
 
     if (staffIdx < 0) {
-      System.out.println("\t>>> Access Denied, Quitting application...");
+      System.out.println("\t>>> Quitting application...");
       System.out.println("---------------------------------------------------------------------------");
       scanner.close();
       System.exit(0);

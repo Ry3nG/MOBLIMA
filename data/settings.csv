@@ -1,2 +1,2 @@
 publicHolidays,showSurcharges,cinemaSurcharges,adultTicket,ticketSurcharges,blockbusterSurcharge,rankedTypes
-"[01-01-2022,01-02-2022,02-02-2022,15-04-2022,01-05-2022,03-05-2022,15-05-2022,10-07-2022,09-08-2022,24-10-2022,25-12-2022]","{Digital:0,ThreeDimensional:5}","{Premium:8,Normal:0}",10.0,"{STUDENT:-5,SUPER_PEAK:8,SENIOR:-5,NON_PEAK:0,PEAK:5}",8.0,"{MOVIES_BY_RATINGS:true,MOVIES_BY_TICKETS:false}"
+"[01-01-2022,01-02-2022,02-02-2022,15-04-2022,01-05-2022,03-05-2022,15-05-2022,10-07-2022,09-08-2022,24-10-2022,25-12-2022]","{Digital:0,ThreeDimensional:2.5}","{Premium:8,Normal:0}",8.5,"{STUDENT:2.5,SUPER_PEAK:11,SENIOR:-4.5,NON_PEAK:0,PEAK:1}",1.0,"{MOVIES_BY_RATINGS:true,MOVIES_BY_TICKETS:false}"

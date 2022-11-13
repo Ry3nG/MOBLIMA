@@ -32,10 +32,7 @@ public class Helper {
    * @param methodName the method name
    * @param msg        the msg
    */
-  public static void logger(
-      String methodName,
-      String msg
-  ) {
+  public static void logger(String methodName, String msg) {
     if (!Constants.DEBUG_MODE) return;
     String outputStr = "[LOG/" + methodName + "] " + msg;
     System.out.println(colorize(outputStr, Preset.LOG.color));
@@ -54,14 +51,26 @@ public class Helper {
   }
 
   /**
-   * Parse str to int int.
+   * Color print.
+   *
+   * @param text   the text
+   * @param preset the preset
+   */
+  public static void colorPrint(String text, Preset preset) {
+    Attribute color = preset.color;
+    String tag = preset.tag;
+
+    String content = tag + text;
+    System.out.println(colorize(content, color));
+  }
+
+  /**
+   * Parse str to int.
    *
    * @param inputStr the input str
    * @return the int
    */
-  public static int parseStrToInt(
-      String inputStr
-  ) {
+  public static int parseStrToInt(String inputStr) {
     int result = -1;
     boolean isNumericString = inputStr != null && inputStr.matches("[0-9.]+");
 
@@ -130,39 +139,6 @@ public class Helper {
     return Integer.valueOf(String.format("%0" + digitCount + "d", number));
   }
 
-
-  /**
-   * Check price input double.
-   *
-   * @param input     the input
-   * @param checkZero the check zero
-   * @return the double
-   */
-  public static double checkPriceInput(String input) {
-    if (input.equals("-")) return -1; // Staff does not want to change
-    Double price = null;
-    while (price == null) {
-      try {
-        price = Double.parseDouble(input);
-//      if (price == 0 && checkZero) { // 0 or less
-//        System.out.println("[ERROR] Please enter a price that is more than SGD 0, or - to keep the current price.");
-//        return -2;
-//      }
-//      else if (price < 0) { // less than 0
-//        System.out.println("[ERROR] Please enter a price that is more than or equal to SGD 0, or - to keep the current price.");
-//        return -2;
-//      }
-
-      } catch (NumberFormatException e) { // characters other than -
-        System.out.println("[ERROR] Please enter integers and decimal point (if needed) only, or - to keep the current price.");
-        price = null;
-      }
-    }
-
-    return price;
-  }
-
-
   /**
    * The enum Preset.
    */
@@ -170,35 +146,45 @@ public class Helper {
     /**
      * Log preset.
      */
-    LOG(Attribute.TEXT_COLOR(240)),
+    LOG(Attribute.TEXT_COLOR(240), ""),
     /**
      * Warning preset.
      */
-    WARNING(Attribute.TEXT_COLOR(208)),
+    WARNING(Attribute.TEXT_COLOR(208), "[WARNING] "),
     /**
      * Error preset.
      */
-    ERROR(Attribute.TEXT_COLOR(160)),
+    ERROR(Attribute.TEXT_COLOR(160), "[ERROR] "),
     /**
      * Success preset.
      */
-    SUCCESS(Attribute.TEXT_COLOR(118)),
+    SUCCESS(Attribute.TEXT_COLOR(118), "[SUCCESS] "),
     /**
      * Default preset.
      */
-    DEFAULT(Attribute.TEXT_COLOR(7)),
+    DEFAULT(Attribute.TEXT_COLOR(15), ""),
+    /**
+     * Current preset.
+     */
+    CURRENT(Attribute.TEXT_COLOR(190), "[CURRENT] "),
     /**
      * Highlight preset.
      */
-    HIGHLIGHT(Attribute.TEXT_COLOR(200));
+    HIGHLIGHT(Attribute.TEXT_COLOR(200), "");
 
     /**
      * The Color.
      */
     public final Attribute color;
+    /**
+     * The Tag.
+     */
+    public final String tag;
 
-    Preset(Attribute attr) {
+    Preset(Attribute attr, String tagDisplay) {
+
       this.color = attr;
+      this.tag = tagDisplay;
     }
   }
 }

@@ -1,5 +1,5 @@
-Account Login
-Username: Password: Successful account login
+/// STAFF LOGIN ///
+Username: Password: [SUCCESS] Successful account login
   __  __    ___    ____    _       ___   __  __      _    
  |  \/  |  / _ \  | __ )  | |     |_ _| |  \/  |    / \   
  | |\/| | | | | | |  _ \  | |      | |  | |\/| |   / _ \  
@@ -14,130 +14,80 @@ STAFF: staff
 (3) Add movie
 (4) View and update movie details
 (5) View and update showtimes
-(6) View and update cinemas
+(6) View and update cineplexes
 (7) View and update system settings
 (8) Register new staff account
 (9) Exit
 ---------------------------------------------------------------------------
-SELECTED: 	>>> View and update cinemas
+SELECTED: 	>>> View and update system settings
+
 ---------------------------------------------------------------------------
-(1) 
-ID:               0        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  23       
-
-(2) 
-ID:               1        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  21       
-
-(3) 
-ID:               2       
-Cineplex Code:    MAM     
-Class Type:       Normal  
-Total Showtimes:  15      
-
-(4) 
-ID:               3       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  28      
-
-(5) 
-ID:               4        
-Cineplex Code:    UUQ      
-Class Type:       Premium  
-Total Showtimes:  22       
-
-(6) 
-ID:               5       
-Cineplex Code:    UUQ     
-Class Type:       Normal  
-Total Showtimes:  20      
-
-(7) 
-ID:               6        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  20       
-
-(8) 
-ID:               7        
-Cineplex Code:    RXG      
-Class Type:       Premium  
-Total Showtimes:  30       
-
-(9) 
-ID:               8       
-Cineplex Code:    RXG     
-Class Type:       Normal  
-Total Showtimes:  1       
-
-(10) Add new cinema
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
 (11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: ID:               0        
-Cineplex Code:    MAM      
-Class Type:       Premium  
-Total Showtimes:  23       
+SELECTED: 	>>> View Current Settings
 
-Next steps:
 ---------------------------------------------------------------------------
-(1) Set Class
-(2) Set Showtimes
-(3) Set Cineplex Code
-(4) Discard changes
-(5) Remove cinema
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [CURRENT] Class: Premium
-Set to:
----------------------------------------------------------------------------
-(1) Normal
-(2) Premium
----------------------------------------------------------------------------
-SELECTED: [UPDATED] Class: Premium -> Normal
-ID:               0       
-Cineplex Code:    MAM     
-Class Type:       Normal  
-Total Showtimes:  23      
+Adult Ticket:                   SGD 8.50   
+Blockbuster Surcharge:          SGD 1.00   
 
-Next steps:
----------------------------------------------------------------------------
-(1) Set Class
-(2) Set Showtimes
-(3) Set Cineplex Code
-(4) Discard changes
-(5) Remove cinema
-(6) Save changes & return
-(7) Return to previous menu
----------------------------------------------------------------------------
-SELECTED: [CURRENT] Class: Normal
-Set to:
----------------------------------------------------------------------------
-(1) Normal
-(2) Premium
----------------------------------------------------------------------------
-SELECTED: [NO CHANGE] Class: Normal
-ID:               0       
-Cineplex Code:    MAM     
-Class Type:       Normal  
-Total Showtimes:  23      
+Show Surcharges:                          
+Digital                         SGD 0.00   
+3D                              SGD 2.50   
 
-Next steps:
+Ticket Surcharges:                        
+Senior Citizen                  SGD -4.50  
+Student                         SGD 2.50   
+Non Peak                        SGD 0.00   
+Peak                            SGD 1.00   
+Super Peak                      SGD 11.00  
+
+Cinema Surcharges:                        
+Normal                          SGD 0.00   
+Premium                         SGD 8.00   
+
+Ranked Types:                             
+Top 5 movies by ticket sales    false      
+Top 5 movies by overall rating  true       
+
+Public Holidays:                          
+01-01-2022                      SATURDAY   
+01-02-2022                      TUESDAY    
+02-02-2022                      WEDNESDAY  
+15-04-2022                      FRIDAY     
+01-05-2022                      SUNDAY     
+03-05-2022                      TUESDAY    
+15-05-2022                      SUNDAY     
+10-07-2022                      SUNDAY     
+09-08-2022                      TUESDAY    
+24-10-2022                      MONDAY     
+25-12-2022                      SUNDAY     
+
+Press any key to continue . . .
 ---------------------------------------------------------------------------
-(1) Set Class
-(2) Set Showtimes
-(3) Set Cineplex Code
-(4) Discard changes
-(5) Remove cinema
-(6) Save changes & return
-(7) Return to previous menu
+(1) View Current Settings
+(2) Edit Adult (Standard) Ticket Price
+(3) Edit Blockbuster Movie Surcharge
+(4) Edit Show Surcharges
+(5) Edit Ticket Surcharges
+(6) Edit Cinema Surcharges
+(7) Edit Ranked Types
+(8) Edit Holidays
+(9) Discard changes
+(10) Save changes
+(11) Return to previous menu
 ---------------------------------------------------------------------------
-SELECTED: 	>>> Returning to previous menu...
+SELECTED: [WARNING] Any unsaved changes will be discarded
+	>>> Returning to previous menu . . .
 Press any key to continue . . .
 ---------------------------------------------------------------------------
 (1) Top 5 movies by ticket sales
@@ -145,7 +95,7 @@ Press any key to continue . . .
 (3) Add movie
 (4) View and update movie details
 (5) View and update showtimes
-(6) View and update cinemas
+(6) View and update cineplexes
 (7) View and update system settings
 (8) Register new staff account
 (9) Exit

@@ -1,7 +1,7 @@
 package moblima.control.controllers;
 
 import moblima.entities.*;
-import moblima.utils.Helper;
+import moblima.utils.Helper.Preset;
 import moblima.utils.services.email.EmailService;
 
 import java.util.Arrays;
@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static moblima.utils.Helper.colorPrint;
+import static moblima.utils.Helper.logger;
+
 /**
  * The type Customer controller.
  */
@@ -19,7 +22,7 @@ public class CustomerController extends MovieBookingController {
 
   private CustomerController() {
     super();
-    Helper.logger("CustomerController", "Initialization");
+    logger("CustomerController", "Initialization");
   }
 
   /**
@@ -28,7 +31,7 @@ public class CustomerController extends MovieBookingController {
    * @return the instance
    */
   public static CustomerController getInstance() {
-    Helper.logger("CustomerController.getInstance", "Instance: " + instance);
+    logger("CustomerController.getInstance", "Instance: " + instance);
     if (instance == null) instance = new CustomerController();
     return instance;
   }
@@ -40,9 +43,9 @@ public class CustomerController extends MovieBookingController {
    */
 //+ getCustomerMenu():LinkedHashMap<String, Runnable>
   public LinkedHashMap<String, Runnable> getCustomerMenu() {
-    Helper.logger("CustomerContoller.getCustomerMenu", "Retrieving customer menu . . .");
+    logger("CustomerContoller.getCustomerMenu", "Retrieving customer menu . . .");
     boolean authStatus = settingsHandler().checkIfIsAuthenticated();
-    Helper.logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
+    logger("CustomerContoller.getCustomerMenu", "authStatus: " + authStatus);
 
     LinkedHashMap<String, Runnable> menuMap = new LinkedHashMap<String, Runnable>() {{
       put(Settings.RankedType.MOVIES_BY_TICKETS.toString(), () -> {
@@ -67,7 +70,7 @@ public class CustomerController extends MovieBookingController {
     }};
 
     // Fetch ranked types
-    Settings settings = settingsHandler().getCurrentSystemSettings();
+    Settings settings = settingsHandler().getCurrentSettings();
     settings.getRankedTypes().entrySet().stream()
         .filter(t -> !t.getValue())
         .forEach(t -> menuMap.remove(t.getKey().toString()));
@@ -76,14 +79,14 @@ public class CustomerController extends MovieBookingController {
     if (!authStatus) return menuMap;
     menuMap.put("View and update reviews", () -> {
       String customerId = authStatus ? settingsHandler().getCurrentAccount().getId() : "";
-      Helper.logger("CustomerContoller.getCustomerMenu", "customerId: " + customerId);
+      logger("CustomerContoller.getCustomerMenu", "customerId: " + customerId);
 
       int reviewIdx = -1;
 
       // Select reviews for authenticated account
       List<Review> customerReviews = reviewHandler().getUserReviews(customerId);
       reviewIdx = movieMenu.selectReviewIdx(customerReviews);
-      Helper.logger("CustomerContoller.getCustomerMenu", "reviewIdx: " + reviewIdx);
+      logger("CustomerContoller.getCustomerMenu", "reviewIdx: " + reviewIdx);
       if (reviewIdx < 0) return;
 
       Review review = reviewHandler().getReview(reviewIdx);
@@ -125,10 +128,10 @@ public class CustomerController extends MovieBookingController {
     Movie movie = this.reviewHandler().getMovie(movieIdx);
     if (movie == null) return bookingIdx;
 
-    Helper.logger("CustomerMenu.makeBooking", "Movie ShowStatus: " + movie.getShowStatus());
+    logger("CustomerMenu.makeBooking", "Movie ShowStatus: " + movie.getShowStatus());
     /// Check if movie's show status is COMING_SOON
     if (movie.getShowStatus().equals(Movie.ShowStatus.COMING_SOON)) {
-      System.out.println("Movie is not available for booking at present time.");
+      colorPrint("Movie is not available for booking at present time.", Preset.WARNING);
       return bookingIdx;
     }
 
@@ -138,12 +141,12 @@ public class CustomerController extends MovieBookingController {
 
     // Select seats
     List<int[]> seats = bookingMenu.selectSeat(showtimeIdx);
-    Helper.logger("CustomerMenu.makeBooking", "No. of seats: " + seats.size());
-    Helper.logger("CustomerMenu.makeBooking", "Selected seats: " + Arrays.deepToString(seats.toArray()));
+    logger("CustomerMenu.makeBooking", "No. of seats: " + seats.size());
+    logger("CustomerMenu.makeBooking", "Selected seats: " + Arrays.deepToString(seats.toArray()));
     if (seats.size() < 1) return bookingIdx;
 
     // Select TicketType (only if not PEAK)
-    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSystemSettings().getTicketSurcharges();
+    EnumMap<Booking.TicketType, Double> ticketSurcharges = this.settingsHandler().getCurrentSettings().getTicketSurcharges();
     Booking.TicketType ticketType = settingsHandler().verifyTicketType(showtime.getDatetime(), Booking.TicketType.NON_PEAK);
 
     List<Booking.TicketType> peakTickets = Arrays.asList(Booking.TicketType.PEAK, Booking.TicketType.SUPER_PEAK);
@@ -160,7 +163,7 @@ public class CustomerController extends MovieBookingController {
 
     // Compute total cost by multiplying num. of seats selected
     double totalCost = this.settingsHandler().computeTotalCost(movie.isBlockbuster(), showtime.getType(), cinema.getClassType(), ticketType, showtime.getDatetime(), seats.size());
-    Helper.logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType + " - " + totalCost);
+    logger("CustomerMenu.makeBooking", "Ticket type: " + ticketType + " - " + totalCost);
 
 
     // Make booking
