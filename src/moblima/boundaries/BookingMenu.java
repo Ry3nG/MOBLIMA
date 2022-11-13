@@ -355,15 +355,20 @@ public class BookingMenu extends Menu {
 
           // Sudo seat assignment
           handler.assignSeat(showtimeSeats, selectedSeat, true);
-          handler.printSeats(showtimeSeats, new ArrayList<>());
+          handler.printSeats(showtimeSeats, new ArrayList<int[]>(selectedSeats));
         }
 
 
         // Selection Confirmation
         case 1 -> {
+          if(selectedSeats.size() < 1) {
+            colorPrint("No seats selected", Preset.WARNING);
+            confirmationSelection = 0;
+            continue;
+          }
           // Finalize the seat selection
           colorPrint("Confirmed Seat Selection", Preset.SUCCESS);
-          handler.printSeats(showtimeSeats, new ArrayList<>());
+          handler.printSeats(showtimeSeats, selectedSeats);
           return selectedSeats;
         }
 
