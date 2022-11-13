@@ -177,10 +177,7 @@ public class SettingsMenu extends Menu {
       Map.Entry<Enum, Boolean> surcharge = (Map.Entry) surchargeSet;
 
       boolean prevValue = surcharge.getValue();
-
-      //TODO: tweak this
-      System.out.println("- " + surcharge.getKey().toString());
-      colorPrint("Current Visibility: " + prevValue, Preset.HIGHLIGHT);
+      colorPrint("Display " + surcharge.getKey().toString() + ": " + prevValue, Preset.CURRENT);
 
       List<String> updateOptions = Arrays.asList("True", "False");
       int selectionIdx = -1;
@@ -192,7 +189,7 @@ public class SettingsMenu extends Menu {
         if (selectionIdx >= 0) {
           boolean curValue = selectionIdx == 0;
           surcharge.setValue(curValue);
-          this.printChanges(surcharge.getKey().toString() + ": ", (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
+          this.printChanges("Display " + surcharge.getKey().toString() + ": " , (prevValue == curValue), Boolean.toString(prevValue), Boolean.toString(curValue));
         }
       }
       System.out.println();
